@@ -3,54 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VVHomePro | Vetted Home Professionals Ontario</title>
+    <title>VVHomePro | VETTED PROS. GUARANTEED WORK.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { font-family: 'Inter', sans-serif; }
+        .font-black { font-weight: 900; letter-spacing: -0.03em; }
+        .brutal-shadow { shadow-[8px_8px_0px_rgba(0,0,0,1)]; }
+        .hero-gradient { background: linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%); }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900">
+<body class="bg-white text-gray-950">
 
-    <nav class="p-6 bg-white shadow-sm flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-blue-700">VVHomePro</h1>
-        <a href="https://t.me/VVHomeProBot" class="bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-blue-700 transition">Get Started</a>
+    <nav class="p-5 border-b-4 border-black flex justify-between items-center bg-white sticky top-0 z-50">
+        <h1 class="text-3xl font-black text-blue-800 italic">VVHOMEPRO</h1>
+        <div class="hidden md:block font-black text-sm uppercase tracking-tighter">Ontario's #1 Contractor Matchmaker</div>
     </nav>
 
-    <header class="max-w-6xl mx-auto px-6 py-20 text-center">
-        <h2 class="text-5xl font-extrabold mb-6">Find the Best Home Pros in <span class="text-blue-600">Ontario</span></h2>
-        <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-            From Roofing to Landscaping, we connect you with vetted, local specialists. 
-            Backed by our <strong>100% Workmanship Guarantee</strong>.
-        </p>
-        <a href="https://t.me/VVHomeProBot" class="inline-block bg-green-500 text-white text-lg px-8 py-4 rounded-xl font-bold shadow-lg hover:bg-green-600 transition">
-            💬 Chat with our Matchmaker Now
-        </a>
-        <p class="mt-4 text-sm text-gray-500">Secure • Vetted • Fast</p>
+    <header class="hero-gradient px-6 py-20 text-center border-b-4 border-black">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-6xl md:text-9xl font-black leading-[0.85] mb-8 uppercase italic">
+                VETTED <span class="text-blue-700">PROS.</span><br>
+                <span class="bg-yellow-300 px-4">GUARANTEED</span> WORK.
+            </h2>
+            <p class="text-2xl md:text-3xl font-bold text-gray-800 mb-12 max-w-3xl mx-auto leading-tight">
+                Stop gambling with contractors. We connect you with Ontario's top 1% local specialists.
+            </p>
+        </div>
     </header>
 
-    <section class="bg-white py-16">
-        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-12 text-center">
-            <div>
-                <div class="text-4xl mb-4">🛡️</div>
-                <h3 class="text-xl font-bold mb-2">Vetted Specialists</h3>
-                <p class="text-gray-600">We only work with pros who have a proven track record of excellence in your local area.</p>
+    <section class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-12 items-start">
+        
+        <div>
+            <h3 class="text-5xl font-black mb-8 uppercase tracking-tighter leading-none">WHY CHOOSE<br>VVHOMEPRO?</h3>
+            <ul class="space-y-6">
+                <li class="flex items-start gap-4">
+                    <span class="bg-blue-700 text-white p-2 font-black">01</span>
+                    <div>
+                        <h4 class="font-black text-xl uppercase">Strict Vetting</h4>
+                        <p class="font-bold text-gray-600">We verify insurance, references, and past work so you don't have to.</p>
+                    </div>
+                </li>
+                <li class="flex items-start gap-4">
+                    <span class="bg-blue-700 text-white p-2 font-black">02</span>
+                    <div>
+                        <h4 class="font-black text-xl uppercase">100% Guarantee</h4>
+                        <p class="font-bold text-gray-600">If the job isn't done to spec, we step in to make it right. Period.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div id="chat-container" class="border-4 border-black bg-white shadow-[12px_12px_0px_rgba(0,0,0,1)] flex flex-col h-[500px]">
+            <div class="bg-black text-white p-4 font-black uppercase text-center italic tracking-widest">
+                AI Matchmaker Active
             </div>
-            <div>
-                <div class="text-4xl mb-4">🤝</div>
-                <h3 class="text-xl font-bold mb-2">The Guarantee</h3>
-                <p class="text-gray-600">If the work isn't done right, we make it right. Every job is covered by our Workmanship Guarantee.</p>
+            
+            <div id="chat-window" class="flex-grow p-4 overflow-y-auto space-y-4 font-bold text-sm bg-gray-50">
+                <div class="bg-blue-100 p-3 rounded-tr-xl rounded-br-xl rounded-bl-xl border-2 border-blue-200 text-blue-900 max-w-[80%]">
+                    Hi! I'm the VVHomePro assistant. What project are you looking to start in Ontario?
+                </div>
             </div>
-            <div>
-                <div class="text-4xl mb-4">🤖</div>
-                <h3 class="text-xl font-bold mb-2">Smart Matching</h3>
-                <p class="text-gray-600">Our AI Assistant finds you the perfect match based on your specific project and location.</p>
+
+            <div class="p-4 border-t-4 border-black flex gap-2 bg-white">
+                <input type="text" id="user-input" placeholder="Type project (e.g. Windows in Kingston)..." 
+                       class="flex-grow p-3 border-2 border-black font-bold focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button onclick="sendMessage()" class="bg-blue-700 text-white px-6 font-black uppercase hover:bg-black transition">Send</button>
             </div>
         </div>
     </section>
 
-    <footer class="p-10 text-center text-gray-500 border-t">
-        <p>© 2026 VVHomePro Ontario. All rights reserved.</p>
+    <footer class="py-12 text-center bg-black text-white">
+        <p class="font-black uppercase tracking-widest text-sm text-gray-400 italic">© 2026 VVHOMEPRO ONTARIO • VETTED. VERIFIED. VALUED.</p>
     </footer>
 
+    <script>
+        const WORKER_URL = 'YOUR_CLOUDFLARE_WORKER_URL_HERE'; // <--- PASTE YOUR URL HERE
+
+        async function sendMessage() {
+            const input = document.getElementById('user-input');
+            const window = document.getElementById('chat-window');
+            const text = input.value.trim();
+            
+            if (!text) return;
+
+            // Add user message to UI
+            window.innerHTML += `<div class="bg-gray-200 p-3 rounded-tl-xl rounded-bl-xl rounded-br-xl border-2 border-gray-300 self-end ml-auto max-w-[80%] text-right">${text}</div>`;
+            input.value = '';
+            window.scrollTop = window.scrollHeight;
+
+            try {
+                const response = await fetch(WORKER_URL, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ 
+                        message: { 
+                            text: text, 
+                            chat: { id: "WEB_USER_" + Date.now() } // Creates a temporary ID for history
+                        } 
+                    })
+                });
+
+                // Since your worker sends a response back to Telegram, 
+                // we'll wait for the AI logic to finish. 
+                // For a seamless web chat, you'd modify the worker to 'return' the AI text.
+            } catch (e) {
+                console.error("Error connecting to AI.");
+            }
+        }
+    </script>
 </body>
 </html>
