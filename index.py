@@ -56,4 +56,4 @@ class Default(WorkerEntrypoint):
             return Response("OK")
         except:
             # Silent fail to prevent bot crashing
-            return Response("OK")
+            return Response(bot_reply, headers={"Access-Control-Allow-Origin": "*"})
