@@ -3,169 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VVHomePro | Vetted Pros. Guaranteed Work.</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>VVHomePro | Vetted Pros</title>
+
+    <script src=""></script>
+
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        /* Lead Fountain Authority Branding */
-        .font-heavy { font-weight: 900; letter-spacing: -0.05em; line-height: 0.85; }
-        .text-accent { color: #2563eb; }
-        
-        /* Chat Display: Tablet/Phone feel */
-        .chat-container {
-            max-width: 450px; /* Tablet/Phone width */
-            height: 700px;
-            border-radius: 40px; /* Rounded like a modern device */
-            border: 12px solid #1a1a1a; /* Device Frame */
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            background: white;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        body {
+            font-family: sans-serif;
+            background-color: #f9fafb;
+            margin: 0;
         }
 
-        .message-bubble {
-            max-width: 85%;
-            padding: 14px 18px;
-            border-radius: 20px;
-            font-size: 16px;
-            line-height: 1.5;
-            font-weight: 500;
+        .font-heavy {
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            line-height: 0.9;
+            text-transform: uppercase;
+            font-style: italic;
+            font-size: 5rem;
+        }
+
+        .device-frame {
+            border: 12px solid #000;
+            border-radius: 40px;
+            height: 600px;
+            width: 100%;
+            max-width: 380px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            margin: auto;
         }
 
         .bot-bubble {
-            background-color: #f1f5f9;
-            color: #1e293b;
-            border-bottom-left-radius: 4px;
+            background: #f3f4f6;
+            padding: 12px;
+            border-radius: 15px;
+            border-bottom-left-radius: 2px;
+            font-size: 14px;
+            align-self: flex-start;
         }
 
         .user-bubble {
-            background-color: #2563eb;
+            background: #2563eb;
             color: white;
-            border-bottom-right-radius: 4px;
+            padding: 12px;
+            border-radius: 15px;
+            border-bottom-right-radius: 2px;
+            font-size: 14px;
             align-self: flex-end;
         }
-
-        /* Natural typing feel */
-        input::placeholder { font-weight: 400; text-transform: none; letter-spacing: normal; }
-        #user-input { text-transform: none; letter-spacing: normal; font-weight: 400; }
     </style>
 </head>
-<body class="bg-gray-50 text-black">
 
-    <nav class="p-8 flex justify-between items-center bg-white border-b border-gray-100">
-        <h1 class="text-4xl font-heavy italic tracking-tighter">VVHOMEPRO</h1>
-        <div class="font-heavy text-sm uppercase tracking-widest text-gray-400">ONTARIO</div>
+<body>
+
+    <nav style="padding: 20px; border-bottom: 4px solid black; background: white; display: flex; justify-content: space-between; align-items: center;">
+        <h1 style="color: #1d4ed8; font-weight: 900; font-size: 2rem; font-style: italic;">VVHOMEPRO</h1>
+        <span style="background: #facc15; padding: 5px 10px; font-weight: 900; border: 2px solid black; font-size: 0.75rem;">ONTARIO OFFICIAL</span>
     </nav>
 
-    <header class="px-6 py-20 text-center">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-7xl md:text-9xl font-heavy uppercase italic mb-8">
-                VETTED <span class="text-accent">PROS.</span><br>
-                <span class="text-accent">GUARANTEED</span> WORK.
+    <main style="max-width: 1200px; margin: auto; padding: 60px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+
+        <div>
+            <h2 class="font-heavy">
+                VETTED <span style="color: #2563eb;">PROS.</span>
+                <br>
+                <span style="color: #cbd5e1;">ZERO</span> RISK.
             </h2>
-            <p class="text-xl md:text-2xl font-semibold text-gray-600 mb-12 max-w-2xl mx-auto">
-                Stop gambling on contractors. We match you with the top 1% in Ontario.
+
+            <p style="font-size: 1.5rem; font-weight: bold; color: #4b5563; margin-top: 20px;">
+                Top 1% of contractors in Ontario. Guaranteed work or we fix it ourselves.
             </p>
         </div>
-    </header>
 
-    <section class="max-w-7xl mx-auto px-6 py-10 grid lg:grid-cols-2 gap-16 items-center">
-        
-        <div class="space-y-12">
-            <h3 class="text-6xl font-heavy uppercase italic leading-none">THE NEW<br><span class="text-accent">STANDARD.</span></h3>
-            <div class="space-y-8">
-                <div class="flex items-start gap-4">
-                    <div class="bg-blue-600 w-2 h-12"></div>
-                    <p class="text-xl font-bold text-gray-800 italic uppercase">Vetted Specialists Only</p>
-                </div>
-                <div class="flex items-start gap-4">
-                    <div class="bg-black w-2 h-12"></div>
-                    <p class="text-xl font-bold text-gray-800 italic uppercase">100% Workmanship Guarantee</p>
-                </div>
+        <div class="device-frame">
+            <div style="background: black; color: white; padding: 15px; font-weight: bold; display: flex; justify-content: space-between;">
+                <span>MATCHMAKER AI</span>
+                <div style="width: 10px; height: 10px; background: #22c55e; border-radius: 50%;"></div>
+            </div>
+
+            <div id="chat-window" style="flex-grow: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; background: #f9fafb;">
+                <div class="bot-bubble">Hi! I'm the VVHomePro assistant. What project are you looking to start in Ontario?</div>
+            </div>
+
+            <div style="padding: 15px; border-top: 1px solid #e5e7eb; display: flex; gap: 10px; background: white;">
+                <input
+                    type="text"
+                    id="user-input"
+                    placeholder="Message..."
+                    style="flex-grow: 1; padding: 10px; border: 2px solid #e5e7eb; border-radius: 10px; outline: none;"
+                >
+                <button
+                    onclick="sendMessage()"
+                    style="background: #2563eb; color: white; padding: 10px 20px; border-radius: 10px; font-weight: bold;"
+                >
+                    SEND
+                </button>
             </div>
         </div>
 
-        <div class="flex justify-center">
-            <div class="chat-container">
-                <div class="bg-white p-6 border-b flex items-center gap-4">
-                    <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-black text-xl italic">V</div>
-                    <div>
-                        <p class="font-bold text-lg leading-none">VVHomePro Assistant</p>
-                        <p class="text-green-500 text-sm font-semibold flex items-center gap-1">
-                            <span class="w-2 h-2 bg-green-500 rounded-full"></span> Online
-                        </p>
-                    </div>
-                </div>
-
-                <div id="chat-window" class="flex-grow p-6 overflow-y-auto flex flex-col gap-4 bg-white">
-                    <div class="message-bubble bot-bubble">
-                        Hi! I'm the VVHomePro matchmaker. What project are you planning, and which part of Ontario are you in?
-                    </div>
-                </div>
-
-                <div class="p-4 bg-white border-t">
-                    <div class="relative flex items-center">
-                        <input type="text" id="user-input" placeholder="Message..." 
-                               class="w-full p-4 pr-16 bg-gray-100 rounded-3xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg">
-                        <button onclick="sendMessage()" class="absolute right-2 bg-blue-600 text-white p-3 rounded-full hover:bg-black transition-all">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                            </svg>
-                        </button>
-                    </div>
-                    <p class="text-[10px] text-center text-gray-400 mt-3 font-semibold uppercase tracking-widest">End-to-End Encrypted</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-20 bg-white text-center">
-        <h2 class="text-4xl font-heavy italic mb-4 opacity-20">VVHOMEPRO</h2>
-    </footer>
+    </main>
 
     <script>
-        const WORKER_URL = 'https://vvhomepro.dbelnavis.workers.dev';
+        const WORKER_URL = '';
         const chatWindow = document.getElementById('chat-window');
         const userInput = document.getElementById('user-input');
-
-        userInput.addEventListener("keypress", (e) => { if (e.key === "Enter") sendMessage(); });
 
         async function sendMessage() {
             const text = userInput.value.trim();
             if (!text) return;
 
-            // 1. Show User Message (Natural Case)
-            chatWindow.innerHTML += `<div class="message-bubble user-bubble">${text}</div>`;
+            chatWindow.innerHTML += `<div class="user-bubble">${text}</div>`;
             userInput.value = '';
             chatWindow.scrollTop = chatWindow.scrollHeight;
 
-            // 2. Show Typing Indicator
-            const loadingId = "loading-" + Date.now();
-            chatWindow.innerHTML += `<div id="${loadingId}" class="message-bubble bot-bubble animate-pulse text-gray-400">Typing...</div>`;
-            chatWindow.scrollTop = chatWindow.scrollHeight;
+            const loading = document.createElement('div');
+            loading.className = "bot-bubble";
+            loading.innerText = "...";
+            chatWindow.appendChild(loading);
 
             try {
                 const response = await fetch(WORKER_URL, {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ 
-                        message: { text: text, chat: { id: "WEB_USER" } } 
-                    })
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: { text: text } })
                 });
 
                 const aiText = await response.text();
-                
-                // 3. Display AI Response (Natural Case)
-                document.getElementById(loadingId).remove();
-                chatWindow.innerHTML += `<div class="message-bubble bot-bubble">${aiText}</div>`;
-                chatWindow.scrollTop = chatWindow.scrollHeight;
+                loading.remove();
 
+                chatWindow.innerHTML += `<div class="bot-bubble">${aiText}</div>`;
             } catch (e) {
-                document.getElementById(loadingId).innerText = "Sorry, I'm having trouble connecting. Please refresh.";
+                loading.innerText = "Error connecting. Please refresh.";
             }
+
+            chatWindow.scrollTop = chatWindow.scrollHeight;
         }
+
+        userInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") sendMessage();
+        });
     </script>
+
 </body>
 </html>
+
+                                      
