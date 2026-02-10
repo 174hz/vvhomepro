@@ -1,0 +1,7 @@
+{
+  "name": "vvhomepro-worker",
+  "main": "index.py",
+  "compatibility_date": "2026-02-09",
+  "compatibility_flags": ["python_workers"],
+  "workers_dev": true
+}
