@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VVHomePro | Vetted Pros</title>
 
-    <script src=""></script>
-
     <style>
         body {
             font-family: sans-serif;
@@ -44,6 +42,7 @@
             border-bottom-left-radius: 2px;
             font-size: 14px;
             align-self: flex-start;
+            max-width: 80%;
         }
 
         .user-bubble {
@@ -54,6 +53,7 @@
             border-bottom-right-radius: 2px;
             font-size: 14px;
             align-self: flex-end;
+            max-width: 80%;
         }
     </style>
 </head>
@@ -66,14 +66,12 @@
     </nav>
 
     <main style="max-width: 1200px; margin: auto; padding: 60px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
-
         <div>
             <h2 class="font-heavy">
                 VETTED <span style="color: #2563eb;">PROS.</span>
                 <br>
                 <span style="color: #cbd5e1;">ZERO</span> RISK.
             </h2>
-
             <p style="font-size: 1.5rem; font-weight: bold; color: #4b5563; margin-top: 20px;">
                 Top 1% of contractors in Ontario. Guaranteed work or we fix it ourselves.
             </p>
@@ -104,7 +102,6 @@
                 </button>
             </div>
         </div>
-
     </main>
 
     <script>
@@ -112,30 +109,44 @@
         const chatWindow = document.getElementById('chat-window');
         const userInput = document.getElementById('user-input');
 
+        // This holds the context for the AI
+        let chatHistory = [
+            { role: "model", parts: [{ text: "Hi! I'm the VVHomePro assistant. What project are you looking to start in Ontario?" }] }
+        ];
+
         async function sendMessage() {
             const text = userInput.value.trim();
             if (!text) return;
 
+            // 1. Update UI with User Message
             chatWindow.innerHTML += `<div class="user-bubble">${text}</div>`;
             userInput.value = '';
             chatWindow.scrollTop = chatWindow.scrollHeight;
 
+            // 2. Add to History
+            chatHistory.push({ role: "user", parts: [{ text: text }] });
+
+            // 3. Show Loading State
             const loading = document.createElement('div');
             loading.className = "bot-bubble";
             loading.innerText = "...";
             chatWindow.appendChild(loading);
 
             try {
+                // 4. Send the FULL history to the Worker
                 const response = await fetch(WORKER_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: { text: text } })
+                    body: JSON.stringify({ contents: chatHistory })
                 });
 
                 const aiText = await response.text();
                 loading.remove();
 
+                // 5. Update UI and History with AI response
                 chatWindow.innerHTML += `<div class="bot-bubble">${aiText}</div>`;
+                chatHistory.push({ role: "model", parts: [{ text: aiText }] });
+                
             } catch (e) {
                 loading.innerText = "Error connecting. Please refresh.";
             }
