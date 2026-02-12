@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VVHomePro | Vetted Pros</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         body { font-family: sans-serif; background-color: #f9fafb; margin: 0; }
         .font-heavy { font-weight: 900; letter-spacing: -0.05em; line-height: 0.9; text-transform: uppercase; font-style: italic; font-size: 5rem; }
         .device-frame { border: 12px solid #000; border-radius: 40px; height: 600px; width: 100%; max-width: 380px; display: flex; flex-direction: column; overflow: hidden; background: white; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); margin: auto; }
-        .bot-bubble { background: #f3f4f6; padding: 12px; border-radius: 15px; border-bottom-left-radius: 2px; font-size: 14px; align-self: flex-start; max-width: 80%; margin-bottom: 10px; }
+        .bot-bubble { background: #f3f4f6; padding: 12px; border-radius: 15px; border-bottom-left-radius: 2px; font-size: 14px; align-self: flex-start; max-width: 85%; margin-bottom: 10px; line-height: 1.4; }
+        .bot-bubble h3 { margin: 0 0 8px 0; font-size: 16px; color: #1d4ed8; }
+        .bot-bubble ul { margin: 0; padding-left: 18px; }
         .user-bubble { background: #2563eb; color: white; padding: 12px; border-radius: 15px; border-bottom-right-radius: 2px; font-size: 14px; align-self: flex-end; max-width: 80%; margin-bottom: 10px; }
     </style>
 </head>
@@ -45,14 +48,24 @@
         const chatWindow = document.getElementById('chat-window');
         const userInput = document.getElementById('user-input');
 
+        const INITIAL_GREETING = "Hi! I'm the VVHomePro assistant. What project are you looking to start in Ontario?";
+
         // PERSISTENT MEMORY
         let chatHistory = [
-            { role: "model", parts: [{ text: "Hi! I'm the VVHomePro assistant. What project are you looking to start in Ontario?" }] }
+            { role: "model", parts: [{ text: INITIAL_GREETING }] }
         ];
 
         async function sendMessage() {
             const text = userInput.value.trim();
             if (!text) return;
+
+            // --- RESTART LOGIC ---
+            if (text.toLowerCase() === 'restart' || text.toLowerCase() === 'no') {
+                chatWindow.innerHTML = `<div class="bot-bubble">${INITIAL_GREETING}</div>`;
+                chatHistory = [{ role: "model", parts: [{ text: INITIAL_GREETING }] }];
+                userInput.value = '';
+                return;
+            }
 
             // 1. ADD TO UI
             const userDiv = document.createElement('div');
@@ -81,10 +94,11 @@
                 const aiText = await response.text();
                 loading.remove();
 
-                // 4. ADD RESPONSE TO UI & MEMORY
+                // 4. ADD RESPONSE TO UI (With Markdown Rendering)
                 const botDiv = document.createElement('div');
                 botDiv.className = 'bot-bubble';
-                botDiv.innerText = aiText;
+                // Use marked.parse to render the summary table nicely
+                botDiv.innerHTML = marked.parse(aiText);
                 chatWindow.appendChild(botDiv);
                 
                 chatHistory.push({ role: "model", parts: [{ text: aiText }] });
@@ -98,5 +112,4 @@
         userInput.addEventListener("keypress", (e) => { if (e.key === "Enter") sendMessage(); });
     </script>
 </body>
-</html>
-                                      
+</html>           
