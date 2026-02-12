@@ -43,6 +43,7 @@
             font-size: 14px;
             align-self: flex-start;
             max-width: 80%;
+            word-wrap: break-word;
         }
 
         .user-bubble {
@@ -54,6 +55,7 @@
             font-size: 14px;
             align-self: flex-end;
             max-width: 80%;
+            word-wrap: break-word;
         }
     </style>
 </head>
@@ -109,49 +111,53 @@
         const chatWindow = document.getElementById('chat-window');
         const userInput = document.getElementById('user-input');
 
-        // This holds the context for the AI
+        // Initializing history with the first bot message
         let chatHistory = [
             { role: "model", parts: [{ text: "Hi! I'm the VVHomePro assistant. What project are you looking to start in Ontario?" }] }
         ];
+
+        function appendMessage(sender, text) {
+            const bubble = document.createElement('div');
+            bubble.className = sender === "user" ? "user-bubble" : "bot-bubble";
+            bubble.innerText = text;
+            chatWindow.appendChild(bubble);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+            return bubble;
+        }
 
         async function sendMessage() {
             const text = userInput.value.trim();
             if (!text) return;
 
-            // 1. Update UI with User Message
-            chatWindow.innerHTML += `<div class="user-bubble">${text}</div>`;
-            userInput.value = '';
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-
-            // 2. Add to History
+            // 1. Show user message and update history
+            appendMessage("user", text);
             chatHistory.push({ role: "user", parts: [{ text: text }] });
+            userInput.value = '';
 
-            // 3. Show Loading State
-            const loading = document.createElement('div');
-            loading.className = "bot-bubble";
-            loading.innerText = "...";
-            chatWindow.appendChild(loading);
+            // 2. Show loading state
+            const loadingBubble = appendMessage("bot", "...");
 
             try {
-                // 4. Send the FULL history to the Worker
+                // 3. Send FULL history to the Worker
                 const response = await fetch(WORKER_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ contents: chatHistory })
                 });
 
-                const aiText = await response.text();
-                loading.remove();
+                if (!response.ok) throw new Error("Worker Error");
 
-                // 5. Update UI and History with AI response
-                chatWindow.innerHTML += `<div class="bot-bubble">${aiText}</div>`;
+                const aiText = await response.text();
+                
+                // 4. Remove loading and add AI response to UI + History
+                loadingBubble.remove();
+                appendMessage("bot", aiText);
                 chatHistory.push({ role: "model", parts: [{ text: aiText }] });
                 
             } catch (e) {
-                loading.innerText = "Error connecting. Please refresh.";
+                loadingBubble.innerText = "Connection lost. Please try again.";
+                console.error(e);
             }
-
-            chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
         userInput.addEventListener("keypress", (e) => {
@@ -161,5 +167,4 @@
 
 </body>
 </html>
-
                                       
