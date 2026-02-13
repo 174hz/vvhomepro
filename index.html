@@ -23,7 +23,7 @@
             line-height: 1.6; 
         }
         
-        /* Navigation - Matched to About Page */
+        /* NAVIGATION */
         nav { 
             padding: 20px; 
             border-bottom: 4px solid black; 
@@ -35,9 +35,9 @@
             top: 0;
             z-index: 1000;
         }
-        .nav-left { display: flex; align-items: center; gap: 25px; }
+        .nav-left { display: flex; align-items: center; gap: 20px; }
         
-        /* BRANDING: EXACT MATCH TO HERO STYLE */
+        /* BRANDING: MATCHED TO VETTED PROS STYLE */
         .brand-text { 
             color: var(--blue); 
             font-family: 'Montserrat', sans-serif; 
@@ -59,7 +59,7 @@
             text-transform: uppercase; 
         }
 
-        /* HERO TEXT - HEAVY & IMPACTFUL */
+        /* HERO TYPOGRAPHY */
         .hero-title { 
             font-family: 'Montserrat', sans-serif; 
             font-weight: 900; 
@@ -81,7 +81,7 @@
             align-items: center;
         }
 
-        /* CHAT CARD - AUDIT CARD STYLE */
+        /* CHAT CARD */
         .chat-card { 
             background: white; 
             border: 4px solid black; 
@@ -162,7 +162,7 @@
             <h1 class="brand-text">VV HOME<br>PRO</h1>
             <div class="nav-links">
                 <a href="index.html">Home</a>
-                <a href="/about">About Us</a>
+                <a href="about.html">About Us</a>
             </div>
         </div>
         
@@ -192,6 +192,7 @@
     </main>
 
     <script>
+        // Ensure this URL matches your Cloudflare Worker exactly
         const WORKER_URL = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
         const chatWindow = document.getElementById('chat-window');
         const userInput = document.getElementById('user-input');
@@ -233,7 +234,7 @@
                 
                 chatHistory.push({ role: "model", parts: [{ text: aiText }] });
             } catch (e) {
-                loading.innerText = "Error connecting to AI. Please try again.";
+                loading.innerText = "Connection error. Please try again.";
             }
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
