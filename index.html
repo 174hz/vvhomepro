@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VVHomePro | Vetted Pros</title>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         body { font-family: sans-serif; background-color: #f9fafb; margin: 0; }
         .font-heavy { font-weight: 900; letter-spacing: -0.05em; line-height: 0.9; text-transform: uppercase; font-style: italic; font-size: 5rem; }
@@ -13,13 +14,30 @@
         .bot-bubble h3 { margin: 0 0 8px 0; font-size: 16px; color: #1d4ed8; }
         .bot-bubble ul { margin: 0; padding-left: 18px; }
         .user-bubble { background: #2563eb; color: white; padding: 12px; border-radius: 15px; border-bottom-right-radius: 2px; font-size: 14px; align-self: flex-end; max-width: 80%; margin-bottom: 10px; }
+        
+        /* Nav button styling */
+        .nav-actions { display: flex; align-items: center; gap: 15px; }
+        #google-signin-btn { height: 40px; }
     </style>
 </head>
 <body>
 
     <nav style="padding: 20px; border-bottom: 4px solid black; background: white; display: flex; justify-content: space-between; align-items: center;">
-        <h1 style="color: #1d4ed8; font-weight: 900; font-size: 2rem; font-style: italic;">VVHOMEPRO</h1>
-        <span style="background: #facc15; padding: 5px 10px; font-weight: 900; border: 2px solid black; font-size: 0.75rem;">ONTARIO OFFICIAL</span>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <h1 style="color: #1d4ed8; font-weight: 900; font-size: 2rem; font-style: italic; margin: 0;">VVHOMEPRO</h1>
+            <span style="background: #facc15; padding: 5px 10px; font-weight: 900; border: 2px solid black; font-size: 0.75rem;">ONTARIO OFFICIAL</span>
+        </div>
+        
+        <div class="nav-actions">
+            <div id="g_id_onload"
+                 data-client_id="YOUR_GOOGLE_CLIENT_ID" 
+                 data-context="signin"
+                 data-ux_mode="popup"
+                 data-callback="handleCredentialResponse"
+                 data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline" data-text="signin_with" data-size="large" data-logo_alignment="left"></div>
+        </div>
     </nav>
 
     <main style="max-width: 1200px; margin: auto; padding: 60px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
@@ -50,16 +68,19 @@
 
         const INITIAL_GREETING = "Hi! I'm the VVHomePro assistant. What project are you looking to start in Ontario?";
 
-        // PERSISTENT MEMORY
-        let chatHistory = [
-            { role: "model", parts: [{ text: INITIAL_GREETING }] }
-        ];
+        let chatHistory = [{ role: "model", parts: [{ text: INITIAL_GREETING }] }];
+
+        // Google Sign-In Handler
+        function handleCredentialResponse(response) {
+            console.log("Encoded JWT ID token: " + response.credential);
+            // Here you would typically send response.credential to your worker to verify and create a session
+            alert("Checking Vetted Status for Google Account...");
+        }
 
         async function sendMessage() {
             const text = userInput.value.trim();
             if (!text) return;
 
-            // --- RESTART LOGIC ---
             if (text.toLowerCase() === 'restart' || text.toLowerCase() === 'no') {
                 chatWindow.innerHTML = `<div class="bot-bubble">${INITIAL_GREETING}</div>`;
                 chatHistory = [{ role: "model", parts: [{ text: INITIAL_GREETING }] }];
@@ -67,18 +88,15 @@
                 return;
             }
 
-            // 1. ADD TO UI
             const userDiv = document.createElement('div');
             userDiv.className = 'user-bubble';
             userDiv.innerText = text;
             chatWindow.appendChild(userDiv);
             
-            // 2. SAVE TO MEMORY
             chatHistory.push({ role: "user", parts: [{ text: text }] });
             userInput.value = '';
             chatWindow.scrollTop = chatWindow.scrollHeight;
 
-            // 3. LOADING
             const loading = document.createElement('div');
             loading.className = "bot-bubble";
             loading.innerText = "...";
@@ -94,10 +112,8 @@
                 const aiText = await response.text();
                 loading.remove();
 
-                // 4. ADD RESPONSE TO UI (With Markdown Rendering)
                 const botDiv = document.createElement('div');
                 botDiv.className = 'bot-bubble';
-                // Use marked.parse to render the summary table nicely
                 botDiv.innerHTML = marked.parse(aiText);
                 chatWindow.appendChild(botDiv);
                 
@@ -112,4 +128,4 @@
         userInput.addEventListener("keypress", (e) => { if (e.key === "Enter") sendMessage(); });
     </script>
 </body>
-</html>           
+</html>
