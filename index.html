@@ -1,82 +1,93 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VV HOME PRO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&family=Montserrat:wght@900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
+        /* NUCLEAR FONT FIX */
         * { font-family: 'Inter', sans-serif !important; }
-        h1, h2, .brand, button { font-family: 'Montserrat', sans-serif !important; font-weight: 900 !important; text-transform: uppercase; font-style: italic; }
-        body { margin: 0; background: #f8fafc; }
-        nav { background: #fff; padding: 20px; border-bottom: 4px solid #000; display: flex; justify-content: space-between; align-items: center; }
-        .brand { color: #1d4ed8; font-size: 1.5rem; line-height: 0.8; }
-        .nav-links a { text-decoration: none; color: #000; font-weight: 700; margin-left: 20px; }
-        .container { max-width: 1100px; margin: 50px auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 20px; }
-        .chat-card { background: #fff; border: 4px solid #000; box-shadow: 12px 12px 0px #facc15; height: 500px; display: flex; flex-direction: column; }
-        #chat-box { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; }
-        .msg { margin-bottom: 15px; padding: 12px; border-radius: 8px; max-width: 80%; }
-        .bot { background: #f1f5f9; align-self: flex-start; border: 1px solid #cbd5e1; }
-        .user { background: #1d4ed8; color: #fff; align-self: flex-end; }
-        .input-area { border-top: 4px solid #000; display: flex; }
-        input { flex: 1; padding: 18px; border: none; outline: none; }
-        button { padding: 15px 30px; background: #1d4ed8; color: #fff; border: none; cursor: pointer; }
+        h1, h2, .brand-text, .hero-title, button { 
+            font-family: 'Montserrat', sans-serif !important; 
+            font-weight: 900 !important; font-style: italic !important; text-transform: uppercase !important;
+        }
+        :root { --blue: #1d4ed8; --gold: #facc15; }
+        body { background: #f9fafb; margin: 0; padding: 0; }
+        nav { padding: 20px; border-bottom: 4px solid black; background: white; display: flex; justify-content: space-between; align-items: center; }
+        .brand-text { color: var(--blue); font-size: 1.6rem; line-height: 0.85; letter-spacing: -1.5px; }
+        .nav-links a { text-decoration: none; color: black !important; font-weight: 700; margin-left: 20px; font-size: 0.9rem; }
+        .container { max-width: 1100px; margin: auto; padding: 60px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        .hero-title { font-size: 4rem; line-height: 0.85; letter-spacing: -2px; }
+        .chat-card { background: white; border: 4px solid black; box-shadow: 15px 15px 0px var(--gold); height: 500px; display: flex; flex-direction: column; }
+        #chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; }
+        .msg { margin-bottom: 15px; padding: 12px; border-radius: 8px; max-width: 85%; line-height: 1.4; }
+        .bot { background: #f3f4f6; align-self: flex-start; border: 1px solid #ddd; }
+        .user { background: var(--blue); color: white; align-self: flex-end; }
+        .input-bar { padding: 15px; border-top: 2px solid black; display: flex; gap: 10px; }
+        input { flex-grow: 1; padding: 12px; border: 2px solid black; outline: none; }
+        button { background: var(--blue); color: white; border: 2px solid black; padding: 10px 25px; cursor: pointer; }
     </style>
 </head>
 <body>
-
-<nav>
-    <div class="brand">VV HOME<br>PRO</div>
-    <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="https://174hz.github.io/vvhomepro/about.html">About Us</a>
-    </div>
-</nav>
-
-<div class="container">
-    <div>
-        <h2 style="font-size: 4rem; line-height: 0.85; margin: 0;">VETTED PROS.<br><span style="color:#1d4ed8">ZERO RISK.</span></h2>
-    </div>
-    <div class="chat-card">
-        <div id="chat-box"><div class="msg bot">Hi! I'm the VV HOME PRO assistant. What project are you looking to start in Ontario?</div></div>
-        <div class="input-area">
-            <input type="text" id="user-input" placeholder="Describe the job...">
-            <button onclick="send()">SEND</button>
+    <nav>
+        <div class="brand-text">VV HOME<br>PRO</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="/about.html">About Us</a>
         </div>
-    </div>
-</div>
+    </nav>
+    <main class="container">
+        <div>
+            <h2 class="hero-title">VETTED <span style="color: var(--blue);">PROS.</span><br><span style="color: #cbd5e1;">ZERO</span> RISK.</h2>
+            <p>Ontario's elite contractors. 100% Guaranteed.</p>
+        </div>
+        <div class="chat-card">
+            <div id="chat-window">
+                <div class="msg bot">Hi! I'm the VV HOME PRO assistant. What project are you looking to start in Ontario?</div>
+            </div>
+            <div class="input-bar">
+                <input type="text" id="user-input" placeholder="How can we help?">
+                <button onclick="send()">SEND</button>
+            </div>
+        </div>
+    </main>
 
-<script>
-    const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
-    let history = [
-        { role: "user", parts: [{ text: "You are the VV HOME PRO assistant for Ontario. Be brief." }] },
-        { role: "model", parts: [{ text: "Got it." }] }
-    ];
+    <script>
+        const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
+        let history = [
+            { role: "user", parts: [{ text: "You are the VV HOME PRO assistant for Ontario home repairs. Be helpful." }] },
+            { role: "model", parts: [{ text: "I'm ready. What's the project?" }] }
+        ];
 
-    async function send() {
-        const input = document.getElementById('user-input');
-        const text = input.value.trim();
-        if (!text) return;
+        async function send() {
+            const input = document.getElementById('user-input');
+            const val = input.value.trim();
+            if(!val) return;
 
-        const box = document.getElementById('chat-box');
-        box.innerHTML += `<div class="msg user">${text}</div>`;
-        history.push({ role: "user", parts: [{ text: text }] });
-        input.value = '';
+            const box = document.getElementById('chat-window');
+            box.innerHTML += `<div class="msg user">${val}</div>`;
+            history.push({ role: "user", parts: [{ text: val }] });
+            input.value = '';
 
-        const load = document.createElement('div');
-        load.className = 'msg bot'; load.innerText = 'Thinking...';
-        box.appendChild(load);
+            const load = document.createElement('div');
+            load.className = 'msg bot'; load.innerText = '...';
+            box.appendChild(load);
 
-        try {
-            const res = await fetch(WORKER, {
-                method: 'POST',
-                body: JSON.stringify({ contents: history })
-            });
-            const aiText = await res.text();
-            load.innerText = aiText;
-            history.push({ role: "model", parts: [{ text: aiText }] });
-        } catch (e) { load.innerText = "Error connecting."; }
-        box.scrollTop = box.scrollHeight;
-    }
-</script>
+            try {
+                const res = await fetch(WORKER, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: history })
+                });
+                const aiText = await res.text();
+                load.innerHTML = marked.parse(aiText);
+                history.push({ role: "model", parts: [{ text: aiText }] });
+            } catch (e) { load.innerText = "Connection error."; }
+            box.scrollTop = box.scrollHeight;
+        }
+        document.getElementById('user-input').addEventListener('keypress', (e) => { if(e.key === 'Enter') send(); });
+    </script>
 </body>
 </html>
