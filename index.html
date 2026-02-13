@@ -4,28 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VVHomePro | Vetted Pros</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
-        body { font-family: sans-serif; background-color: #f9fafb; margin: 0; }
-        .font-heavy { font-weight: 900; letter-spacing: -0.05em; line-height: 0.9; text-transform: uppercase; font-style: italic; font-size: 5rem; }
+        :root { --blue: #1d4ed8; --gold: #facc15; --slate: #1e293b; }
+        body { font-family: 'Inter', sans-serif; background-color: #f9fafb; margin: 0; color: var(--slate); }
+        
+        /* Navigation Styling */
+        nav { padding: 20px; border-bottom: 4px solid black; background: white; display: flex; justify-content: space-between; align-items: center; }
+        .nav-left { display: flex; align-items: center; gap: 25px; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { text-decoration: none; color: black; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .nav-links a:hover { color: var(--blue); }
+
+        .font-heavy { font-family: 'Montserrat', sans-serif; font-weight: 900; letter-spacing: -0.05em; line-height: 0.9; text-transform: uppercase; font-style: italic; font-size: 5rem; }
+        
+        /* Chat Interface Styling */
         .device-frame { border: 12px solid #000; border-radius: 40px; height: 600px; width: 100%; max-width: 380px; display: flex; flex-direction: column; overflow: hidden; background: white; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); margin: auto; }
         .bot-bubble { background: #f3f4f6; padding: 12px; border-radius: 15px; border-bottom-left-radius: 2px; font-size: 14px; align-self: flex-start; max-width: 85%; margin-bottom: 10px; line-height: 1.4; }
-        .bot-bubble h3 { margin: 0 0 8px 0; font-size: 16px; color: #1d4ed8; }
-        .bot-bubble ul { margin: 0; padding-left: 18px; }
-        .user-bubble { background: #2563eb; color: white; padding: 12px; border-radius: 15px; border-bottom-right-radius: 2px; font-size: 14px; align-self: flex-end; max-width: 80%; margin-bottom: 10px; }
+        .bot-bubble h3 { margin: 0 0 8px 0; font-size: 16px; color: var(--blue); font-family: 'Montserrat'; }
+        .user-bubble { background: var(--blue); color: white; padding: 12px; border-radius: 15px; border-bottom-right-radius: 2px; font-size: 14px; align-self: flex-end; max-width: 80%; margin-bottom: 10px; }
         
-        /* Nav button styling */
         .nav-actions { display: flex; align-items: center; gap: 15px; }
-        #google-signin-btn { height: 40px; }
     </style>
 </head>
 <body>
 
-    <nav style="padding: 20px; border-bottom: 4px solid black; background: white; display: flex; justify-content: space-between; align-items: center;">
-        <div style="display: flex; align-items: center; gap: 20px;">
-            <h1 style="color: #1d4ed8; font-weight: 900; font-size: 2rem; font-style: italic; margin: 0;">VVHOMEPRO</h1>
-            <span style="background: #facc15; padding: 5px 10px; font-weight: 900; border: 2px solid black; font-size: 0.75rem;">ONTARIO OFFICIAL</span>
+    <nav>
+        <div class="nav-left">
+            <h1 style="color: var(--blue); font-family: 'Montserrat'; font-weight: 900; font-size: 2rem; font-style: italic; margin: 0;">VVHOMEPRO</h1>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/about">About Us</a>
+            </div>
+            <span style="background: var(--gold); padding: 5px 10px; font-weight: 900; border: 2px solid black; font-size: 0.75rem; text-transform: uppercase;">ONTARIO OFFICIAL</span>
         </div>
         
         <div class="nav-actions">
@@ -36,27 +49,27 @@
                  data-callback="handleCredentialResponse"
                  data-auto_prompt="false">
             </div>
-            <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline" data-text="signin_with" data-size="large" data-logo_alignment="left"></div>
+            <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline" data-text="signin_with" data-size="large"></div>
         </div>
     </nav>
 
     <main style="max-width: 1200px; margin: auto; padding: 60px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
         <div>
-            <h2 class="font-heavy">VETTED <span style="color: #2563eb;">PROS.</span><br><span style="color: #cbd5e1;">ZERO</span> RISK.</h2>
+            <h2 class="font-heavy">VETTED <span style="color: var(--blue);">PROS.</span><br><span style="color: #cbd5e1;">ZERO</span> RISK.</h2>
             <p style="font-size: 1.5rem; font-weight: bold; color: #4b5563; margin-top: 20px;">Top 1% of contractors in Ontario. Guaranteed work or we fix it ourselves.</p>
         </div>
 
         <div class="device-frame">
-            <div style="background: black; color: white; padding: 15px; font-weight: bold; display: flex; justify-content: space-between;">
-                <span>MATCHMAKER AI</span>
+            <div style="background: black; color: white; padding: 15px; font-weight: bold; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 0.8rem; letter-spacing: 1px;">MATCHMAKER AI</span>
                 <div style="width: 10px; height: 10px; background: #22c55e; border-radius: 50%;"></div>
             </div>
             <div id="chat-window" style="flex-grow: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; background: #f9fafb;">
                 <div class="bot-bubble">Hi! I'm the VVHomePro assistant. What project are you looking to start in Ontario?</div>
             </div>
             <div style="padding: 15px; border-top: 1px solid #e5e7eb; display: flex; gap: 10px; background: white;">
-                <input type="text" id="user-input" placeholder="Message..." style="flex-grow: 1; padding: 10px; border: 2px solid #e5e7eb; border-radius: 10px; outline: none;">
-                <button onclick="sendMessage()" style="background: #2563eb; color: white; padding: 10px 20px; border-radius: 10px; font-weight: bold;">SEND</button>
+                <input type="text" id="user-input" placeholder="Message..." style="flex-grow: 1; padding: 10px; border: 2px solid #e5e7eb; border-radius: 10px; outline: none; font-family: 'Inter';">
+                <button onclick="sendMessage()" style="background: var(--blue); color: white; padding: 10px 20px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-family: 'Montserrat';">SEND</button>
             </div>
         </div>
     </main>
@@ -67,14 +80,11 @@
         const userInput = document.getElementById('user-input');
 
         const INITIAL_GREETING = "Hi! I'm the VVHomePro assistant. What project are you looking to start in Ontario?";
-
         let chatHistory = [{ role: "model", parts: [{ text: INITIAL_GREETING }] }];
 
-        // Google Sign-In Handler
         function handleCredentialResponse(response) {
             console.log("Encoded JWT ID token: " + response.credential);
-            // Here you would typically send response.credential to your worker to verify and create a session
-            alert("Checking Vetted Status for Google Account...");
+            alert("Verification initiated for your Home Pro account.");
         }
 
         async function sendMessage() {
@@ -120,7 +130,7 @@
                 chatHistory.push({ role: "model", parts: [{ text: aiText }] });
 
             } catch (e) {
-                loading.innerText = "Error: " + e.message;
+                loading.innerText = "Connection error. Please try again.";
             }
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
