@@ -7,16 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        /* FONT LOCKDOWN */
+        /* FORCE FONTS */
         * { font-family: 'Inter', sans-serif !important; }
         h1, h2, .brand-text, .hero-title, button { 
             font-family: 'Montserrat', sans-serif !important; 
-            font-weight: 900 !important; 
-            font-style: italic !important; 
-            text-transform: uppercase !important;
+            font-weight: 900 !important; font-style: italic !important; text-transform: uppercase !important;
         }
         :root { --blue: #1d4ed8; --gold: #facc15; }
-        body { background: #f9fafb; margin: 0; padding: 0; }
+        body { background: #f9fafb; margin: 0; }
         nav { padding: 20px; border-bottom: 4px solid black; background: white; display: flex; justify-content: space-between; align-items: center; }
         .brand-text { color: var(--blue); font-size: 1.6rem; line-height: 0.85; letter-spacing: -1.5px; }
         .nav-links a { text-decoration: none; color: black !important; font-weight: 700; margin-left: 20px; font-size: 0.9rem; }
@@ -58,8 +56,8 @@
         const WORKER_URL = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
         const chatWindow = document.getElementById('chat-window');
         let history = [
-            { role: "user", parts: [{ text: "You are the VV HOME PRO assistant for Ontario home repairs. Be helpful." }] },
-            { role: "model", parts: [{ text: "Hello! I am ready to help with your home projects." }] }
+            { role: "user", parts: [{ text: "You are the VV HOME PRO assistant. Help me with Ontario home repairs." }] },
+            { role: "model", parts: [{ text: "I'm ready to help. What project are you starting?" }] }
         ];
 
         async function sendMessage() {
