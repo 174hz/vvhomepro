@@ -8,25 +8,114 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
-        :root { --blue: #1d4ed8; --gold: #facc15; --slate: #1e293b; }
-        body { font-family: 'Inter', sans-serif; background-color: #f9fafb; margin: 0; color: var(--slate); }
+        :root { 
+            --blue: #1d4ed8; 
+            --gold: #facc15; 
+            --slate: #1e293b; 
+            --light: #f9fafb;
+        }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--light); 
+            margin: 0; 
+            color: var(--slate); 
+            line-height: 1.6;
+        }
         
         /* Navigation Styling */
-        nav { padding: 20px; border-bottom: 4px solid black; background: white; display: flex; justify-content: space-between; align-items: center; }
+        nav { 
+            padding: 20px; 
+            border-bottom: 4px solid black; 
+            background: white; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
         .nav-left { display: flex; align-items: center; gap: 25px; }
         .nav-links { display: flex; gap: 20px; }
-        .nav-links a { text-decoration: none; color: black; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .nav-links a { 
+            text-decoration: none; 
+            color: black; 
+            font-weight: 700; 
+            font-size: 0.9rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+            transition: color 0.2s;
+        }
         .nav-links a:hover { color: var(--blue); }
 
-        .font-heavy { font-family: 'Montserrat', sans-serif; font-weight: 900; letter-spacing: -0.05em; line-height: 0.9; text-transform: uppercase; font-style: italic; font-size: 5rem; }
+        .font-heavy { 
+            font-family: 'Montserrat', sans-serif; 
+            font-weight: 900; 
+            letter-spacing: -0.05em; 
+            line-height: 0.85; 
+            text-transform: uppercase; 
+            font-style: italic; 
+            font-size: 5rem; 
+            margin: 0;
+        }
         
         /* Chat Interface Styling */
-        .device-frame { border: 12px solid #000; border-radius: 40px; height: 600px; width: 100%; max-width: 380px; display: flex; flex-direction: column; overflow: hidden; background: white; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); margin: auto; }
-        .bot-bubble { background: #f3f4f6; padding: 12px; border-radius: 15px; border-bottom-left-radius: 2px; font-size: 14px; align-self: flex-start; max-width: 85%; margin-bottom: 10px; line-height: 1.4; }
-        .bot-bubble h3 { margin: 0 0 8px 0; font-size: 16px; color: var(--blue); font-family: 'Montserrat'; }
-        .user-bubble { background: var(--blue); color: white; padding: 12px; border-radius: 15px; border-bottom-right-radius: 2px; font-size: 14px; align-self: flex-end; max-width: 80%; margin-bottom: 10px; }
+        .device-frame { 
+            border: 12px solid #000; 
+            border-radius: 40px; 
+            height: 600px; 
+            width: 100%; 
+            max-width: 380px; 
+            display: flex; 
+            flex-direction: column; 
+            overflow: hidden; 
+            background: white; 
+            /* Hard Shadow to match About Page cards */
+            box-shadow: 15px 15px 0px var(--gold); 
+            margin: auto; 
+        }
+
+        .bot-bubble { 
+            background: #f3f4f6; 
+            padding: 12px; 
+            border-radius: 15px; 
+            border-bottom-left-radius: 2px; 
+            font-size: 14px; 
+            align-self: flex-start; 
+            max-width: 85%; 
+            margin-bottom: 10px; 
+            line-height: 1.4; 
+        }
+
+        /* Markdown Styling inside Chat */
+        .bot-bubble h3 { 
+            margin: 0 0 8px 0; 
+            font-size: 16px; 
+            color: var(--blue); 
+            font-family: 'Montserrat'; 
+            text-transform: uppercase;
+        }
+        .bot-bubble ul { padding-left: 18px; margin: 5px 0; }
+
+        .user-bubble { 
+            background: var(--blue); 
+            color: white; 
+            padding: 12px; 
+            border-radius: 15px; 
+            border-bottom-right-radius: 2px; 
+            font-size: 14px; 
+            align-self: flex-end; 
+            max-width: 80%; 
+            margin-bottom: 10px; 
+        }
         
         .nav-actions { display: flex; align-items: center; gap: 15px; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .font-heavy { font-size: 3.5rem; }
+            main { grid-template-columns: 1fr !important; padding: 30px 20px !important; }
+        }
     </style>
 </head>
 <body>
@@ -56,12 +145,12 @@
     <main style="max-width: 1200px; margin: auto; padding: 60px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
         <div>
             <h2 class="font-heavy">VETTED <span style="color: var(--blue);">PROS.</span><br><span style="color: #cbd5e1;">ZERO</span> RISK.</h2>
-            <p style="font-size: 1.5rem; font-weight: bold; color: #4b5563; margin-top: 20px;">Top 1% of contractors in Ontario. Guaranteed work or we fix it ourselves.</p>
+            <p style="font-size: 1.5rem; font-weight: bold; color: #4b5563; margin-top: 20px; font-family: 'Inter';">Top 1% of contractors in Ontario. Guaranteed work or we fix it ourselves.</p>
         </div>
 
         <div class="device-frame">
             <div style="background: black; color: white; padding: 15px; font-weight: bold; display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 0.8rem; letter-spacing: 1px;">MATCHMAKER AI</span>
+                <span style="font-size: 0.8rem; letter-spacing: 1px; font-family: 'Montserrat';">MATCHMAKER AI</span>
                 <div style="width: 10px; height: 10px; background: #22c55e; border-radius: 50%;"></div>
             </div>
             <div id="chat-window" style="flex-grow: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; background: #f9fafb;">
