@@ -9,24 +9,28 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         :root { --blue: #1d4ed8; --gold: #facc15; --slate: #1e293b; --light: #f9fafb; }
-
         body { font-family: 'Inter', sans-serif; line-height: 1.6; color: var(--slate); margin: 0; background: var(--light); }
         
         /* NAVIGATION */
         nav { padding: 20px; border-bottom: 4px solid black; background: white; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
         .nav-left { display: flex; align-items: center; gap: 20px; }
+        
+        /* BRANDING MATCHED TO HERO TEXT STYLE */
+        .brand-text { 
+            color: var(--blue); font-family: 'Montserrat'; font-weight: 900; font-size: 1.8rem; 
+            font-style: italic; margin: 0; text-transform: uppercase; line-height: 0.85; letter-spacing: -1.5px;
+        }
+        
         .nav-links { display: flex; gap: 15px; }
         .nav-links a { text-decoration: none; color: black; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; }
 
-        /* BRANDING & HERO - EXACT MATCH */
-        .brand-text { color: var(--blue); font-family: 'Montserrat'; font-weight: 900; font-size: 1.8rem; font-style: italic; margin: 0; text-transform: uppercase; }
-        .hero-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 4rem; line-height: 0.85; letter-spacing: -2px; text-transform: uppercase; margin: 0 0 20px 0; }
+        /* HERO TYPOGRAPHY */
+        .hero-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 4rem; line-height: 0.85; letter-spacing: -2px; text-transform: uppercase; margin: 0 0 20px 0; font-style: italic; }
         
-        /* LAYOUT */
         .container { max-width: 1100px; margin: auto; padding: 80px 20px; }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
 
-        /* CHAT BOX - AUDIT CARD STYLE */
+        /* CHAT CARD */
         .chat-card { background: white; border: 4px solid black; box-shadow: 15px 15px 0px var(--gold); display: flex; flex-direction: column; height: 600px; overflow: hidden; }
         #chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; background: white; }
         
@@ -44,7 +48,7 @@
 
     <nav>
         <div class="nav-left">
-            <h1 class="brand-text">VV HOME PRO</h1>
+            <h1 class="brand-text">VV HOME<br>PRO</h1>
             <div class="nav-links">
                 <a href="index.html">Home</a>
                 <a href="about.html">About Us</a>
@@ -82,10 +86,7 @@
         const chatWindow = document.getElementById('chat-window');
         const userInput = document.getElementById('user-input');
 
-        const INITIAL_GREETING = "Hi! I'm the VV HOME PRO assistant. What project are you looking to start in Ontario?";
-        let chatHistory = [{ role: "model", parts: [{ text: INITIAL_GREETING }] }];
-
-        function handleCredentialResponse(response) { alert("Verification initiated."); }
+        let chatHistory = [{ role: "model", parts: [{ text: "Hi! I'm the VV HOME PRO assistant. What project are you looking to start in Ontario?" }] }];
 
         async function sendMessage() {
             const text = userInput.value.trim();
@@ -122,12 +123,13 @@
                 
                 chatHistory.push({ role: "model", parts: [{ text: aiText }] });
             } catch (e) {
-                loading.innerText = "Error connecting to AI. Please try again.";
+                loading.innerText = "Error connecting to AI.";
             }
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
         userInput.addEventListener("keypress", (e) => { if (e.key === "Enter") sendMessage(); });
+        function handleCredentialResponse(response) { console.log("Google Auth Success"); }
     </script>
 </body>
 </html>
