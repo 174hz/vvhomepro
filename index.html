@@ -7,17 +7,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        /* KILL THE SYSTEM FONTS */
+        /* THE ULTIMATE FONT FIX */
         * { font-family: 'Inter', sans-serif !important; }
-        h1, h2, .brand-text, .hero-title, .send-btn { 
+        h1, h2, .brand-text, .hero-title, button { 
             font-family: 'Montserrat', sans-serif !important; 
-            font-weight: 900 !important; 
-            font-style: italic !important; 
-            text-transform: uppercase !important;
+            font-weight: 900 !important; font-style: italic !important; text-transform: uppercase !important;
         }
 
         :root { --blue: #1d4ed8; --gold: #facc15; --slate: #1e293b; }
-        body { background: #f9fafb; margin: 0; }
+        body { background: #f9fafb; margin: 0; padding: 0; }
         
         nav { padding: 20px; border-bottom: 4px solid black; background: white; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
         .brand-text { color: var(--blue); font-size: 1.6rem; line-height: 0.85; letter-spacing: -1.5px; }
@@ -32,8 +30,8 @@
         .user-bubble { background: var(--blue); color: white; padding: 12px; border-radius: 10px; margin-bottom: 10px; align-self: flex-end; max-width: 80%; }
         
         .input-bar { padding: 15px; border-top: 2px solid black; display: flex; gap: 10px; }
-        input { flex-grow: 1; padding: 10px; border: 2px solid black; outline: none; }
-        button { background: var(--blue); color: white; border: 2px solid black; padding: 10px 20px; cursor: pointer; }
+        input { flex-grow: 1; padding: 12px; border: 2px solid black; outline: none; font-size: 1rem; }
+        button { background: var(--blue); color: white; border: 2px solid black; padding: 10px 25px; cursor: pointer; }
 
         @media (max-width: 768px) { .container { grid-template-columns: 1fr; } .hero-title { font-size: 3rem; } }
     </style>
@@ -50,14 +48,14 @@
     <main class="container">
         <div>
             <h2 class="hero-title">VETTED <span style="color: var(--blue);">PROS.</span><br><span style="color: #cbd5e1;">ZERO</span> RISK.</h2>
-            <p style="font-size: 1.2rem; color: #4b5563;">Ontario's best contractors. 100% Guaranteed.</p>
+            <p style="font-size: 1.1rem; color: #4b5563;">Ontario's elite contractors. 100% Guaranteed workmanship.</p>
         </div>
         <div class="chat-card">
             <div id="chat-window">
                 <div class="bot-bubble">Hi! I'm the VV HOME PRO assistant. What project are you looking to start in Ontario?</div>
             </div>
             <div class="input-bar">
-                <input type="text" id="user-input" placeholder="Type here...">
+                <input type="text" id="user-input" placeholder="Tell us what you need...">
                 <button onclick="sendMessage()">SEND</button>
             </div>
         </div>
@@ -80,6 +78,7 @@
 
             const lDiv = document.createElement('div'); lDiv.className = 'bot-bubble'; lDiv.innerText = "...";
             chatWindow.appendChild(lDiv);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
 
             try {
                 const res = await fetch(WORKER_URL, {
@@ -90,9 +89,10 @@
                 const aiText = await res.text();
                 lDiv.innerHTML = marked.parse(aiText);
                 history.push({ role: "model", parts: [{ text: aiText }] });
-            } catch (e) { lDiv.innerText = "Connection Error."; }
+            } catch (e) { lDiv.innerText = "Error Connecting."; }
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
+        document.getElementById('user-input').addEventListener('keypress', (e) => { if(e.key === 'Enter') sendMessage(); });
     </script>
 </body>
 </html>
