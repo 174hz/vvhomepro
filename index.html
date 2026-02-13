@@ -3,73 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VV HOME PRO | Vetted Pros</title>
+    <title>VV HOME PRO</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         :root { --blue: #1d4ed8; --gold: #facc15; --slate: #1e293b; --light: #f9fafb; }
 
-        /* BRUTE FORCE FONT FIX */
-        body, html, p, div, span, input, button { 
-            font-family: 'Inter', sans-serif !important; 
-            background-color: var(--light); 
-            margin: 0; 
-            color: var(--slate); 
-        }
+        /* STOP THE HIDEOUS FONT FOR GOOD */
+        * { font-family: 'Inter', sans-serif !important; }
+        h1, h2, .brand-text, .hero-title, .send-btn { font-family: 'Montserrat', sans-serif !important; font-weight: 900 !important; font-style: italic !important; }
+
+        body { background-color: var(--light); margin: 0; color: var(--slate); }
+        nav { padding: 20px; border-bottom: 4px solid black; background: white; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
         
-        /* NAVIGATION */
-        nav { 
-            padding: 20px; border-bottom: 4px solid black; background: white; 
-            display: flex; justify-content: space-between; align-items: center; 
-            position: sticky; top: 0; z-index: 1000; 
-        }
-        
-        .brand-text { 
-            color: var(--blue) !important; 
-            font-family: 'Montserrat', sans-serif !important; 
-            font-weight: 900 !important; 
-            font-size: 1.6rem; font-style: italic; line-height: 0.85; 
-            letter-spacing: -1.5px; text-transform: uppercase; margin: 0;
-        }
+        .brand-text { color: var(--blue); font-size: 1.6rem; line-height: 0.85; letter-spacing: -1.5px; text-transform: uppercase; margin: 0; }
+        .nav-links a { text-decoration: none; color: black; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; margin-left: 20px; }
 
-        .nav-links a { 
-            text-decoration: none; color: black !important; font-weight: 700; 
-            font-size: 0.9rem; text-transform: uppercase; margin-left: 20px;
-        }
+        .hero-title { font-size: 4rem; line-height: 0.85; letter-spacing: -2px; text-transform: uppercase; margin-bottom: 20px; }
+        .container { max-width: 1100px; margin: auto; padding: 80px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
 
-        /* HERO TITLE */
-        .hero-title { 
-            font-family: 'Montserrat', sans-serif !important; 
-            font-weight: 900 !important; font-size: 4rem; 
-            line-height: 0.85; letter-spacing: -2px; 
-            text-transform: uppercase; font-style: italic; margin-bottom: 20px;
-        }
-        
-        .container {
-            max-width: 1100px; margin: auto; padding: 80px 20px;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
-        }
-
-        .chat-card { 
-            background: white; border: 4px solid black; 
-            box-shadow: 15px 15px 0px var(--gold); 
-            height: 550px; display: flex; flex-direction: column; overflow: hidden; 
-        }
-
+        .chat-card { background: white; border: 4px solid black; box-shadow: 15px 15px 0px var(--gold); height: 550px; display: flex; flex-direction: column; overflow: hidden; }
         #chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; background: #fff; }
 
         .bot-bubble { background: #f3f4f6; padding: 12px; border-radius: 10px; margin-bottom: 10px; align-self: flex-start; max-width: 85%; border: 1px solid #ddd; }
         .user-bubble { background: var(--blue); color: white; padding: 12px; border-radius: 10px; margin-bottom: 10px; align-self: flex-end; max-width: 80%; }
         
-        .input-bar { padding: 15px; border-top: 2px solid black; display: flex; gap: 10px; background: white; }
+        .input-bar { padding: 15px; border-top: 2px solid black; display: flex; gap: 10px; }
         #user-input { flex-grow: 1; padding: 12px; border: 2px solid black; outline: none; }
-        .send-btn { background: var(--blue); color: white; border: 2px solid black; padding: 10px 20px; font-weight: 900; cursor: pointer; font-family: 'Montserrat', sans-serif !important; }
-        
+        .send-btn { background: var(--blue); color: white; border: 2px solid black; padding: 10px 20px; cursor: pointer; }
+
         @media (max-width: 768px) { .hero-title { font-size: 3rem; } .container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
-
     <nav>
         <div class="nav-left">
             <h1 class="brand-text">VV HOME<br>PRO</h1>
@@ -82,13 +48,11 @@
 
     <main class="container">
         <div>
-            <span style="font-weight: bold; color: var(--blue); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;">Vetted & Verified</span>
             <h2 class="hero-title">VETTED <span style="color: var(--blue);">PROS.</span><br><span style="color: #cbd5e1;">ZERO</span> RISK.</h2>
-            <p style="font-size: 1.2rem; color: #4b5563;">Top 1% of contractors in Ontario. Guaranteed work or we fix it ourselves.</p>
+            <p style="font-size: 1.2rem; color: #4b5563;">Ontario's top contractors. 100% Guaranteed.</p>
         </div>
 
         <div class="chat-card">
-            <div style="background: black; color: white; padding: 10px; font-weight: 900; text-align: center; font-size: 0.7rem; letter-spacing: 2px;">MATCHMAKER AI</div>
             <div id="chat-window">
                 <div class="bot-bubble">Hi! I'm the VV HOME PRO assistant. What project are you looking to start in Ontario?</div>
             </div>
@@ -103,15 +67,21 @@
         const WORKER_URL = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
         const chatWindow = document.getElementById('chat-window');
         const userInput = document.getElementById('user-input');
-        let chatHistory = [{ role: "model", parts: [{ text: "Hi! I'm the VV HOME PRO assistant." }] }];
+        
+        // This array keeps track of everything said
+        let chatHistory = [{ role: "model", parts: [{ text: "Hi! I'm the VV HOME PRO assistant. What project are you looking to start in Ontario?" }] }];
 
         async function sendMessage() {
             const text = userInput.value.trim();
             if (!text) return;
+
+            // Show User Message
             const userDiv = document.createElement('div');
             userDiv.className = 'user-bubble';
             userDiv.innerText = text;
             chatWindow.appendChild(userDiv);
+
+            // Update History
             chatHistory.push({ role: "user", parts: [{ text: text }] });
             userInput.value = '';
 
@@ -123,16 +93,19 @@
                 const response = await fetch(WORKER_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: chatHistory })
+                    body: JSON.stringify({ contents: chatHistory }) // SENDING THE WHOLE HISTORY
                 });
                 const aiText = await response.text();
                 loading.remove();
+                
                 const botDiv = document.createElement('div');
                 botDiv.className = 'bot-bubble';
                 botDiv.innerHTML = marked.parse(aiText);
                 chatWindow.appendChild(botDiv);
+
+                // Update History with AI's reply
                 chatHistory.push({ role: "model", parts: [{ text: aiText }] });
-            } catch (e) { loading.innerText = "Error connecting to AI."; }
+            } catch (e) { loading.innerText = "Error."; }
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
         userInput.addEventListener("keypress", (e) => { if (e.key === "Enter") sendMessage(); });
