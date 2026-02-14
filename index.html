@@ -6,19 +6,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        /* FORCE FONTS */
+        /* NUCLEAR FONT FIX */
         * { font-family: 'Inter', sans-serif !important; }
-        h1, h2, .brand-text, button { 
+        h1, h2, .brand, button { 
             font-family: 'Montserrat', sans-serif !important; 
             font-weight: 900 !important; font-style: italic !important; text-transform: uppercase !important;
         }
         :root { --blue: #1d4ed8; --gold: #facc15; }
         body { background: #f9fafb; margin: 0; padding: 0; }
         nav { padding: 20px; border-bottom: 4px solid black; background: white; display: flex; justify-content: space-between; align-items: center; }
-        .brand-text { color: var(--blue); font-size: 1.6rem; line-height: 0.85; letter-spacing: -1.5px; }
+        .brand { color: var(--blue); font-size: 1.6rem; line-height: 0.85; }
         .nav-links a { text-decoration: none; color: black !important; font-weight: 700; margin-left: 20px; }
         .container { max-width: 1100px; margin: auto; padding: 60px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-        .chat-card { background: white; border: 4px solid black; box-shadow: 15px 15px 0px var(--gold); height: 500px; display: flex; flex-direction: column; }
+        .chat-card { background: white; border: 4px solid black; box-shadow: 12px 12px 0px var(--gold); height: 500px; display: flex; flex-direction: column; }
         #chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; }
         .msg { margin-bottom: 15px; padding: 12px; border-radius: 8px; max-width: 85%; }
         .bot { background: #f3f4f6; align-self: flex-start; }
@@ -30,15 +30,15 @@
 </head>
 <body>
     <nav>
-        <div class="brand-text">VV HOME<br>PRO</div>
+        <div class="brand">VV HOME<br>PRO</div>
         <div class="nav-links">
             <a href="index.html">Home</a>
-            <a href="about.html">About Us</a>
+            <a href="https://174hz.github.io/vvhomepro/about.html">About Us</a>
         </div>
     </nav>
     <main class="container">
         <div>
-            <h2 style="font-size: 4rem; line-height: 0.85;">VETTED <span style="color: var(--blue);">PROS.</span><br>ZERO RISK.</h2>
+            <h2 style="font-size: 4rem; line-height: 0.85;">VETTED PROS.<br><span style="color: var(--blue);">ZERO RISK.</span></h2>
         </div>
         <div class="chat-card">
             <div id="chat-window">
@@ -52,7 +52,7 @@
     </main>
     <script>
         const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
-        let history = [{ role: "user", parts: [{ text: "You are the VV HOME PRO assistant." }] }, { role: "model", parts: [{ text: "Understood." }] }];
+        let history = [{ role: "user", parts: [{ text: "You are the VV HOME PRO assistant for Ontario repairs." }] }, { role: "model", parts: [{ text: "Understood." }] }];
 
         async function send() {
             const input = document.getElementById('user-input');
@@ -69,13 +69,18 @@
             box.appendChild(load);
 
             try {
-                const res = await fetch(WORKER, { method: 'POST', body: JSON.stringify({ contents: history }) });
-                const txt = await res.text();
-                load.innerHTML = marked.parse(txt);
-                history.push({ role: "model", parts: [{ text: txt }] });
+                const res = await fetch(WORKER, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: history })
+                });
+                const aiText = await res.text();
+                load.innerHTML = marked.parse(aiText);
+                history.push({ role: "model", parts: [{ text: aiText }] });
             } catch (e) { load.innerText = "Connection error."; }
             box.scrollTop = box.scrollHeight;
         }
+        document.getElementById('user-input').addEventListener('keypress', (e) => { if(e.key === 'Enter') send(); });
     </script>
 </body>
 </html>
