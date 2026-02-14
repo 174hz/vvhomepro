@@ -2,83 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | VVHomePro Vetted & Verified</title>
+    <title>About Us | VV HOME PRO</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@900&display=swap" rel="stylesheet">
     <style>
-        :root { --blue: #1d4ed8; --gold: #facc15; --slate: #1e293b; --light: #f9fafb; }
-        body { font-family: 'Inter', sans-serif; line-height: 1.6; color: var(--slate); margin: 0; background: var(--light); }
+        /* FONT LOCKDOWN */
+        * { font-family: 'Inter', sans-serif !important; }
+        h1, h2, .brand, .btn-home { 
+            font-family: 'Montserrat', sans-serif !important; 
+            font-weight: 900 !important; font-style: italic !important; text-transform: uppercase !important;
+        }
+        :root { --blue: #1d4ed8; --gold: #facc15; }
+        body { background: #f9fafb; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
         
-        /* Header Typography */
-        h1, h2, h3 { font-family: 'Montserrat', sans-serif; text-transform: uppercase; }
-        .hero-title { font-size: 4rem; line-height: 0.85; letter-spacing: -2px; margin-bottom: 20px; }
+        .card { background: white; border: 4px solid black; box-shadow: 12px 12px 0px var(--gold); padding: 40px; max-width: 600px; text-align: center; }
+        .brand { color: var(--blue); font-size: 2rem; line-height: 0.8; margin-bottom: 20px; }
+        p { font-size: 1.1rem; line-height: 1.6; color: #334155; margin-bottom: 30px; }
         
-        /* Layout Containers */
-        .container { max-width: 1100px; margin: auto; padding: 80px 20px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        
-        /* The Audit Section */
-        .audit-card { background: white; border: 4px solid black; padding: 40px; box-shadow: 15px 15px 0px var(--gold); }
-        .value-tag { display: inline-block; background: var(--blue); color: white; padding: 5px 12px; font-weight: bold; margin-bottom: 10px; font-size: 0.8rem; }
-        
-        /* Icon List */
-        .check-list { list-style: none; padding: 0; }
-        .check-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 10px; font-weight: bold; }
-        .check-list li::before { content: "✓"; color: var(--blue); font-weight: 900; border: 2px solid var(--blue); border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px; }
-
-        .footer-cta { background: black; color: white; text-align: center; padding: 60px 20px; margin-top: 40px; }
+        .btn-home { 
+            display: inline-block; text-decoration: none; background: var(--blue); color: white; 
+            border: 3px solid black; padding: 15px 30px; cursor: pointer; transition: 0.2s;
+        }
+        .btn-home:hover { transform: translate(-4px, -4px); box-shadow: 4px 4px 0px black; }
     </style>
 </head>
 <body>
-
-    <section class="container">
-        <div class="grid">
-            <div>
-                <span style="font-weight: bold; color: var(--blue);">ESTABLISHING THE GOLD STANDARD</span>
-                <h1 class="hero-title">VETTED.<br>VERIFIED.<br><span style="color: var(--blue);">CERTIFIED.</span></h1>
-                <p style="font-size: 1.2rem; color: #4b5563;">VVHomePro is the exclusive trust-protocol for Ontario’s elite home professionals. We don't just list contractors; we verify masters of the craft.</p>
-            </div>
-            
-            <div class="audit-card">
-                <div class="value-tag">THE VVHP PROTOCOL</div>
-                <h3>The 100% Audit</h3>
-                <p>Before a pro earns the emblem, they undergo a rigorous 5-point self-audit and background validation:</p>
-                <ul class="check-list">
-                    <li>Active Trade Licensing (Ontario Standard)</li>
-                    <li>WSIB & Premium Liability Insurance</li>
-                    <li>Verified Residential Track Record</li>
-                    <li>The 100% Workmanship Pledge</li>
-                    <li>Annual Ethics Re-Certification</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <section style="background: white; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd;">
-        <div class="container" style="padding: 100px 20px;">
-            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 60px;">Our Core <span style="color: var(--blue);">Values</span></h2>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;">
-                <div>
-                    <h4 style="color: var(--blue);">01. Integrity</h4>
-                    <p>Doing the right thing when the homeowner isn't looking. Honest estimates, zero hidden fees.</p>
-                </div>
-                <div>
-                    <h4 style="color: var(--blue);">02. Accountability</h4>
-                    <p>Membership is a pledge. Our pros take full ownership of every project from start to finish.</p>
-                </div>
-                <div>
-                    <h4 style="color: var(--blue);">03. Craftsmanship</h4>
-                    <p>We partner with specialists, not generalists. Every joint and wire meets the master standard.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="footer-cta">
-        <h2>Are you an outstanding Home Pro?</h2>
-        <p>Join the 1% of Ontario's contractors. Start your verification today.</p>
-        <button style="background: var(--gold); border: 2px solid black; padding: 15px 30px; font-weight: 900; cursor: pointer; font-family: 'Montserrat';">APPLY FOR VERIFICATION</button>
+    <div class="card">
+        <div class="brand">VV HOME<br>PRO</div>
+        <h2>Vetted. Professional. Local.</h2>
+        <p>We connect Ontario homeowners with the top 1% of contractors. No more chasing quotes or worrying about quality. We've done the vetting for you.</p>
+        <a href="index.html" class="btn-home">BACK TO HOME</a>
     </div>
-
 </body>
 </html>
