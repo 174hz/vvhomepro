@@ -5,35 +5,65 @@
     <title>About Us | VV HOME PRO</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@900&display=swap" rel="stylesheet">
     <style>
-        /* THE NUCLEAR FONT OPTION */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@900&display=swap');
-
+        /* NUCLEAR FONT FIX */
         * { font-family: 'Inter', sans-serif !important; }
         h1, h2, .brand, .btn-home { 
             font-family: 'Montserrat', sans-serif !important; 
             font-weight: 900 !important; font-style: italic !important; text-transform: uppercase !important;
         }
         :root { --blue: #1d4ed8; --gold: #facc15; }
-        body { background: #f9fafb; margin: 0; padding: 20px; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
-        .card { background: white; border: 4px solid black; box-shadow: 12px 12px 0px var(--gold); padding: 50px; max-width: 700px; }
-        .brand { color: var(--blue); font-size: 2.2rem; line-height: 0.85; margin-bottom: 30px; letter-spacing: -1.5px; }
-        h2 { font-size: 1.8rem; color: #000; margin-bottom: 15px; }
-        p { font-size: 1.1rem; line-height: 1.6; color: #334155; margin-bottom: 20px; }
+        body { background: #f9fafb; margin: 0; padding: 40px 20px; display: flex; justify-content: center; }
         
+        .card { background: white; border: 4px solid black; box-shadow: 15px 15px 0px var(--gold); padding: 60px; max-width: 800px; }
+        .brand { color: var(--blue); font-size: 2.2rem; line-height: 0.85; margin-bottom: 40px; letter-spacing: -1.5px; }
+        h2 { font-size: 2rem; color: #000; margin: 30px 0 15px 0; border-left: 8px solid var(--blue); padding-left: 15px; }
+        p { font-size: 1.15rem; line-height: 1.7; color: #1e293b; margin-bottom: 20px; }
+        
+        .vetting-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 30px 0; }
+        .vet-item { background: #f8fafc; border: 2px solid black; padding: 20px; }
+        .vet-item strong { display: block; color: var(--blue); margin-bottom: 5px; text-transform: uppercase; font-size: 0.9rem; }
+
         .btn-home { 
             display: inline-block; text-decoration: none; background: var(--blue); color: white; 
-            border: 3px solid black; padding: 15px 35px; cursor: pointer; transition: 0.2s;
-            margin-top: 20px;
+            border: 4px solid black; padding: 20px 40px; cursor: pointer; transition: 0.2s;
+            margin-top: 40px; font-size: 1.1rem;
         }
-        .btn-home:hover { transform: translate(-4px, -4px); box-shadow: 4px 4px 0px black; }
+        .btn-home:hover { transform: translate(-5px, -5px); box-shadow: 5px 5px 0px black; }
     </style>
 </head>
 <body>
     <div class="card">
         <div class="brand">VV HOME<br>PRO</div>
-        <h2>THE ONTARIO STANDARD.</h2>
-        <p>VV HOME PRO was founded because finding a reliable contractor in Ontario shouldn't be a gamble. We vet contractors against the most rigorous standards in the industry.</p>
-        <a href="index.html" class="btn-home">BACK TO HOME</a>
+        
+        <h2>OUR MISSION</h2>
+        <p>VV HOME PRO was born in Ontario with one goal: to eliminate the "contractor gamble." We saw homeowners—our neighbors—losing thousands to no-shows, unlicensed handymen, and projects that never ended. We built this platform to be the definitive shield for the Ontario homeowner.</p>
+        
+        <h2>THE VV VETTING PROCESS</h2>
+        <p>We don't just "list" contractors. We audit them. Only the top 1% of Ontario pros make it onto our platform. Our verification process is the most rigorous in the industry:</p>
+        
+        <div class="vetting-grid">
+            <div class="vet-item">
+                <strong>01. LICENSING</strong>
+                Verified municipal and provincial trade licenses (HVAC, Electrical, Plumbing).
+            </div>
+            <div class="vet-item">
+                <strong>02. INSURANCE</strong>
+                $2M+ Liability and WSIB compliance check.
+            </div>
+            <div class="vet-item">
+                <strong>03. HISTORY</strong>
+                5+ years of clean project history and homeowner references.
+            </div>
+            <div class="vet-item">
+                <strong>04. STANDARDS</strong>
+                Agreement to the VV HOME PRO "Communication Guarantee."
+            </div>
+        </div>
+
+        <h2>WHY IT WORKS</h2>
+        <p>By using AI to match your specific problem—whether it’s a critical HVAC failure during a cold snap or a sudden roof leak—with the professional best equipped to handle it, we reduce response times and ensure the job is done to code the first time.</p>
+        
+        <a href="index.html" class="btn-home">RETURN TO HOME</a>
     </div>
 </body>
 </html>
