@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        /* FONT LOCKDOWN */
+        /* FORCE FONTS */
         * { font-family: 'Inter', sans-serif !important; }
         h1, h2, .brand, button { 
             font-family: 'Montserrat', sans-serif !important; 
@@ -33,7 +33,7 @@
         <div class="brand">VV HOME<br>PRO</div>
         <div class="nav-links">
             <a href="index.html">Home</a>
-            <a href="about.html">About Us</a>
+            <a href="https://174hz.github.io/vvhomepro/about.html">About Us</a>
         </div>
     </nav>
     <main class="container">
@@ -45,7 +45,7 @@
                 <div class="msg bot">Hi! I'm the VV HOME PRO assistant. What project are you starting in Ontario?</div>
             </div>
             <div class="input-bar">
-                <input type="text" id="user-input" placeholder="HVAC issue? Roof leak?">
+                <input type="text" id="user-input" placeholder="How can we help?">
                 <button onclick="send()">SEND</button>
             </div>
         </div>
@@ -53,7 +53,7 @@
 
     <script>
         const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
-        let history = [{ role: "user", parts: [{ text: "You are the VV HOME PRO assistant for Ontario repairs. Be helpful and expert." }] }, { role: "model", parts: [{ text: "Ready." }] }];
+        let history = [{ role: "user", parts: [{ text: "You are the VV HOME PRO assistant for Ontario repairs." }] }, { role: "model", parts: [{ text: "Understood." }] }];
 
         async function send() {
             const input = document.getElementById('user-input');
