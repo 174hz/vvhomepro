@@ -2,71 +2,131 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us | VV HOME PRO</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:ital,wght@1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:ital,wght@1,900&display=swap" rel="stylesheet">
     
     <style>
-        /* GLOBAL FONT LOCK */
-        * { font-family: 'Inter', sans-serif !important; }
+        :root { --blue: #1d4ed8; --gold: #facc15; --black: #000000; }
+        
+        * { box-sizing: border-box; }
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f8fafc; 
+            font-family: 'Inter', sans-serif; 
+            color: #1e293b; 
+            line-height: 1.6;
+        }
+
+        /* TYPOGRAPHY STANDARDS */
         h1, h2, .brand, .btn-home { 
             font-family: 'Montserrat', sans-serif !important; 
-            font-weight: 900 !important; font-style: italic !important; text-transform: uppercase !important;
+            font-weight: 900 !important; 
+            font-style: italic !important; 
+            text-transform: uppercase;
         }
-        :root { --blue: #1d4ed8; --gold: #facc15; }
-        body { background: #f9fafb; margin: 0; padding: 40px 20px; display: flex; justify-content: center; }
-        
-        .card { background: white; border: 4px solid black; box-shadow: 15px 15px 0px var(--gold); padding: 60px; max-width: 800px; }
-        .brand { color: var(--blue); font-size: 2.2rem; line-height: 0.85; margin-bottom: 40px; letter-spacing: -1.5px; }
-        h2 { font-size: 2rem; color: #000; margin: 30px 0 15px 0; border-left: 8px solid var(--blue); padding-left: 15px; }
-        p { font-size: 1.15rem; line-height: 1.7; color: #1e293b; margin-bottom: 20px; }
-        
-        .vetting-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 30px 0; }
-        .vet-item { background: #f8fafc; border: 2px solid black; padding: 20px; }
-        .vet-item strong { display: block; color: var(--blue); margin-bottom: 5px; text-transform: uppercase; font-size: 0.9rem; }
 
-        .btn-home { 
-            display: inline-block; text-decoration: none; background: var(--blue); color: white; 
-            border: 4px solid black; padding: 20px 40px; cursor: pointer; transition: 0.2s;
-            margin-top: 40px; font-size: 1.1rem;
+        /* CONTAINER */
+        .wrapper { max-width: 900px; margin: 60px auto; padding: 0 20px; }
+        
+        .main-card { 
+            background: white; 
+            border: 4px solid var(--black); 
+            box-shadow: 16px 16px 0px var(--gold); 
+            padding: 60px;
         }
-        .btn-home:hover { transform: translate(-5px, -5px); box-shadow: 5px 5px 0px black; }
+
+        .brand { color: var(--blue); font-size: 2.5rem; line-height: 0.8; margin-bottom: 40px; }
+
+        /* CONTENT SECTIONS */
+        section { margin-bottom: 40px; }
+        h2 { font-size: 1.8rem; margin-bottom: 15px; border-bottom: 4px solid var(--gold); display: inline-block; padding-bottom: 5px; }
+        p { font-size: 1.2rem; margin-bottom: 20px; }
+
+        /* VETTING GRID */
+        .vetting-list { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 20px; 
+            margin-top: 30px;
+        }
+        .vet-box { 
+            border: 3px solid var(--black); 
+            padding: 20px; 
+            background: #fff;
+        }
+        .vet-box strong { 
+            display: block; 
+            color: var(--blue); 
+            font-family: 'Montserrat', sans-serif; 
+            font-style: italic; 
+            margin-bottom: 8px;
+        }
+
+        /* NAV BUTTON */
+        .btn-home { 
+            display: inline-block; 
+            background: var(--blue); 
+            color: white; 
+            text-decoration: none; 
+            padding: 20px 40px; 
+            border: 4px solid var(--black); 
+            font-size: 1.2rem;
+            transition: 0.2s;
+            margin-top: 20px;
+        }
+        .btn-home:hover { 
+            transform: translate(-6px, -6px); 
+            box-shadow: 6px 6px 0px var(--black); 
+        }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="brand">VV HOME<br>PRO</div>
-        
-        <h2>OUR MISSION</h2>
-        <p>VV HOME PRO was born in Ontario with one goal: to eliminate the "contractor gamble." We saw homeowners—our neighbors—losing thousands to no-shows, unlicensed handymen, and projects that never ended. We built this platform to be the definitive shield for the Ontario homeowner.</p>
-        
-        <h2>THE VV VETTING PROCESS</h2>
-        <p>We don't just "list" contractors. We audit them. Only the top 1% of Ontario pros make it onto our platform. Our verification process is the most rigorous in the industry:</p>
-        
-        <div class="vetting-grid">
-            <div class="vet-item">
-                <strong>01. LICENSING</strong>
-                Verified municipal and provincial trade licenses (HVAC, Electrical, Plumbing).
-            </div>
-            <div class="vet-item">
-                <strong>02. INSURANCE</strong>
-                $2M+ Liability and WSIB compliance check.
-            </div>
-            <div class="vet-item">
-                <strong>03. HISTORY</strong>
-                5+ years of clean project history and homeowner references.
-            </div>
-            <div class="vet-item">
-                <strong>04. STANDARDS</strong>
-                Agreement to the VV HOME PRO "Communication Guarantee."
-            </div>
-        </div>
 
-        <h2>WHY IT WORKS</h2>
-        <p>By using AI to match your specific problem—whether it’s a critical HVAC failure during a cold snap or a sudden roof leak—with the professional best equipped to handle it, we reduce response times and ensure the job is done to code the first time.</p>
-        
-        <a href="index.html" class="btn-home">RETURN TO HOME</a>
+    <div class="wrapper">
+        <div class="main-card">
+            <div class="brand">VV HOME<br>PRO</div>
+
+            <section>
+                <h2>OUR MISSION</h2>
+                <p>VV HOME PRO was founded in Ontario to eliminate the "contractor gamble." We saw homeowners losing time and money to no-shows and subpar work. We built this platform to be the definitive shield for Ontario homeowners.</p>
+            </section>
+
+            <section>
+                <h2>THE VV VETTING PROCESS</h2>
+                <p>We don't just "list" contractors. We audit them. Only the top 1% of Ontario pros make it onto our platform. Our verification process is the most rigorous in the industry:</p>
+                
+                <div class="vetting-list">
+                    <div class="vet-box">
+                        <strong>01. LICENSING</strong>
+                        Verification of municipal and provincial trade licenses (HVAC, Electrical, Plumbing).
+                    </div>
+                    <div class="vet-box">
+                        <strong>02. INSURANCE</strong>
+                        Full $2M+ Liability and WSIB compliance audit for every pro.
+                    </div>
+                    <div class="vet-box">
+                        <strong>03. HISTORY</strong>
+                        Minimum 5 years of verified clean project history and homeowner references.
+                    </div>
+                    <div class="vet-box">
+                        <strong>04. GUARANTEE</strong>
+                        Contractors must sign the VV HOME PRO "Communication Guarantee."
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>WHY IT WORKS</h2>
+                <p>By using AI to match your specific problem—whether it’s a critical HVAC failure or a roof leak—with the professional best equipped to handle it, we ensure the job is done to code the first time.</p>
+            </section>
+
+            <a href="./index.html" class="btn-home">BACK TO HOME</a>
+        </div>
     </div>
+
 </body>
 </html>
