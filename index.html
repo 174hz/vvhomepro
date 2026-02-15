@@ -3,36 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VV HOME PRO | Ontario</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <title>VV HOME PRO | Ontario Trade Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        :root { --navy: #003366; --border: #e2e8f0; }
-        body { margin: 0; font-family: 'Inter', sans-serif; }
-        nav { background: #fff; border-bottom: 2px solid var(--navy); padding: 15px; text-align: center; }
-        nav a { text-decoration: none; color: var(--navy); font-family: 'Montserrat'; font-weight: 700; margin: 0 15px; text-transform: uppercase; font-size: 0.8rem; }
-        .hero { background: #f8fafc; padding: 60px 20px; text-align: center; border-bottom: 1px solid var(--border); }
-        .brand { font-family: 'Montserrat'; font-weight: 800; font-size: 2.5rem; color: var(--navy); }
-        .container { max-width: 1000px; margin: 40px auto; padding: 20px; display: flex; gap: 40px; }
-        .content { flex: 1; }
-        .chat-box { width: 350px; border: 1px solid var(--border); height: 400px; border-radius: 8px; display: flex; flex-direction: column; overflow: hidden; }
-        .chat-head { background: var(--navy); color: white; padding: 10px; font-family: 'Montserrat'; font-size: 0.7rem; }
+        :root { --navy: #003366; --accent-blue: #0056b3; --slate: #475569; --light-bg: #f8fafc; --border: #e2e8f0; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: #fff; color: #1e293b; }
+
+        nav {
+            background: #fff;
+            border-bottom: 2px solid var(--navy);
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav a {
+            text-decoration: none;
+            color: var(--navy);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .hero { background: var(--light-bg); padding: 60px 20px; text-align: center; border-bottom: 1px solid var(--border); }
+        .brand-text { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 2.5rem; color: var(--navy); letter-spacing: -1px; }
+
+        .container { max-width: 1100px; margin: 50px auto; display: grid; grid-template-columns: 1fr 400px; gap: 50px; padding: 0 20px; }
+        .content-left h2 { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; color: var(--navy); margin-bottom: 20px; }
+        
+        .vet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
+        .vet-card { padding: 15px; border: 1px solid var(--border); background: white; border-radius: 4px; }
+        .vet-card b { display: block; color: var(--navy); font-size: 0.9rem; text-transform: uppercase; margin-bottom: 5px; font-family: 'Montserrat'; }
+        
+        .chat-card { background: #fff; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); height: 550px; display: flex; flex-direction: column; overflow: hidden; }
+        .chat-header { background: var(--navy); color: white; padding: 12px 20px; font-family: 'Montserrat'; font-size: 0.75rem; font-weight: 700; }
+        #chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; font-size: 0.9rem; }
+        .msg { margin-bottom: 15px; }
+        .bot { border-left: 3px solid var(--accent-blue); padding-left: 12px; }
+        .user { text-align: right; background: #f1f5f9; padding: 8px; border-radius: 4px; color: var(--navy); font-weight: 600; }
+        .input-bar { padding: 15px; border-top: 1px solid var(--border); display: flex; gap: 10px; }
+        input { flex-grow: 1; padding: 10px; border: 1px solid var(--border); border-radius: 4px; outline: none; }
+        button { background: var(--navy); color: white; border: none; padding: 10px 20px; font-family: 'Montserrat'; font-weight: 700; cursor: pointer; border-radius: 4px; }
+
+        @media (max-width: 900px) { .container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="https://174hz.github.io/vvhomepro/index.html">Home</a>
-        <a href="https://174hz.github.io/vvhomepro/about.html">About Us</a>
-    </nav>
-    <div class="hero"><div class="brand">VV HOME PRO</div></div>
-    <div class="container">
-        <div class="content">
-            <h2>Professional Trade Verification</h2>
-            <p>Direct connection to verified Ontario professionals.</p>
-        </div>
-        <div class="chat-box">
-            <div class="chat-head">VV ASSISTANT</div>
-            <div style="padding: 20px; font-size: 0.8rem;">Assistant is active. Please resolve Quota in AI Studio.</div>
+
+<nav>
+    <a href="https://174hz.github.io/vvhomepro/index.html">Home</a>
+    <a href="https://174hz.github.io/vvhomepro/about.html">About Us</a>
+</nav>
+
+<section class="hero">
+    <div class="brand-text">VV HOME PRO</div>
+</section>
+
+<main class="container">
+    <div class="content-left">
+        <h2>Professional Trade Standards.</h2>
+        <p>VV HOME PRO provides a direct connection to verified trade professionals across Ontario, ensuring quality and reliability for residential repairs and renovations.</p>
+        
+        <div class="vet-grid">
+            <div class="vet-card"><b>Verified Licensing</b><p>Members meet relevant licensing requirements for the Province of Ontario.</p></div>
+            <div class="vet-card"><b>Insurance Audit</b><p>Comprehensive liability and safety compliance is verified for all partners.</p></div>
+            <div class="vet-card"><b>Proven Track Record</b><p>A history of consistent performance within the trade community.</p></div>
+            <div class="vet-card"><b>Accountability</b><p>Commitment to fair pricing and above-average response times.</p></div>
         </div>
     </div>
+
+    <div class="chat-card">
+        <div class="chat-header">VV ASSISTANT PORTAL</div>
+        <div id="chat-window">
+            <div class="msg bot">How can we assist with your Ontario home project today?</div>
+        </div>
+        <div class="input-bar">
+            <input type="text" id="user-input" placeholder="Describe your project...">
+            <button onclick="send()">SUBMIT</button>
+        </div>
+    </div>
+</main>
+
+<script>
+    const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
+    let history = [{ role: "user", parts: [{ text: "You are the VV HOME PRO Professional Assistant. Use an authoritative, helpful tone. Assist Ontario residents with trade vetting and project descriptions." }] }];
+    
+    async function send() {
+        const input = document.getElementById('user-input');
+        const val = input.value.trim();
+        if(!val) return;
+        
+        const box = document.getElementById('chat-window');
+        box.innerHTML += `<div class="msg user">${val}</div>`;
+        history.push({ role: "user", parts: [{ text: val }] });
+        input.value = '';
+
+        const load = document.createElement('div');
+        load.className = 'msg bot'; 
+        load.innerText = 'Analyzing compliance data...';
+        box.appendChild(load);
+
+        try {
+            const res = await fetch(WORKER, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contents: history })
+            });
+            const aiText = await res.text();
+            load.innerHTML = marked.parse(aiText);
+            history.push({ role: "model", parts: [{ text: aiText }] });
+        } catch (e) {
+            load.innerText = "Connection issue. Please verify your project status later.";
+        }
+        box.scrollTop = box.scrollHeight;
+    }
+    document.getElementById('user-input').addEventListener('keypress', (e) => { if(e.key === 'Enter') send(); });
+</script>
 </body>
 </html>
