@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        :root { --navy: #003366; --accent-blue: #0056b3; --slate: #475569; --light-bg: #f8fafc; --border: #e2e8f0; }
+        :root { --navy: #003366; --accent-blue: #0056b3; --slate: #475569; --light-bg: #f8fafc; --border: #e2e8f0; --amber: #fff9c4; --success: #c8e6c9; }
         body { margin: 0; font-family: 'Inter', sans-serif; background: #fff; color: #1e293b; }
 
         nav {
@@ -43,9 +43,14 @@
         .chat-card { background: #fff; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); height: 550px; display: flex; flex-direction: column; overflow: hidden; }
         .chat-header { background: var(--navy); color: white; padding: 12px 20px; font-family: 'Montserrat'; font-size: 0.75rem; font-weight: 700; }
         #chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; font-size: 0.9rem; }
-        .msg { margin-bottom: 15px; }
+        .msg { margin-bottom: 15px; transition: all 0.5s ease; border-radius: 4px; }
         .bot { border-left: 3px solid var(--accent-blue); padding-left: 12px; }
-        .user { text-align: right; background: #f1f5f9; padding: 8px; border-radius: 4px; color: var(--navy); font-weight: 600; }
+        .user { text-align: right; background: #f1f5f9; padding: 8px; color: var(--navy); font-weight: 600; }
+        
+        /* New Confirmation Styles */
+        .summary-mode { background-color: var(--amber) !important; padding: 10px; border: 1px solid #fbc02d !important; }
+        .confirmed-mode { background-color: var(--success) !important; padding: 10px; border: 1px solid #4caf50 !important; }
+
         .input-bar { padding: 15px; border-top: 1px solid var(--border); display: flex; gap: 10px; }
         input { flex-grow: 1; padding: 10px; border: 1px solid var(--border); border-radius: 4px; outline: none; }
         button { background: var(--navy); color: white; border: none; padding: 10px 20px; font-family: 'Montserrat'; font-weight: 700; cursor: pointer; border-radius: 4px; }
@@ -56,8 +61,8 @@
 <body>
 
 <nav>
-    <a href="https://174hz.github.io/vvhomepro/index.html">Home</a>
-    <a href="https://174hz.github.io/vvhomepro/about.html">About Us</a>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
 </nav>
 
 <section class="hero">
@@ -91,7 +96,7 @@
 
 <script>
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
-    let history = [{ role: "user", parts: [{ text: "You are the VV HOME PRO Professional Assistant. Use an authoritative, helpful tone. Assist Ontario residents with trade vetting and project descriptions." }] }];
+    let history = []; 
     
     async function send() {
         const input = document.getElementById('user-input');
@@ -99,9 +104,21 @@
         if(!val) return;
         
         const box = document.getElementById('chat-window');
+        
+        // Add user message
         box.innerHTML += `<div class="msg user">${val}</div>`;
         history.push({ role: "user", parts: [{ text: val }] });
         input.value = '';
+
+        // Handle the visual confirmation if user types "confirm"
+        if(val.toLowerCase() === 'confirm') {
+            const lastSummary = document.querySelector('.summary-mode');
+            if(lastSummary) {
+                lastSummary.classList.remove('summary-mode');
+                lastSummary.classList.add('confirmed-mode');
+                lastSummary.innerHTML += "<br><b>✅ SUBMITTED TO TEAM</b>";
+            }
+        }
 
         const load = document.createElement('div');
         load.className = 'msg bot'; 
@@ -115,6 +132,12 @@
                 body: JSON.stringify({ contents: history })
             });
             const aiText = await res.text();
+            
+            // Apply special styling if it's the summary
+            if(aiText.includes("Please review your details")) {
+                load.classList.add('summary-mode');
+            }
+
             load.innerHTML = marked.parse(aiText);
             history.push({ role: "model", parts: [{ text: aiText }] });
         } catch (e) {
