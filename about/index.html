@@ -6,23 +6,10 @@
     <title>About Us | VV HOME PRO</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --navy: #003366; 
-            --accent-blue: #0056b3; 
-            --slate: #475569; 
-            --light-bg: #f8fafc; 
-            --border: #e2e8f0; 
-        }
+        :root { --navy: #003366; --accent-blue: #0056b3; --slate: #475569; --light-bg: #f8fafc; --border: #e2e8f0; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: #fff; color: #1e293b; line-height: 1.6; }
 
-        body { 
-            margin: 0; 
-            font-family: 'Inter', sans-serif; 
-            background: #fff; 
-            color: #1e293b; 
-            line-height: 1.6; 
-        }
-
-        /* GLOBAL NAVIGATION BAR */
+        /* MATCHING NAVIGATION */
         nav {
             background: #fff;
             border-bottom: 2px solid var(--navy);
@@ -34,7 +21,6 @@
             top: 0;
             z-index: 1000;
         }
-
         nav a {
             text-decoration: none;
             color: var(--navy);
@@ -42,92 +28,23 @@
             font-weight: 700;
             font-size: 0.85rem;
             text-transform: uppercase;
-            transition: color 0.2s;
         }
-
         nav a:hover { color: var(--accent-blue); }
 
-        /* CONTENT */
-        .container { 
-            max-width: 800px; 
-            margin: 60px auto; 
-            padding: 0 20px; 
-        }
+        .container { max-width: 800px; margin: 60px auto; padding: 0 20px; }
+        h1 { font-family: 'Montserrat', sans-serif; font-size: 2.2rem; color: var(--navy); margin-bottom: 30px; }
+        h2 { font-family: 'Montserrat', sans-serif; font-size: 1.2rem; color: var(--navy); text-transform: uppercase; margin-top: 40px; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
+        p { font-size: 1.1rem; margin-bottom: 20px; color: #334155; }
 
-        h1 { 
-            font-family: 'Montserrat', sans-serif; 
-            font-size: 2.2rem; 
-            color: var(--navy); 
-            margin-bottom: 30px; 
-        }
+        .pillar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 30px 0; }
+        .pillar { padding: 20px; background: var(--light-bg); border-radius: 4px; border-left: 4px solid var(--navy); }
+        .pillar b { display: block; margin-bottom: 5px; color: var(--navy); text-transform: uppercase; font-size: 0.85rem; }
 
-        h2 { 
-            font-family: 'Montserrat', sans-serif; 
-            font-size: 1.2rem; 
-            color: var(--navy); 
-            text-transform: uppercase; 
-            margin-top: 40px; 
-            border-bottom: 2px solid var(--border); 
-            padding-bottom: 10px; 
-        }
+        .btn-box { text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--border); }
+        .btn-back { display: inline-block; background: var(--navy); color: white; padding: 14px 40px; text-decoration: none; font-family: 'Montserrat'; font-weight: 700; font-size: 0.9rem; border-radius: 4px; transition: transform 0.2s; }
+        .btn-back:hover { background: var(--accent-blue); transform: translateY(-2px); }
 
-        p { 
-            font-size: 1.1rem; 
-            margin-bottom: 20px; 
-            color: #334155; 
-        }
-
-        .pillar-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .pillar {
-            padding: 20px;
-            background: var(--light-bg);
-            border-radius: 4px;
-            border-left: 4px solid var(--navy);
-        }
-
-        .pillar b {
-            display: block;
-            margin-bottom: 5px;
-            color: var(--navy);
-            text-transform: uppercase;
-            font-size: 0.85rem;
-        }
-
-        /* FOOTER BUTTON */
-        .btn-box { 
-            text-align: center; 
-            margin-top: 50px; 
-            padding-top: 30px; 
-            border-top: 1px solid var(--border); 
-        }
-
-        .btn-back { 
-            display: inline-block; 
-            background: var(--navy); 
-            color: white; 
-            padding: 14px 40px; 
-            text-decoration: none; 
-            font-family: 'Montserrat'; 
-            font-weight: 700; 
-            font-size: 0.9rem; 
-            border-radius: 4px; 
-            transition: transform 0.2s;
-        }
-
-        .btn-back:hover { 
-            background: var(--accent-blue); 
-            transform: translateY(-2px);
-        }
-
-        @media (max-width: 600px) {
-            .pillar-grid { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 600px) { .pillar-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
