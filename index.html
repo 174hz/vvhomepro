@@ -3,184 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VV HOME PRO | Ontario Trade Verification Portal</title>
+    <title>VV HOME PRO | Ontario Trade Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        :root { 
-            --navy: #003366; 
-            --accent-blue: #0056b3; 
-            --slate: #475569; 
-            --light-bg: #f8fafc;
-            --border: #e2e8f0;
-        }
+        :root { --navy: #003366; --accent-blue: #0056b3; --slate: #475569; --light-bg: #f8fafc; --border: #e2e8f0; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: #fff; color: #1e293b; }
 
-        body { 
-            margin: 0; 
-            font-family: 'Inter', sans-serif; 
-            background: #ffffff; 
-            color: #1e293b;
-        }
-
-        /* NAVIGATION */
+        /* GLOBAL NAVIGATION BAR */
         nav {
             background: #fff;
-            border-bottom: 3px solid var(--navy);
-            padding: 20px 0;
+            border-bottom: 2px solid var(--navy);
+            padding: 15px 0;
             display: flex;
             justify-content: center;
-            gap: 40px;
+            gap: 30px;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
         }
-
         nav a {
             text-decoration: none;
             color: var(--navy);
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
+            transition: color 0.2s;
         }
+        nav a:hover { color: var(--accent-blue); }
 
         /* HERO SECTION */
-        .hero {
-            background: var(--light-bg);
-            padding: 80px 20px;
-            text-align: center;
-            border-bottom: 1px solid var(--border);
-        }
+        .hero { background: var(--light-bg); padding: 60px 20px; text-align: center; border-bottom: 1px solid var(--border); }
+        .brand-text { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 2.5rem; color: var(--navy); letter-spacing: -1px; }
 
-        .brand-text {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            font-size: 3rem;
-            color: var(--navy);
-            margin: 0;
-            letter-spacing: -1.5px;
-        }
+        /* LAYOUT */
+        .container { max-width: 1100px; margin: 50px auto; display: grid; grid-template-columns: 1fr 400px; gap: 50px; padding: 0 20px; }
+        
+        .content-left h2 { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; color: var(--navy); margin-bottom: 20px; }
+        
+        /* BROAD VETTING CARDS */
+        .vet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
+        .vet-card { padding: 15px; border: 1px solid var(--border); background: white; border-radius: 4px; }
+        .vet-card b { display: block; color: var(--navy); font-size: 0.9rem; text-transform: uppercase; margin-bottom: 5px; font-family: 'Montserrat'; }
+        .vet-card p { font-size: 0.85rem; margin: 0; color: var(--slate); }
 
-        .hero h1 {
-            font-size: 1.25rem;
-            color: var(--slate);
-            font-weight: 500;
-            margin-top: 10px;
-        }
+        /* CHAT WINDOW */
+        .chat-card { background: #fff; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); height: 500px; display: flex; flex-direction: column; overflow: hidden; }
+        .chat-header { background: var(--navy); color: white; padding: 12px 20px; font-family: 'Montserrat'; font-size: 0.75rem; font-weight: 700; }
+        #chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; font-size: 0.9rem; }
+        .msg { margin-bottom: 15px; }
+        .bot { border-left: 3px solid var(--accent-blue); padding-left: 12px; }
+        .user { text-align: right; background: #f1f5f9; padding: 8px; border-radius: 4px; color: var(--navy); font-weight: 600; }
+        .input-bar { padding: 15px; border-top: 1px solid var(--border); display: flex; gap: 10px; }
+        input { flex-grow: 1; padding: 10px; border: 1px solid var(--border); border-radius: 4px; outline: none; }
+        button { background: var(--navy); color: white; border: none; padding: 10px 20px; font-family: 'Montserrat'; font-weight: 700; cursor: pointer; border-radius: 4px; }
 
-        /* MAIN LAYOUT */
-        .container {
-            max-width: 1100px;
-            margin: 60px auto;
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 50px;
-            padding: 0 20px;
-        }
-
-        .content-left h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2rem;
-            color: var(--navy);
-            margin-bottom: 20px;
-        }
-
-        /* AI VETTING TOOL */
-        .chat-card {
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            height: 550px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .chat-header {
-            background: var(--navy);
-            color: white;
-            padding: 15px 20px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        #chat-window {
-            flex-grow: 1;
-            padding: 20px;
-            overflow-y: auto;
-            background: #fff;
-            font-size: 0.95rem;
-        }
-
-        .msg { margin-bottom: 20px; line-height: 1.5; }
-        .bot { color: #1e293b; border-left: 3px solid var(--accent-blue); padding-left: 15px; }
-        .user { color: var(--navy); font-weight: 600; text-align: right; background: #f1f5f9; padding: 10px; border-radius: 4px; }
-
-        .input-bar {
-            padding: 20px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            gap: 10px;
-        }
-
-        input {
-            flex-grow: 1;
-            padding: 12px;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            outline: none;
-        }
-
-        button {
-            background: var(--navy);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-
-        button:hover { background: var(--accent-blue); }
-
-        @media (max-width: 900px) {
-            .container { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 900px) { .container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
 <nav>
-    <a href="index.html">Portal Home</a>
-    <a href="about.html">Verification Standards</a>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
 </nav>
 
 <section class="hero">
     <div class="brand-text">VV HOME PRO</div>
-    <h1>Ontario's Authority in Trade Verification & Compliance</h1>
 </section>
 
 <main class="container">
     <div class="content-left">
-        <h2>Protecting Ontario Homeowners.</h2>
-        <p>VV HOME PRO is a digital oversight portal designed to vet and monitor residential contractors. We bridge the gap between emergency repair needs and verified technical competence.</p>
-        <div style="margin-top: 40px; padding: 25px; border: 1px solid var(--border); background: var(--light-bg);">
-            <h3 style="font-family: 'Montserrat'; font-size: 1rem; color: var(--navy);">COMPLIANCE NOTICE</h3>
-            <p style="font-size: 0.9rem; color: var(--slate);">All contractors dispatched through this portal have undergone a 4-point credential audit including TSSA, WSIB, and Liability Insurance verification.</p>
+        <h2>Professional Standards.</h2>
+        <p>VV HOME PRO was founded in Ontario to eliminate uncertainty in home repairs. Our mandate is to provide homeowners with a direct connection to verified trade professionals, ensuring quality and reliability for every project.</p>
+        
+        <div class="vet-grid">
+            <div class="vet-card">
+                <b>Verified Licensing</b>
+                <p>Our members all meet relevant licensing requirements for the Province of Ontario.</p>
+            </div>
+            <div class="vet-card">
+                <b>Insurance Audit</b>
+                <p>Comprehensive liability and workplace safety compliance is verified for all partners.</p>
+            </div>
+            <div class="vet-card">
+                <b>Proven Track Record</b>
+                <p>A history of consistent performance and positive standing within the trade community.</p>
+            </div>
+            <div class="vet-card">
+                <b>Accountability</b>
+                <p>A binding commitment to fair, transparent pricing and above-average response times.</p>
+            </div>
         </div>
     </div>
 
     <div class="chat-card">
-        <div class="chat-header">ASSISTANT ID: VV-492 (ACTIVE)</div>
+        <div class="chat-header">VV ASSISTANT PORTAL</div>
         <div id="chat-window">
-            <div class="msg bot">Welcome to the Verification Portal. Please state the nature of your home repair or renovation project to begin the vetting process.</div>
+            <div class="msg bot">How can we assist with your Ontario home project today?</div>
         </div>
         <div class="input-bar">
-            <input type="text" id="user-input" placeholder="e.g. HVAC, Roofing, Electrical...">
+            <input type="text" id="user-input" placeholder="Describe your project...">
             <button onclick="send()">SUBMIT</button>
         </div>
     </div>
@@ -188,39 +112,27 @@
 
 <script>
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
-    let history = [
-        { role: "user", parts: [{ text: "You are the VV HOME PRO AI Assistant. You help Ontario residents find verified, licensed contractors. Speak professionally and authoritatively." }] },
-        { role: "model", parts: [{ text: "I am ready to assist with trade verification." }] }
-    ];
-
+    let history = [{ role: "user", parts: [{ text: "You are the VV HOME PRO Professional Assistant. Be helpful, concise, and authoritative." }] }, { role: "model", parts: [{ text: "Understood." }] }];
     async function send() {
         const input = document.getElementById('user-input');
         const val = input.value.trim();
         if(!val) return;
-
         const box = document.getElementById('chat-window');
         box.innerHTML += `<div class="msg user">${val}</div>`;
         history.push({ role: "user", parts: [{ text: val }] });
         input.value = '';
-
         const load = document.createElement('div');
-        load.className = 'msg bot'; load.innerText = 'Analyzing compliance data...';
+        load.className = 'msg bot'; load.innerText = 'Connecting...';
         box.appendChild(load);
-
         try {
-            const res = await fetch(WORKER, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contents: history })
-            });
+            const res = await fetch(WORKER, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: history }) });
             const aiText = await res.text();
             load.innerHTML = marked.parse(aiText);
             history.push({ role: "model", parts: [{ text: aiText }] });
-        } catch (e) { load.innerText = "System temporarily offline. Please try again."; }
+        } catch (e) { load.innerText = "System currently unavailable."; }
         box.scrollTop = box.scrollHeight;
     }
     document.getElementById('user-input').addEventListener('keypress', (e) => { if(e.key === 'Enter') send(); });
 </script>
-
 </body>
 </html>
