@@ -3,156 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verification Standards | VV HOME PRO</title>
+    <title>About Us | VV HOME PRO</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --navy: #003366; 
-            --accent-blue: #0056b3; 
-            --slate: #475569; 
-            --light-bg: #f8fafc;
-            --border: #e2e8f0;
-        }
+        :root { --navy: #003366; --accent-blue: #0056b3; --slate: #475569; --light-bg: #f8fafc; --border: #e2e8f0; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: #fff; color: #1e293b; line-height: 1.6; }
 
-        body { 
-            margin: 0; 
-            font-family: 'Inter', sans-serif; 
-            background: #ffffff; 
-            color: #1e293b;
-            line-height: 1.6;
-        }
-
-        /* HEADER */
-        header {
+        nav {
             background: #fff;
-            border-bottom: 3px solid var(--navy);
-            padding: 20px 0;
-            text-align: center;
+            border-bottom: 2px solid var(--navy);
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-
-        .brand-logo {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            font-size: 1.8rem;
-            color: var(--navy);
-            text-transform: uppercase;
-            letter-spacing: -1px;
-        }
-
-        /* CONTENT AREA */
-        .container { max-width: 900px; margin: 60px auto; padding: 0 20px; }
-
-        h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.2rem;
-            color: var(--navy);
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        section { margin-bottom: 50px; }
-
-        h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.3rem;
-            color: var(--navy);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 10px;
-        }
-
-        .vetting-list {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-        }
-
-        .vet-item {
-            padding: 20px;
-            background: var(--light-bg);
-            border: 1px solid var(--border);
-            border-radius: 4px;
-        }
-
-        .vet-item b {
-            display: block;
-            color: var(--navy);
-            margin-bottom: 8px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.9rem;
-        }
-
-        /* FOOTER NAVIGATION */
-        .footer-nav {
-            margin-top: 60px;
-            padding-top: 30px;
-            border-top: 1px solid var(--border);
-            text-align: center;
-        }
-
-        .btn-back {
-            display: inline-block;
-            background: var(--navy);
-            color: white;
-            padding: 16px 45px;
+        nav a {
             text-decoration: none;
+            color: var(--navy);
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
-            font-size: 0.9rem;
-            border-radius: 4px;
-            transition: all 0.2s ease;
+            font-size: 0.85rem;
+            text-transform: uppercase;
         }
 
-        .btn-back:hover {
-            background: var(--accent-blue);
-            transform: translateY(-2px);
-        }
+        .container { max-width: 800px; margin: 60px auto; padding: 0 20px; }
+        h1 { font-family: 'Montserrat', sans-serif; font-size: 2.2rem; color: var(--navy); margin-bottom: 30px; }
+        h2 { font-family: 'Montserrat', sans-serif; font-size: 1.2rem; color: var(--navy); text-transform: uppercase; margin-top: 40px; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
+        p { font-size: 1.1rem; margin-bottom: 20px; color: #334155; }
 
-        @media (max-width: 600px) {
-            .vetting-list { grid-template-columns: 1fr; }
-        }
+        .btn-box { text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--border); }
+        .btn-back { display: inline-block; background: var(--navy); color: white; padding: 14px 40px; text-decoration: none; font-family: 'Montserrat'; font-weight: 700; font-size: 0.9rem; border-radius: 4px; }
+        .btn-back:hover { background: var(--accent-blue); }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="brand-logo">VV HOME PRO</div>
-</header>
+<nav>
+    <a href="./index.html">Home</a>
+    <a href="./about.html">About Us</a>
+</nav>
 
 <div class="container">
-    <h1>Verification Standards</h1>
+    <h1>Our Mission</h1>
+    <p>VV HOME PRO was established to redefine the relationship between Ontario homeowners and the trades. We believe that professional repairs should not be a matter of luck, but a matter of standard.</p>
+    
+    <p>Our mission is to eliminate risk for the consumer by ensuring every interaction is backed by verified expertise and clear accountability. We serve as the primary link for those seeking reliable, high-performance home solutions.</p>
 
-    <section>
-        <h2>The VV HOME PRO Mandate</h2>
-        <p>VV HOME PRO operates as an independent trade verification body in Ontario. Our mission is to protect homeowners by maintaining a rigorous compliance database of licensed professionals. We bridge the critical gap between emergency repair requirements and verified technical expertise.</p>
-    </section>
+    <h2>The Standard for Excellence</h2>
+    <p>We maintain a rigorous evaluation process that focuses on four key pillars of professional trade service: Licensing compliance, comprehensive insurance auditing, historical performance data, and a steadfast commitment to transparent, fair pricing models.</p>
 
-    <section>
-        <h2>Compliance Protocol</h2>
-        <div class="vetting-list">
-            <div class="vet-item">
-                <b>01. Credential Audit</b>
-                Physical verification of TSSA (HVAC), Master Plumber, and Red Seal certifications.
-            </div>
-            <div class="vet-item">
-                <b>02. Liability Assurance</b>
-                Ongoing monitoring of $2M+ commercial liability insurance and WSIB standing.
-            </div>
-            <div class="vet-item">
-                <b>03. Background Check</b>
-                Evaluation of consumer protection standing and historical performance records.
-            </div>
-            <div class="vet-item">
-                <b>04. Professional Standards</b>
-                Strict adherence to Ontario building codes and fixed-rate transparency.
-            </div>
-        </div>
-    </section>
-
-    <div class="footer-nav">
-        <a href="index.html" class="btn-back">BACK TO HOME</a>
+    <div class="btn-box">
+        <a href="./index.html" class="btn-back">BACK TO HOME</a>
     </div>
 </div>
 
