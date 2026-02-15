@@ -10,7 +10,6 @@
         :root { --navy: #003366; --accent-blue: #0056b3; --slate: #475569; --light-bg: #f8fafc; --border: #e2e8f0; }
         body { margin: 0; font-family: 'Inter', sans-serif; background: #fff; color: #1e293b; }
 
-        /* GLOBAL NAVIGATION BAR */
         nav {
             background: #fff;
             border-bottom: 2px solid var(--navy);
@@ -29,11 +28,8 @@
             font-weight: 700;
             font-size: 0.85rem;
             text-transform: uppercase;
-            transition: color 0.2s;
         }
-        nav a:hover { color: var(--accent-blue); }
 
-        /* HERO SECTION */
         .hero { background: var(--light-bg); padding: 60px 20px; text-align: center; border-bottom: 1px solid var(--border); }
         .brand-text { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 2.5rem; color: var(--navy); letter-spacing: -1px; }
 
@@ -43,8 +39,7 @@
         .vet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
         .vet-card { padding: 15px; border: 1px solid var(--border); background: white; border-radius: 4px; }
         .vet-card b { display: block; color: var(--navy); font-size: 0.9rem; text-transform: uppercase; margin-bottom: 5px; font-family: 'Montserrat'; }
-        .vet-card p { font-size: 0.85rem; margin: 0; color: var(--slate); }
-
+        
         .chat-card { background: #fff; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); height: 500px; display: flex; flex-direction: column; overflow: hidden; }
         .chat-header { background: var(--navy); color: white; padding: 12px 20px; font-family: 'Montserrat'; font-size: 0.75rem; font-weight: 700; }
         #chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; font-size: 0.9rem; }
@@ -75,22 +70,10 @@
         <p>VV HOME PRO provides a direct connection to verified trade professionals across Ontario, ensuring quality and reliability for residential repairs and renovations.</p>
         
         <div class="vet-grid">
-            <div class="vet-card">
-                <b>Verified Licensing</b>
-                <p>Members meet relevant licensing requirements for the Province of Ontario.</p>
-            </div>
-            <div class="vet-card">
-                <b>Insurance Audit</b>
-                <p>Comprehensive liability and safety compliance is verified for all partners.</p>
-            </div>
-            <div class="vet-card">
-                <b>Proven Track Record</b>
-                <p>A history of consistent performance within the trade community.</p>
-            </div>
-            <div class="vet-card">
-                <b>Accountability</b>
-                <p>Commitment to fair pricing and above-average response times.</p>
-            </div>
+            <div class="vet-card"><b>Verified Licensing</b><p>Members meet relevant licensing requirements for the Province of Ontario.</p></div>
+            <div class="vet-card"><b>Insurance Audit</b><p>Comprehensive liability and safety compliance is verified for all partners.</p></div>
+            <div class="vet-card"><b>Proven Track Record</b><p>A history of consistent performance within the trade community.</p></div>
+            <div class="vet-card"><b>Accountability</b><p>Commitment to fair pricing and above-average response times.</p></div>
         </div>
     </div>
 
@@ -108,7 +91,7 @@
 
 <script>
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
-    let history = [{ role: "user", parts: [{ text: "You are the VV HOME PRO Professional Assistant. Be helpful, concise, and authoritative." }] }, { role: "model", parts: [{ text: "Understood." }] }];
+    let history = [{ role: "user", parts: [{ text: "You are the VV HOME PRO Professional Assistant. Be helpful and authoritative." }] }];
     async function send() {
         const input = document.getElementById('user-input');
         const val = input.value.trim();
@@ -125,7 +108,7 @@
             const aiText = await res.text();
             load.innerHTML = marked.parse(aiText);
             history.push({ role: "model", parts: [{ text: aiText }] });
-        } catch (e) { load.innerText = "System currently unavailable."; }
+        } catch (e) { load.innerText = "System temporarily unavailable."; }
         box.scrollTop = box.scrollHeight;
     }
     document.getElementById('user-input').addEventListener('keypress', (e) => { if(e.key === 'Enter') send(); });
