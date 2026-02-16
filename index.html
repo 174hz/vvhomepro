@@ -72,21 +72,16 @@
         button { background: var(--navy); color: white; border: none; padding: 10px 25px; font-family: 'Montserrat'; font-weight: 700; cursor: pointer; border-radius: 4px; transition: background 0.3s; }
         button:hover { background: var(--accent-blue); }
 
-        /* FOOTER STYLING */
         footer { background: var(--deep-navy); color: #cbd5e1; padding: 60px 20px 30px; margin-top: 80px; font-size: 0.85rem; }
-        .footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; }
+        .footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; text-align: left; }
         .footer-col h4 { color: #fff; font-family: 'Montserrat'; text-transform: uppercase; margin-bottom: 20px; font-size: 0.9rem; }
-        .footer-col p { line-height: 1.6; }
         .footer-links { list-style: none; padding: 0; }
         .footer-links li { margin-bottom: 10px; }
         .footer-links a { color: #cbd5e1; text-decoration: none; transition: color 0.3s; }
         .footer-links a:hover { color: #fff; }
         .footer-bottom { max-width: 1100px; margin: 40px auto 0; padding-top: 20px; border-top: 1px solid #1e293b; text-align: center; color: #64748b; font-size: 0.75rem; }
 
-        @media (max-width: 900px) { 
-            .container { grid-template-columns: 1fr; } 
-            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
-        }
+        @media (max-width: 900px) { .container { grid-template-columns: 1fr; } .footer-grid { grid-template-columns: 1fr; gap: 30px; } }
     </style>
 </head>
 <body>
@@ -134,8 +129,8 @@
         <div class="footer-col">
             <h4>Legal</h4>
             <ul class="footer-links">
-                <li><a href="#terms" onclick="alert('Terms of Use: This portal is a matchmaking service. V&V Home Pro does not provide direct construction services. All matched members are independent contractors.')">Terms of Use</a></li>
-                <li><a href="#privacy" onclick="alert('Privacy Policy: We collect project data and contact information solely to facilitate matches with verified professionals. Your data is never sold to third-party advertisers.')">Privacy Policy</a></li>
+                <li><a href="terms.html">Terms of Use</a></li>
+                <li><a href="privacy.html">Privacy Policy</a></li>
             </ul>
         </div>
         <div class="footer-col">
