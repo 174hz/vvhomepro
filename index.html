@@ -12,7 +12,7 @@
             --deep-navy: #001a33; 
             --accent-blue: #0056b3; 
             --slate: #475569; 
-            --light-bg: #f8fafc; 
+            --light-bg: rgba(248, 250, 252, 0.95); 
             --border: #e2e8f0; 
             --amber: #fff9c4; 
             --success: #c8e6c9; 
@@ -21,14 +21,18 @@
         body { 
             margin: 0; 
             font-family: 'Inter', sans-serif; 
-            background: #fff; 
             color: #1e293b; 
             display: flex; 
             flex-direction: column; 
             min-height: 100vh; 
+            /* Subtle CC0 Luxury Background */
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
+                        url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
         }
 
-        /* SLIM COMPACT HEADER */
         header {
             display: flex;
             align-items: center;
@@ -39,169 +43,64 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         .brand-block { display: flex; align-items: center; gap: 15px; }
         .hero-logo { height: 50px; width: auto; }
-        .brand-text { 
-            font-family: 'Montserrat', sans-serif; 
-            font-weight: 800; 
-            font-size: 1.2rem; 
-            color: var(--navy); 
-            text-transform: uppercase; 
-            letter-spacing: -0.5px; 
-        }
+        .brand-text { font-family: 'Montserrat'; font-weight: 800; font-size: 1.2rem; color: var(--navy); text-transform: uppercase; letter-spacing: -0.5px; }
         
         nav { display: flex; gap: 25px; }
-        nav a { 
-            text-decoration: none; 
-            color: var(--navy); 
-            font-family: 'Montserrat', sans-serif; 
-            font-weight: 700; 
-            font-size: 0.75rem; 
-            text-transform: uppercase; 
-        }
+        nav a { text-decoration: none; color: var(--navy); font-family: 'Montserrat'; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; }
 
-        /* MAIN LAYOUT - OPTIMIZED FOR VISIBILITY */
         .container { 
             flex: 1; 
             max-width: 1200px; 
-            margin: 30px auto; 
+            margin: 40px auto; 
             display: grid; 
-            grid-template-columns: 1fr 400px; 
+            grid-template-columns: 1fr 420px; 
             gap: 50px; 
             padding: 0 20px; 
             align-items: start; 
         }
         
-        .content-left h2 { 
-            font-family: 'Montserrat', sans-serif; 
-            font-size: 1.9rem; 
-            color: var(--navy); 
-            margin-top: 0; 
-            line-height: 1.2;
-        }
+        .content-left { background: var(--light-bg); padding: 35px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .content-left h2 { font-family: 'Montserrat'; font-size: 1.9rem; color: var(--navy); margin-top: 0; line-height: 1.2; }
+        .content-left p { font-size: 1.05rem; color: var(--slate); margin-bottom: 25px; }
 
-        .content-left p {
-            font-size: 1.05rem;
-            color: var(--slate);
-            margin-bottom: 30px;
-        }
-
-        /* INSTRUCTIONS AREA */
-        .how-to { 
-            margin-top: 25px; 
-            position: relative; 
-            padding: 25px;
-            background: var(--light-bg);
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
-        .how-to h3 { 
-            font-family: 'Montserrat'; 
-            font-size: 0.9rem; 
-            text-transform: uppercase; 
-            color: var(--accent-blue); 
-            margin-top: 0;
-            margin-bottom: 20px; 
-        }
-        .step { display: flex; align-items: start; gap: 15px; margin-bottom: 15px; font-size: 0.95rem; line-height: 1.4; }
-        .step-num { 
-            background: var(--navy); 
-            color: white; 
-            width: 22px; 
-            height: 22px; 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 0.75rem; 
-            font-weight: bold;
-            flex-shrink: 0; 
-        }
+        .how-to { margin-top: 20px; padding: 25px; background: white; border-radius: 8px; border: 1px solid var(--border); position: relative; }
+        .how-to h3 { font-family: 'Montserrat'; font-size: 0.85rem; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 20px; }
+        .step { display: flex; align-items: start; gap: 15px; margin-bottom: 15px; font-size: 0.9rem; }
+        .step-num { background: var(--navy); color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; flex-shrink: 0; font-weight: 800; }
         
-        /* THE VISUAL ARROW CUE */
-        .arrow-cue {
-            position: absolute;
-            right: -45px;
-            top: 50%;
-            font-size: 3rem;
-            color: var(--navy);
-            animation: bounce 2s infinite;
-        }
-        @keyframes bounce { 
-            0%, 100% { transform: translateX(0); } 
-            50% { transform: translateX(15px); } 
-        }
+        .arrow-cue { position: absolute; right: -45px; top: 50%; font-size: 3rem; color: var(--navy); animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(15px); } }
 
-        /* CHAT CARD STYLES */
-        .chat-card { 
-            background: #fff; 
-            border: 1px solid var(--border); 
-            border-radius: 8px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
-            height: 600px; 
-            display: flex; 
-            flex-direction: column; 
-            overflow: hidden; 
-        }
-        .chat-header { 
-            background: var(--navy); 
-            color: white; 
-            padding: 15px 20px; 
-            font-family: 'Montserrat'; 
-            font-size: 0.7rem; 
-            font-weight: 700; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-        }
-        #chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; font-size: 0.95rem; background: #fff; }
+        .chat-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); height: 620px; display: flex; flex-direction: column; overflow: hidden; }
+        .chat-header { background: var(--navy); color: white; padding: 15px 20px; font-family: 'Montserrat'; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        #chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; font-size: 0.95rem; }
         
-        .msg { margin-bottom: 15px; padding: 12px; border-radius: 6px; line-height: 1.5; }
-        .bot { border-left: 4px solid var(--accent-blue); background: #f8fafc; color: var(--deep-navy); }
+        .msg { margin-bottom: 15px; padding: 12px; border-radius: 8px; }
+        .bot { border-left: 4px solid var(--accent-blue); background: #f8fafc; }
         .user { text-align: right; background: #f1f5f9; color: var(--navy); font-weight: 600; margin-left: 20%; }
-        
         .summary-mode { background-color: var(--amber) !important; border: 1px solid #fbc02d !important; }
         .confirmed-mode { background-color: var(--success) !important; border: 1px solid #4caf50 !important; }
 
         .input-bar { padding: 15px; border-top: 1px solid var(--border); display: flex; gap: 10px; background: #fff; }
-        input { flex-grow: 1; padding: 12px; border: 1px solid var(--border); border-radius: 4px; outline: none; font-family: 'Inter'; }
-        button { 
-            background: var(--navy); 
-            color: white; 
-            border: none; 
-            padding: 10px 20px; 
-            font-family: 'Montserrat'; 
-            font-weight: 700; 
-            cursor: pointer; 
-            border-radius: 4px; 
-            transition: background 0.3s;
-        }
-        button:hover { background: var(--accent-blue); }
+        input { flex-grow: 1; padding: 12px; border: 1px solid var(--border); border-radius: 4px; outline: none; }
+        button { background: var(--navy); color: white; border: none; padding: 12px 20px; font-family: 'Montserrat'; font-weight: 700; cursor: pointer; border-radius: 4px; }
 
-        /* FOOTER */
-        footer { background: var(--deep-navy); color: #cbd5e1; padding: 60px 20px 30px; margin-top: 60px; font-size: 0.85rem; }
+        footer { background: var(--deep-navy); color: #cbd5e1; padding: 60px 20px 30px; margin-top: auto; font-size: 0.85rem; }
         .footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; }
         .footer-col h4 { color: #fff; margin-bottom: 20px; font-size: 0.9rem; text-transform: uppercase; font-family: 'Montserrat'; }
         .footer-links { list-style: none; padding: 0; }
         .footer-links li { margin-bottom: 10px; }
-        .footer-links a { color: #cbd5e1; text-decoration: none; transition: color 0.3s; }
-        .footer-links a:hover { color: #fff; }
-        .footer-bottom { 
-            max-width: 1100px; 
-            margin: 40px auto 0; 
-            padding-top: 20px; 
-            border-top: 1px solid #1e293b; 
-            text-align: center; 
-            color: #64748b; 
-            font-size: 0.75rem; 
-        }
+        .footer-links a { color: #cbd5e1; text-decoration: none; }
+        .footer-bottom { max-width: 1100px; margin: 40px auto 0; padding-top: 20px; border-top: 1px solid #1e293b; text-align: center; font-size: 0.75rem; }
 
         @media (max-width: 950px) { 
-            header { flex-direction: column; gap: 15px; text-align: center; padding: 20px; }
-            .container { grid-template-columns: 1fr; margin-top: 20px; }
+            header { flex-direction: column; gap: 15px; text-align: center; }
+            .container { grid-template-columns: 1fr; }
             .arrow-cue { display: none; }
-            .how-to { padding-right: 25px; }
         }
     </style>
 </head>
@@ -221,33 +120,14 @@
 <main class="container">
     <div class="content-left">
         <h2>Secure Connections to Ontario’s Tier-1 Home Service Specialists</h2>
-        <p>
-            V&V Home Pro is the definitive gateway for homeowners who demand excellence. 
-            Our proprietary matching engine bypasses the general market to connect you 
-            exclusively with <strong>Ontario’s elite trade specialists</strong>—those 
-            who have cleared our stringent Pinnacle Audit for licensing, insurance, 
-            and high-performance craftsmanship.
-        </p>
+        <p>V&V Home Pro is the definitive gateway for homeowners who demand excellence. We bypass the general market to connect you exclusively with Ontario’s audited elite trade specialists.</p>
         
         <div class="how-to">
             <h3>How to use the matching portal</h3>
-            <div class="step">
-                <span class="step-num">1</span> 
-                <span><strong>Define your project:</strong> Succinctly describe the trade specialist you require (e.g., HVAC, Electrical, Master Roofing).</span>
-            </div>
-            <div class="step">
-                <span class="step-num">2</span> 
-                <span><strong>Contact Details:</strong> Provide your name, Ontario location, and preferred contact method for the specialist.</span>
-            </div>
-            <div class="step">
-                <span class="step-num">3</span> 
-                <span><strong>Consultation Window:</strong> Specify the best time for a Tier-1 member to reach out for a project assessment.</span>
-            </div>
-            <div class="step">
-                <span class="step-num">4</span> 
-                <span><strong>Authorization:</strong> Type <strong>"CONFIRM"</strong> to verify your details and authorize a direct connection.</span>
-            </div>
-            
+            <div class="step"><span class="step-num">1</span> <span><strong>Define project:</strong> Describe the trade specialist required (e.g., HVAC, Electrical).</span></div>
+            <div class="step"><span class="step-num">2</span> <span><strong>Contact:</strong> Provide your name, Ontario location, and phone/email.</span></div>
+            <div class="step"><span class="step-num">3</span> <span><strong>Schedule:</strong> Specify the best time for a Tier-1 member to reach out.</span></div>
+            <div class="step"><span class="step-num">4</span> <span><strong>Authorize:</strong> Type <strong>"CONFIRM"</strong> to verify details and authorize the match.</span></div>
             <div class="arrow-cue">➔</div>
         </div>
     </div>
@@ -255,7 +135,7 @@
     <div class="chat-card">
         <div class="chat-header">Proprietary Matching Portal</div>
         <div id="chat-window">
-            <div class="msg bot">Welcome to the V&V Registry. To begin our proprietary matching process for your Ontario project, please briefly describe the work you need completed.</div>
+            <div class="msg bot">Welcome to the V&V Registry. To begin our proprietary matching process, please briefly describe the trade work you need completed.</div>
         </div>
         <div class="input-bar">
             <input type="text" id="user-input" placeholder="e.g. Need elite HVAC specialist in Vaughan...">
@@ -268,7 +148,7 @@
     <div class="footer-grid">
         <div class="footer-col">
             <h4>Vetted & Verified Home Pro</h4>
-            <p>The standard-bearer for Ontario trade quality. We provide a bridge between elite homeowners and the most disciplined trade professionals in the province. Every match is governed by our Pinnacle Audit standards.</p>
+            <p>The standard-bearer for Ontario trade quality. Every match is governed by our Pinnacle Audit standards.</p>
         </div>
         <div class="footer-col">
             <h4>Legal</h4>
@@ -286,69 +166,38 @@
             </ul>
         </div>
     </div>
-    <div class="footer-bottom">
-        &copy; 2026 Vetted & Verified Home Pro | Ontario, Canada. All Rights Reserved.
-    </div>
+    <div class="footer-bottom">&copy; 2026 Vetted & Verified Home Pro | Ontario, Canada.</div>
 </footer>
 
 <script>
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
     let history = []; 
-    
     async function send() {
         const input = document.getElementById('user-input');
         const val = input.value.trim();
         if(!val) return;
-        
         const box = document.getElementById('chat-window');
-        
-        // Add User Message
         box.innerHTML += `<div class="msg user">${val}</div>`;
         history.push({ role: "user", parts: [{ text: val }] });
         input.value = '';
-
-        // UI Logic for Confirmation
         if(val.toLowerCase() === 'confirm') {
             const lastSummary = document.querySelector('.summary-mode');
-            if(lastSummary) {
-                lastSummary.classList.remove('summary-mode');
-                lastSummary.classList.add('confirmed-mode');
-                lastSummary.innerHTML += "<br><br><b>✅ PROJECT AUTHORIZED & SUBMITTED TO V&V TIER-1 TEAM</b>";
-            }
+            if(lastSummary) { lastSummary.classList.replace('summary-mode', 'confirmed-mode'); lastSummary.innerHTML += "<br><br><b>✅ AUTHORIZED & SUBMITTED</b>"; }
         }
-
-        // Add Loading Placeholder
         const load = document.createElement('div');
-        load.className = 'msg bot'; 
-        load.innerText = 'Analyzing requirements for Tier-1 matching...';
+        load.className = 'msg bot'; load.innerText = 'Analyzing Tier-1 requirements...';
         box.appendChild(load);
         box.scrollTop = box.scrollHeight;
-
         try {
-            const res = await fetch(WORKER, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contents: history })
-            });
+            const res = await fetch(WORKER, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: history }) });
             const aiText = await res.text();
-            
-            // Highlight summary messages
-            if(aiText.toLowerCase().includes("confirm") || aiText.includes("SUMMARY") || aiText.includes("Please review")) {
-                load.classList.add('summary-mode');
-            }
-
+            if(aiText.toLowerCase().includes("confirm") || aiText.includes("SUMMARY")) load.classList.add('summary-mode');
             load.innerHTML = marked.parse(aiText);
             history.push({ role: "model", parts: [{ text: aiText }] });
-        } catch (e) {
-            load.innerText = "The portal is currently at capacity. Please refresh or try again shortly.";
-        }
+        } catch (e) { load.innerText = "System busy. Try again shortly."; }
         box.scrollTop = box.scrollHeight;
     }
-
-    // Handle Enter Key
-    document.getElementById('user-input').addEventListener('keypress', (e) => { 
-        if(e.key === 'Enter') send(); 
-    });
+    document.getElementById('user-input').addEventListener('keypress', (e) => { if(e.key === 'Enter') send(); });
 </script>
 </body>
 </html>
