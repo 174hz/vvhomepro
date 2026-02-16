@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | VV HOME PRO</title>
+    <title>About Us | VETTED & VERIFIED HOME PRO</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --navy: #003366; --accent-blue: #0056b3; --light-bg: #f8fafc; --border: #e2e8f0; }
-        body { margin: 0; font-family: 'Inter', sans-serif; background: #fff; color: #1e293b; line-height: 1.6; }
+        :root { --navy: #003366; --deep-navy: #001a33; --accent-blue: #0056b3; --slate: #475569; --light-bg: #f8fafc; --border: #e2e8f0; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: #fff; color: #1e293b; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
 
         nav {
             background: #fff;
@@ -29,12 +29,40 @@
             text-transform: uppercase;
         }
 
-        .header-section { background: var(--light-bg); padding: 40px 20px; text-align: center; border-bottom: 1px solid var(--border); }
-        .title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 2rem; color: var(--navy); }
+        .header-section { background: var(--light-bg); padding: 60px 20px; text-align: center; border-bottom: 1px solid var(--border); }
+        .hero-logo { height: 100px; width: auto; margin-bottom: 20px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
+        .title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 2.2rem; color: var(--navy); text-transform: uppercase; }
 
-        .content { max-width: 800px; margin: 50px auto; padding: 0 20px; }
-        h2 { font-family: 'Montserrat'; color: var(--navy); }
-        .highlight { border-left: 4px solid var(--accent-blue); padding-left: 20px; margin: 30px 0; font-style: italic; color: var(--slate); }
+        .content { flex: 1; max-width: 900px; margin: 50px auto; padding: 0 20px; }
+        h2 { font-family: 'Montserrat'; color: var(--navy); font-size: 1.8rem; margin-top: 40px; }
+        
+        .highlight { 
+            border-left: 5px solid var(--accent-blue); 
+            padding: 20px 30px; 
+            margin: 40px 0; 
+            background: var(--light-bg);
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--navy);
+            font-style: italic;
+        }
+
+        /* Pillars Grid */
+        .pillar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 30px; }
+        .pillar-card { padding: 25px; border: 1px solid var(--border); border-radius: 8px; background: #fff; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .pillar-card b { display: block; color: var(--navy); font-family: 'Montserrat'; font-size: 1rem; text-transform: uppercase; margin-bottom: 10px; }
+
+        /* Global Footer */
+        footer { background: var(--deep-navy); color: #cbd5e1; padding: 60px 20px 30px; margin-top: 80px; font-size: 0.85rem; }
+        .footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; text-align: left; }
+        .footer-col h4 { color: #fff; font-family: 'Montserrat'; text-transform: uppercase; margin-bottom: 20px; font-size: 0.9rem; }
+        .footer-links { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: #cbd5e1; text-decoration: none; transition: color 0.3s; }
+        .footer-links a:hover { color: #fff; }
+        .footer-bottom { max-width: 1100px; margin: 40px auto 0; padding-top: 20px; border-top: 1px solid #1e293b; text-align: center; color: #64748b; font-size: 0.75rem; }
+
+        @media (max-width: 768px) { .pillar-grid { grid-template-columns: 1fr; } .footer-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -45,20 +73,66 @@
 </nav>
 
 <section class="header-section">
-    <div class="title">Vetted & Verified</div>
+    <img src="logo.png" alt="V&V Silver Seal" class="hero-logo">
+    <div class="title">Professional Trade Standards</div>
 </section>
 
 <main class="content">
     <h2>Our Mission</h2>
-    <p>VV HOME PRO was founded to bridge the gap between Ontario homeowners and top-tier trade professionals. In an industry where trust is everything, we ensure every "Vetted & Verified" pro on our platform represents the pinnacle of craftsmanship and safety standards.</p>
+    <p><strong>VETTED & VERIFIED HOME PRO</strong> was established to eliminate the uncertainty inherent in the Ontario home renovation industry. We provide a bridge between elite homeowners and the most disciplined trade professionals in the province. In an industry where trust is the primary currency, we ensure every professional on our platform represents the "Creme de la Creme" of craftsmanship, safety, and business ethics.</p>
     
     <div class="highlight">
-        "We don't just find contractors; we audit excellence."
+        "Our mission is to eliminate uncertainty by auditing excellence before the first tool is ever lifted."
     </div>
 
-    <h2>The Standards</h2>
-    <p>Every professional in our network undergoes a rigorous review of their Ontario licensing (ESA/TSSA), WSIB compliance, and past performance history. When you see the VV badge, you know you are working with the best.</p>
+    <h2>The Pinnacle Audit</h2>
+    <p>Our proprietary technology and matching engine are governed by the <strong>Pinnacle Audit Standards</strong>. We don't just find contractors; we perform a deep-dive verification of the four pillars of trade reliability:</p>
+
+    <div class="pillar-grid">
+        <div class="pillar-card">
+            <b>Verified Licensing</b>
+            <p>Every member must hold and maintain relevant Ontario licensing (ESA for Electrical, TSSA for Gas) to ensure legal compliance.</p>
+        </div>
+        <div class="pillar-card">
+            <b>Insurance Audit</b>
+            <p>We verify comprehensive liability insurance and WSIB safety compliance annually to protect homeowners from project risk.</p>
+        </div>
+        <div class="pillar-card">
+            <b>Proven Track Record</b>
+            <p>We analyze historical performance and trade references, ensuring a verifiable history of excellence in the community.</p>
+        </div>
+        <div class="pillar-card">
+            <b>Accountability</b>
+            <p>Members commit to fair, transparent pricing and response times that set the gold standard for the industry.</p>
+        </div>
+    </div>
 </main>
+
+<footer>
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>Vetted & Verified Home Pro</h4>
+            <p>The standard-bearer for Ontario trade quality. We provide a bridge between elite homeowners and the most disciplined trade professionals in the province. Every match is governed by our Pinnacle Audit standards.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Legal</h4>
+            <ul class="footer-links">
+                <li><a href="terms.html">Terms of Use</a></li>
+                <li><a href="privacy.html">Privacy Policy</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Navigation</h4>
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 Vetted & Verified Home Pro | Ontario, Canada. All Rights Reserved.
+    </div>
+</footer>
 
 </body>
 </html>
