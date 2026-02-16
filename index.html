@@ -17,14 +17,17 @@
             --success: rgba(200, 230, 201, 0.9); 
         }
 
+        /* FLEXBOX STICKY FOOTER SETUP */
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
         body { 
-            margin: 0; 
             font-family: 'Inter', sans-serif; 
             color: #1e293b; 
             display: flex; 
-            flex-direction: column; 
-            min-height: 100vh; 
-            /* HIGH VISIBILITY BACKGROUND */
+            flex-direction: column; /* Stack header, main, footer vertically */
             background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-attachment: fixed;
@@ -39,10 +42,9 @@
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(5px);
             border-bottom: 2px solid var(--navy);
-            position: sticky;
-            top: 0;
             z-index: 1000;
         }
+
         .brand-block { display: flex; align-items: center; gap: 15px; }
         .hero-logo { height: 50px; width: auto; }
         .brand-text { font-family: 'Montserrat'; font-weight: 800; font-size: 1.2rem; color: var(--navy); text-transform: uppercase; }
@@ -50,8 +52,9 @@
         nav { display: flex; gap: 25px; }
         nav a { text-decoration: none; color: var(--navy); font-family: 'Montserrat'; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; }
 
+        /* MAIN CONTENT AREA GROWS TO PUSH FOOTER DOWN */
         .container { 
-            flex: 1; 
+            flex: 1 0 auto; /* This ensures the main area fills available space */
             max-width: 1200px; 
             margin: 40px auto; 
             display: grid; 
@@ -61,42 +64,17 @@
             align-items: start; 
         }
         
-        /* GLASSMORPHISM EFFECTS */
-        .content-left { 
-            background: rgba(255, 255, 255, 0.7); 
+        .content-left, .chat-card { 
+            background: rgba(255, 255, 255, 0.75); 
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             padding: 35px; 
             border-radius: 16px; 
             border: 1px solid var(--border); 
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15); 
         }
-        .content-left h2 { font-family: 'Montserrat'; font-size: 1.9rem; color: var(--navy); margin-top: 0; }
 
-        .how-to { 
-            margin-top: 20px; 
-            padding: 25px; 
-            background: rgba(255, 255, 255, 0.5); 
-            border-radius: 12px; 
-            border: 1px solid var(--border); 
-            position: relative; 
-        }
-        
-        .arrow-cue { position: absolute; right: -45px; top: 50%; font-size: 3rem; color: var(--navy); animation: bounce 2s infinite; }
-        @keyframes bounce { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(15px); } }
-
-        .chat-card { 
-            background: rgba(255, 255, 255, 0.8); 
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--border); 
-            border-radius: 16px; 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2); 
-            height: 620px; 
-            display: flex; 
-            flex-direction: column; 
-            overflow: hidden; 
-        }
+        .chat-card { height: 620px; display: flex; flex-direction: column; padding: 0; overflow: hidden; }
         .chat-header { background: var(--navy); color: white; padding: 15px 20px; font-family: 'Montserrat'; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
         #chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; font-size: 0.95rem; }
         
@@ -108,19 +86,31 @@
         .confirmed-mode { background-color: var(--success) !important; border: 1px solid #4caf50 !important; }
 
         .input-bar { padding: 15px; border-top: 1px solid var(--border); display: flex; gap: 10px; background: rgba(255, 255, 255, 0.6); }
-        input { flex-grow: 1; padding: 12px; border: 1px solid #cbd5e1; border-radius: 4px; outline: none; }
+        input { flex-grow: 1; padding: 12px; border: 1px solid #cbd5e1; border-radius: 4px; }
         button { background: var(--navy); color: white; border: none; padding: 12px 20px; font-family: 'Montserrat'; font-weight: 700; cursor: pointer; border-radius: 4px; }
 
-        footer { background: var(--deep-navy); color: #cbd5e1; padding: 60px 20px 30px; margin-top: auto; }
+        /* RESTORED FOOTER AREA */
+        footer { 
+            flex-shrink: 0; /* Prevents footer from squishing */
+            background: var(--deep-navy); 
+            color: #cbd5e1; 
+            padding: 40px 20px; 
+            margin-top: 40px; 
+        }
         .footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; }
+        .footer-col h4 { color: #fff; margin-bottom: 15px; font-family: 'Montserrat'; font-size: 0.9rem; text-transform: uppercase; }
+        .footer-links { list-style: none; padding: 0; font-size: 0.85rem; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a { color: #cbd5e1; text-decoration: none; }
+        .footer-bottom { text-align: center; border-top: 1px solid #1e293b; margin-top: 30px; padding-top: 20px; font-size: 0.75rem; }
 
         @media (max-width: 950px) { 
             .container { grid-template-columns: 1fr; }
-            .arrow-cue { display: none; }
         }
     </style>
 </head>
 <body>
+
 <header>
     <div class="brand-block">
         <img src="logo.png" alt="V&V Logo" class="hero-logo">
@@ -128,32 +118,56 @@
     </div>
     <nav><a href="index.html">Home</a><a href="about.html">About Us</a></nav>
 </header>
+
 <main class="container">
     <div class="content-left">
         <h2>Secure Connections to Ontario’s Tier-1 Home Service Specialists</h2>
         <p>V&V Home Pro connects you exclusively with Ontario’s audited elite trade specialists.</p>
-        <div class="how-to">
-            <h3>How to use the matching portal</h3>
-            <div style="display:flex; flex-direction:column; gap:10px; font-size:0.9rem;">
-                <div><strong>1. Define project:</strong> Describe the trade (Windows, Roofing, HVAC).</div>
-                <div><strong>2. Contact:</strong> Provide name, Ontario location, and phone/email.</div>
-                <div><strong>3. Schedule:</strong> Specify the best time for contact.</div>
-                <div><strong>4. Authorize:</strong> Type <strong>"CONFIRM"</strong> to authorize the match.</div>
-            </div>
-            <div class="arrow-cue">➔</div>
+        <div style="background: rgba(255, 255, 255, 0.4); padding: 20px; border-radius: 8px; border: 1px solid var(--border);">
+            <h3 style="font-family:'Montserrat'; font-size:0.8rem; text-transform:uppercase; color:var(--accent-blue);">Portal Instructions</h3>
+            <p style="font-size:0.9rem;">1. Describe your project (HVAC, Windows, etc.)<br>
+            2. Provide name and location<br>
+            3. Verify details and type <b>CONFIRM</b></p>
         </div>
     </div>
+
     <div class="chat-card">
         <div class="chat-header">Proprietary Matching Portal</div>
         <div id="chat-window">
             <div class="msg bot">Welcome to the V&V Registry. Briefly describe your project (e.g. Windows, Roofing, HVAC).</div>
         </div>
         <div class="input-bar">
-            <input type="text" id="user-input" placeholder="e.g. Need elite HVAC in Vaughan...">
+            <input type="text" id="user-input" placeholder="e.g. Need high-efficiency windows...">
             <button onclick="send()">MATCH ME</button>
         </div>
     </div>
 </main>
+
+<footer>
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>VV HOME PRO</h4>
+            <p>The standard-bearer for Ontario trade quality. Every match is governed by our Pinnacle Audit standards.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Trade Professionals</h4>
+            <ul class="footer-links">
+                <li><a href="apply.html">Apply for Registry</a></li>
+                <li><a href="#">Audit Criteria</a></li>
+                <li><a href="#">Member Login</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Legal</h4>
+            <ul class="footer-links">
+                <li><a href="privacy.html">Privacy Policy</a></li>
+                <li><a href="terms.html">Terms of Service</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 Vetted & Verified Home Pro | Secure Ontario Trade Portal</div>
+</footer>
+
 <script>
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
     let history = []; 
