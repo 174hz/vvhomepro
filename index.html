@@ -41,7 +41,6 @@
             gap: 20px;
         }
         
-        /* Authority Logo Styling */
         .hero-logo {
             height: 120px;
             width: auto;
@@ -59,16 +58,22 @@
         .container { max-width: 1100px; margin: 50px auto; display: grid; grid-template-columns: 1fr 400px; gap: 50px; padding: 0 20px; }
         .content-left h2 { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; color: var(--navy); margin-bottom: 20px; }
         
-        .vet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
-        .vet-card { padding: 15px; border: 1px solid var(--border); background: white; border-radius: 4px; }
-        .vet-card b { display: block; color: var(--navy); font-size: 0.9rem; text-transform: uppercase; margin-bottom: 5px; font-family: 'Montserrat'; }
-        
+        /* Styled call-to-action area */
+        .intro-box {
+            margin-top: 30px;
+            padding: 30px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            border-left: 5px solid var(--navy);
+        }
+
         .chat-card { background: #fff; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); height: 550px; display: flex; flex-direction: column; overflow: hidden; }
         .chat-header { background: var(--navy); color: white; padding: 12px 20px; font-family: 'Montserrat'; font-size: 0.75rem; font-weight: 700; }
         #chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; font-size: 0.9rem; }
         .msg { margin-bottom: 15px; transition: all 0.5s ease; border-radius: 4px; }
         .bot { border-left: 3px solid var(--accent-blue); padding-left: 12px; }
-        .user { text-align: right; background: #f1f5f9; padding: 8px; color: var(--navy); font-weight: 600; }
+        .user { text-align: right; background: #f1f5f9; padding: 8px; border-radius: 4px; color: var(--navy); font-weight: 600; }
         
         .summary-mode { background-color: var(--amber) !important; padding: 10px; border: 1px solid #fbc02d !important; }
         .confirmed-mode { background-color: var(--success) !important; padding: 10px; border: 1px solid #4caf50 !important; }
@@ -84,7 +89,7 @@
 
 <nav>
     <a href="index.html">Home</a>
-    <a href="about.html">Standards</a>
+    <a href="about.html">About Us</a>
 </nav>
 
 <section class="hero">
@@ -94,21 +99,20 @@
 
 <main class="container">
     <div class="content-left">
-        <h2>Professional Trade Standards.</h2>
-        <p>VETTED & VERIFIED HOME PRO provides a direct connection to verified trade professionals across Ontario, ensuring quality and reliability for residential repairs and renovations.</p>
+        <h2>Your Connection to Ontario's Finest Trades.</h2>
+        <p>VETTED & VERIFIED HOME PRO is an elite portal designed to bridge the gap between Ontario homeowners and trade professionals who have cleared our rigorous multi-point vetting process.</p>
         
-        <div class="vet-grid">
-            <div class="vet-card"><b>Verified Licensing</b><p>Members meet relevant licensing requirements for the Province of Ontario.</p></div>
-            <div class="vet-card"><b>Insurance Audit</b><p>Comprehensive liability and safety compliance is verified for all partners.</p></div>
-            <div class="vet-card"><b>Proven Track Record</b><p>A history of consistent performance within the trade community.</p></div>
-            <div class="vet-card"><b>Accountability</b><p>Commitment to fair pricing and above-average response times.</p></div>
+        <div class="intro-box">
+            <p><strong>Experience the V&V Difference:</strong></p>
+            <p>Our Expert Assistant is trained on Ontario building standards. Use the portal on the right to diagnose project issues, understand technical requirements, or be matched with a verified local professional.</p>
+            <p style="font-size: 0.85rem; color: var(--slate); font-style: italic;">Ask about roofing ventilation, deck frost lines, or EnergyStar window ratings to see our expertise in action.</p>
         </div>
     </div>
 
     <div class="chat-card">
         <div class="chat-header">V&V EXPERT ASSISTANT</div>
         <div id="chat-window">
-            <div class="msg bot">How can we assist with your Ontario home project today? I can answer technical questions regarding Roofing, HVAC, Windows, or Landscaping.</div>
+            <div class="msg bot">How can we assist with your Ontario home project today? I can provide technical insights or help you start the vetting process.</div>
         </div>
         <div class="input-bar">
             <input type="text" id="user-input" placeholder="Ask a question or describe your project...">
