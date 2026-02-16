@@ -25,7 +25,6 @@
             display: flex; 
             flex-direction: column; 
             min-height: 100vh; 
-            /* Subtle CC0 Luxury Background */
             background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
                         url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
@@ -79,11 +78,13 @@
         .chat-header { background: var(--navy); color: white; padding: 15px 20px; font-family: 'Montserrat'; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
         #chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; font-size: 0.95rem; }
         
-        .msg { margin-bottom: 15px; padding: 12px; border-radius: 8px; }
+        .msg { margin-bottom: 15px; padding: 12px; border-radius: 8px; white-space: pre-line; }
         .bot { border-left: 4px solid var(--accent-blue); background: #f8fafc; }
         .user { text-align: right; background: #f1f5f9; color: var(--navy); font-weight: 600; margin-left: 20%; }
+        
+        /* STATE STYLES */
         .summary-mode { background-color: var(--amber) !important; border: 1px solid #fbc02d !important; }
-        .confirmed-mode { background-color: var(--success) !important; border: 1px solid #4caf50 !important; }
+        .confirmed-mode { background-color: var(--success) !important; border: 1px solid #4caf50 !important; color: #1b5e20 !important; }
 
         .input-bar { padding: 15px; border-top: 1px solid var(--border); display: flex; gap: 10px; background: #fff; }
         input { flex-grow: 1; padding: 12px; border: 1px solid var(--border); border-radius: 4px; outline: none; }
@@ -124,7 +125,7 @@
         
         <div class="how-to">
             <h3>How to use the matching portal</h3>
-            <div class="step"><span class="step-num">1</span> <span><strong>Define project:</strong> Describe the trade specialist required (e.g., HVAC, Electrical).</span></div>
+            <div class="step"><span class="step-num">1</span> <span><strong>Define project:</strong> Describe the trade specialist required (e.g., HVAC, Electrical, Windows).</span></div>
             <div class="step"><span class="step-num">2</span> <span><strong>Contact:</strong> Provide your name, Ontario location, and phone/email.</span></div>
             <div class="step"><span class="step-num">3</span> <span><strong>Schedule:</strong> Specify the best time for a Tier-1 member to reach out.</span></div>
             <div class="step"><span class="step-num">4</span> <span><strong>Authorize:</strong> Type <strong>"CONFIRM"</strong> to verify details and authorize the match.</span></div>
@@ -135,10 +136,10 @@
     <div class="chat-card">
         <div class="chat-header">Proprietary Matching Portal</div>
         <div id="chat-window">
-            <div class="msg bot">Welcome to the V&V Registry. To begin our proprietary matching process, please briefly describe the trade work you need completed.</div>
+            <div class="msg bot">Welcome to the V&V Registry. To begin our proprietary matching process, please briefly describe the trade work you need completed (e.g. Windows, Roofing, HVAC).</div>
         </div>
         <div class="input-bar">
-            <input type="text" id="user-input" placeholder="e.g. Need elite HVAC specialist in Vaughan...">
+            <input type="text" id="user-input" placeholder="e.g. Need high-efficiency windows for my home...">
             <button onclick="send()">MATCH ME</button>
         </div>
     </div>
@@ -172,32 +173,63 @@
 <script>
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
     let history = []; 
+
     async function send() {
         const input = document.getElementById('user-input');
         const val = input.value.trim();
         if(!val) return;
+        
         const box = document.getElementById('chat-window');
+        
+        // 1. Display User Input
         box.innerHTML += `<div class="msg user">${val}</div>`;
+        
+        // 2. Logic for Confirmation Stage
+        if(val.toLowerCase() === 'confirm') {
+            const summaries = document.querySelectorAll('.summary-mode');
+            const lastSummary = summaries[summaries.length - 1];
+            if(lastSummary) {
+                lastSummary.classList.replace('summary-mode', 'confirmed-mode');
+                lastSummary.innerHTML += "\n\n<b>✅ AUTHORIZED & SUBMITTED TO TIER-1 REGISTRY</b>";
+            }
+        }
+
         history.push({ role: "user", parts: [{ text: val }] });
         input.value = '';
-        if(val.toLowerCase() === 'confirm') {
-            const lastSummary = document.querySelector('.summary-mode');
-            if(lastSummary) { lastSummary.classList.replace('summary-mode', 'confirmed-mode'); lastSummary.innerHTML += "<br><br><b>✅ AUTHORIZED & SUBMITTED</b>"; }
-        }
+
+        // 3. Add Loading Placeholder
         const load = document.createElement('div');
-        load.className = 'msg bot'; load.innerText = 'Analyzing Tier-1 requirements...';
+        load.className = 'msg bot'; 
+        load.innerText = 'Analyzing project requirements...';
         box.appendChild(load);
         box.scrollTop = box.scrollHeight;
+
         try {
-            const res = await fetch(WORKER, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: history }) });
+            const res = await fetch(WORKER, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contents: history })
+            });
             const aiText = await res.text();
-            if(aiText.toLowerCase().includes("confirm") || aiText.includes("SUMMARY")) load.classList.add('summary-mode');
+            
+            // 4. Summary Mode Detection
+            // We highlight the box if it looks like a review summary
+            if(aiText.includes("Please review") || aiText.includes("CONFIRM") || aiText.includes("Project details")) {
+                load.classList.add('summary-mode');
+            }
+
             load.innerHTML = marked.parse(aiText);
             history.push({ role: "model", parts: [{ text: aiText }] });
-        } catch (e) { load.innerText = "System busy. Try again shortly."; }
+        } catch (e) {
+            load.innerText = "System busy. Please refresh the portal.";
+        }
         box.scrollTop = box.scrollHeight;
     }
-    document.getElementById('user-input').addEventListener('keypress', (e) => { if(e.key === 'Enter') send(); });
+
+    // Handle Enter Key Press
+    document.getElementById('user-input').addEventListener('keypress', (e) => { 
+        if(e.key === 'Enter') send(); 
+    });
 </script>
 </body>
 </html>
