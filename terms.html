@@ -6,18 +6,57 @@
     <title>Terms of Use | VETTED & VERIFIED HOME PRO</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; line-height: 1.8; color: #334155; max-width: 900px; margin: 0 auto; padding: 60px 20px; background: #fff; }
-        h1 { font-family: 'Montserrat'; color: #003366; font-size: 2.5rem; border-bottom: 4px solid #003366; padding-bottom: 10px; margin-bottom: 40px; }
-        h2 { font-family: 'Montserrat'; color: #003366; margin-top: 40px; border-left: 4px solid #0056b3; padding-left: 15px; }
+        :root { --navy: #003366; --deep-navy: #001a33; --accent-blue: #0056b3; --slate: #475569; --light-bg: #f8fafc; --border: #e2e8f0; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: #fff; color: #1e293b; line-height: 1.8; display: flex; flex-direction: column; min-height: 100vh; }
+
+        nav {
+            background: #fff;
+            border-bottom: 2px solid var(--navy);
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav a {
+            text-decoration: none;
+            color: var(--navy);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .content { flex: 1; max-width: 900px; margin: 60px auto; padding: 0 20px; }
+        h1 { font-family: 'Montserrat'; color: var(--navy); font-size: 2.5rem; border-bottom: 4px solid var(--navy); padding-bottom: 10px; margin-bottom: 40px; }
+        h2 { font-family: 'Montserrat'; color: var(--navy); margin-top: 40px; border-left: 4px solid var(--accent-blue); padding-left: 15px; }
         .effective-date { font-weight: 600; color: #64748b; margin-bottom: 30px; }
-        section { margin-bottom: 30px; }
-        .back-link { display: inline-block; margin-bottom: 40px; text-decoration: none; color: #0056b3; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; }
+
+        /* Global Footer Styles */
+        footer { background: var(--deep-navy); color: #cbd5e1; padding: 60px 20px 30px; margin-top: 80px; font-size: 0.85rem; }
+        .footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; text-align: left; }
+        .footer-col h4 { color: #fff; font-family: 'Montserrat'; text-transform: uppercase; margin-bottom: 20px; font-size: 0.9rem; }
+        .footer-links { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: #cbd5e1; text-decoration: none; transition: color 0.3s; }
+        .footer-links a:hover { color: #fff; }
+        .footer-bottom { max-width: 1100px; margin: 40px auto 0; padding-top: 20px; border-top: 1px solid #1e293b; text-align: center; color: #64748b; font-size: 0.75rem; }
+
+        @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr; gap: 30px; } }
     </style>
 </head>
 <body>
-    <a href="index.html" class="back-link">← Return to Portal</a>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+</nav>
+
+<main class="content">
     <h1>Terms of Use</h1>
-    <p class="effective-date">Effective Date: February 15, 2026</p>
+    <p class="effective-date">Effective Date: February 16, 2026</p>
 
     <section>
         <h2>1. Acceptance of Terms</h2>
@@ -48,5 +87,33 @@
         <h2>6. Governing Law</h2>
         <p>Any claim relating to VVHP’s website shall be governed by the laws of the Province of Ontario without regard to its conflict of law provisions.</p>
     </section>
+</main>
+
+<footer>
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>Vetted & Verified Home Pro</h4>
+            <p>The standard-bearer for Ontario trade quality. We provide a bridge between elite homeowners and the most disciplined trade professionals in the province. Every match is governed by our Pinnacle Audit standards.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Legal</h4>
+            <ul class="footer-links">
+                <li><a href="terms.html">Terms of Use</a></li>
+                <li><a href="privacy.html">Privacy Policy</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Navigation</h4>
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 Vetted & Verified Home Pro | Ontario, Canada. All Rights Reserved.
+    </div>
+</footer>
+
 </body>
 </html>
