@@ -50,15 +50,15 @@
         .brand-text { 
             font-family: 'Montserrat', sans-serif; 
             font-weight: 800; 
-            font-size: 2.5rem; 
+            font-size: 2.2rem; 
             color: var(--navy); 
             letter-spacing: -1px; 
+            text-transform: uppercase;
         }
 
         .container { max-width: 1100px; margin: 50px auto; display: grid; grid-template-columns: 1fr 400px; gap: 50px; padding: 0 20px; }
         .content-left h2 { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; color: var(--navy); margin-bottom: 20px; }
         
-        /* Styled call-to-action area */
         .intro-box {
             margin-top: 30px;
             padding: 30px;
@@ -66,23 +66,25 @@
             border: 1px solid var(--border);
             border-radius: 8px;
             border-left: 5px solid var(--navy);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
 
-        .chat-card { background: #fff; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); height: 550px; display: flex; flex-direction: column; overflow: hidden; }
-        .chat-header { background: var(--navy); color: white; padding: 12px 20px; font-family: 'Montserrat'; font-size: 0.75rem; font-weight: 700; }
-        #chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; font-size: 0.9rem; }
-        .msg { margin-bottom: 15px; transition: all 0.5s ease; border-radius: 4px; }
-        .bot { border-left: 3px solid var(--accent-blue); padding-left: 12px; }
-        .user { text-align: right; background: #f1f5f9; padding: 8px; border-radius: 4px; color: var(--navy); font-weight: 600; }
+        .chat-card { background: #fff; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); height: 580px; display: flex; flex-direction: column; overflow: hidden; }
+        .chat-header { background: var(--navy); color: white; padding: 12px 20px; font-family: 'Montserrat'; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        #chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; font-size: 0.95rem; line-height: 1.5; }
+        .msg { margin-bottom: 15px; transition: all 0.5s ease; border-radius: 4px; padding: 10px; }
+        .bot { border-left: 3px solid var(--accent-blue); background: #f8fafc; }
+        .user { text-align: right; background: #f1f5f9; color: var(--navy); font-weight: 600; margin-left: 20%; }
         
-        .summary-mode { background-color: var(--amber) !important; padding: 10px; border: 1px solid #fbc02d !important; }
-        .confirmed-mode { background-color: var(--success) !important; padding: 10px; border: 1px solid #4caf50 !important; }
+        .summary-mode { background-color: var(--amber) !important; border: 1px solid #fbc02d !important; }
+        .confirmed-mode { background-color: var(--success) !important; border: 1px solid #4caf50 !important; }
 
-        .input-bar { padding: 15px; border-top: 1px solid var(--border); display: flex; gap: 10px; }
-        input { flex-grow: 1; padding: 10px; border: 1px solid var(--border); border-radius: 4px; outline: none; }
-        button { background: var(--navy); color: white; border: none; padding: 10px 20px; font-family: 'Montserrat'; font-weight: 700; cursor: pointer; border-radius: 4px; }
+        .input-bar { padding: 15px; border-top: 1px solid var(--border); display: flex; gap: 10px; background: #fff; }
+        input { flex-grow: 1; padding: 12px; border: 1px solid var(--border); border-radius: 4px; outline: none; font-size: 0.9rem; }
+        button { background: var(--navy); color: white; border: none; padding: 10px 25px; font-family: 'Montserrat'; font-weight: 700; cursor: pointer; border-radius: 4px; transition: background 0.3s; }
+        button:hover { background: var(--accent-blue); }
 
-        @media (max-width: 900px) { .container { grid-template-columns: 1fr; } }
+        @media (max-width: 900px) { .container { grid-template-columns: 1fr; } .brand-text { font-size: 1.8rem; } }
     </style>
 </head>
 <body>
@@ -94,29 +96,29 @@
 
 <section class="hero">
     <img src="logo.png" alt="Vetted & Verified Logo" class="hero-logo">
-    <div class="brand-text">VETTED & VERIFIED HOME PRO</div>
+    <div class="brand-text">Vetted & Verified Home Pro</div>
 </section>
 
 <main class="container">
     <div class="content-left">
-        <h2>Your Connection to Ontario's Finest Trades.</h2>
-        <p>VETTED & VERIFIED HOME PRO is an elite portal designed to bridge the gap between Ontario homeowners and trade professionals who have cleared our rigorous multi-point vetting process.</p>
+        <h2>Connecting Your Project to Ontario's "Creme de la Creme."</h2>
+        <p>VETTED & VERIFIED HOME PRO is an elite gateway for homeowners who refuse to compromise on quality. We don't just provide a list; we provide a curated connection to the top 1% of trade professionals in Ontario.</p>
         
         <div class="intro-box">
-            <p><strong>Experience the V&V Difference:</strong></p>
-            <p>Our Expert Assistant is trained on Ontario building standards. Use the portal on the right to diagnose project issues, understand technical requirements, or be matched with a verified local professional.</p>
-            <p style="font-size: 0.85rem; color: var(--slate); font-style: italic;">Ask about roofing ventilation, deck frost lines, or EnergyStar window ratings to see our expertise in action.</p>
+            <p><strong>The V&V Matching Engine:</strong></p>
+            <p>Tell our AI Assistant about your project requirements. Using our proprietary technology, we will analyze your details and match your specific project needs with one of Ontario’s <em>Vetted & Verified</em> service professionals.</p>
+            <p style="font-size: 0.9rem; color: var(--navy); font-weight: 700; margin-top: 15px;">Secure your match with a verified professional in seconds.</p>
         </div>
     </div>
 
     <div class="chat-card">
-        <div class="chat-header">V&V EXPERT ASSISTANT</div>
+        <div class="chat-header">V&V Proprietary Matching Portal</div>
         <div id="chat-window">
-            <div class="msg bot">How can we assist with your Ontario home project today? I can provide technical insights or help you start the vetting process.</div>
+            <div class="msg bot">Welcome to V&V Home Pro. To begin our proprietary matching process for your Ontario home project, please briefly describe the work you need completed.</div>
         </div>
         <div class="input-bar">
-            <input type="text" id="user-input" placeholder="Ask a question or describe your project...">
-            <button onclick="send()">SUBMIT</button>
+            <input type="text" id="user-input" placeholder="Describe your project here...">
+            <button onclick="send()">MATCH ME</button>
         </div>
     </div>
 </main>
@@ -141,13 +143,13 @@
             if(lastSummary) {
                 lastSummary.classList.remove('summary-mode');
                 lastSummary.classList.add('confirmed-mode');
-                lastSummary.innerHTML += "<br><b>✅ DETAILS VERIFIED & SUBMITTED</b>";
+                lastSummary.innerHTML += "<br><br><b>✅ PROJECT MATCHED & SUBMITTED TO V&V ELITE TEAM</b>";
             }
         }
 
         const load = document.createElement('div');
         load.className = 'msg bot'; 
-        load.innerText = 'Consulting trade standards...';
+        load.innerText = 'Analyzing requirements for elite matching...';
         box.appendChild(load);
 
         try {
@@ -158,14 +160,15 @@
             });
             const aiText = await res.text();
             
-            if(aiText.includes("Please review your details") || aiText.includes("Name:")) {
+            // Check for summary triggers
+            if(aiText.includes("Please review") || aiText.includes("Name:") || aiText.includes("SUMMARY")) {
                 load.classList.add('summary-mode');
             }
 
             load.innerHTML = marked.parse(aiText);
             history.push({ role: "model", parts: [{ text: aiText }] });
         } catch (e) {
-            load.innerText = "Connection issue. Please verify your project status later.";
+            load.innerText = "System busy. Please refresh or verify your project status later.";
         }
         box.scrollTop = box.scrollHeight;
     }
