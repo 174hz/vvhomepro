@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VV HOME PRO | Ontario Trade Portal</title>
+    <title>VETTED & VERIFIED HOME PRO | Ontario Trade Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
@@ -30,8 +30,31 @@
             text-transform: uppercase;
         }
 
-        .hero { background: var(--light-bg); padding: 60px 20px; text-align: center; border-bottom: 1px solid var(--border); }
-        .brand-text { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 2.5rem; color: var(--navy); letter-spacing: -1px; }
+        .hero { 
+            background: var(--light-bg); 
+            padding: 60px 20px; 
+            text-align: center; 
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        /* Authority Logo Styling */
+        .hero-logo {
+            height: 120px;
+            width: auto;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
+
+        .brand-text { 
+            font-family: 'Montserrat', sans-serif; 
+            font-weight: 800; 
+            font-size: 2.5rem; 
+            color: var(--navy); 
+            letter-spacing: -1px; 
+        }
 
         .container { max-width: 1100px; margin: 50px auto; display: grid; grid-template-columns: 1fr 400px; gap: 50px; padding: 0 20px; }
         .content-left h2 { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; color: var(--navy); margin-bottom: 20px; }
@@ -47,7 +70,6 @@
         .bot { border-left: 3px solid var(--accent-blue); padding-left: 12px; }
         .user { text-align: right; background: #f1f5f9; padding: 8px; color: var(--navy); font-weight: 600; }
         
-        /* New Confirmation Styles */
         .summary-mode { background-color: var(--amber) !important; padding: 10px; border: 1px solid #fbc02d !important; }
         .confirmed-mode { background-color: var(--success) !important; padding: 10px; border: 1px solid #4caf50 !important; }
 
@@ -62,17 +84,18 @@
 
 <nav>
     <a href="index.html">Home</a>
-    <a href="about.html">About Us</a>
+    <a href="about.html">Standards</a>
 </nav>
 
 <section class="hero">
-    <div class="brand-text">VV HOME PRO</div>
+    <img src="logo.png" alt="Vetted & Verified Logo" class="hero-logo">
+    <div class="brand-text">VETTED & VERIFIED HOME PRO</div>
 </section>
 
 <main class="container">
     <div class="content-left">
         <h2>Professional Trade Standards.</h2>
-        <p>VV HOME PRO provides a direct connection to verified trade professionals across Ontario, ensuring quality and reliability for residential repairs and renovations.</p>
+        <p>VETTED & VERIFIED HOME PRO provides a direct connection to verified trade professionals across Ontario, ensuring quality and reliability for residential repairs and renovations.</p>
         
         <div class="vet-grid">
             <div class="vet-card"><b>Verified Licensing</b><p>Members meet relevant licensing requirements for the Province of Ontario.</p></div>
@@ -83,12 +106,12 @@
     </div>
 
     <div class="chat-card">
-        <div class="chat-header">VV ASSISTANT PORTAL</div>
+        <div class="chat-header">V&V EXPERT ASSISTANT</div>
         <div id="chat-window">
-            <div class="msg bot">How can we assist with your Ontario home project today?</div>
+            <div class="msg bot">How can we assist with your Ontario home project today? I can answer technical questions regarding Roofing, HVAC, Windows, or Landscaping.</div>
         </div>
         <div class="input-bar">
-            <input type="text" id="user-input" placeholder="Describe your project...">
+            <input type="text" id="user-input" placeholder="Ask a question or describe your project...">
             <button onclick="send()">SUBMIT</button>
         </div>
     </div>
@@ -105,24 +128,22 @@
         
         const box = document.getElementById('chat-window');
         
-        // Add user message
         box.innerHTML += `<div class="msg user">${val}</div>`;
         history.push({ role: "user", parts: [{ text: val }] });
         input.value = '';
 
-        // Handle the visual confirmation if user types "confirm"
         if(val.toLowerCase() === 'confirm') {
             const lastSummary = document.querySelector('.summary-mode');
             if(lastSummary) {
                 lastSummary.classList.remove('summary-mode');
                 lastSummary.classList.add('confirmed-mode');
-                lastSummary.innerHTML += "<br><b>✅ SUBMITTED TO TEAM</b>";
+                lastSummary.innerHTML += "<br><b>✅ DETAILS VERIFIED & SUBMITTED</b>";
             }
         }
 
         const load = document.createElement('div');
         load.className = 'msg bot'; 
-        load.innerText = 'Analyzing compliance data...';
+        load.innerText = 'Consulting trade standards...';
         box.appendChild(load);
 
         try {
@@ -133,8 +154,7 @@
             });
             const aiText = await res.text();
             
-            // Apply special styling if it's the summary
-            if(aiText.includes("Please review your details")) {
+            if(aiText.includes("Please review your details") || aiText.includes("Name:")) {
                 load.classList.add('summary-mode');
             }
 
