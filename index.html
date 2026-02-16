@@ -7,8 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        :root { --navy: #003366; --accent-blue: #0056b3; --slate: #475569; --light-bg: #f8fafc; --border: #e2e8f0; --amber: #fff9c4; --success: #c8e6c9; }
-        body { margin: 0; font-family: 'Inter', sans-serif; background: #fff; color: #1e293b; }
+        :root { --navy: #003366; --deep-navy: #001a33; --accent-blue: #0056b3; --slate: #475569; --light-bg: #f8fafc; --border: #e2e8f0; --amber: #fff9c4; --success: #c8e6c9; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: #fff; color: #1e293b; display: flex; flex-direction: column; min-height: 100vh; }
 
         nav {
             background: #fff;
@@ -41,22 +41,10 @@
             gap: 20px;
         }
         
-        .hero-logo {
-            height: 120px;
-            width: auto;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
-        }
+        .hero-logo { height: 120px; width: auto; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
+        .brand-text { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 2.2rem; color: var(--navy); letter-spacing: -1px; text-transform: uppercase; }
 
-        .brand-text { 
-            font-family: 'Montserrat', sans-serif; 
-            font-weight: 800; 
-            font-size: 2.2rem; 
-            color: var(--navy); 
-            letter-spacing: -1px; 
-            text-transform: uppercase;
-        }
-
-        .container { max-width: 1100px; margin: 50px auto; display: grid; grid-template-columns: 1fr 400px; gap: 50px; padding: 0 20px; }
+        .container { flex: 1; max-width: 1100px; margin: 50px auto; display: grid; grid-template-columns: 1fr 400px; gap: 50px; padding: 0 20px; }
         .content-left h2 { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; color: var(--navy); margin-bottom: 20px; }
         
         .intro-box {
@@ -84,7 +72,21 @@
         button { background: var(--navy); color: white; border: none; padding: 10px 25px; font-family: 'Montserrat'; font-weight: 700; cursor: pointer; border-radius: 4px; transition: background 0.3s; }
         button:hover { background: var(--accent-blue); }
 
-        @media (max-width: 900px) { .container { grid-template-columns: 1fr; } .brand-text { font-size: 1.8rem; } }
+        /* FOOTER STYLING */
+        footer { background: var(--deep-navy); color: #cbd5e1; padding: 60px 20px 30px; margin-top: 80px; font-size: 0.85rem; }
+        .footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; }
+        .footer-col h4 { color: #fff; font-family: 'Montserrat'; text-transform: uppercase; margin-bottom: 20px; font-size: 0.9rem; }
+        .footer-col p { line-height: 1.6; }
+        .footer-links { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { color: #cbd5e1; text-decoration: none; transition: color 0.3s; }
+        .footer-links a:hover { color: #fff; }
+        .footer-bottom { max-width: 1100px; margin: 40px auto 0; padding-top: 20px; border-top: 1px solid #1e293b; text-align: center; color: #64748b; font-size: 0.75rem; }
+
+        @media (max-width: 900px) { 
+            .container { grid-template-columns: 1fr; } 
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+        }
     </style>
 </head>
 <body>
@@ -123,6 +125,32 @@
     </div>
 </main>
 
+<footer>
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>Vetted & Verified Home Pro</h4>
+            <p>The standard-bearer for Ontario trade quality. We provide a bridge between elite homeowners and the most disciplined trade professionals in the province. Every match is governed by our Pinnacle Audit standards.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Legal</h4>
+            <ul class="footer-links">
+                <li><a href="#terms" onclick="alert('Terms of Use: This portal is a matchmaking service. V&V Home Pro does not provide direct construction services. All matched members are independent contractors.')">Terms of Use</a></li>
+                <li><a href="#privacy" onclick="alert('Privacy Policy: We collect project data and contact information solely to facilitate matches with verified professionals. Your data is never sold to third-party advertisers.')">Privacy Policy</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Navigation</h4>
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 Vetted & Verified Home Pro | Ontario, Canada. All Rights Reserved.
+    </div>
+</footer>
+
 <script>
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
     let history = []; 
@@ -160,7 +188,6 @@
             });
             const aiText = await res.text();
             
-            // Check for summary triggers
             if(aiText.includes("Please review") || aiText.includes("Name:") || aiText.includes("SUMMARY")) {
                 load.classList.add('summary-mode');
             }
