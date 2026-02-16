@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Verification | V&V HOME PRO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --navy: #003366; --deep-navy: #001a33; --accent-blue: #0056b3; --border: #e2e8f0; --light-bg: #f8fafc; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: #fff; color: #1e293b; line-height: 1.6; }
+
+        nav { background: #fff; border-bottom: 2px solid var(--navy); padding: 15px 0; display: flex; justify-content: center; gap: 30px; }
+        nav a { text-decoration: none; color: var(--navy); font-family: 'Montserrat'; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; }
+
+        .container { max-width: 800px; margin: 60px auto; padding: 0 20px; }
+        h1 { font-family: 'Montserrat'; color: var(--navy); text-align: center; margin-bottom: 40px; }
+        
+        .audit-card { background: white; border: 1px solid var(--border); padding: 40px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .step-title { font-family: 'Montserrat'; font-size: 1.1rem; color: var(--navy); border-bottom: 2px solid var(--light-bg); padding-bottom: 10px; margin-bottom: 25px; display: flex; align-items: center; }
+        .step-num { background: var(--navy); color: white; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.75rem; margin-right: 12px; }
+
+        label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.9rem; }
+        input, select, textarea { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid var(--border); border-radius: 4px; box-sizing: border-box; font-family: 'Inter'; }
+        
+        .fee-box { background: var(--light-bg); padding: 20px; border-radius: 6px; border: 1px dashed var(--navy); text-align: center; margin: 30px 0; }
+        .fee-amount { font-size: 2rem; font-weight: 800; color: var(--navy); font-family: 'Montserrat'; }
+
+        .legal-scroll { height: 150px; overflow-y: scroll; background: #f1f5f9; padding: 15px; font-size: 0.8rem; border: 1px solid var(--border); margin-bottom: 15px; }
+
+        button { width: 100%; background: var(--navy); color: white; border: none; padding: 18px; font-family: 'Montserrat'; font-weight: 700; font-size: 1rem; cursor: pointer; border-radius: 4px; transition: 0.3s; }
+        button:hover { background: var(--accent-blue); }
+
+        footer { background: var(--deep-navy); color: #cbd5e1; padding: 40px 20px; margin-top: 80px; text-align: center; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+</nav>
+
+<div class="container">
+    <h1>Member Application & Audit</h1>
+
+    <div class="audit-card">
+        <form id="auditForm" onsubmit="handlePayment(event)">
+            
+            <div class="step-title"><span class="step-num">1</span> Legal Business Identity</div>
+            <label>Registered Business Name</label>
+            <input type="text" placeholder="e.g. Smith Roofing Ltd." required>
+            
+            <label>Ontario Business Number (BN)</label>
+            <input type="text" placeholder="9-digit number" required>
+
+            <div class="step-title"><span class="step-num">2</span> Pinnacle Audit: Technical Compliance</div>
+            <label>Primary Trade License Type & Number</label>
+            <input type="text" placeholder="e.g. ESA/ECRA #7001234" required>
+            
+            <label>Liability Insurance Coverage (CGL)</label>
+            <select required>
+                <option value="">Select Coverage Amount</option>
+                <option>$2,000,000 - Standard</option>
+                <option>$5,000,000 - High Aggregate</option>
+                <option>Over $5,000,000 - Elite Industrial</option>
+            </select>
+
+            <label>WSIB Account Status</label>
+            <select required>
+                <option value="">Select Status</option>
+                <option>In Good Standing (Clearance Available)</option>
+                <option>Exempt (Sole Proprietor - No Workers)</option>
+            </select>
+
+            <div class="step-title"><span class="step-num">3</span> Quality Standards Agreement</div>
+            <div class="legal-scroll">
+                <strong>TRADE MEMBER TERMS & CONDITIONS</strong><br><br>
+                1. LICENSING: Member warrants all trade licenses are active and valid in Ontario.<br>
+                2. THE SEAL: Use of the V&V Home Pro Silver Seal is permitted only during active membership.<br>
+                3. ETHICS: Member agrees to provide written contracts and a minimum 2-year workmanship warranty.<br>
+                4. DISPUTES: Member agrees to mandatory mediation if a V&V client files a formal quality complaint.<br>
+                5. FEES: The $499 annual fee covers the audit and directory listing. No lead volume is guaranteed.
+            </div>
+            <label style="font-weight: 400; cursor: pointer;">
+                <input type="checkbox" style="width: auto; margin-right: 10px;" required> I agree to the Trade Member Terms and the Pinnacle Audit standards.
+            </label>
+
+            <div class="fee-box">
+                <p style="margin: 0; font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px;">Annual Verification Dues</p>
+                <div class="fee-amount">$499.00 <small style="font-size: 0.9rem;">CAD</small></div>
+            </div>
+
+            <button type="submit">PROCEED TO SECURE PAYMENT</button>
+        </form>
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 Vetted & Verified Home Pro | Trade Membership Division
+</footer>
+
+<script>
+    function handlePayment(e) {
+        e.preventDefault();
+        // Here you would typically redirect to Stripe or a payment processor
+        alert("Redirecting to Secure Ontario Payment Gateway...\n\nIn a live environment, this would open Stripe to process your $499.00 membership fee.");
+    }
+</script>
+
+</body>
+</html>
