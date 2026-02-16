@@ -6,62 +6,43 @@
     <title>About Us | V&V HOME PRO</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --navy: #003366; --deep-navy: #001a33; --accent-blue: #0056b3; --light-bg: rgba(248, 250, 252, 0.96); --border: #e2e8f0; }
+        :root { --navy: #003366; --deep-navy: #001a33; --accent-blue: #0056b3; }
         body { 
             margin: 0; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh;
-            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
-                        url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1920&q=80');
-            background-size: cover; background-attachment: fixed;
+            background: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover; background-attachment: fixed; background-position: center;
         }
-
         header {
-            display: flex; align-items: center; justify-content: space-between; padding: 10px 40px; background: #fff; border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between; padding: 10px 40px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(5px); border-bottom: 2px solid var(--navy);
         }
-        .brand-block { display: flex; align-items: center; gap: 15px; }
-        .hero-logo { height: 50px; }
-        .brand-text { font-family: 'Montserrat'; font-weight: 800; font-size: 1.2rem; color: var(--navy); text-transform: uppercase; }
-        
-        nav { display: flex; gap: 25px; }
-        nav a { text-decoration: none; color: var(--navy); font-family: 'Montserrat'; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; }
-
-        .content { flex: 1; max-width: 800px; margin: 60px auto; padding: 40px; background: var(--light-bg); border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
-        h1 { font-family: 'Montserrat'; color: var(--navy); font-size: 2.2rem; margin-top: 0; }
-        h2 { font-family: 'Montserrat'; color: var(--navy); margin-top: 40px; }
-        .highlight { border-left: 5px solid var(--accent-blue); padding: 20px; background: white; font-weight: 500; font-style: italic; margin: 30px 0; border-radius: 0 8px 8px 0; }
-
-        footer { background: var(--deep-navy); color: #cbd5e1; padding: 60px 20px 30px; font-size: 0.8rem; }
-        .footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; }
-        .footer-bottom { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #1e293b; }
+        .content { 
+            flex: 1; max-width: 800px; margin: 60px auto; padding: 40px; 
+            background: rgba(255, 255, 255, 0.75); 
+            backdrop-filter: blur(15px); 
+            border-radius: 16px; 
+            border: 1px solid rgba(255, 255, 255, 0.3); 
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15); 
+        }
+        h1, h2 { font-family: 'Montserrat'; color: var(--navy); }
+        .highlight { border-left: 5px solid var(--accent-blue); padding: 20px; background: rgba(255, 255, 255, 0.5); font-style: italic; margin: 30px 0; border-radius: 0 8px 8px 0; }
+        footer { background: var(--deep-navy); color: #cbd5e1; padding: 60px 20px 30px; text-align: center; }
     </style>
 </head>
 <body>
-
 <header>
-    <div class="brand-block">
-        <img src="logo.png" alt="V&V Logo" class="hero-logo">
-        <div class="brand-text">Vetted & Verified Home Pro</div>
+    <div style="display:flex; align-items:center; gap:15px;">
+        <img src="logo.png" height="50">
+        <div style="font-family:'Montserrat'; font-weight:800; color:var(--navy); text-transform:uppercase;">Vetted & Verified Home Pro</div>
     </div>
-    <nav><a href="index.html">Home</a><a href="about.html">About Us</a></nav>
+    <nav><a href="index.html" style="text-decoration:none; color:var(--navy); font-weight:700;">Home</a></nav>
 </header>
-
 <main class="content">
     <h1>Our Mission</h1>
-    <p>VV HOME PRO was established to redefine the standard of home service procurement in Ontario. We act as a high-security bridge between discerning homeowners and the province's most disciplined Tier-1 trade specialists.</p>
-    
+    <p>VV HOME PRO redefines home service procurement in Ontario. We act as a high-security bridge between homeowners and Tier-1 trade specialists.</p>
     <div class="highlight">"We don't just facilitate introductions; we safeguard the integrity of your home projects."</div>
-
     <h2>Tier-1 Standards</h2>
-    <p>Our "Pinnacle Audit" is the most rigorous in the industry. We verify Ontario trade licensing (ESA/TSSA/OCWA), validate active insurance aggregates, and audit past project performance. When you connect with a member of our registry, you are accessing the top tier of Ontario’s home service professionals.</p>
+    <p>Our "Pinnacle Audit" verifies trade licensing, insurance, and past performance history. You are accessing the top tier of Ontario’s professionals.</p>
 </main>
-
-<footer>
-    <div class="footer-grid">
-        <div class="footer-col"><h4>Vetted & Verified</h4><p>The standard-bearer for Ontario trade quality.</p></div>
-        <div class="footer-col"><h4>Legal</h4><ul style="list-style:none;padding:0;"><li><a href="terms.html" style="color:#cbd5e1;text-decoration:none;">Terms</a></li><li><a href="privacy.html" style="color:#cbd5e1;text-decoration:none;">Privacy</a></li></ul></div>
-        <div class="footer-col"><h4>Navigation</h4><ul style="list-style:none;padding:0;"><li><a href="index.html" style="color:#cbd5e1;text-decoration:none;">Home</a></li><li><a href="apply.html" style="color:#cbd5e1;text-decoration:none;">Trade Join</a></li></ul></div>
-    </div>
-    <div class="footer-bottom">&copy; 2026 Vetted & Verified Home Pro.</div>
-</footer>
-
+<footer>&copy; 2026 Vetted & Verified Home Pro.</footer>
 </body>
 </html>
