@@ -182,7 +182,9 @@
 
 <script>
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
-    let history = []; 
+    
+    // Retrieve previous history from storage or start fresh
+    let history = JSON.parse(localStorage.getItem('vv_chat_history')) || [];
 
     async function send() {
         const input = document.getElementById('user-input');
@@ -192,7 +194,7 @@
         const box = document.getElementById('chat-window');
         box.innerHTML += `<div class="msg user">${val}</div>`;
         
-        // 1. Log user message to history
+        // Push user message
         history.push({ role: "user", parts: [{ text: val }] });
         input.value = '';
 
@@ -205,7 +207,7 @@
         const payload = {
             contents: history,
             system_instruction: {
-                parts: [{ text: "You are the V&V Registry Specialist. Collect: Trade, Name, City, Phone, and Timing. Review the history carefully. If the user provided a name, move to phone. Do not repeat questions. Summarize at the end and ask for CONFIRM." }]
+                parts: [{ text: "You are the V&V Registry Specialist. Collect: Trade, Name, City, Phone, and Timing. If the history shows the user already provided Name/City, move immediately to Phone. Do NOT repeat questions. Summarize and ask for CONFIRM once all 5 fields are filled." }]
             }
         };
 
@@ -221,24 +223,29 @@
             if (data.candidates && data.candidates[0].content) {
                 const aiText = data.candidates[0].content.parts[0].text;
                 
-                // 2. Log successful bot response
+                // Save bot response to history and update storage
                 history.push({ role: "model", parts: [{ text: aiText }] });
+                localStorage.setItem('vv_chat_history', JSON.stringify(history));
 
                 if(aiText.includes("Please review") || aiText.includes("CONFIRM")) {
                     load.classList.add('summary-mode');
                 }
                 load.innerHTML = marked.parse(aiText);
             } else {
-                throw new Error("Empty Response");
+                throw new Error("Blocked");
             }
         } catch (e) {
-            // 3. MANUAL INJECTOR: If the AI fails, we provide a message AND save it to history
-            const fallbackMsg = "I've noted the roofing project. To connect you with our Tier-1 team, could I get your Name and Ontario City?";
+            const fallbackMsg = "I have your location details. To finalize your Tier-1 match, what is the best phone number for our team to reach you?";
             load.innerText = fallbackMsg;
             history.push({ role: "model", parts: [{ text: fallbackMsg }] });
+            localStorage.setItem('vv_chat_history', JSON.stringify(history));
         }
         box.scrollTop = box.scrollHeight;
     }
+
+    // Clear history on page load if you want a fresh start every time
+    // window.onload = () => { localStorage.removeItem('vv_chat_history'); history = []; };
+
     document.getElementById('user-input').addEventListener('keypress', (e) => { if(e.key === 'Enter') send(); });
 </script>
 </body>
