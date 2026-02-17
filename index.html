@@ -3,108 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VV HOME PRO | Vetted & Verified Home Services</title>
+    <title>VV HOME PRO | Vetted & Verified</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         :root { 
-            --navy: #003366; --accent-blue: #0056b3; 
+            --navy: #003366; --accent: #0056b3; 
             --amber: rgba(255, 249, 196, 0.95); 
-            --success-green: #2e7d32; --success-bg: #e8f5e9;
-            --slate: #334155;
+            --success: #2e7d32; --success-bg: #e8f5e9;
         }
-
         html { scroll-behavior: smooth; }
-
         body { 
             font-family: 'Inter', sans-serif; margin: 0; display: flex; flex-direction: column; min-height: 100vh;
-            position: relative;
+            background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80') center/cover fixed;
         }
 
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-            z-index: -1;
-        }
-
+        /* HEADER */
         header {
-            background: rgba(255, 255, 255, 0.98); padding: 12px 40px;
+            background: rgba(255, 255, 255, 0.98); padding: 15px 40px;
             display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 9999; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 9999;
         }
+        .nav-links a { text-decoration: none; color: var(--navy); font-family: 'Montserrat'; font-weight: 700; margin-left: 20px; text-transform: uppercase; font-size: 0.75rem; }
+        .pro-link { color: var(--accent) !important; border: 1.5px solid var(--accent); padding: 5px 12px; border-radius: 4px; }
 
-        .nav-links a { text-decoration: none; color: var(--navy); font-family: 'Montserrat'; font-weight: 700; margin-left: 20px; text-transform: uppercase; font-size: 0.75rem; transition: 0.2s; }
-        .nav-links a:hover { color: var(--accent-blue); }
-        .pro-link { color: var(--accent-blue) !important; border: 1.5px solid var(--accent-blue); padding: 5px 12px; border-radius: 4px; }
-
+        /* MAIN LAYOUT */
         .container { 
-            max-width: 1300px; margin: 30px auto; 
+            max-width: 1200px; margin: 40px auto; 
             display: grid; grid-template-columns: 320px 1fr; 
-            gap: 30px; padding: 0 40px; flex: 1; align-items: start;
-            position: relative; z-index: 10;
+            gap: 40px; padding: 0 20px; flex: 1; align-items: start;
         }
 
-        .homeowner-panel {
-            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px);
-            padding: 25px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        .side-panel {
+            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);
+            padding: 25px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);
         }
 
         .chat-card { 
-            max-width: 480px; height: 600px; display: flex; flex-direction: column; 
+            max-width: 480px; height: 580px; display: flex; flex-direction: column; 
             background: white; border-radius: 16px; overflow: hidden; 
-            box-shadow: 0 15px 45px rgba(0,0,0,0.3); justify-self: end;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.25); justify-self: end;
         }
 
+        /* PORTAL STYLING */
         .chat-header { background: var(--navy); color: white; padding: 12px; font-family: 'Montserrat'; font-weight: 700; font-size: 0.75rem; text-align: center; }
-
-        #chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; font-size: 0.9rem; background: #fdfdfd; }
+        #chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; font-size: 0.9rem; background: #fafafa; }
         .msg { margin-bottom: 15px; padding: 12px; border-radius: 10px; line-height: 1.4; }
-        .bot { border-left: 4px solid var(--accent-blue); background: #f1f5f9; }
+        .bot { border-left: 4px solid var(--accent); background: white; }
         .user { text-align: right; background: var(--navy); color: white; margin-left: 15%; }
         
         .input-bar { padding: 15px; display: flex; gap: 8px; background: white; border-top: 1px solid #eee; }
-        input { flex-grow: 1; padding: 12px; border: 1px solid #ddd; border-radius: 5px; outline: none; }
-        button#send-btn { background: var(--navy); color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; font-weight: 700; }
+        input { flex-grow: 1; padding: 12px; border: 1px solid #ddd; border-radius: 6px; outline: none; }
+        button#send-btn { background: var(--navy); color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 6px; font-weight: 700; }
 
-        /* FOOTER REBUILD */
+        /* FOOTER */
         footer {
-            background: var(--navy); color: white; padding: 40px; margin-top: 60px;
-            position: relative; z-index: 10; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;
+            background: var(--navy); color: white; padding: 50px 40px; margin-top: 60px;
+            display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px;
         }
-        .foot-col h4 { font-family: 'Montserrat'; margin-bottom: 15px; font-size: 0.9rem; color: #cbd5e1; }
-        .foot-col a { color: white; text-decoration: none; font-size: 0.85rem; display: block; margin-bottom: 8px; opacity: 0.8; }
-        .foot-col a:hover { opacity: 1; text-decoration: underline; }
+        .foot-col h4 { font-family: 'Montserrat'; margin-bottom: 15px; font-size: 0.85rem; color: #cbd5e1; }
+        .foot-col a { color: white; text-decoration: none; font-size: 0.8rem; display: block; margin-bottom: 10px; opacity: 0.8; }
 
+        /* DYNAMIC STATES */
         .summary-mode { background-color: var(--amber) !important; border: 1px solid #fbc02d !important; }
-        .confirmed-mode { background-color: var(--success-bg) !important; border: 1px solid var(--success-green) !important; color: #1b5e20 !important; }
-        
-        .action-btn { border: none; padding: 12px; border-radius: 6px; cursor: pointer; font-weight: 700; width: 100%; margin-top: 10px; }
-        .dl-btn { background: var(--success-green); color: white; }
+        .confirmed-mode { background-color: var(--success-bg) !important; border: 1px solid var(--success) !important; color: #1b5e20 !important; }
+        .progress-bar { width: 0%; height: 6px; background: var(--success); transition: width 2.5s ease; margin-top: 10px; }
     </style>
 </head>
-<body>
+<body id="home">
 
 <header>
     <div style="font-family: 'Montserrat'; font-weight: 800; color: var(--navy); font-size: 1.1rem;">VV HOME PRO</div>
     <nav class="nav-links">
-        <a href="index.html">Home</a>
+        <a href="#home">Home</a>
         <a href="#about-section">About Us</a>
-        <a href="#pro-section" class="pro-link">Professional Directory</a>
+        <a href="#pro-section" class="pro-link">Pros</a>
     </nav>
 </header>
 
 <main class="container">
-    <div class="homeowner-panel" id="about-section">
-        <h2 style="font-family:'Montserrat'; color:var(--navy); margin-top:0;">The V&V Standard</h2>
-        <p>Connecting Ontario homeowners with <strong>Vetted & Verified</strong> professionals for roofing, HVAC, and windows.</p>
-        <div style="background: var(--navy); color:white; padding: 15px; border-radius: 8px; margin: 15px 0;">
-            <ul style="margin:0; padding-left:15px; font-size: 0.8rem; line-height: 1.7;">
-                <li>**Verified Credentials:** WSIB & Liability confirmed.</li>
-                <li>**Data Security:** Encrypted transmission.</li>
+    <div class="side-panel" id="about-section">
+        <h2 style="font-family:'Montserrat'; color:var(--navy); margin-top:0; font-size: 1.4rem;">The V&V Standard</h2>
+        <p style="font-size: 0.9rem; line-height: 1.6;">Welcome to **VV HOME PRO**. We help homeowners connect with **"Vetted & Verified"** pros.</p>
+        <div style="background: var(--navy); color:white; padding: 15px; border-radius: 8px; font-size: 0.8rem;">
+            <strong>WHY USE US?</strong>
+            <ul style="margin: 10px 0 0 0; padding-left: 15px; line-height: 1.6;">
+                <li>Verified WSIB & Liability</li>
+                <li>Secure Intake Receipt</li>
+                <li>Encrypted Data</li>
             </ul>
         </div>
     </div>
@@ -121,52 +108,58 @@
     </div>
 </main>
 
-<div id="pro-section" style="max-width: 1220px; margin: 40px auto; padding: 40px; background: white; border-radius: 12px; position: relative; z-index: 10;">
+<div id="pro-section" style="max-width: 1160px; margin: 0 auto 60px auto; padding: 40px; background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
     <h2 style="font-family:'Montserrat'; color:var(--navy); margin-top:0;">For Home Pro Professionals</h2>
-    <p>Join Ontario's elite directory. We verify your credentials so homeowners don't have to.</p>
-    <button style="background: var(--accent-blue); color: white; border: none; padding: 12px 25px; border-radius: 5px; font-weight: 700; cursor: pointer;">Apply for Directory Verification</button>
+    <p>Are you a contractor? Join the directory to get verified leads.</p>
+    <button style="background: var(--accent); color: white; border: none; padding: 12px 25px; border-radius: 4px; font-weight: 700; cursor: pointer;">Apply for Directory</button>
 </div>
 
 <footer>
     <div class="foot-col">
         <h4>VV HOME PRO</h4>
-        <p style="font-size: 0.8rem; opacity: 0.7;">Ontario's trusted bridge between homeowners and verified trade professionals.</p>
+        <p style="font-size: 0.8rem; opacity: 0.7;">Ontario's trusted hub for vetted trade professionals.</p>
     </div>
     <div class="foot-col">
-        <h4>QUICK LINKS</h4>
-        <a href="index.html">Home</a>
-        <a href="#about-section">The V&V Standard</a>
-        <a href="#pro-section">Contractor Directory</a>
+        <h4>LINKS</h4>
+        <a href="#home">Home</a>
+        <a href="#about-section">About V&V</a>
+        <a href="#pro-section">For Professionals</a>
     </div>
     <div class="foot-col">
         <h4>SUPPORT</h4>
+        <a href="mailto:support@vvetpro.ca">support@vvetpro.ca</a>
         <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
-        <a href="mailto:support@vvetpro.ca">Contact Support</a>
     </div>
 </footer>
 
 <script>
-    // CRITICAL: Replace this with your actual Worker URL from Cloudflare
-    const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/'; 
-
-    let chatHistory = []; 
+    const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/'; // Ensure this is exactly your Worker URL
+    let chatHistory = [];
 
     async function send() {
         const input = document.getElementById('user-input');
         const val = input.value.trim();
         if(!val) return;
         const box = document.getElementById('chat-window');
-        
-        // UI: Show User Message
+        const summaryExists = document.querySelector('.summary-mode');
+
+        // HANDLE CONFIRMATION
+        if(val.toLowerCase() === 'confirm' && summaryExists) {
+            box.innerHTML += `<div class="msg user">${val}</div>`;
+            summaryExists.classList.replace('summary-mode', 'confirmed-mode');
+            summaryExists.innerHTML = `<h3>✅ REQUEST VERIFIED</h3><p>Searching directory pros...</p><div class="progress-bar" id="p-bar"></div>`;
+            setTimeout(() => document.getElementById('p-bar').style.width = "100%", 100);
+            input.value = ''; return;
+        }
+
+        // HANDLE NORMAL CHAT
         box.innerHTML += `<div class="msg user">${val}</div>`;
         chatHistory.push({ role: "user", parts: [{ text: val }] });
         input.value = '';
         
-        // UI: Show Loading State
-        const load = document.createElement('div'); 
-        load.className = 'msg bot'; 
-        load.innerText = 'Connecting to Secure Server...'; 
+        const load = document.createElement('div');
+        load.className = 'msg bot';
+        load.innerText = 'Connecting...';
         box.appendChild(load);
         box.scrollTop = box.scrollHeight;
 
@@ -174,24 +167,21 @@
             const res = await fetch(WORKER, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                mode: 'cors', // Force CORS
                 body: JSON.stringify({ 
                     contents: chatHistory, 
-                    system_instruction: { parts: [{ text: "Collect Project, Name, City, Phone, and Time. Then summarize as 'REVIEW YOUR SUBMISSION' and ask for 'CONFIRM'." }] } 
+                    system_instruction: { parts: [{ text: "Collect Project, Name, City, Phone, Time. Then summarize as 'REVIEW YOUR SUBMISSION' and ask for 'CONFIRM'." }] } 
                 })
             });
 
-            if (!res.ok) throw new Error('Worker Response Error');
+            if(!res.ok) throw new Error();
 
             const data = await res.json();
             const aiText = data.candidates[0].content.parts[0].text;
             chatHistory.push({ role: "model", parts: [{ text: aiText }] });
             load.innerHTML = marked.parse(aiText);
-            
             if(aiText.toUpperCase().includes("REVIEW")) load.classList.add('summary-mode');
-        } catch (e) { 
-            console.error(e);
-            load.innerHTML = `<span style="color:red;">⚠️ Connection Error:</span> Ensure your Cloudflare Worker is deployed and the Gemini API Key is valid.`; 
+        } catch (e) {
+            load.innerHTML = `<span style="color:red;">⚠️ Connection Error:</span> Your Cloudflare Worker rejected the request. Check your Gemini API Key.`;
         }
         box.scrollTop = box.scrollHeight;
     }
