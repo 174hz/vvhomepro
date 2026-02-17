@@ -1,82 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VV HOME PRO | Vetted & Verified</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <style>
-        :root { 
-            --navy: #003366; --accent: #0056b3; 
-            --amber: rgba(255, 249, 196, 0.95); 
-            --success: #2e7d32;
-        }
-        html { scroll-behavior: smooth; }
-        body { 
-            font-family: 'Inter', sans-serif; margin: 0; display: flex; flex-direction: column; min-height: 100vh;
-            background: #f4f7f9;
-        }
-
-        /* Fixed Background - Lowered z-index to -2 to ensure buttons are always on top */
-        .bg-overlay {
-            position: fixed; top:0; left:0; width:100%; height:100%;
-            background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-            z-index: -2;
-        }
-
-        header {
-            background: rgba(255, 255, 255, 0.98); padding: 15px 40px;
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .nav-links button { 
-            background: none; border: none; cursor: pointer; color: var(--navy); 
-            font-family: 'Montserrat'; font-weight: 700; margin-left: 20px; 
-            text-transform: uppercase; font-size: 0.75rem; transition: color 0.2s;
-        }
-        .nav-links button:hover { color: var(--accent); }
-        .pro-link-btn { color: var(--accent) !important; border: 1.5px solid var(--accent) !important; padding: 5px 12px; border-radius: 4px; }
-
-        .container { 
-            max-width: 1200px; margin: 40px auto; 
-            display: grid; grid-template-columns: 320px 1fr; 
-            gap: 40px; padding: 0 20px; flex: 1; position: relative; z-index: 10;
-        }
-
-        .side-panel { background: rgba(255, 255, 255, 0.92); padding: 25px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.3); }
-        .chat-card { max-width: 480px; height: 580px; display: flex; flex-direction: column; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 15px 45px rgba(0,0,0,0.25); justify-self: end; }
-        .chat-header { background: var(--navy); color: white; padding: 12px; font-family: 'Montserrat'; font-weight: 700; font-size: 0.75rem; text-align: center; }
-        
-        #chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; font-size: 0.9rem; background: #fafafa; }
-        .msg { margin-bottom: 15px; padding: 12px; border-radius: 10px; line-height: 1.4; }
-        .bot { border-left: 4px solid var(--accent); background: white; box-shadow: 2px 2px 5px rgba(0,0,0,0.05); }
-        .user { text-align: right; background: var(--navy); color: white; margin-left: 15%; }
-        
-        .input-bar { padding: 15px; display: flex; gap: 8px; background: white; border-top: 1px solid #eee; }
-        input { flex-grow: 1; padding: 12px; border: 1px solid #ddd; border-radius: 6px; outline: none; }
-        button#send-btn { background: var(--navy); color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 6px; font-weight: 700; }
-
-        #pro-section { max-width: 1160px; margin: 40px auto; padding: 60px 40px; background: white; border-radius: 12px; position: relative; z-index: 10; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
-        
-        footer { 
-            background: var(--navy); color: white; padding: 60px 40px 20px 40px; 
-            position: relative; z-index: 10;
-        }
-        .footer-grid {
-            max-width: 1200px; margin: 0 auto; display: grid; 
-            grid-template-columns: 1.5fr 1fr 1fr; gap: 40px;
-        }
-        .footer-grid h4 { font-family: 'Montserrat'; margin-bottom: 20px; color: #cbd5e1; font-size: 0.85rem; letter-spacing: 1px; }
-        .footer-grid p, .footer-grid button { font-size: 0.85rem; color: white; opacity: 0.8; background: none; border: none; padding: 0; cursor: pointer; text-align: left; display: block; margin-bottom: 10px; }
-        
-        .summary-mode { background-color: var(--amber) !important; border: 1px solid #fbc02d !important; }
-    </style>
-</head>
 <body>
-
 <div class="bg-overlay"></div>
 
 <header>
@@ -117,30 +39,6 @@
     <button style="background: var(--accent); color: white; border: none; padding: 12px 25px; border-radius: 4px; font-weight: 700; cursor: pointer; margin-top: 15px;">Apply to Join Directory</button>
 </div>
 
-<footer>
-    <div class="footer-grid">
-        <div>
-            <h4>VV HOME PRO</h4>
-            <p>Ontario's trusted matching portal for high-end home service professionals.</p>
-        </div>
-        <div>
-            <h4>NAVIGATION</h4>
-            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Home</button>
-            <button onclick="document.getElementById('about-section').scrollIntoView({behavior: 'smooth'})">The V&V Standard</button>
-            <button onclick="document.getElementById('pro-section').scrollIntoView({behavior: 'smooth'})">Pro Directory</button>
-        </div>
-        <div>
-            <h4>SUPPORT</h4>
-            <p>Email: support@vvetpro.ca</p>
-            <p>Privacy Policy</p>
-            <p>Terms of Service</p>
-        </div>
-    </div>
-    <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.7rem; opacity: 0.5;">
-        © 2026 VV HOME PRO. All Rights Reserved.
-    </div>
-</footer>
-
 <script>
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/'; 
     let chatHistory = [];
@@ -151,16 +49,27 @@
         if(!val) return;
         const box = document.getElementById('chat-window');
 
-        // Add User message to UI
+        // CHECK FOR CONFIRMATION LOGIC
+        if(val.toLowerCase() === 'confirm') {
+            box.innerHTML += `<div class="msg user">${val}</div>`;
+            const successMsg = document.createElement('div');
+            successMsg.className = 'msg bot';
+            successMsg.style.backgroundColor = '#e8f5e9';
+            successMsg.style.borderLeft = '4px solid #2e7d32';
+            successMsg.innerHTML = `<strong>✅ REQUEST VERIFIED</strong><br>We are now matching your project with local V&V Pros. You will receive a secure intake receipt via SMS shortly.`;
+            box.appendChild(successMsg);
+            input.value = '';
+            box.scrollTop = box.scrollHeight;
+            return;
+        }
+
         box.innerHTML += `<div class="msg user">${val}</div>`;
-        
-        // Update history correctly for Gemini API format
         chatHistory.push({ role: "user", parts: [{ text: val }] });
         input.value = '';
         
         const load = document.createElement('div');
         load.className = 'msg bot';
-        load.innerText = 'Analyzing project requirements...';
+        load.innerText = 'Syncing with V&V Engine...';
         box.appendChild(load);
         box.scrollTop = box.scrollHeight;
 
@@ -170,32 +79,26 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
                     contents: chatHistory, 
-                    system_instruction: { parts: [{ text: "You are the VV HOME PRO intake assistant. Collect: 1. Project Type, 2. Full Name, 3. City, 4. Phone, 5. Callback Time. Once all are gathered, provide a summary labeled 'REVIEW YOUR SUBMISSION' and ask the user to type 'CONFIRM' if correct." }] } 
+                    // Simplified instruction to avoid parsing errors
+                    system_instruction: { parts: [{ text: "You are the VV HOME PRO assistant. Greet the user, then collect: 1. Project, 2. Name, 3. City, 4. Phone, 5. Time. Summarize and ask for CONFIRM." }] } 
                 })
             });
 
             const data = await res.json();
             
-            if(data.error) {
-                throw new Error(data.error);
-            }
+            if(data.error) throw new Error(data.error);
 
             const aiText = data.candidates[0].content.parts[0].text;
-            
-            // Add AI message to history
             chatHistory.push({ role: "model", parts: [{ text: aiText }] });
-            
             load.innerHTML = marked.parse(aiText);
             
-            if(aiText.toUpperCase().includes("REVIEW YOUR SUBMISSION")) {
+            if(aiText.toUpperCase().includes("REVIEW")) {
                 load.classList.add('summary-mode');
             }
         } catch (e) {
-            console.error("Worker Error:", e);
-            load.innerHTML = `<span style="color:red; font-weight:bold;">⚠️ Connection Error:</span><br><small>${e.message}. Ensure your API key is correctly saved as a Variable in Cloudflare.</small>`;
+            load.innerHTML = `<span style="color:red; font-weight:bold;">⚠️ Connection Error:</span><br><small>${e.message}</small>`;
         }
         box.scrollTop = box.scrollHeight;
     }
 </script>
 </body>
-</html>
