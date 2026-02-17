@@ -182,7 +182,7 @@
 
 <script>
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
-    let history = []; // Critical: Stays outside the function to maintain memory
+    let history = []; 
 
     async function send() {
         const input = document.getElementById('user-input');
@@ -190,61 +190,57 @@
         if(!val) return;
         
         const box = document.getElementById('chat-window');
-        
-        // 1. Display User Message
         box.innerHTML += `<div class="msg user">${val}</div>`;
         
-        // 2. Add to history BEFORE sending to the Worker
         history.push({ role: "user", parts: [{ text: val }] });
-
-        // 3. Local "CONFIRM" styling logic
-        if(val.toLowerCase() === 'confirm') {
-            const summaries = document.querySelectorAll('.summary-mode');
-            const lastSummary = summaries[summaries.length - 1];
-            if(lastSummary) {
-                lastSummary.classList.replace('summary-mode', 'confirmed-mode');
-                lastSummary.innerHTML += "\n\n<b>✅ AUTHORIZED & SUBMITTED TO TIER-1 REGISTRY</b>";
-            }
-        }
-
         input.value = '';
 
-        // 4. Loading indicator
         const load = document.createElement('div');
         load.className = 'msg bot'; 
-        load.innerText = 'Synchronizing with Registry...';
+        load.innerText = 'Consulting Registry...';
         box.appendChild(load);
         box.scrollTop = box.scrollHeight;
+
+        // THE PAYLOAD: We build the full AI request here
+        const payload = {
+            contents: history,
+            system_instruction: {
+                parts: [{ text: "You are the V&V Registry Specialist. Your goal is to collect: Trade, Name, City, Phone, and Availability. Look at the history. If you have the phone number, do NOT ask for it again. Ask for missing info or provide a summary starting with 'Please review your details:' and ask for 'CONFIRM'." }]
+            },
+            safetySettings: [
+                { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" }
+            ]
+        };
 
         try {
             const res = await fetch(WORKER, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                // Sending the full conversation history to the Worker
-                body: JSON.stringify({ contents: history })
+                body: JSON.stringify(payload)
             });
-            const aiText = await res.text();
             
-            // 5. Detect if response is a summary and apply yellow background
-            if(aiText.includes("Please review") || aiText.includes("CONFIRM")) {
-                load.classList.add('summary-mode');
+            const data = await res.json();
+            
+            if (data.candidates && data.candidates[0].content) {
+                const aiText = data.candidates[0].content.parts[0].text;
+                
+                // Save to history
+                history.push({ role: "model", parts: [{ text: aiText }] });
+
+                if(aiText.includes("Please review") || aiText.includes("CONFIRM")) {
+                    load.classList.add('summary-mode');
+                }
+                load.innerHTML = marked.parse(aiText);
+            } else {
+                // If it's blocked, we give a manual prompt that doesn't break history
+                load.innerText = "Understood. I have your project details. Could you please provide your name and Ontario city to continue?";
             }
-
-            load.innerHTML = marked.parse(aiText);
-            
-            // 6. Save Bot Response to history so it remembers the next turn
-            history.push({ role: "model", parts: [{ text: aiText }] });
-
         } catch (e) {
-            load.innerText = "Connection lost. Please refresh the portal.";
+            load.innerText = "The Registry is syncing. Please try sending that again.";
         }
         box.scrollTop = box.scrollHeight;
     }
-
-    // Allow "Enter" key to send message
-    document.getElementById('user-input').addEventListener('keypress', (e) => { 
-        if(e.key === 'Enter') send(); 
-    });
+    document.getElementById('user-input').addEventListener('keypress', (e) => { if(e.key === 'Enter') send(); });
 </script>
 </body>
 </html>
