@@ -149,27 +149,26 @@
         
         const box = document.getElementById('chat-window');
         
-        // Handle Confirmation
+        // 1. CONFIRMATION LOGIC - Only works if summary is visible
         if(rawVal.toLowerCase().includes('confirm')) {
             const summaries = document.querySelectorAll('.summary-mode');
             if(summaries.length > 0) {
                 box.innerHTML += `<div class="msg user">${rawVal}</div>`;
                 const last = summaries[summaries.length - 1];
                 last.classList.replace('summary-mode', 'confirmed-mode');
-                last.innerHTML += "<br><br><b>✅ PROJECT AUTHORIZED & SUBMITTED TO ONTARIO REGISTRY.</b>";
+                last.innerHTML += "<br><br><b>✅ PROJECT AUTHORIZED: Intake sent to Ontario Tier-1 Registry.</b>";
                 input.value = '';
                 return;
             }
         }
 
         box.innerHTML += `<div class="msg user">${rawVal}</div>`;
-        const sanitizedVal = rawVal.toLowerCase().replace(/leaky/g, "repairing").replace(/leak/g, "maintenance");
-        chatHistory.push({ role: "user", parts: [{ text: sanitizedVal }] });
+        chatHistory.push({ role: "user", parts: [{ text: rawVal }] });
         input.value = '';
 
         const load = document.createElement('div');
         load.className = 'msg bot'; 
-        load.innerText = 'Consulting Registry...';
+        load.innerText = 'Analyzing Project Requirements...';
         box.appendChild(load);
         box.scrollTop = box.scrollHeight;
 
@@ -180,7 +179,7 @@
                 body: JSON.stringify({ 
                     contents: chatHistory,
                     system_instruction: {
-                        parts: [{ text: "You are an intake clerk. Collect: 1. Name, 2. City, 3. Phone, 4. Job Category (Roofing, HVAC etc), 5. Best time to call. ONLY provide a summary starting with 'REVIEW YOUR SUBMISSION' once all 5 are present. Otherwise, ask for the next missing item." }]
+                        parts: [{ text: "V&V PROTOCOL: You must collect 5 items: Name, City, Phone, Job Type (e.g. Roofing), and Best Time to Call. DO NOT summarize until you have all 5. If missing 'Time to Call', ask for it specifically. Once all 5 are present, provide a bulleted summary and ask to 'CONFIRM'." }]
                     }
                 })
             });
@@ -191,27 +190,34 @@
                 const aiText = data.candidates[0].content.parts[0].text;
                 chatHistory.push({ role: "model", parts: [{ text: aiText }] });
                 load.innerHTML = marked.parse(aiText);
-                if(aiText.toUpperCase().includes("REVIEW YOUR SUBMISSION")) load.classList.add('summary-mode');
+                
+                // Only trigger gold summary box if all info is present
+                if(aiText.toLowerCase().includes("name:") && aiText.toLowerCase().includes("phone:")) {
+                    load.classList.add('summary-mode');
+                }
             } else { throw new Error(); }
         } catch (e) {
-            // THE DYNAMIC FAILSAFE: Manually builds the message if the AI stalls
+            // DYNAMIC FAILSAFE - Manually steps through the 5 requirements
             const uMsgs = chatHistory.filter(h => h.role === "user").map(h => h.parts[0].text);
-            const hStr = uMsgs.join(" ").toLowerCase();
-            
             let fallback = "";
-            if (uMsgs.length < 2) fallback = "Understood. To begin, what is your full name?";
-            else if (uMsgs.length < 3) fallback = `Thanks, ${uMsgs[1]}. Which Ontario City are you located in?`;
-            else if (!hStr.match(/\d{3}/)) fallback = "Got it. What is the best phone number to reach you at?";
-            else if (uMsgs.length < 5) fallback = "Almost there. To confirm, is this for Roofing, HVAC, or another trade? And what is the best time to call you (e.g., after 10am daily)?";
-            else {
+            
+            if (uMsgs.length < 2) {
+                fallback = "Requirement 1/5: Please provide your full name for the registry.";
+            } else if (uMsgs.length < 3) {
+                fallback = "Requirement 2/5: Which Ontario city is this project located in?";
+            } else if (!JSON.stringify(uMsgs).match(/\d{3}/)) {
+                fallback = "Requirement 3/5: What is the best phone number for our specialists to reach you?";
+            } else if (uMsgs.length < 5) {
+                fallback = "Requirement 4/5: To confirm, is this for Roofing, HVAC, or another trade? And Requirement 5/5: What is the best time of day to call you?";
+            } else {
                 load.classList.add('summary-mode');
-                fallback = `**REVIEW YOUR SUBMISSION:**\n\n` +
+                fallback = `**REVIEW YOUR REGISTRY SUBMISSION:**\n\n` +
                            `• **Name:** ${uMsgs[1]}\n` +
                            `• **Location:** ${uMsgs[2]}\n` +
                            `• **Phone:** ${uMsgs.find(m => /\d{3}/.test(m))}\n` +
-                           `• **Trade/Details:** ${uMsgs[0]} (${uMsgs[4]})\n` +
-                           `• **Status:** Priority Intake\n\n` +
-                           `Please type **CONFIRM** to authorize this match.`;
+                           `• **Trade:** ${uMsgs[0]}\n` +
+                           `• **Best Time to Call:** ${uMsgs[4] || uMsgs[uMsgs.length-1]}\n\n` +
+                           `Please type **CONFIRM** to submit to the Ontario Registry.`;
             }
             load.innerHTML = marked.parse(fallback);
             chatHistory.push({ role: "model", parts: [{ text: fallback }] });
