@@ -182,7 +182,7 @@
 
 <script>
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
-    let history = []; 
+    let history = []; // Critical: Stays outside the function to maintain memory
 
     async function send() {
         const input = document.getElementById('user-input');
@@ -194,10 +194,10 @@
         // 1. Display User Message
         box.innerHTML += `<div class="msg user">${val}</div>`;
         
-        // 2. Add to history BEFORE sending
+        // 2. Add to history BEFORE sending to the Worker
         history.push({ role: "user", parts: [{ text: val }] });
 
-        // 3. Check for CONFIRM locally to provide instant feedback
+        // 3. Local "CONFIRM" styling logic
         if(val.toLowerCase() === 'confirm') {
             const summaries = document.querySelectorAll('.summary-mode');
             const lastSummary = summaries[summaries.length - 1];
@@ -209,10 +209,10 @@
 
         input.value = '';
 
-        // 4. Loading State
+        // 4. Loading indicator
         const load = document.createElement('div');
         load.className = 'msg bot'; 
-        load.innerText = 'Analyzing requirements...';
+        load.innerText = 'Synchronizing with Registry...';
         box.appendChild(load);
         box.scrollTop = box.scrollHeight;
 
@@ -220,26 +220,28 @@
             const res = await fetch(WORKER, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
+                // Sending the full conversation history to the Worker
                 body: JSON.stringify({ contents: history })
             });
             const aiText = await res.text();
             
-            // 5. Update UI with AI Response
+            // 5. Detect if response is a summary and apply yellow background
             if(aiText.includes("Please review") || aiText.includes("CONFIRM")) {
                 load.classList.add('summary-mode');
             }
 
             load.innerHTML = marked.parse(aiText);
             
-            // 6. Add AI response to history so it "remembers"
+            // 6. Save Bot Response to history so it remembers the next turn
             history.push({ role: "model", parts: [{ text: aiText }] });
 
         } catch (e) {
-            load.innerText = "Connection Error. Please refresh the matching portal.";
+            load.innerText = "Connection lost. Please refresh the portal.";
         }
         box.scrollTop = box.scrollHeight;
     }
 
+    // Allow "Enter" key to send message
     document.getElementById('user-input').addEventListener('keypress', (e) => { 
         if(e.key === 'Enter') send(); 
     });
