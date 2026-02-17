@@ -13,6 +13,7 @@
             --amber: rgba(255, 249, 196, 0.95); 
             --success-green: #2e7d32;
             --success-bg: #e8f5e9;
+            --error-red: #c62828;
         }
 
         body { 
@@ -30,24 +31,11 @@
         .bot { border-left: 4px solid var(--accent-blue); background: white; }
         .user { text-align: right; background: var(--navy); color: white; margin-left: 20%; }
         
-        /* STATE STYLES */
         .summary-mode { background-color: var(--amber) !important; border: 2px solid #fbc02d !important; color: #856404 !important; }
+        .confirmed-mode { background-color: var(--success-bg) !important; border: 2px solid var(--success-green) !important; color: #1b5e20 !important; }
         
-        /* THE GREEN CONFIRMED STATE */
-        .confirmed-mode { 
-            background-color: var(--success-bg) !important; 
-            border: 2px solid var(--success-green) !important; 
-            color: #1b5e20 !important; 
-            font-weight: 500;
-        }
-        .data-row { 
-            display: flex; 
-            justify-content: space-between; 
-            margin-bottom: 6px; 
-            border-bottom: 1px dotted rgba(0,0,0,0.1); 
-            padding-bottom: 2px;
-        }
-        .tick { color: var(--success-green); font-weight: 800; margin-right: 8px; }
+        .data-row { display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px dotted rgba(0,0,0,0.1); padding-bottom: 4px; }
+        .tick { color: var(--success-green); font-weight: 900; margin-right: 10px; }
 
         .input-bar { padding: 15px; display: flex; gap: 10px; background: white; }
         input { flex-grow: 1; padding: 12px; border: 1px solid #ddd; border-radius: 6px; }
@@ -59,7 +47,7 @@
 <main class="container">
     <div style="color:white; text-shadow: 1px 1px 4px rgba(0,0,0,0.5);">
         <h1>V&V Proprietary Registry</h1>
-        <p>Complete the 5-step intake to be matched with Tier-1 Ontario specialists.</p>
+        <p>Verified Tier-1 Ontario Trade Matching.</p>
     </div>
 
     <div class="chat-card">
@@ -84,27 +72,40 @@
         if(!val) return;
         
         const box = document.getElementById('chat-window');
-        
-        // --- THE GREEN CONFIRMATION INTERCEPT ---
-        if(val.toLowerCase().includes('confirm')) {
+        const summaryExists = document.querySelector('.summary-mode');
+
+        // --- 1. HANDLING "NO" OR CORRECTIONS ---
+        if(summaryExists && (val.toLowerCase() === 'no' || val.toLowerCase().includes('wrong'))) {
             box.innerHTML += `<div class="msg user">${val}</div>`;
-            const summaryBox = document.querySelector('.summary-mode');
-            if(summaryBox) {
-                // Scrape the collected user responses from history
+            summaryExists.classList.remove('summary-mode');
+            const correctionMsg = "I apologize. Let's fix that. Please tell me which piece of information is incorrect, or just re-type your Phone and Best Time to call.";
+            box.innerHTML += `<div class="msg bot">${correctionMsg}</div>`;
+            chatHistory.push({ role: "model", parts: [{ text: correctionMsg }] });
+            input.value = '';
+            return;
+        }
+
+        // --- 2. THE GREEN CONFIRMATION INTERCEPT ---
+        if(val.toLowerCase() === 'confirm') {
+            box.innerHTML += `<div class="msg user">${val}</div>`;
+            if(summaryExists) {
                 const u = chatHistory.filter(h => h.role === "user").map(h => h.parts[0].text);
+                summaryExists.classList.remove('summary-mode');
+                summaryExists.classList.add('confirmed-mode');
                 
-                summaryBox.classList.remove('summary-mode');
-                summaryBox.classList.add('confirmed-mode');
-                
-                // Build the Verified Layout with Ticks
-                summaryBox.innerHTML = `
+                // Smart Extraction for the final green box
+                const tradeName = u[0].toLowerCase().includes('roof') ? 'Roofing' : 
+                                  u[0].toLowerCase().includes('hvac') ? 'HVAC' : u[0];
+                const callTime = u[u.length-1].toLowerCase().includes('confirm') ? u[u.length-2] : u[u.length-1];
+
+                summaryExists.innerHTML = `
                     <h3 style="margin-top:0; color:var(--success-green);">✅ REGISTRY DATA VERIFIED</h3>
-                    <div class="data-row"><span><span class="tick">✔</span> Reference Name:</span> <b>${u[1] || 'Captured'}</b></div>
-                    <div class="data-row"><span><span class="tick">✔</span> Service Area:</span> <b>${u[2] || 'Captured'}</b></div>
-                    <div class="data-row"><span><span class="tick">✔</span> Primary Trade:</span> <b>${u[0] || 'Captured'}</b></div>
-                    <div class="data-row"><span><span class="tick">✔</span> Phone Number:</span> <b>${u.find(m => /\d{3}/.test(m)) || 'On File'}</b></div>
-                    <div class="data-row"><span><span class="tick">✔</span> Best Time:</span> <b>${u[4] || 'As Requested'}</b></div>
-                    <p style="margin-top:15px; font-size:0.85rem;"><i>Your priority intake has been timestamped and submitted to the Ontario Tier-1 Dispatch team.</i></p>
+                    <div class="data-row"><span><span class="tick">✔</span> Reference Name:</span> <b>${u[1]}</b></div>
+                    <div class="data-row"><span><span class="tick">✔</span> Service Area:</span> <b>${u[2]}</b></div>
+                    <div class="data-row"><span><span class="tick">✔</span> Phone Number:</span> <b>${u.find(m => /\d{3}/.test(m))}</b></div>
+                    <div class="data-row"><span><span class="tick">✔</span> Primary Trade:</span> <b>${tradeName}</b></div>
+                    <div class="data-row"><span><span class="tick">✔</span> Best Time to Call:</span> <b>${callTime}</b></div>
+                    <p style="margin-top:15px; font-size:0.85rem;">Intake transmitted to Ontario Tier-1 Dispatch.</p>
                 `;
                 input.value = '';
                 box.scrollTop = box.scrollHeight;
@@ -129,7 +130,7 @@
                 body: JSON.stringify({ 
                     contents: chatHistory,
                     system_instruction: {
-                        parts: [{ text: "Collect 5 items: Name, City, Phone, Trade Type, and Best Time to Call. DO NOT show a summary until you have ALL 5. When all 5 are present, display: 'REVIEW YOUR SUBMISSION' with bullets for Name, Location, Phone, Trade, and Best Time to Call. End with: 'Type CONFIRM to authorize.'" }]
+                        parts: [{ text: "Collect 5 items: Name, City, Phone, Trade Type (Roofing/HVAC/etc), and Best Time to Call. If user says 'no' to a summary, ask for the correct info. Only show 'REVIEW YOUR SUBMISSION' once you have a specific time for the call and a clear trade name." }]
                     }
                 })
             });
@@ -150,17 +151,16 @@
             if (u.length === 1) fb = "What is your full name?";
             else if (u.length === 2) fb = "Which Ontario City are you in?";
             else if (u.length === 3) fb = "What is your phone number?";
-            else if (u.length === 4) fb = "To confirm: is this for Roofing, HVAC, or another trade? And what is the best time to call you daily?";
+            else if (u.length === 4) fb = "To confirm, is this for Roofing or another trade? And what specifically is the best time (e.g. 10am) to call you?";
             else {
                 load.classList.add('summary-mode');
-                fb = `**REVIEW YOUR SUBMISSION:**\n\n• **Name:** ${u[1]}\n• **Location:** ${u[2]}\n• **Phone:** ${u[3] || u.find(m => /\d{3}/.test(m))}\n• **Trade:** ${u[0]}\n• **Best Time:** ${u[4]}\n\nType **CONFIRM** to authorize.`;
+                fb = `**REVIEW YOUR SUBMISSION:**\n\n• **Name:** ${u[1]}\n• **Location:** ${u[2]}\n• **Phone:** ${u[3]}\n• **Trade:** Roofing\n• **Best Time:** ${u[4]}\n\nType **CONFIRM** if this is correct, or **NO** to fix.`;
             }
             load.innerHTML = marked.parse(fb);
             chatHistory.push({ role: "model", parts: [{ text: fb }] });
         }
         box.scrollTop = box.scrollHeight;
     }
-    document.getElementById('user-input').addEventListener('keypress', (e) => { if(e.key === 'Enter') send(); });
 </script>
 </body>
 </html>
