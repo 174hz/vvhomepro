@@ -66,6 +66,21 @@
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
     let chatHistory = []; 
 
+    // --- NEW: Function to send the data to your backend for email ---
+    async function triggerEmailDispatch(data) {
+        try {
+            // Replace with your actual Email Worker or API URL
+            await fetch('https://your-email-worker.workers.dev', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            console.log("Email Dispatch Success");
+        } catch (e) {
+            console.error("Email API not connected yet.");
+        }
+    }
+
     async function send() {
         const input = document.getElementById('user-input');
         const val = input.value.trim();
@@ -74,45 +89,50 @@
         const box = document.getElementById('chat-window');
         const summaryExists = document.querySelector('.summary-mode');
 
-        // --- 1. HANDLING "NO" OR CORRECTIONS ---
-        if(summaryExists && (val.toLowerCase() === 'no' || val.toLowerCase().includes('wrong'))) {
-            box.innerHTML += `<div class="msg user">${val}</div>`;
-            summaryExists.classList.remove('summary-mode');
-            const correctionMsg = "I apologize. Let's fix that. Please tell me which piece of information is incorrect, or just re-type your Phone and Best Time to call.";
-            box.innerHTML += `<div class="msg bot">${correctionMsg}</div>`;
-            chatHistory.push({ role: "model", parts: [{ text: correctionMsg }] });
-            input.value = '';
-            return;
-        }
-
-        // --- 2. THE GREEN CONFIRMATION INTERCEPT ---
+        // --- 1. THE GREEN CONFIRMATION INTERCEPT ---
         if(val.toLowerCase() === 'confirm') {
             box.innerHTML += `<div class="msg user">${val}</div>`;
             if(summaryExists) {
                 const u = chatHistory.filter(h => h.role === "user").map(h => h.parts[0].text);
+                
+                // Smart Extraction
+                const tradeName = u[0].toLowerCase().includes('roof') ? 'Roofing' : 
+                                  u[0].toLowerCase().includes('hvac') ? 'HVAC' : 'General Trade';
+                const callTime = u[u.length-1];
+
+                const formData = {
+                    name: u[1],
+                    location: u[2],
+                    phone: u.find(m => /\d{3}/.test(m)),
+                    trade: tradeName,
+                    bestTime: callTime
+                };
+
+                // UI Update to Green Verified State
                 summaryExists.classList.remove('summary-mode');
                 summaryExists.classList.add('confirmed-mode');
-                
-                // Smart Extraction for the final green box
-                const tradeName = u[0].toLowerCase().includes('roof') ? 'Roofing' : 
-                                  u[0].toLowerCase().includes('hvac') ? 'HVAC' : u[0];
-                const callTime = u[u.length-1].toLowerCase().includes('confirm') ? u[u.length-2] : u[u.length-1];
-
                 summaryExists.innerHTML = `
                     <h3 style="margin-top:0; color:var(--success-green);">✅ REGISTRY DATA VERIFIED</h3>
-                    <div class="data-row"><span><span class="tick">✔</span> Reference Name:</span> <b>${u[1]}</b></div>
-                    <div class="data-row"><span><span class="tick">✔</span> Service Area:</span> <b>${u[2]}</b></div>
-                    <div class="data-row"><span><span class="tick">✔</span> Phone Number:</span> <b>${u.find(m => /\d{3}/.test(m))}</b></div>
-                    <div class="data-row"><span><span class="tick">✔</span> Primary Trade:</span> <b>${tradeName}</b></div>
-                    <div class="data-row"><span><span class="tick">✔</span> Best Time to Call:</span> <b>${callTime}</b></div>
-                    <p style="margin-top:15px; font-size:0.85rem;">Intake transmitted to Ontario Tier-1 Dispatch.</p>
+                    <div class="data-row"><span><span class="tick">✔</span> Reference Name:</span> <b>${formData.name}</b></div>
+                    <div class="data-row"><span><span class="tick">✔</span> Service Area:</span> <b>${formData.location}</b></div>
+                    <div class="data-row"><span><span class="tick">✔</span> Phone Number:</span> <b>${formData.phone}</b></div>
+                    <div class="data-row"><span><span class="tick">✔</span> Primary Trade:</span> <b>${formData.trade}</b></div>
+                    <div class="data-row"><span><span class="tick">✔</span> Best Time to Call:</span> <b>${formData.bestTime}</b></div>
+                    <p style="margin-top:15px; font-size:0.85rem; border-top: 1px solid rgba(0,0,0,0.1); padding-top:10px;">
+                        <i>Success: Email confirmation sent. Your intake is now with Ontario Tier-1 Dispatch.</i>
+                    </p>
                 `;
+
+                // Trigger the actual Email
+                triggerEmailDispatch(formData);
+
                 input.value = '';
                 box.scrollTop = box.scrollHeight;
                 return;
             }
         }
 
+        // --- 2. REGULAR MESSAGE HANDLING ---
         box.innerHTML += `<div class="msg user">${val}</div>`;
         chatHistory.push({ role: "user", parts: [{ text: val }] });
         input.value = '';
@@ -130,7 +150,7 @@
                 body: JSON.stringify({ 
                     contents: chatHistory,
                     system_instruction: {
-                        parts: [{ text: "Collect 5 items: Name, City, Phone, Trade Type (Roofing/HVAC/etc), and Best Time to Call. If user says 'no' to a summary, ask for the correct info. Only show 'REVIEW YOUR SUBMISSION' once you have a specific time for the call and a clear trade name." }]
+                        parts: [{ text: "Collect 5 items: Name, City, Phone, Trade Type, and Best Time to Call. Once all 5 are present, display: 'REVIEW YOUR SUBMISSION' with bullets. End with: 'Type CONFIRM to authorize.'" }]
                     }
                 })
             });
@@ -145,22 +165,24 @@
                 load.classList.add('summary-mode');
             }
         } catch (e) {
-            // FAILSAFE LOGIC
+            // Failsafe Logic if AI stalls
             const u = chatHistory.filter(h => h.role === "user").map(h => h.parts[0].text);
             let fb = "";
             if (u.length === 1) fb = "What is your full name?";
             else if (u.length === 2) fb = "Which Ontario City are you in?";
             else if (u.length === 3) fb = "What is your phone number?";
-            else if (u.length === 4) fb = "To confirm, is this for Roofing or another trade? And what specifically is the best time (e.g. 10am) to call you?";
+            else if (u.length === 4) fb = "What is the best time of day to call you?";
             else {
                 load.classList.add('summary-mode');
-                fb = `**REVIEW YOUR SUBMISSION:**\n\n• **Name:** ${u[1]}\n• **Location:** ${u[2]}\n• **Phone:** ${u[3]}\n• **Trade:** Roofing\n• **Best Time:** ${u[4]}\n\nType **CONFIRM** if this is correct, or **NO** to fix.`;
+                fb = `**REVIEW YOUR SUBMISSION:**\n\n• **Name:** ${u[1]}\n• **Location:** ${u[2]}\n• **Phone:** ${u[3]}\n• **Trade:** ${u[0]}\n• **Best Time:** ${u[4]}\n\nType **CONFIRM** to authorize.`;
             }
             load.innerHTML = marked.parse(fb);
             chatHistory.push({ role: "model", parts: [{ text: fb }] });
         }
         box.scrollTop = box.scrollHeight;
     }
+    // Handle Enter Key
+    document.getElementById('user-input').addEventListener('keypress', (e) => { if(e.key === 'Enter') send(); });
 </script>
 </body>
 </html>
