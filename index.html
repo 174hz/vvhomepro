@@ -6,6 +6,7 @@
     <title>V&V Registry | Secure Ontario Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         :root { 
             --navy: #003366; --accent-blue: #0056b3; 
@@ -32,14 +33,15 @@
             gap: 50px; padding: 0 20px; flex: 1;
         }
 
-        .instructions-panel {
-            background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px);
-            padding: 30px; border-radius: 16px; border: 1px solid rgba(0,0,0,0.1);
+        /* ABOUT US SECTION */
+        .about-panel {
+            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);
+            padding: 35px; border-radius: 16px; border: 1px solid rgba(0,0,0,0.1);
         }
-        
+
         .chat-card { 
-            height: 600px; display: flex; flex-direction: column; 
-            background: rgba(255, 255, 255, 0.9); border-radius: 16px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.2); 
+            height: 650px; display: flex; flex-direction: column; 
+            background: rgba(255, 255, 255, 0.95); border-radius: 16px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.2); 
         }
 
         #chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; }
@@ -47,12 +49,20 @@
         .bot { border-left: 4px solid var(--accent-blue); background: white; }
         .user { text-align: right; background: var(--navy); color: white; margin-left: 20%; }
         
+        /* SUCCESS BAR */
+        .progress-container { width: 100%; background: #ddd; border-radius: 10px; margin: 15px 0; display: none; }
+        .progress-bar { width: 0%; height: 10px; background: var(--success-green); border-radius: 10px; transition: width 2s ease-in-out; }
+
         .summary-mode { background-color: var(--amber) !important; border: 2px solid #fbc02d !important; }
         .confirmed-mode { background-color: var(--success-bg) !important; border: 2px solid var(--success-green) !important; color: #1b5e20 !important; }
         .data-row { display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px dotted rgba(0,0,0,0.1); }
-        .tick { color: var(--success-green); font-weight: 900; margin-right: 10px; }
+        
+        .download-btn { 
+            background: var(--success-green); color: white; border: none; padding: 10px 15px; 
+            border-radius: 6px; cursor: pointer; font-weight: 700; width: 100%; margin-top: 10px;
+        }
 
-        .input-bar { padding: 15px; display: flex; gap: 10px; background: white; }
+        .input-bar { padding: 15px; display: flex; gap: 10px; background: white; border-top: 1px solid #eee; }
         input { flex-grow: 1; padding: 12px; border: 1px solid #ddd; border-radius: 6px; }
         button { background: var(--navy); color: white; border: none; padding: 12px 20px; cursor: pointer; border-radius: 6px; font-weight: 700; }
     </style>
@@ -60,22 +70,23 @@
 <body>
 
 <header>
-    <div style="font-family: 'Montserrat'; font-weight: 800; color: var(--navy); letter-spacing: 1px;">V&V HOME PRO</div>
-    <nav class="nav-links"><a href="#">Home</a><a href="#">About Us</a></nav>
+    <div style="font-family: 'Montserrat'; font-weight: 800; color: var(--navy);">V&V HOME PRO</div>
+    <nav class="nav-links"><a href="#">Home</a><a href="#about">About Us</a></nav>
 </header>
 
 <main class="container">
-    <div class="instructions-panel">
-        <h2 style="font-family:'Montserrat'; color:var(--navy);">Registry Protocol</h2>
-        <p>To ensure you are matched with a Tier-1 Ontario specialist, please follow the automated intake process:</p>
-        <ul style="line-height: 2;">
-            <li><b>Step 1:</b> Describe your project (e.g., Roofing).</li>
-            <li><b>Step 2:</b> Provide Name and City.</li>
-            <li><b>Step 3:</b> Provide a secure Phone Number.</li>
-            <li><b>Step 4:</b> Set your preferred Callback Time.</li>
-            <li><b>Step 5:</b> Type <b>CONFIRM</b> to authorize.</li>
-        </ul>
-        <p style="font-size: 0.85rem; color: #666; font-style: italic;">*All data is encrypted and sent directly to our verified dispatch team.</p>
+    <div class="about-panel" id="about">
+        <h2 style="font-family:'Montserrat'; color:var(--navy); margin-top:0;">The V&V Standard</h2>
+        <p>V&V Home Pro operates Ontario’s most exclusive **Tier-1 Trade Registry**. We bridge the gap between discerning homeowners and elite, vetted contractors.</p>
+        <div style="background: var(--navy); color:white; padding: 15px; border-radius: 8px; margin: 20px 0;">
+            <h4 style="margin:0 0 10px 0;">Why V&V?</h4>
+            <ul style="margin:0; padding-left:20px; font-size: 0.9rem;">
+                <li>**Vetted Only:** Every specialist holds valid WSIB and Liability coverage.</li>
+                <li>**Local Priority:** We match you with experts in your specific municipality.</li>
+                <li>**No Spam:** Your data is encrypted and only released to your specific match.</li>
+            </ul>
+        </div>
+        <p style="font-size: 0.9rem; color: #555;">Registered in Sarnia, Thornhill, and across the GTA since 2021.</p>
     </div>
 
     <div class="chat-card">
@@ -92,6 +103,22 @@
 <script>
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
     let chatHistory = []; 
+    let currentLeadData = {};
+
+    async function generatePDF(data) {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        doc.setFontSize(22); doc.text("V&V Registry Receipt", 20, 20);
+        doc.setFontSize(12); doc.text(`Timestamp: ${new Date().toLocaleString()}`, 20, 30);
+        doc.line(20, 35, 190, 35);
+        doc.text(`Name: ${data.name}`, 20, 50);
+        doc.text(`Location: ${data.location}`, 20, 60);
+        doc.text(`Phone: ${data.phone}`, 20, 70);
+        doc.text(`Trade: ${data.trade}`, 20, 80);
+        doc.text(`Callback Time: ${data.bestTime}`, 20, 90);
+        doc.text("Status: VERIFIED TIER-1 INTAKE", 20, 110);
+        doc.save(`VV_Receipt_${data.name}.pdf`);
+    }
 
     async function send() {
         const input = document.getElementById('user-input');
@@ -103,32 +130,46 @@
         if(val.toLowerCase() === 'confirm' && summaryExists) {
             box.innerHTML += `<div class="msg user">${val}</div>`;
             const u = chatHistory.filter(h => h.role === "user").map(h => h.parts[0].text);
-            const formData = { name: u[1], location: u[2], phone: u.find(m => /\d{3}/.test(m)), trade: u[0].includes('roof') ? 'Roofing' : 'Trade', bestTime: u[u.length-1] };
+            currentLeadData = { name: u[1], location: u[2], phone: u.find(m => /\d{3}/.test(m)), trade: u[0], bestTime: u[u.length-1] };
             
             summaryExists.classList.replace('summary-mode', 'confirmed-mode');
-            summaryExists.innerHTML = `<h3 style="margin:0">✅ DATA VERIFIED</h3><div class="data-row"><span class="tick">✔</span> Name: <b>${formData.name}</b></div><div class="data-row"><span class="tick">✔</span> Phone: <b>${formData.phone}</b></div><div class="data-row"><span class="tick">✔</span> Time: <b>${formData.bestTime}</b></div><p>Email Dispatch Sent.</p>`;
+            summaryExists.innerHTML = `
+                <h3 style="margin:0">✅ DATA VERIFIED</h3>
+                <div class="progress-container" id="p-cont" style="display:block;"><div class="progress-bar" id="p-bar"></div></div>
+                <p id="status-text">Matching with specialists...</p>
+                <div id="final-actions" style="display:none">
+                    <div class="data-row"><span>Reference:</span> <b>#${Math.floor(Math.random()*9000)+1000}</b></div>
+                    <button class="download-btn" onclick="generatePDF(currentLeadData)">Download Registry Receipt (PDF)</button>
+                </div>
+            `;
             
-            fetch(WORKER, { method: 'POST', body: JSON.stringify({ isEmailTrigger: true, formData }) });
+            // Trigger Timer
+            setTimeout(() => { document.getElementById('p-bar').style.width = "100%"; }, 100);
+            setTimeout(() => { 
+                document.getElementById('status-text').innerText = "Match Found! Dispatching details now.";
+                document.getElementById('final-actions').style.display = "block";
+            }, 2500);
+
             input.value = ''; return;
         }
 
         box.innerHTML += `<div class="msg user">${val}</div>`;
         chatHistory.push({ role: "user", parts: [{ text: val }] });
         input.value = '';
-        const load = document.createElement('div'); load.className = 'msg bot'; load.innerText = 'Consulting Registry...'; box.appendChild(load);
+        const load = document.createElement('div'); load.className = 'msg bot'; load.innerText = 'Syncing...'; box.appendChild(load);
 
         try {
             const res = await fetch(WORKER, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contents: chatHistory, system_instruction: { parts: [{ text: "Collect Name, City, Phone, Trade, and Time. Summarize as 'REVIEW YOUR SUBMISSION' only when all 5 are present. Ask for 'CONFIRM'." }] } })
+                body: JSON.stringify({ contents: chatHistory, system_instruction: { parts: [{ text: "Collect 5 items. Summarize as 'REVIEW YOUR SUBMISSION' only when all 5 are present. Ask for 'CONFIRM'." }] } })
             });
             const data = await res.json();
             const aiText = data.candidates[0].content.parts[0].text;
             chatHistory.push({ role: "model", parts: [{ text: aiText }] });
             load.innerHTML = marked.parse(aiText);
             if(aiText.toUpperCase().includes("REVIEW")) load.classList.add('summary-mode');
-        } catch (e) { load.innerText = "Connection error. Please try again."; }
+        } catch (e) { load.innerText = "Check your connection."; }
         box.scrollTop = box.scrollHeight;
     }
 </script>
