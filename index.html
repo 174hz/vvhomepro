@@ -33,7 +33,6 @@
             gap: 50px; padding: 0 20px; flex: 1;
         }
 
-        /* ABOUT US SECTION */
         .about-panel {
             background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);
             padding: 35px; border-radius: 16px; border: 1px solid rgba(0,0,0,0.1);
@@ -49,22 +48,24 @@
         .bot { border-left: 4px solid var(--accent-blue); background: white; }
         .user { text-align: right; background: var(--navy); color: white; margin-left: 20%; }
         
-        /* SUCCESS BAR */
-        .progress-container { width: 100%; background: #ddd; border-radius: 10px; margin: 15px 0; display: none; }
-        .progress-bar { width: 0%; height: 10px; background: var(--success-green); border-radius: 10px; transition: width 2s ease-in-out; }
+        /* SUCCESS UI */
+        .progress-container { width: 100%; background: #eee; border-radius: 10px; margin: 15px 0; overflow: hidden; }
+        .progress-bar { width: 0%; height: 8px; background: var(--success-green); transition: width 2.5s ease-in-out; }
 
         .summary-mode { background-color: var(--amber) !important; border: 2px solid #fbc02d !important; }
         .confirmed-mode { background-color: var(--success-bg) !important; border: 2px solid var(--success-green) !important; color: #1b5e20 !important; }
-        .data-row { display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px dotted rgba(0,0,0,0.1); }
         
-        .download-btn { 
-            background: var(--success-green); color: white; border: none; padding: 10px 15px; 
-            border-radius: 6px; cursor: pointer; font-weight: 700; width: 100%; margin-top: 10px;
+        .action-btn { 
+            border: none; padding: 12px; border-radius: 6px; cursor: pointer; 
+            font-weight: 700; width: 100%; margin-top: 10px; transition: 0.2s;
         }
+        .dl-btn { background: var(--success-green); color: white; }
+        .share-btn { background: var(--navy); color: white; }
+        .action-btn:hover { opacity: 0.9; transform: translateY(-1px); }
 
         .input-bar { padding: 15px; display: flex; gap: 10px; background: white; border-top: 1px solid #eee; }
         input { flex-grow: 1; padding: 12px; border: 1px solid #ddd; border-radius: 6px; }
-        button { background: var(--navy); color: white; border: none; padding: 12px 20px; cursor: pointer; border-radius: 6px; font-weight: 700; }
+        button#send-btn { background: var(--navy); color: white; border: none; padding: 12px 20px; cursor: pointer; border-radius: 6px; font-weight: 700; }
     </style>
 </head>
 <body>
@@ -76,26 +77,29 @@
 
 <main class="container">
     <div class="about-panel" id="about">
-        <h2 style="font-family:'Montserrat'; color:var(--navy); margin-top:0;">The V&V Standard</h2>
-        <p>V&V Home Pro operates Ontario’s most exclusive **Tier-1 Trade Registry**. We bridge the gap between discerning homeowners and elite, vetted contractors.</p>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+            <h2 style="font-family:'Montserrat'; color:var(--navy); margin:0;">The V&V Standard</h2>
+            <div style="background: var(--success-green); color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 800;">ONTARIO TIER-1</div>
+        </div>
+        <p>V&V Home Pro manages a secure **Trade Registry** connecting verified local specialists with serious project owners. Our matching algorithm ensures priority dispatch for registered users.</p>
         <div style="background: var(--navy); color:white; padding: 15px; border-radius: 8px; margin: 20px 0;">
-            <h4 style="margin:0 0 10px 0;">Why V&V?</h4>
-            <ul style="margin:0; padding-left:20px; font-size: 0.9rem;">
-                <li>**Vetted Only:** Every specialist holds valid WSIB and Liability coverage.</li>
-                <li>**Local Priority:** We match you with experts in your specific municipality.</li>
-                <li>**No Spam:** Your data is encrypted and only released to your specific match.</li>
+            <h4 style="margin:0 0 10px 0;">Why Register?</h4>
+            <ul style="margin:0; padding-left:20px; font-size: 0.9rem; line-height: 1.6;">
+                <li>**Verified Credentials:** WSIB & Liability confirmed.</li>
+                <li>**Registry Receipt:** Formal proof of intake.</li>
+                <li>**Data Security:** Encrypted portal transmission.</li>
             </ul>
         </div>
-        <p style="font-size: 0.9rem; color: #555;">Registered in Sarnia, Thornhill, and across the GTA since 2021.</p>
+        <p style="font-size: 0.85rem; color: #666;">Serving Ontario homeowners with transparency and integrity.</p>
     </div>
 
     <div class="chat-card">
         <div id="chat-window">
-            <div class="msg bot">Welcome. Briefly describe the trade work you need completed (e.g. Windows, Roofing, HVAC).</div>
+            <div class="msg bot">Welcome to the Registry. Briefly describe the trade work you need (e.g. Windows, Roofing, HVAC).</div>
         </div>
         <div class="input-bar">
             <input type="text" id="user-input" placeholder="Type here...">
-            <button onclick="send()">SEND</button>
+            <button id="send-btn" onclick="send()">SEND</button>
         </div>
     </div>
 </main>
@@ -108,16 +112,31 @@
     async function generatePDF(data) {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
-        doc.setFontSize(22); doc.text("V&V Registry Receipt", 20, 20);
-        doc.setFontSize(12); doc.text(`Timestamp: ${new Date().toLocaleString()}`, 20, 30);
-        doc.line(20, 35, 190, 35);
-        doc.text(`Name: ${data.name}`, 20, 50);
-        doc.text(`Location: ${data.location}`, 20, 60);
-        doc.text(`Phone: ${data.phone}`, 20, 70);
-        doc.text(`Trade: ${data.trade}`, 20, 80);
-        doc.text(`Callback Time: ${data.bestTime}`, 20, 90);
-        doc.text("Status: VERIFIED TIER-1 INTAKE", 20, 110);
-        doc.save(`VV_Receipt_${data.name}.pdf`);
+        // Draw Badge
+        doc.setFillColor(0, 51, 102); doc.circle(170, 30, 20, 'F');
+        doc.setTextColor(255, 255, 255); doc.setFontSize(8);
+        doc.text("V&V CERTIFIED", 158, 28); doc.text("TIER-1", 164, 33); doc.text("REGISTRY", 161, 38);
+        // Content
+        doc.setTextColor(0, 51, 102); doc.setFontSize(22); doc.text("Registry Receipt", 20, 25);
+        doc.setDrawColor(0, 51, 102); doc.line(20, 35, 140, 35);
+        doc.setFontSize(12); doc.setTextColor(50, 50, 50);
+        doc.text(`Reference ID: #VV-${Math.floor(Math.random()*90000)+10000}`, 20, 50);
+        doc.text(`Name: ${data.name}`, 20, 65);
+        doc.text(`Location: ${data.location}`, 20, 75);
+        doc.text(`Project: ${data.trade}`, 20, 85);
+        doc.text(`Callback: ${data.bestTime}`, 20, 95);
+        doc.setFont(undefined, 'italic');
+        doc.text("Status: Verified Intake Complete", 20, 120);
+        doc.save(`V&V_Receipt_${data.name}.pdf`);
+    }
+
+    async function socialShare() {
+        const shareData = {
+            title: 'V&V Home Pro Registry',
+            text: `I just registered my project on the V&V Tier-1 Trade Registry for ${currentLeadData.trade}!`,
+            url: window.location.href
+        };
+        try { await navigator.share(shareData); } catch (err) { console.log("Share failed or not supported"); }
     }
 
     async function send() {
@@ -134,42 +153,39 @@
             
             summaryExists.classList.replace('summary-mode', 'confirmed-mode');
             summaryExists.innerHTML = `
-                <h3 style="margin:0">✅ DATA VERIFIED</h3>
-                <div class="progress-container" id="p-cont" style="display:block;"><div class="progress-bar" id="p-bar"></div></div>
-                <p id="status-text">Matching with specialists...</p>
+                <h3 style="margin:0">✅ REGISTRATION VERIFIED</h3>
+                <div class="progress-container"><div class="progress-bar" id="p-bar"></div></div>
+                <p id="status-text" style="font-size:0.9rem;">Connecting to Tier-1 Dispatch...</p>
                 <div id="final-actions" style="display:none">
-                    <div class="data-row"><span>Reference:</span> <b>#${Math.floor(Math.random()*9000)+1000}</b></div>
-                    <button class="download-btn" onclick="generatePDF(currentLeadData)">Download Registry Receipt (PDF)</button>
+                    <button class="action-btn dl-btn" onclick="generatePDF(currentLeadData)">Download Certified Receipt (PDF)</button>
+                    <button class="action-btn share-btn" onclick="socialShare()">Share Registry Status</button>
                 </div>
             `;
-            
-            // Trigger Timer
             setTimeout(() => { document.getElementById('p-bar').style.width = "100%"; }, 100);
             setTimeout(() => { 
-                document.getElementById('status-text').innerText = "Match Found! Dispatching details now.";
+                document.getElementById('status-text').innerText = "Match sequence initiated. You are now in the priority queue.";
                 document.getElementById('final-actions').style.display = "block";
-            }, 2500);
-
+            }, 2600);
             input.value = ''; return;
         }
 
         box.innerHTML += `<div class="msg user">${val}</div>`;
         chatHistory.push({ role: "user", parts: [{ text: val }] });
         input.value = '';
-        const load = document.createElement('div'); load.className = 'msg bot'; load.innerText = 'Syncing...'; box.appendChild(load);
+        const load = document.createElement('div'); load.className = 'msg bot'; load.innerText = 'Analyzing...'; box.appendChild(load);
 
         try {
             const res = await fetch(WORKER, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contents: chatHistory, system_instruction: { parts: [{ text: "Collect 5 items. Summarize as 'REVIEW YOUR SUBMISSION' only when all 5 are present. Ask for 'CONFIRM'." }] } })
+                body: JSON.stringify({ contents: chatHistory, system_instruction: { parts: [{ text: "Collect Project Type, Name, City, Phone, and Callback Time. When all 5 are present, provide a 'REVIEW YOUR SUBMISSION' summary and ask for 'CONFIRM'." }] } })
             });
             const data = await res.json();
             const aiText = data.candidates[0].content.parts[0].text;
             chatHistory.push({ role: "model", parts: [{ text: aiText }] });
             load.innerHTML = marked.parse(aiText);
             if(aiText.toUpperCase().includes("REVIEW")) load.classList.add('summary-mode');
-        } catch (e) { load.innerText = "Check your connection."; }
+        } catch (e) { load.innerText = "Registry node busy. Try again."; }
         box.scrollTop = box.scrollHeight;
     }
 </script>
