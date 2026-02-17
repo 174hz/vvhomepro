@@ -3,143 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VV HOME PRO | Vetted & Verified</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <title>VV HOME PRO | Premium Home Services</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        :root { --navy: #003366; --accent: #0056b3; --bg: #f4f7f9; }
-        
-        /* Ensure the page is never 'invisible' */
-        html, body { 
-            margin: 0; padding: 0; min-height: 100vh; 
-            background-color: var(--bg) !important; 
-            color: #333; font-family: 'Inter', sans-serif;
+        :root { 
+            --navy: #002d5a; --accent: #0056b3; 
+            --glass: rgba(255, 255, 255, 0.85);
+            --gold: #d4af37;
+        }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; 
+            background: #000; color: #1a1a1a; min-height: 100vh;
+        }
+
+        /* Hero Background with Overlay */
+        .hero-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                        url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            z-index: -1;
         }
 
         header {
-            background: white; padding: 15px 5%;
+            background: rgba(255, 255, 255, 0.95); padding: 1rem 5%;
             display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 999;
+            backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000;
+            border-bottom: 3px solid var(--navy);
         }
+
+        .logo { font-family: 'Montserrat'; font-weight: 900; color: var(--navy); font-size: 1.4rem; letter-spacing: -1px; }
 
         .nav-links button {
-            background: none; border: 1px solid transparent; cursor: pointer;
-            font-family: 'Montserrat'; font-weight: 700; color: var(--navy);
-            text-transform: uppercase; font-size: 0.75rem; padding: 8px 12px;
+            background: none; border: none; cursor: pointer; color: var(--navy);
+            font-family: 'Montserrat'; font-weight: 700; margin-left: 25px;
+            text-transform: uppercase; font-size: 0.8rem; transition: 0.3s;
+        }
+        .nav-links button:hover { color: var(--accent); transform: translateY(-1px); }
+
+        .main-content {
+            max-width: 1200px; margin: 60px auto;
+            display: grid; grid-template-columns: 1fr 450px; gap: 40px; padding: 0 20px;
         }
 
-        .nav-links button:hover { border-color: var(--accent); color: var(--accent); }
-
-        .container {
-            max-width: 1100px; margin: 40px auto;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 0 20px;
+        /* Side Panel Glass Effect */
+        .glass-card {
+            background: var(--glass); backdrop-filter: blur(15px);
+            padding: 40px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
 
-        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .chat-portal {
+            background: white; border-radius: 24px; overflow: hidden;
+            display: flex; flex-direction: column; height: 650px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4); border: 1px solid #eee;
+        }
 
-        #chat-window { height: 350px; overflow-y: auto; background: #fafafa; border: 1px solid #eee; padding: 15px; margin-bottom: 10px; border-radius: 8px; }
-        .msg { margin-bottom: 12px; padding: 10px; border-radius: 8px; font-size: 0.9rem; line-height: 1.4; }
-        .bot { background: white; border-left: 4px solid var(--accent); }
-        .user { background: var(--navy); color: white; margin-left: 20%; text-align: right; }
+        .chat-header { background: var(--navy); color: white; padding: 20px; text-align: center; font-family: 'Montserrat'; }
+        
+        #chat-window { flex: 1; padding: 25px; overflow-y: auto; background: #f9fbff; }
+        .msg { margin-bottom: 20px; padding: 15px 20px; border-radius: 18px; line-height: 1.5; font-size: 0.95rem; max-width: 85%; }
+        .bot { background: white; border-bottom-left-radius: 2px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); color: #333; }
+        .user { background: var(--navy); color: white; align-self: flex-end; margin-left: auto; border-bottom-right-radius: 2px; }
 
-        .input-group { display: flex; gap: 10px; }
-        input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 6px; }
-        button#send-btn { background: var(--navy); color: white; border: none; padding: 0 20px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+        .input-area { padding: 20px; background: white; border-top: 1px solid #eee; display: flex; gap: 12px; }
+        input { flex: 1; padding: 15px; border: 2px solid #eee; border-radius: 12px; font-family: inherit; transition: 0.3s; }
+        input:focus { border-color: var(--accent); outline: none; }
+        
+        #send-btn { background: var(--navy); color: white; border: none; padding: 0 25px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+        #send-btn:hover { background: var(--accent); }
 
-        footer { background: var(--navy); color: white; padding: 40px; text-align: center; margin-top: 50px; }
+        .pro-cta { 
+            grid-column: 1 / -1; background: var(--navy); color: white; 
+            padding: 60px; border-radius: 24px; text-align: center; margin-top: 40px;
+        }
+
+        footer { padding: 40px; text-align: center; color: white; font-size: 0.8rem; opacity: 0.8; }
     </style>
 </head>
 <body>
 
+<div class="hero-bg"></div>
+
 <header>
-    <div style="font-family: 'Montserrat'; font-weight: 800; color: var(--navy); font-size: 1.2rem;">VV HOME PRO</div>
+    <div class="logo">VV HOME PRO</div>
     <nav class="nav-links">
         <button onclick="window.scrollTo({top:0, behavior:'smooth'})">Home</button>
-        <button onclick="document.getElementById('about-section').scrollIntoView({behavior:'smooth'})">About</button>
-        <button onclick="document.getElementById('pro-section').scrollIntoView({behavior:'smooth'})">Pros</button>
+        <button onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">About</button>
+        <button onclick="document.getElementById('pros').scrollIntoView({behavior:'smooth'})" style="border: 1px solid var(--navy); padding: 8px 15px; border-radius: 6px;">For Professionals</button>
     </nav>
 </header>
 
-<main class="container">
-    <div class="card" id="about-section">
-        <h2 style="font-family: 'Montserrat'; color: var(--navy);">Vetted & Verified</h2>
-        <p>Connecting Ontario homeowners with high-end professionals.</p>
-        <ul style="font-size: 0.9rem; line-height: 2;">
-            <li>✅ <strong>WSIB Verified</strong></li>
-            <li>✅ <strong>Liability Insurance Check</strong></li>
-            <li>✅ <strong>Secure Transmission</strong></li>
-        </ul>
+<main class="main-content">
+    <div class="glass-card" id="about">
+        <h1 style="font-family: 'Montserrat'; font-size: 2.5rem; color: var(--navy); margin-top: 0;">Vetted & Verified.</h1>
+        <p style="font-size: 1.1rem; color: #444; line-height: 1.8;">Ontario's premier matching portal for high-end home service professionals. We don't just find contractors; we find the <strong>Gold Standard</strong>.</p>
+        <div style="margin-top: 30px;">
+            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                <span style="font-size: 1.5rem; margin-right: 15px;">🛡️</span>
+                <span><strong>WSIB Verified:</strong> All pros have active standing.</span>
+            </div>
+            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                <span style="font-size: 1.5rem; margin-right: 15px;">📋</span>
+                <span><strong>Liability Check:</strong> Minimum $2M coverage confirmed.</span>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <span style="font-size: 1.5rem; margin-right: 15px;">🔐</span>
+                <span><strong>Secure Intake:</strong> Your data is encrypted and private.</span>
+            </div>
+        </div>
     </div>
 
-    <div class="card">
+    <div class="chat-portal">
+        <div class="chat-header">INTAKE ENGINE v3.0</div>
         <div id="chat-window">
-            <div class="msg bot">Welcome to the V&V Portal. What project can we help you with today? (e.g., Roofing, Windows)</div>
+            <div class="msg bot">Welcome to VV HOME PRO. Briefly describe the project you need completed (e.g. Roofing, HVAC, Windows).</div>
         </div>
-        <div class="input-group">
-            <input type="text" id="user-input" placeholder="Type project details..." onkeypress="if(event.key==='Enter') send()">
+        <div class="input-area">
+            <input type="text" id="user-input" placeholder="Start typing project details..." onkeypress="if(event.key==='Enter') send()">
             <button id="send-btn" onclick="send()">SEND</button>
         </div>
     </div>
+
+    <div class="pro-cta" id="pros">
+        <h2 style="font-family: 'Montserrat'; font-size: 2rem; margin-top: 0;">Are you a Top-Tier Professional?</h2>
+        <p style="opacity: 0.9; margin-bottom: 30px;">Join Ontario's most exclusive network of verified home service providers.</p>
+        <button style="background: white; color: var(--navy); border: none; padding: 18px 40px; border-radius: 12px; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 0.9rem;">Apply for Directory</button>
+    </div>
 </main>
 
-<div class="container" id="pro-section">
-    <div class="card" style="grid-column: 1 / -1; text-align: center;">
-        <h2 style="font-family: 'Montserrat'; color: var(--navy);">Are you a Professional?</h2>
-        <p>Join our elite network of verified Ontario contractors.</p>
-        <button style="background: var(--accent); color: white; border: none; padding: 15px 30px; border-radius: 6px; font-weight: 700; cursor: pointer;">Apply for Directory</button>
-    </div>
-</div>
-
-<footer>
-    <p>© 2026 VV HOME PRO | Ontario, Canada</p>
-</footer>
+<footer>© 2026 VV HOME PRO | Vetted & Verified Home Services | Ontario, Canada</footer>
 
 <script>
-    // Ensure this matches your Cloudflare URL exactly
-    const WORKER_URL = 'https://vvhomepro-brain.dbelnavis.workers.dev/'; 
-    let chatHistory = [];
+    const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/'; 
+    let history = [];
 
     async function send() {
         const input = document.getElementById('user-input');
         const box = document.getElementById('chat-window');
         const text = input.value.trim();
-        
-        if (!text) return;
+        if(!text) return;
 
-        // 1. Show User Message
         box.innerHTML += `<div class="msg user">${text}</div>`;
-        chatHistory.push({ role: "user", parts: [{ text: text }] });
+        history.push({ role: "user", parts: [{ text: text }] });
         input.value = '';
         box.scrollTop = box.scrollHeight;
 
-        // 2. Show Loading
         const load = document.createElement('div');
         load.className = 'msg bot';
-        load.innerText = 'Consulting V&V Database...';
+        load.innerText = 'Analyzing requirements...';
         box.appendChild(load);
 
         try {
-            const response = await fetch(WORKER_URL, {
+            const res = await fetch(WORKER, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
-                    contents: chatHistory,
-                    // Note: System instructions are now part of the history to prevent JSON errors
+                    contents: history,
+                    // Sending system instructions as part of history for better model following
                 })
             });
+            const data = await res.json();
+            if(data.error) throw new Error(data.error);
 
-            const data = await response.json();
-            
-            if (data.error) throw new Error(data.error);
-
-            const aiResponse = data.candidates[0].content.parts[0].text;
-            chatHistory.push({ role: "model", parts: [{ text: aiResponse }] });
-            
-            load.innerHTML = marked.parse(aiResponse);
-
-        } catch (err) {
-            console.error(err);
-            load.innerHTML = `<span style="color:red;">⚠️ Connection Error:</span><br><small>${err.message}</small>`;
+            const aiText = data.candidates[0].content.parts[0].text;
+            history.push({ role: "model", parts: [{ text: aiText }] });
+            load.innerHTML = marked.parse(aiText);
+        } catch (e) {
+            load.innerHTML = `<span style="color:#d32f2f; font-weight:600;">⚠️ CONNECTION ERROR</span><br><small>${e.message}</small>`;
         }
         box.scrollTop = box.scrollHeight;
     }
