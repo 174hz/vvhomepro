@@ -1,94 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VV HOME PRO | Vetted & Verified</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        :root { --navy: #003366; --accent: #0056b3; --bg: #f4f7f9; }
+        
+        /* Ensure the page is never 'invisible' */
+        html, body { 
+            margin: 0; padding: 0; min-height: 100vh; 
+            background-color: var(--bg) !important; 
+            color: #333; font-family: 'Inter', sans-serif;
+        }
+
+        header {
+            background: white; padding: 15px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 999;
+        }
+
+        .nav-links button {
+            background: none; border: 1px solid transparent; cursor: pointer;
+            font-family: 'Montserrat'; font-weight: 700; color: var(--navy);
+            text-transform: uppercase; font-size: 0.75rem; padding: 8px 12px;
+        }
+
+        .nav-links button:hover { border-color: var(--accent); color: var(--accent); }
+
+        .container {
+            max-width: 1100px; margin: 40px auto;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 0 20px;
+        }
+
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+
+        #chat-window { height: 350px; overflow-y: auto; background: #fafafa; border: 1px solid #eee; padding: 15px; margin-bottom: 10px; border-radius: 8px; }
+        .msg { margin-bottom: 12px; padding: 10px; border-radius: 8px; font-size: 0.9rem; line-height: 1.4; }
+        .bot { background: white; border-left: 4px solid var(--accent); }
+        .user { background: var(--navy); color: white; margin-left: 20%; text-align: right; }
+
+        .input-group { display: flex; gap: 10px; }
+        input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 6px; }
+        button#send-btn { background: var(--navy); color: white; border: none; padding: 0 20px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+
+        footer { background: var(--navy); color: white; padding: 40px; text-align: center; margin-top: 50px; }
+    </style>
+</head>
 <body>
-<div class="bg-overlay"></div>
 
 <header>
-    <div style="font-family: 'Montserrat'; font-weight: 800; color: var(--navy); font-size: 1.1rem;">VV HOME PRO</div>
+    <div style="font-family: 'Montserrat'; font-weight: 800; color: var(--navy); font-size: 1.2rem;">VV HOME PRO</div>
     <nav class="nav-links">
-        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Home</button>
-        <button onclick="document.getElementById('about-section').scrollIntoView({behavior: 'smooth'})">About Us</button>
-        <button class="pro-link-btn" onclick="document.getElementById('pro-section').scrollIntoView({behavior: 'smooth'})">Pro Directory</button>
+        <button onclick="window.scrollTo({top:0, behavior:'smooth'})">Home</button>
+        <button onclick="document.getElementById('about-section').scrollIntoView({behavior:'smooth'})">About</button>
+        <button onclick="document.getElementById('pro-section').scrollIntoView({behavior:'smooth'})">Pros</button>
     </nav>
 </header>
 
 <main class="container">
-    <div class="side-panel" id="about-section">
-        <h2 style="font-family:'Montserrat'; color:var(--navy); margin-top:0;">The V&V Standard</h2>
-        <p>Connecting Ontario with <strong>Vetted & Verified</strong> professionals.</p>
-        <div style="background: var(--navy); color:white; padding: 15px; border-radius: 8px; font-size: 0.8rem; line-height: 1.6;">
-            • Verified WSIB & Liability<br>
-            • Secure Intake Receipt<br>
-            • Encrypted Transmission
-        </div>
+    <div class="card" id="about-section">
+        <h2 style="font-family: 'Montserrat'; color: var(--navy);">Vetted & Verified</h2>
+        <p>Connecting Ontario homeowners with high-end professionals.</p>
+        <ul style="font-size: 0.9rem; line-height: 2;">
+            <li>✅ <strong>WSIB Verified</strong></li>
+            <li>✅ <strong>Liability Insurance Check</strong></li>
+            <li>✅ <strong>Secure Transmission</strong></li>
+        </ul>
     </div>
 
-    <div class="chat-card">
-        <div class="chat-header">VV HOME PRO MATCHING PORTAL</div>
+    <div class="card">
         <div id="chat-window">
-            <div class="msg bot">Welcome to VV HOME PRO. Briefly describe the project you need completed (e.g. Roofing, HVAC, Windows).</div>
+            <div class="msg bot">Welcome to the V&V Portal. What project can we help you with today? (e.g., Roofing, Windows)</div>
         </div>
-        <div class="input-bar">
-            <input type="text" id="user-input" placeholder="Type here..." onkeypress="if(event.key==='Enter') send()">
+        <div class="input-group">
+            <input type="text" id="user-input" placeholder="Type project details..." onkeypress="if(event.key==='Enter') send()">
             <button id="send-btn" onclick="send()">SEND</button>
         </div>
     </div>
 </main>
 
-<div id="pro-section">
-    <h2 style="font-family:'Montserrat'; color:var(--navy); margin-top:0;">For Home Pro Professionals</h2>
-    <p>Are you a high-quality contractor? Join the VV HOME PRO directory to increase your exposure and build trust with vetted credentials.</p>
-    <button style="background: var(--accent); color: white; border: none; padding: 12px 25px; border-radius: 4px; font-weight: 700; cursor: pointer; margin-top: 15px;">Apply to Join Directory</button>
+<div class="container" id="pro-section">
+    <div class="card" style="grid-column: 1 / -1; text-align: center;">
+        <h2 style="font-family: 'Montserrat'; color: var(--navy);">Are you a Professional?</h2>
+        <p>Join our elite network of verified Ontario contractors.</p>
+        <button style="background: var(--accent); color: white; border: none; padding: 15px 30px; border-radius: 6px; font-weight: 700; cursor: pointer;">Apply for Directory</button>
+    </div>
 </div>
 
+<footer>
+    <p>© 2026 VV HOME PRO | Ontario, Canada</p>
+</footer>
+
 <script>
-    const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/'; 
-    // We start with the system instructions as a hidden 'user' role preamble
-    let chatHistory = [
-        { 
-            role: "user", 
-            parts: [{ text: "SYSTEM INSTRUCTIONS: You are the VV HOME PRO assistant. Be professional. Collect: 1. Project Type, 2. Name, 3. City, 4. Phone, 5. Callback Time. Once gathered, provide a summary and ask for 'CONFIRM'." }] 
-        },
-        {
-            role: "model",
-            parts: [{ text: "Understood. I will act as the VV HOME PRO assistant." }]
-        }
-    ];
+    // Ensure this matches your Cloudflare URL exactly
+    const WORKER_URL = 'https://vvhomepro-brain.dbelnavis.workers.dev/'; 
+    let chatHistory = [];
 
     async function send() {
         const input = document.getElementById('user-input');
-        const val = input.value.trim();
-        if(!val) return;
         const box = document.getElementById('chat-window');
-
-        box.innerHTML += `<div class="msg user">${val}</div>`;
-        chatHistory.push({ role: "user", parts: [{ text: val }] });
-        input.value = '';
+        const text = input.value.trim();
         
-        const load = document.createElement('div');
-        load.className = 'msg bot';
-        load.innerText = 'Syncing...';
-        box.appendChild(load);
+        if (!text) return;
+
+        // 1. Show User Message
+        box.innerHTML += `<div class="msg user">${text}</div>`;
+        chatHistory.push({ role: "user", parts: [{ text: text }] });
+        input.value = '';
         box.scrollTop = box.scrollHeight;
 
+        // 2. Show Loading
+        const load = document.createElement('div');
+        load.className = 'msg bot';
+        load.innerText = 'Consulting V&V Database...';
+        box.appendChild(load);
+
         try {
-            const res = await fetch(WORKER, {
+            const response = await fetch(WORKER_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contents: chatHistory })
+                body: JSON.stringify({ 
+                    contents: chatHistory,
+                    // Note: System instructions are now part of the history to prevent JSON errors
+                })
             });
 
-            const data = await res.json();
-            if(data.error) throw new Error(data.error);
+            const data = await response.json();
+            
+            if (data.error) throw new Error(data.error);
 
-            const aiText = data.candidates[0].content.parts[0].text;
-            chatHistory.push({ role: "model", parts: [{ text: aiText }] });
+            const aiResponse = data.candidates[0].content.parts[0].text;
+            chatHistory.push({ role: "model", parts: [{ text: aiResponse }] });
             
-            load.innerHTML = marked.parse(aiText);
-            if(aiText.toUpperCase().includes("REVIEW")) load.classList.add('summary-mode');
-            
-        } catch (e) {
-            load.innerHTML = `<span style="color:red; font-weight:bold;">⚠️ System Error:</span><br><small>${e.message}</small>`;
+            load.innerHTML = marked.parse(aiResponse);
+
+        } catch (err) {
+            console.error(err);
+            load.innerHTML = `<span style="color:red;">⚠️ Connection Error:</span><br><small>${err.message}</small>`;
         }
         box.scrollTop = box.scrollHeight;
     }
 </script>
 </body>
+</html>
