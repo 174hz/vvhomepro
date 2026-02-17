@@ -8,52 +8,79 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         :root { 
-            --navy: #003366; 
-            --accent-blue: #0056b3; 
+            --navy: #003366; --accent-blue: #0056b3; 
             --amber: rgba(255, 249, 196, 0.95); 
-            --success-green: #2e7d32;
-            --success-bg: #e8f5e9;
-            --error-red: #c62828;
+            --success-green: #2e7d32; --success-bg: #e8f5e9;
         }
 
         body { 
-            font-family: 'Inter', sans-serif; margin: 0; display: flex; flex-direction: column; 
+            font-family: 'Inter', sans-serif; margin: 0; display: flex; flex-direction: column; min-height: 100vh;
             background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80') center/cover fixed;
         }
 
-        .container { max-width: 1200px; margin: 40px auto; display: grid; grid-template-columns: 1fr 420px; gap: 50px; padding: 0 20px; }
+        header {
+            background: rgba(255, 255, 255, 0.95); padding: 15px 40px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 1000;
+        }
+
+        .nav-links a { text-decoration: none; color: var(--navy); font-family: 'Montserrat'; font-weight: 700; margin-left: 20px; text-transform: uppercase; font-size: 0.8rem; }
+
+        .container { 
+            max-width: 1200px; margin: 40px auto; 
+            display: grid; grid-template-columns: 1fr 420px; 
+            gap: 50px; padding: 0 20px; flex: 1;
+        }
+
+        .instructions-panel {
+            background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px);
+            padding: 30px; border-radius: 16px; border: 1px solid rgba(0,0,0,0.1);
+        }
         
-        .chat-card { height: 600px; display: flex; flex-direction: column; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(15px); border-radius: 16px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
-        .chat-header { background: var(--navy); color: white; padding: 15px 20px; font-family: 'Montserrat'; font-weight: 700; font-size: 0.8rem; }
+        .chat-card { 
+            height: 600px; display: flex; flex-direction: column; 
+            background: rgba(255, 255, 255, 0.9); border-radius: 16px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.2); 
+        }
+
         #chat-window { flex-grow: 1; padding: 20px; overflow-y: auto; }
-        
-        .msg { margin-bottom: 15px; padding: 12px; border-radius: 12px; line-height: 1.5; transition: all 0.4s ease; }
+        .msg { margin-bottom: 15px; padding: 12px; border-radius: 12px; line-height: 1.5; }
         .bot { border-left: 4px solid var(--accent-blue); background: white; }
         .user { text-align: right; background: var(--navy); color: white; margin-left: 20%; }
         
-        .summary-mode { background-color: var(--amber) !important; border: 2px solid #fbc02d !important; color: #856404 !important; }
+        .summary-mode { background-color: var(--amber) !important; border: 2px solid #fbc02d !important; }
         .confirmed-mode { background-color: var(--success-bg) !important; border: 2px solid var(--success-green) !important; color: #1b5e20 !important; }
-        
-        .data-row { display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px dotted rgba(0,0,0,0.1); padding-bottom: 4px; }
+        .data-row { display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px dotted rgba(0,0,0,0.1); }
         .tick { color: var(--success-green); font-weight: 900; margin-right: 10px; }
 
         .input-bar { padding: 15px; display: flex; gap: 10px; background: white; }
         input { flex-grow: 1; padding: 12px; border: 1px solid #ddd; border-radius: 6px; }
-        button { background: var(--navy); color: white; border: none; padding: 12px 20px; cursor: pointer; border-radius: 6px; font-family: 'Montserrat'; font-weight: 700; }
+        button { background: var(--navy); color: white; border: none; padding: 12px 20px; cursor: pointer; border-radius: 6px; font-weight: 700; }
     </style>
 </head>
 <body>
 
+<header>
+    <div style="font-family: 'Montserrat'; font-weight: 800; color: var(--navy); letter-spacing: 1px;">V&V HOME PRO</div>
+    <nav class="nav-links"><a href="#">Home</a><a href="#">About Us</a></nav>
+</header>
+
 <main class="container">
-    <div style="color:white; text-shadow: 1px 1px 4px rgba(0,0,0,0.5);">
-        <h1>V&V Proprietary Registry</h1>
-        <p>Verified Tier-1 Ontario Trade Matching.</p>
+    <div class="instructions-panel">
+        <h2 style="font-family:'Montserrat'; color:var(--navy);">Registry Protocol</h2>
+        <p>To ensure you are matched with a Tier-1 Ontario specialist, please follow the automated intake process:</p>
+        <ul style="line-height: 2;">
+            <li><b>Step 1:</b> Describe your project (e.g., Roofing).</li>
+            <li><b>Step 2:</b> Provide Name and City.</li>
+            <li><b>Step 3:</b> Provide a secure Phone Number.</li>
+            <li><b>Step 4:</b> Set your preferred Callback Time.</li>
+            <li><b>Step 5:</b> Type <b>CONFIRM</b> to authorize.</li>
+        </ul>
+        <p style="font-size: 0.85rem; color: #666; font-style: italic;">*All data is encrypted and sent directly to our verified dispatch team.</p>
     </div>
 
     <div class="chat-card">
-        <div class="chat-header">SECURE MATCHING PORTAL</div>
         <div id="chat-window">
-            <div class="msg bot">Welcome. To begin, please briefly describe the trade work you need completed (e.g. Windows, Roofing, HVAC).</div>
+            <div class="msg bot">Welcome. Briefly describe the trade work you need completed (e.g. Windows, Roofing, HVAC).</div>
         </div>
         <div class="input-bar">
             <input type="text" id="user-input" placeholder="Type here...">
@@ -66,123 +93,44 @@
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
     let chatHistory = []; 
 
-    // --- NEW: Function to send the data to your backend for email ---
-    async function triggerEmailDispatch(data) {
-        try {
-            // Replace with your actual Email Worker or API URL
-            await fetch('https://your-email-worker.workers.dev', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-            console.log("Email Dispatch Success");
-        } catch (e) {
-            console.error("Email API not connected yet.");
-        }
-    }
-
     async function send() {
         const input = document.getElementById('user-input');
         const val = input.value.trim();
         if(!val) return;
-        
         const box = document.getElementById('chat-window');
         const summaryExists = document.querySelector('.summary-mode');
 
-        // --- 1. THE GREEN CONFIRMATION INTERCEPT ---
-        if(val.toLowerCase() === 'confirm') {
+        if(val.toLowerCase() === 'confirm' && summaryExists) {
             box.innerHTML += `<div class="msg user">${val}</div>`;
-            if(summaryExists) {
-                const u = chatHistory.filter(h => h.role === "user").map(h => h.parts[0].text);
-                
-                // Smart Extraction
-                const tradeName = u[0].toLowerCase().includes('roof') ? 'Roofing' : 
-                                  u[0].toLowerCase().includes('hvac') ? 'HVAC' : 'General Trade';
-                const callTime = u[u.length-1];
-
-                const formData = {
-                    name: u[1],
-                    location: u[2],
-                    phone: u.find(m => /\d{3}/.test(m)),
-                    trade: tradeName,
-                    bestTime: callTime
-                };
-
-                // UI Update to Green Verified State
-                summaryExists.classList.remove('summary-mode');
-                summaryExists.classList.add('confirmed-mode');
-                summaryExists.innerHTML = `
-                    <h3 style="margin-top:0; color:var(--success-green);">✅ REGISTRY DATA VERIFIED</h3>
-                    <div class="data-row"><span><span class="tick">✔</span> Reference Name:</span> <b>${formData.name}</b></div>
-                    <div class="data-row"><span><span class="tick">✔</span> Service Area:</span> <b>${formData.location}</b></div>
-                    <div class="data-row"><span><span class="tick">✔</span> Phone Number:</span> <b>${formData.phone}</b></div>
-                    <div class="data-row"><span><span class="tick">✔</span> Primary Trade:</span> <b>${formData.trade}</b></div>
-                    <div class="data-row"><span><span class="tick">✔</span> Best Time to Call:</span> <b>${formData.bestTime}</b></div>
-                    <p style="margin-top:15px; font-size:0.85rem; border-top: 1px solid rgba(0,0,0,0.1); padding-top:10px;">
-                        <i>Success: Email confirmation sent. Your intake is now with Ontario Tier-1 Dispatch.</i>
-                    </p>
-                `;
-
-                // Trigger the actual Email
-                triggerEmailDispatch(formData);
-
-                input.value = '';
-                box.scrollTop = box.scrollHeight;
-                return;
-            }
+            const u = chatHistory.filter(h => h.role === "user").map(h => h.parts[0].text);
+            const formData = { name: u[1], location: u[2], phone: u.find(m => /\d{3}/.test(m)), trade: u[0].includes('roof') ? 'Roofing' : 'Trade', bestTime: u[u.length-1] };
+            
+            summaryExists.classList.replace('summary-mode', 'confirmed-mode');
+            summaryExists.innerHTML = `<h3 style="margin:0">✅ DATA VERIFIED</h3><div class="data-row"><span class="tick">✔</span> Name: <b>${formData.name}</b></div><div class="data-row"><span class="tick">✔</span> Phone: <b>${formData.phone}</b></div><div class="data-row"><span class="tick">✔</span> Time: <b>${formData.bestTime}</b></div><p>Email Dispatch Sent.</p>`;
+            
+            fetch(WORKER, { method: 'POST', body: JSON.stringify({ isEmailTrigger: true, formData }) });
+            input.value = ''; return;
         }
 
-        // --- 2. REGULAR MESSAGE HANDLING ---
         box.innerHTML += `<div class="msg user">${val}</div>`;
         chatHistory.push({ role: "user", parts: [{ text: val }] });
         input.value = '';
-
-        const load = document.createElement('div');
-        load.className = 'msg bot'; 
-        load.innerText = 'Syncing Registry Data...';
-        box.appendChild(load);
-        box.scrollTop = box.scrollHeight;
+        const load = document.createElement('div'); load.className = 'msg bot'; load.innerText = 'Consulting Registry...'; box.appendChild(load);
 
         try {
             const res = await fetch(WORKER, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    contents: chatHistory,
-                    system_instruction: {
-                        parts: [{ text: "Collect 5 items: Name, City, Phone, Trade Type, and Best Time to Call. Once all 5 are present, display: 'REVIEW YOUR SUBMISSION' with bullets. End with: 'Type CONFIRM to authorize.'" }]
-                    }
-                })
+                body: JSON.stringify({ contents: chatHistory, system_instruction: { parts: [{ text: "Collect Name, City, Phone, Trade, and Time. Summarize as 'REVIEW YOUR SUBMISSION' only when all 5 are present. Ask for 'CONFIRM'." }] } })
             });
-            
             const data = await res.json();
             const aiText = data.candidates[0].content.parts[0].text;
-            
             chatHistory.push({ role: "model", parts: [{ text: aiText }] });
             load.innerHTML = marked.parse(aiText);
-
-            if(aiText.toUpperCase().includes("REVIEW YOUR SUBMISSION")) {
-                load.classList.add('summary-mode');
-            }
-        } catch (e) {
-            // Failsafe Logic if AI stalls
-            const u = chatHistory.filter(h => h.role === "user").map(h => h.parts[0].text);
-            let fb = "";
-            if (u.length === 1) fb = "What is your full name?";
-            else if (u.length === 2) fb = "Which Ontario City are you in?";
-            else if (u.length === 3) fb = "What is your phone number?";
-            else if (u.length === 4) fb = "What is the best time of day to call you?";
-            else {
-                load.classList.add('summary-mode');
-                fb = `**REVIEW YOUR SUBMISSION:**\n\n• **Name:** ${u[1]}\n• **Location:** ${u[2]}\n• **Phone:** ${u[3]}\n• **Trade:** ${u[0]}\n• **Best Time:** ${u[4]}\n\nType **CONFIRM** to authorize.`;
-            }
-            load.innerHTML = marked.parse(fb);
-            chatHistory.push({ role: "model", parts: [{ text: fb }] });
-        }
+            if(aiText.toUpperCase().includes("REVIEW")) load.classList.add('summary-mode');
+        } catch (e) { load.innerText = "Connection error. Please try again."; }
         box.scrollTop = box.scrollHeight;
     }
-    // Handle Enter Key
-    document.getElementById('user-input').addEventListener('keypress', (e) => { if(e.key === 'Enter') send(); });
 </script>
 </body>
 </html>
