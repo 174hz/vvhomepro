@@ -192,20 +192,19 @@
         const box = document.getElementById('chat-window');
         box.innerHTML += `<div class="msg user">${val}</div>`;
         
-        // 1. ADD USER MESSAGE IN CORRECT FORMAT
         history.push({ role: "user", parts: [{ text: val }] });
         input.value = '';
 
         const load = document.createElement('div');
         load.className = 'msg bot'; 
-        load.innerText = 'Consulting Registry...';
+        load.innerText = 'Verifying with Registry...';
         box.appendChild(load);
         box.scrollTop = box.scrollHeight;
 
         const payload = {
             contents: history,
             system_instruction: {
-                parts: [{ text: "You are the V&V Registry Specialist. Review the history. If you have the phone number, do NOT ask for it. Ask for the next missing piece (Major/Minor job status) or provide a summary for 'CONFIRM'." }]
+                parts: [{ text: "You are the V&V Registry Specialist. You are an intake clerk. Collect: Trade, Name, City, Phone, and Job Scope (Major/Minor). If information is in the history, do not ask for it again. Summarize and ask for 'CONFIRM' when done." }]
             }
         };
 
@@ -220,23 +219,24 @@
             
             if (data.candidates && data.candidates[0].content) {
                 const aiText = data.candidates[0].content.parts[0].text;
-                
-                // 2. ADD BOT MESSAGE IN CORRECT FORMAT
                 history.push({ role: "model", parts: [{ text: aiText }] });
-
-                if(aiText.includes("Please review") || aiText.includes("CONFIRM")) {
-                    load.classList.add('summary-mode');
-                }
                 load.innerHTML = marked.parse(aiText);
+                if(aiText.includes("CONFIRM")) load.classList.add('summary-mode');
             } else {
-                throw new Error("API Blocked");
+                throw new Error("Safety Block");
             }
         } catch (e) {
-            // 3. THE CRITICAL FIX: MANUALLY INJECT FORMATTED FALLBACK
-            const fallbackMsg = "I have recorded your roofing project. To finalize the match, may I have your Name and the best Phone Number to reach you?";
-            load.innerText = fallbackMsg;
+            // DYNAMIC FALLBACK: This stops the loop by asking for the NEXT piece of info
+            let fallbackMsg = "";
+            const historyString = JSON.stringify(history).toLowerCase();
             
-            // We must push the exact object structure Gemini expects
+            if (!historyString.includes("name")) {
+                fallbackMsg = "I have your roofing project noted. To proceed, what is your full name?";
+            } else {
+                fallbackMsg = "Thank you. And what is the best phone number to reach you at?";
+            }
+
+            load.innerText = fallbackMsg;
             history.push({ role: "model", parts: [{ text: fallbackMsg }] });
         }
         box.scrollTop = box.scrollHeight;
