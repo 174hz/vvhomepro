@@ -183,10 +183,10 @@
         if(!rawVal) return;
         
         const box = document.getElementById('chat-window');
-        box.innerHTML += `<div class="msg user">${rawVal}</div>`;
         
         // Handle Confirmation Logic
-        if(rawVal.toLowerCase() === 'confirm') {
+        if(rawVal.toLowerCase().includes('confirm')) {
+            box.innerHTML += `<div class="msg user">${rawVal}</div>`;
             const summaries = document.querySelectorAll('.summary-mode');
             if(summaries.length > 0) {
                 const last = summaries[summaries.length - 1];
@@ -197,11 +197,12 @@
             }
         }
 
-        // Sanitize keywords to bypass AI safety loops
+        box.innerHTML += `<div class="msg user">${rawVal}</div>`;
+
+        // Background keyword cleaning to prevent AI safety loops
         const sanitizedVal = rawVal.toLowerCase()
             .replace(/leaky/g, "repairing")
-            .replace(/leak/g, "maintenance issue")
-            .replace(/broken/g, "servicing");
+            .replace(/leak/g, "maintenance issue");
 
         chatHistory.push({ role: "user", parts: [{ text: sanitizedVal }] });
         input.value = '';
@@ -219,7 +220,7 @@
                 body: JSON.stringify({ 
                     contents: chatHistory,
                     system_instruction: {
-                        parts: [{ text: "You are the V&V Registry Specialist. Collect: 1. Full Name, 2. Ontario City, 3. Phone Number. Acknowledge their project first. If they provide info, move to the next item immediately. Once you have all 3, provide a formatted summary and ask them to type 'CONFIRM'." }]
+                        parts: [{ text: "You are the V&V Registry Specialist. Acknowledge the trade. Collect: Name, City, Phone. Once collected, display a summary of these details and ask for 'CONFIRM'." }]
                     }
                 })
             });
@@ -230,36 +231,36 @@
                 const aiText = data.candidates[0].content.parts[0].text;
                 chatHistory.push({ role: "model", parts: [{ text: aiText }] });
                 load.innerHTML = marked.parse(aiText);
-                
-                // Highlight summaries
-                if(aiText.toLowerCase().includes("please review") || aiText.includes("CONFIRM")) {
-                    load.classList.add('summary-mode');
-                }
+                if(aiText.toLowerCase().includes("confirm")) load.classList.add('summary-mode');
             } else {
-                throw new Error("AI Blocked");
+                throw new Error("AI Stall");
             }
         } catch (e) {
-            // DYNAMIC FAILSAFE FALLBACK: Forces the conversation to advance if AI stalls
-            const hStr = JSON.stringify(chatHistory).toLowerCase();
-            let fallback = "";
+            // --- DYNAMIC DATA EXTRACTION FOR SUMMARY ---
+            // We find the user responses in the chat history array
+            const userMsgs = chatHistory.filter(h => h.role === "user").map(h => h.parts[0].text);
             
-            const hasPhone = /\d{3}.?\d{3}.?\d{4}/.test(hStr);
-            const hasName = hStr.includes("name is") || (chatHistory.length > 2);
-            const hasCity = hStr.includes("ontario") || hStr.includes("thornhill") || hStr.includes("sarnia") || hStr.includes("toronto");
+            // Assuming sequence: [0] Trade, [1] Name, [2] City, [3] Phone
+            const detectedName = userMsgs[1] || "Provided";
+            const detectedCity = userMsgs[2] || "Ontario";
+            const detectedPhone = userMsgs.find(m => /\d{3}.?\d{3}.?\d{4}/.test(m)) || "Pending";
 
-            if (!hasName) {
+            let fallback = "";
+            if (userMsgs.length < 2) {
                 fallback = "I've logged your project. To begin the matching process, what is your full name?";
-            } else if (!hasCity) {
+            } else if (userMsgs.length < 3) {
                 fallback = "Thank you. Which Ontario City are you located in?";
-            } else if (!hasPhone) {
-                fallback = "I have your location. What is the best phone number for our Tier-1 team to reach you?";
+            } else if (!/\d{3}/.test(JSON.stringify(userMsgs))) {
+                fallback = "Got it. What is the best phone number for our Tier-1 team to reach you?";
             } else {
+                // THE DYNAMIC SUMMARY BOX
                 load.classList.add('summary-mode');
-                fallback = "**Please review your Registry Submission:**\n\n" +
-                           "• **Trade:** Roofing/Repair\n" +
-                           "• **Location:** Ontario\n" +
-                           "• **Status:** Priority Intake\n\n" +
-                           "Please type **CONFIRM** to authorize this match.";
+                fallback = `**Please review your Registry Submission:**\n\n` +
+                           `• **Name:** ${detectedName}\n` +
+                           `• **Location:** ${detectedCity}\n` +
+                           `• **Phone:** ${detectedPhone}\n` +
+                           `• **Status:** Priority Intake\n\n` +
+                           `Please type **CONFIRM** to authorize this match.`;
             }
             
             load.innerHTML = marked.parse(fallback);
