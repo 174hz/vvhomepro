@@ -41,7 +41,17 @@
 
 <script>
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/'; 
-    let chatHistory = [];
+    // We start with the system instructions as a hidden 'user' role preamble
+    let chatHistory = [
+        { 
+            role: "user", 
+            parts: [{ text: "SYSTEM INSTRUCTIONS: You are the VV HOME PRO assistant. Be professional. Collect: 1. Project Type, 2. Name, 3. City, 4. Phone, 5. Callback Time. Once gathered, provide a summary and ask for 'CONFIRM'." }] 
+        },
+        {
+            role: "model",
+            parts: [{ text: "Understood. I will act as the VV HOME PRO assistant." }]
+        }
+    ];
 
     async function send() {
         const input = document.getElementById('user-input');
@@ -49,27 +59,13 @@
         if(!val) return;
         const box = document.getElementById('chat-window');
 
-        // CHECK FOR CONFIRMATION LOGIC
-        if(val.toLowerCase() === 'confirm') {
-            box.innerHTML += `<div class="msg user">${val}</div>`;
-            const successMsg = document.createElement('div');
-            successMsg.className = 'msg bot';
-            successMsg.style.backgroundColor = '#e8f5e9';
-            successMsg.style.borderLeft = '4px solid #2e7d32';
-            successMsg.innerHTML = `<strong>✅ REQUEST VERIFIED</strong><br>We are now matching your project with local V&V Pros. You will receive a secure intake receipt via SMS shortly.`;
-            box.appendChild(successMsg);
-            input.value = '';
-            box.scrollTop = box.scrollHeight;
-            return;
-        }
-
         box.innerHTML += `<div class="msg user">${val}</div>`;
         chatHistory.push({ role: "user", parts: [{ text: val }] });
         input.value = '';
         
         const load = document.createElement('div');
         load.className = 'msg bot';
-        load.innerText = 'Syncing with V&V Engine...';
+        load.innerText = 'Syncing...';
         box.appendChild(load);
         box.scrollTop = box.scrollHeight;
 
@@ -77,26 +73,20 @@
             const res = await fetch(WORKER, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    contents: chatHistory, 
-                    // Simplified instruction to avoid parsing errors
-                    system_instruction: { parts: [{ text: "You are the VV HOME PRO assistant. Greet the user, then collect: 1. Project, 2. Name, 3. City, 4. Phone, 5. Time. Summarize and ask for CONFIRM." }] } 
-                })
+                body: JSON.stringify({ contents: chatHistory })
             });
 
             const data = await res.json();
-            
             if(data.error) throw new Error(data.error);
 
             const aiText = data.candidates[0].content.parts[0].text;
             chatHistory.push({ role: "model", parts: [{ text: aiText }] });
-            load.innerHTML = marked.parse(aiText);
             
-            if(aiText.toUpperCase().includes("REVIEW")) {
-                load.classList.add('summary-mode');
-            }
+            load.innerHTML = marked.parse(aiText);
+            if(aiText.toUpperCase().includes("REVIEW")) load.classList.add('summary-mode');
+            
         } catch (e) {
-            load.innerHTML = `<span style="color:red; font-weight:bold;">⚠️ Connection Error:</span><br><small>${e.message}</small>`;
+            load.innerHTML = `<span style="color:red; font-weight:bold;">⚠️ System Error:</span><br><small>${e.message}</small>`;
         }
         box.scrollTop = box.scrollHeight;
     }
