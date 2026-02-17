@@ -192,6 +192,7 @@
         const box = document.getElementById('chat-window');
         box.innerHTML += `<div class="msg user">${val}</div>`;
         
+        // 1. Log user message to history
         history.push({ role: "user", parts: [{ text: val }] });
         input.value = '';
 
@@ -201,15 +202,11 @@
         box.appendChild(load);
         box.scrollTop = box.scrollHeight;
 
-        // THE PAYLOAD: We build the full AI request here
         const payload = {
             contents: history,
             system_instruction: {
-                parts: [{ text: "You are the V&V Registry Specialist. Your goal is to collect: Trade, Name, City, Phone, and Availability. Look at the history. If you have the phone number, do NOT ask for it again. Ask for missing info or provide a summary starting with 'Please review your details:' and ask for 'CONFIRM'." }]
-            },
-            safetySettings: [
-                { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" }
-            ]
+                parts: [{ text: "You are the V&V Registry Specialist. Collect: Trade, Name, City, Phone, and Timing. Review the history carefully. If the user provided a name, move to phone. Do not repeat questions. Summarize at the end and ask for CONFIRM." }]
+            }
         };
 
         try {
@@ -224,7 +221,7 @@
             if (data.candidates && data.candidates[0].content) {
                 const aiText = data.candidates[0].content.parts[0].text;
                 
-                // Save to history
+                // 2. Log successful bot response
                 history.push({ role: "model", parts: [{ text: aiText }] });
 
                 if(aiText.includes("Please review") || aiText.includes("CONFIRM")) {
@@ -232,11 +229,13 @@
                 }
                 load.innerHTML = marked.parse(aiText);
             } else {
-                // If it's blocked, we give a manual prompt that doesn't break history
-                load.innerText = "Understood. I have your project details. Could you please provide your name and Ontario city to continue?";
+                throw new Error("Empty Response");
             }
         } catch (e) {
-            load.innerText = "The Registry is syncing. Please try sending that again.";
+            // 3. MANUAL INJECTOR: If the AI fails, we provide a message AND save it to history
+            const fallbackMsg = "I've noted the roofing project. To connect you with our Tier-1 team, could I get your Name and Ontario City?";
+            load.innerText = fallbackMsg;
+            history.push({ role: "model", parts: [{ text: fallbackMsg }] });
         }
         box.scrollTop = box.scrollHeight;
     }
