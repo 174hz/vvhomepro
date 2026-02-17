@@ -32,7 +32,22 @@
         
         /* STATE STYLES */
         .summary-mode { background-color: var(--amber) !important; border: 2px solid #fbc02d !important; color: #856404 !important; }
-        .confirmed-mode { background-color: var(--success-bg) !important; border: 2px solid var(--success-green) !important; color: var(--success-green) !important; font-weight: 600; }
+        
+        /* THE GREEN CONFIRMED STATE */
+        .confirmed-mode { 
+            background-color: var(--success-bg) !important; 
+            border: 2px solid var(--success-green) !important; 
+            color: #1b5e20 !important; 
+            font-weight: 500;
+        }
+        .data-row { 
+            display: flex; 
+            justify-content: space-between; 
+            margin-bottom: 6px; 
+            border-bottom: 1px dotted rgba(0,0,0,0.1); 
+            padding-bottom: 2px;
+        }
+        .tick { color: var(--success-green); font-weight: 800; margin-right: 8px; }
 
         .input-bar { padding: 15px; display: flex; gap: 10px; background: white; }
         input { flex-grow: 1; padding: 12px; border: 1px solid #ddd; border-radius: 6px; }
@@ -70,15 +85,29 @@
         
         const box = document.getElementById('chat-window');
         
-        // --- 1. THE GREEN CONFIRMATION TRIGGER ---
+        // --- THE GREEN CONFIRMATION INTERCEPT ---
         if(val.toLowerCase().includes('confirm')) {
             box.innerHTML += `<div class="msg user">${val}</div>`;
             const summaryBox = document.querySelector('.summary-mode');
             if(summaryBox) {
+                // Scrape the collected user responses from history
+                const u = chatHistory.filter(h => h.role === "user").map(h => h.parts[0].text);
+                
                 summaryBox.classList.remove('summary-mode');
                 summaryBox.classList.add('confirmed-mode');
-                summaryBox.innerHTML = "<h3>✅ PROJECT AUTHORIZED</h3>Your details have been submitted to the Ontario Tier-1 Registry. A specialist will contact you at the time requested.";
+                
+                // Build the Verified Layout with Ticks
+                summaryBox.innerHTML = `
+                    <h3 style="margin-top:0; color:var(--success-green);">✅ REGISTRY DATA VERIFIED</h3>
+                    <div class="data-row"><span><span class="tick">✔</span> Reference Name:</span> <b>${u[1] || 'Captured'}</b></div>
+                    <div class="data-row"><span><span class="tick">✔</span> Service Area:</span> <b>${u[2] || 'Captured'}</b></div>
+                    <div class="data-row"><span><span class="tick">✔</span> Primary Trade:</span> <b>${u[0] || 'Captured'}</b></div>
+                    <div class="data-row"><span><span class="tick">✔</span> Phone Number:</span> <b>${u.find(m => /\d{3}/.test(m)) || 'On File'}</b></div>
+                    <div class="data-row"><span><span class="tick">✔</span> Best Time:</span> <b>${u[4] || 'As Requested'}</b></div>
+                    <p style="margin-top:15px; font-size:0.85rem;"><i>Your priority intake has been timestamped and submitted to the Ontario Tier-1 Dispatch team.</i></p>
+                `;
                 input.value = '';
+                box.scrollTop = box.scrollHeight;
                 return;
             }
         }
@@ -89,8 +118,9 @@
 
         const load = document.createElement('div');
         load.className = 'msg bot'; 
-        load.innerText = 'Processing...';
+        load.innerText = 'Syncing Registry Data...';
         box.appendChild(load);
+        box.scrollTop = box.scrollHeight;
 
         try {
             const res = await fetch(WORKER, {
@@ -110,7 +140,6 @@
             chatHistory.push({ role: "model", parts: [{ text: aiText }] });
             load.innerHTML = marked.parse(aiText);
 
-            // Trigger yellow box if the AI is presenting the final review
             if(aiText.toUpperCase().includes("REVIEW YOUR SUBMISSION")) {
                 load.classList.add('summary-mode');
             }
@@ -124,7 +153,7 @@
             else if (u.length === 4) fb = "To confirm: is this for Roofing, HVAC, or another trade? And what is the best time to call you daily?";
             else {
                 load.classList.add('summary-mode');
-                fb = `**REVIEW YOUR SUBMISSION:**\n\n• **Name:** ${u[1]}\n• **Location:** ${u[2]}\n• **Phone:** ${u[3]}\n• **Trade:** ${u[0]}\n• **Best Time:** ${u[4]}\n\nType **CONFIRM** to authorize.`;
+                fb = `**REVIEW YOUR SUBMISSION:**\n\n• **Name:** ${u[1]}\n• **Location:** ${u[2]}\n• **Phone:** ${u[3] || u.find(m => /\d{3}/.test(m))}\n• **Trade:** ${u[0]}\n• **Best Time:** ${u[4]}\n\nType **CONFIRM** to authorize.`;
             }
             load.innerHTML = marked.parse(fb);
             chatHistory.push({ role: "model", parts: [{ text: fb }] });
