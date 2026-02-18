@@ -57,11 +57,11 @@
         /* --- INPUT AREA & CONSENT --- */
         .input-area { padding: 15px; background: white; border-top: 1px solid #eee; }
         .input-row { display: flex; gap: 10px; margin-bottom: 8px; }
-        input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; }
-        button#send-btn { background: var(--navy); color: white; border: none; padding: 0 25px; border-radius: 8px; cursor: pointer; font-weight: 700; }
+        input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
+        button#send-btn { background: var(--navy); color: white; border: none; padding: 0 25px; border-radius: 8px; cursor: pointer; font-weight: 700; transition: 0.3s; }
         button#send-btn:disabled { background: #ccc; cursor: not-allowed; }
         
-        .consent-row { font-size: 0.7rem; color: #666; display: flex; align-items: flex-start; gap: 5px; }
+        .consent-row { font-size: 0.7rem; color: #666; display: flex; align-items: flex-start; gap: 5px; padding-top: 5px; }
         .consent-row a { color: var(--accent); cursor: pointer; text-decoration: underline; }
 
         /* --- MODAL STYLING --- */
@@ -72,6 +72,7 @@
         .modal-content p, .modal-content li { font-size: 0.85rem; line-height: 1.6; color: #444; }
 
         footer { background: var(--navy); color: white; padding: 30px; text-align: center; font-size: 0.7rem; }
+        .footer-links { margin-top: 10px; }
         .footer-links a { color: var(--gold); cursor: pointer; text-decoration: none; margin: 0 10px; }
     </style>
 </head>
@@ -117,7 +118,7 @@
         <p>We collect your project details and contact info to match you with pros. Under Ontario PIPEDA laws:</p>
         <ul>
             <li><strong>Data Collection:</strong> We only collect what you type in chat.</li>
-            <li><strong>AI Processing:</strong> Data is processed by Google Gemini. For your security, avoid sharing social insurance numbers or sensitive financial data in chat.</li>
+            <li><strong>AI Processing:</strong> Data is processed via secure API. For your security, avoid sharing social insurance numbers or sensitive financial data.</li>
             <li><strong>Your Rights:</strong> You can request data deletion at any time by emailing privacy@vvhomepro.com.</li>
         </ul>
     </div>
@@ -153,11 +154,13 @@
         const text = input.value.trim();
         if(!text) return;
 
+        // Add user message to UI
         box.innerHTML += `<div class="msg user">${text}</div>`;
         history.push({ role: "user", parts: [{ text: text }] });
         input.value = '';
         box.scrollTop = box.scrollHeight;
 
+        // Add loading state
         const load = document.createElement('div');
         load.className = 'msg bot';
         load.innerText = 'Syncing with Pro Network...';
@@ -166,34 +169,49 @@
         try {
             const res = await fetch(WORKER, {
                 method: 'POST',
+                mode: 'cors', // Explicitly enable CORS
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ contents: history })
             });
+
             const data = await res.json();
-            const aiText = data.candidates[0].content.parts[0].text;
             
+            // Check if Worker returned an internal error
+            if (data.error) {
+                load.innerText = "System Note: " + data.error;
+                return;
+            }
+
+            const aiText = data.candidates[0].content.parts[0].text;
             history.push({ role: "model", parts: [{ text: aiText }] });
+            
+            // Render AI text with Marked.js
             load.innerHTML = marked.parse(aiText);
+            
         } catch (e) {
-            load.innerText = "Connection lost. Please refresh.";
+            console.error("Fetch Error:", e);
+            load.innerText = "Connection lost. Please refresh the page.";
         }
         box.scrollTop = box.scrollHeight;
     }
 
     function downloadPDF() {
         const element = document.getElementById('final-summary');
+        if(!element) return;
+        
         const btn = element.querySelector('.pdf-btn');
-        btn.style.display = 'none';
+        if(btn) btn.style.display = 'none';
 
         const opt = {
-            margin: 1, filename: 'VV-Home-Pro-Summary.pdf',
+            margin: 1, 
+            filename: 'VV-Home-Pro-Summary.pdf',
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: { scale: 2 },
             jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
         };
 
         html2pdf().set(opt).from(element).save().then(() => {
-            btn.style.display = 'block';
+            if(btn) btn.style.display = 'block';
         });
     }
 
