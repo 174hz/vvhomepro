@@ -6,7 +6,7 @@
     <title>VV HOME PRO | Premium Home Services</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
@@ -32,7 +32,6 @@
             display: grid; grid-template-columns: 280px 1fr; gap: 30px; padding: 0 20px;
         }
 
-        /* --- CHAT STYLING --- */
         .chat-portal {
             background: white; border-radius: 20px; overflow: hidden;
             display: flex; flex-direction: column; height: 580px;
@@ -43,7 +42,6 @@
         .bot { background: white; border-left: 3px solid var(--accent); align-self: flex-start; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .user { background: var(--navy); color: white; align-self: flex-end; }
 
-        /* --- CONFIRMATION BOX --- */
         .confirmed-box {
             background: var(--navy); color: white; padding: 20px; border-radius: 12px;
             border-left: 6px solid var(--gold); margin: 15px 0; font-size: 0.9rem;
@@ -54,7 +52,6 @@
             border-radius: 5px; cursor: pointer; font-weight: 800; width: 100%; margin-top: 10px;
         }
 
-        /* --- INPUT AREA & CONSENT --- */
         .input-area { padding: 15px; background: white; border-top: 1px solid #eee; }
         .input-row { display: flex; gap: 10px; margin-bottom: 8px; }
         input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
@@ -64,12 +61,9 @@
         .consent-row { font-size: 0.7rem; color: #666; display: flex; align-items: flex-start; gap: 5px; padding-top: 5px; }
         .consent-row a { color: var(--accent); cursor: pointer; text-decoration: underline; }
 
-        /* --- MODAL STYLING --- */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); }
         .modal-content { background: white; margin: 5% auto; padding: 30px; border-radius: 15px; width: 85%; max-width: 600px; max-height: 80vh; overflow-y: auto; position: relative; }
         .close-modal { position: absolute; right: 20px; top: 15px; font-size: 24px; cursor: pointer; color: var(--navy); }
-        .modal-content h2 { color: var(--navy); font-family: 'Montserrat'; margin-top: 0; }
-        .modal-content p, .modal-content li { font-size: 0.85rem; line-height: 1.6; color: #444; }
 
         footer { background: var(--navy); color: white; padding: 30px; text-align: center; font-size: 0.7rem; }
         .footer-links { margin-top: 10px; }
@@ -88,7 +82,7 @@
 <main class="main-content">
     <div class="glass-card" style="background:var(--glass); padding:20px; border-radius:15px; height: fit-content;">
         <h3 style="color:var(--navy); font-family:'Montserrat'; margin-top:0;">V&V Verified</h3>
-        <p style="font-size:0.8rem; line-height:1.5;">Vetted experts for your home. We use AI to match you with top-rated Ontario professionals instantly.</p>
+        <p style="font-size:0.8rem; line-height:1.5;">Ontario's premium home service network. Get matched with verified professionals in Sarnia and across the province.</p>
     </div>
 
     <div class="chat-portal">
@@ -110,37 +104,13 @@
     </div>
 </main>
 
-<div id="privacyModal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeModal('privacyModal')">&times;</span>
-        <h2>Privacy Policy</h2>
-        <p><strong>Effective: Feb 2026</strong></p>
-        <p>We collect your project details and contact info to match you with pros. Under Ontario PIPEDA laws:</p>
-        <ul>
-            <li><strong>Data Collection:</strong> We only collect what you type in chat.</li>
-            <li><strong>AI Processing:</strong> Data is processed via secure API. For your security, avoid sharing social insurance numbers or sensitive financial data.</li>
-            <li><strong>Your Rights:</strong> You can request data deletion at any time by emailing privacy@vvhomepro.com.</li>
-        </ul>
-    </div>
-</div>
-
-<div id="termsModal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeModal('termsModal')">&times;</span>
-        <h2>Terms of Service</h2>
-        <ul>
-            <li><strong>No Contract:</strong> Using this chat does not create a binding construction contract. We are a matching service only.</li>
-            <li><strong>Liability:</strong> VV HOME PRO is not liable for work performed by referred contractors.</li>
-            <li><strong>Verification:</strong> While we vet pros, users are encouraged to verify active insurance before work begins.</li>
-        </ul>
-    </div>
-</div>
+<div id="privacyModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('privacyModal')">&times;</span><h2>Privacy Policy</h2><p>Your data is processed via secure API for service matching under Ontario PIPEDA guidelines.</p></div></div>
+<div id="termsModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('termsModal')">&times;</span><h2>Terms of Service</h2><p>VV HOME PRO is a matching engine; contractors are independent entities.</p></div></div>
 
 <footer>
     © 2026 VV HOME PRO. Vetted. Verified. Validated.
     <div class="footer-links">
-        <a onclick="openModal('privacyModal')">Privacy</a> | 
-        <a onclick="openModal('termsModal')">Terms</a>
+        <a onclick="openModal('privacyModal')">Privacy</a> | <a onclick="openModal('termsModal')">Terms</a>
     </div>
 </footer>
 
@@ -148,49 +118,53 @@
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/'; 
     let history = [];
 
+    // CSP-Safe configuration for Marked
+    const { marked } = window;
+    marked.setOptions({
+        headerIds: false,
+        mangle: false
+    });
+
     async function send() {
         const input = document.getElementById('user-input');
         const box = document.getElementById('chat-window');
         const text = input.value.trim();
         if(!text) return;
 
-        // Add user message to UI
         box.innerHTML += `<div class="msg user">${text}</div>`;
         history.push({ role: "user", parts: [{ text: text }] });
         input.value = '';
         box.scrollTop = box.scrollHeight;
 
-        // Add loading state
         const load = document.createElement('div');
         load.className = 'msg bot';
-        load.innerText = 'Syncing with Pro Network...';
+        load.innerText = 'Syncing...';
         box.appendChild(load);
 
         try {
             const res = await fetch(WORKER, {
                 method: 'POST',
-                mode: 'cors', // Explicitly enable CORS
+                mode: 'cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ contents: history })
             });
 
             const data = await res.json();
             
-            // Check if Worker returned an internal error
             if (data.error) {
-                load.innerText = "System Note: " + data.error;
+                load.innerText = "System: " + (data.error.message || data.error);
                 return;
             }
 
             const aiText = data.candidates[0].content.parts[0].text;
             history.push({ role: "model", parts: [{ text: aiText }] });
             
-            // Render AI text with Marked.js
+            // Safe rendering
             load.innerHTML = marked.parse(aiText);
             
         } catch (e) {
-            console.error("Fetch Error:", e);
-            load.innerText = "Connection lost. Please refresh the page.";
+            console.error("Security/Network Block:", e);
+            load.innerText = "Communication blocked. Please ensure you are not using extensions that block scripts.";
         }
         box.scrollTop = box.scrollHeight;
     }
@@ -198,26 +172,13 @@
     function downloadPDF() {
         const element = document.getElementById('final-summary');
         if(!element) return;
-        
         const btn = element.querySelector('.pdf-btn');
         if(btn) btn.style.display = 'none';
-
-        const opt = {
-            margin: 1, 
-            filename: 'VV-Home-Pro-Summary.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-        };
-
-        html2pdf().set(opt).from(element).save().then(() => {
-            if(btn) btn.style.display = 'block';
-        });
+        html2pdf().set({ margin: 1, filename: 'VV-Summary.pdf' }).from(element).save().then(() => { if(btn) btn.style.display = 'block'; });
     }
 
     function openModal(id) { document.getElementById(id).style.display = "block"; }
     function closeModal(id) { document.getElementById(id).style.display = "none"; }
-    window.onclick = function(e) { if(e.target.className === 'modal') e.target.style.display = "none"; }
 </script>
 </body>
 </html>
