@@ -17,7 +17,7 @@
         header { background: rgba(255, 255, 255, 0.98); padding: 0.7rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 1000; }
         .logo { font-family: 'Montserrat'; font-weight: 900; color: var(--navy); font-size: 1.1rem; text-decoration: none; }
         nav { display: flex; gap: 20px; }
-        nav a { text-decoration: none; color: var(--navy); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; transition: 0.3s; }
+        nav a { text-decoration: none; color: var(--navy); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; transition: 0.3s; cursor: pointer; }
         nav a:hover { color: var(--gold); }
 
         /* MAIN LAYOUT */
@@ -25,7 +25,8 @@
         .chat-portal { background: white; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; height: 550px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
         
         .chat-header { background: var(--navy); color: white; padding: 12px 15px; text-align: center; font-weight: 800; font-size: 0.75rem; position: relative; letter-spacing: 1px; }
-        .restart-btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); border: 1px solid var(--gold); color: var(--gold); padding: 4px 10px; border-radius: 20px; cursor: pointer; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; }
+        .restart-btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); border: 1px solid var(--gold); color: var(--gold); padding: 4px 10px; border-radius: 20px; cursor: pointer; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; transition: 0.2s; }
+        .restart-btn:hover { background: var(--gold); color: var(--navy); }
 
         #chat-window { flex: 1; padding: 15px; overflow-y: auto; background: #fdfdfd; display: flex; flex-direction: column; }
         .msg { margin-bottom: 12px; padding: 10px 16px; border-radius: 15px; line-height: 1.4; max-width: 85%; font-size: 0.85rem; }
@@ -45,20 +46,22 @@
         .input-row { display: flex; gap: 8px; margin-bottom: 8px; }
         input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem; outline: none; }
         button#send-btn { background: var(--navy); color: white; border: none; padding: 0 20px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.8rem; }
+        button#send-btn:disabled { opacity: 0.5; }
 
         /* FOOTER */
         footer { background: rgba(0, 0, 0, 0.8); color: white; padding: 20px 5%; text-align: center; font-size: 0.7rem; border-top: 1px solid #333; }
-        footer a { color: var(--gold); text-decoration: none; margin: 0 10px; }
+        footer a { color: var(--gold); text-decoration: none; margin: 0 10px; cursor: pointer; }
 
-        /* MODAL FOR PRIVACY/ABOUT */
+        /* MODAL */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); }
-        .modal-content { background: white; margin: 10% auto; padding: 30px; border-radius: 15px; width: 80%; max-width: 600px; color: #333; line-height: 1.6; }
-        .close-modal { float: right; font-size: 20px; cursor: pointer; font-weight: bold; }
+        .modal-content { background: white; margin: 10% auto; padding: 30px; border-radius: 15px; width: 85%; max-width: 600px; color: #333; line-height: 1.6; position: relative; }
+        .close-modal { position: absolute; right: 20px; top: 15px; font-size: 24px; cursor: pointer; font-weight: bold; color: var(--navy); }
 
         @media (max-width: 768px) {
             .main-content { grid-template-columns: 1fr; margin: 15px auto; }
             .glass-card { display: none; }
-            nav { display: none; } /* Hide main nav on small mobile to save header space */
+            nav { display: none; }
+            .chat-portal { height: 75vh; }
         }
     </style>
 </head>
@@ -69,16 +72,16 @@
 <header>
     <a href="#" class="logo">VV HOME PRO</a>
     <nav>
-        <a href="/">Home</a>
-        <a href="javascript:void(0)" onclick="openModal('about')">About Us</a>
-        <a href="javascript:void(0)" onclick="openModal('privacy')">Privacy</a>
+        <a href="#" onclick="if(history.length > 0) resetChat();">Home</a>
+        <a onclick="openModal('about')">About Us</a>
+        <a onclick="openModal('privacy')">Privacy</a>
     </nav>
 </header>
 
 <main class="main-content">
     <div class="glass-card" style="background:var(--glass); padding:20px; border-radius:15px; height: fit-content;">
         <h3 style="color:var(--navy); font-family:'Montserrat'; margin-top:0; font-size:1rem;">V&V Verified</h3>
-        <p style="font-size:0.75rem; line-height:1.5;">Ontario's premium home service network. Get matched with verified professionals across the province.</p>
+        <p style="font-size:0.75rem; line-height:1.5;">Ontario's premium home service network. Get matched with verified professionals.</p>
     </div>
 
     <div class="chat-portal">
@@ -91,12 +94,12 @@
         </div>
         <div class="input-area">
             <div class="input-row">
-                <input type="text" id="user-input" placeholder="Type here..." onkeypress="if(event.key==='Enter') send()">
+                <input type="text" id="user-input" placeholder="Tell us what you need..." onkeypress="if(event.key==='Enter') send()">
                 <button id="send-btn" onclick="send()" disabled>SEND</button>
             </div>
             <div style="font-size: 0.65rem; color: #666; display: flex; gap: 5px; align-items: center;">
                 <input type="checkbox" id="consent-check" onchange="document.getElementById('send-btn').disabled = !this.checked">
-                <span>I agree to the <a href="javascript:void(0)" onclick="openModal('privacy')" style="color:var(--navy)">Privacy Policy</a>.</span>
+                <span>Agree to <a onclick="openModal('privacy')" style="color:var(--navy); text-decoration: underline; cursor: pointer;">Privacy Policy</a>.</span>
             </div>
         </div>
     </div>
@@ -105,8 +108,8 @@
 <footer>
     <p>&copy; 2026 VV HOME PRO. All rights reserved. Ontario's Trusted Home Service Matchmaker.</p>
     <div style="margin-top:10px;">
-        <a href="javascript:void(0)" onclick="openModal('privacy')">Terms of Service</a> | 
-        <a href="javascript:void(0)" onclick="openModal('about')">About Our Network</a>
+        <a onclick="openModal('privacy')">Terms of Service</a> | 
+        <a onclick="openModal('about')">About Our Network</a>
     </div>
 </footer>
 
@@ -121,29 +124,23 @@
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/'; 
     let history = [];
     const { marked } = window;
+    marked.setOptions({ headerIds: false, mangle: false });
 
-    // --- MODAL LOGIC ---
+    // --- MODAL SYSTEM ---
     function openModal(type) {
         const modal = document.getElementById('infoModal');
         const text = document.getElementById('modalText');
         modal.style.display = "block";
-        
         if(type === 'privacy') {
-            text.innerHTML = `<h3>Privacy & Terms</h3><p>Your data is used solely to connect you with verified local professionals. We do not sell your contact information to third-party advertisers. By using this service, you agree to be contacted by up to 3 service pros regarding your leaky roof, HVAC, or other home projects.</p>`;
+            text.innerHTML = `<h3>Privacy & Terms</h3><p>Your data is protected. By submitting a lead, you agree to be matched with local Ontario professionals. We use your info strictly for service matching and project verification.</p>`;
         } else {
-            text.innerHTML = `<h3>About VV HOME PRO</h3><p>We are Ontario's premier matching engine for high-end home services. Our network consists only of contractors who pass our 5-point verification check, ensuring your home is in the best hands possible.</p>`;
+            text.innerHTML = `<h3>About VV HOME PRO</h3><p>We are a premium concierge service connecting Ontario homeowners with verified HVAC, Roofing, and Home Pro experts.</p>`;
         }
     }
+    function closeModal() { document.getElementById('infoModal').style.display = "none"; }
+    window.onclick = (e) => { if(e.target == document.getElementById('infoModal')) closeModal(); }
 
-    function closeModal() {
-        document.getElementById('infoModal').style.display = "none";
-    }
-
-    window.onclick = function(event) {
-        if (event.target == document.getElementById('infoModal')) closeModal();
-    }
-
-    // --- CHAT LOGIC ---
+    // --- CHAT SYSTEM ---
     async function send() {
         const input = document.getElementById('user-input');
         const box = document.getElementById('chat-window');
@@ -167,21 +164,24 @@
                 body: JSON.stringify({ contents: history })
             });
             const data = await res.json();
-            
             const aiText = data.candidates[0].content.parts[0].text;
             history.push({ role: "model", parts: [{ text: aiText }] });
             
             const cleanHTML = aiText.replace(/```html|```/g, "").trim();
             load.innerHTML = cleanHTML.includes('<div') ? cleanHTML : marked.parse(cleanHTML);
-            
         } catch (e) {
             load.innerText = "Connection busy. Please try again.";
         }
         box.scrollTop = box.scrollHeight;
     }
 
+    function editDetails() {
+        document.getElementById('user-input').focus();
+        history.push({ role: "user", parts: [{ text: "I need to edit my info. Please ask what to change and update the review card after." }] });
+    }
+
     function resetChat() {
-        if(confirm("Restart the process?")) {
+        if(confirm("Restart the matching process?")) {
             history = [];
             document.getElementById('chat-window').innerHTML = `<div class="msg bot">Welcome to VV HOME PRO. What project are you planning? (e.g. Roofing, HVAC)</div>`;
         }
@@ -195,7 +195,7 @@
         box.appendChild(load);
         box.scrollTop = box.scrollHeight;
 
-        history.push({ role: "user", parts: [{ text: "CONFIRM. Generate my final gold box." }] });
+        history.push({ role: "user", parts: [{ text: "CONFIRM. Everything is correct. Generate final gold box." }] });
 
         try {
             const res = await fetch(WORKER, {
@@ -207,7 +207,7 @@
             const aiText = data.candidates[0].content.parts[0].text;
             load.innerHTML = aiText.replace(/```html|```/g, "").trim();
         } catch (e) {
-            load.innerText = "Validation error. Please click confirm again.";
+            load.innerText = "Error finalizing. Click confirm again.";
         }
         box.scrollTop = box.scrollHeight;
     }
