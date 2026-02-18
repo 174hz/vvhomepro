@@ -5,121 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VV HOME PRO | Premium Home Services</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
-    
     <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
         :root { --navy: #002d5a; --accent: #0056b3; --gold: #c5a059; --glass: rgba(255, 255, 255, 0.9); }
-        html { scroll-behavior: smooth; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #000; min-height: 100vh; overflow-x: hidden; }
-
-        .hero-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
-                        url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-            z-index: -1;
-        }
-
-        header {
-            background: rgba(255, 255, 255, 0.98); padding: 0.7rem 5%;
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 1000;
-        }
-
-        .main-content {
-            max-width: 1100px; margin: 50px auto;
-            display: grid; grid-template-columns: 280px 1fr; gap: 30px; padding: 0 20px;
-        }
-
-        .chat-portal {
-            background: white; border-radius: 20px; overflow: hidden;
-            display: flex; flex-direction: column; height: 580px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-        }
+        .hero-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat; z-index: -1; }
+        header { background: rgba(255, 255, 255, 0.98); padding: 0.7rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 1000; }
+        .main-content { max-width: 1100px; margin: 50px auto; display: grid; grid-template-columns: 280px 1fr; gap: 30px; padding: 0 20px; }
+        .chat-portal { background: white; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; height: 580px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
         #chat-window { flex: 1; padding: 20px; overflow-y: auto; background: #fdfdfd; display: flex; flex-direction: column; }
         .msg { margin-bottom: 12px; padding: 12px 18px; border-radius: 15px; line-height: 1.4; max-width: 85%; font-size: 0.9rem; }
         .bot { background: white; border-left: 3px solid var(--accent); align-self: flex-start; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .user { background: var(--navy); color: white; align-self: flex-end; }
-
-        /* --- INTERACTIVE REVIEW CARD --- */
-        .review-card {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            padding: 15px;
-            border-radius: 12px;
-            margin: 10px 0;
-            color: #333;
-        }
-        .review-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
+        .review-card { background: #f8f9fa; border: 1px solid #dee2e6; padding: 15px; border-radius: 12px; margin: 10px 0; color: #333; }
+        .review-actions { display: flex; gap: 10px; margin-top: 15px; }
         .btn-edit { background: #6c757d; color: white; border: none; padding: 10px; border-radius: 8px; flex: 1; cursor: pointer; font-weight: 600; }
         .btn-confirm { background: var(--navy); color: white; border: none; padding: 10px; border-radius: 8px; flex: 2; cursor: pointer; font-weight: 700; }
-
-        /* --- THE PREMIUM GOLD BAR --- */
-        .confirmed-box {
-            background: var(--navy); color: white; padding: 25px; border-radius: 15px;
-            border-left: 8px solid var(--gold); margin: 15px 0; font-size: 0.95rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        .confirmed-box h3 { margin-top: 0; color: var(--gold); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
-        
-        .pdf-btn {
-            background: linear-gradient(135deg, #d4af37 0%, #f9f0b3 50%, #c5a059 100%);
-            color: #002d5a;
-            border: none;
-            padding: 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 900;
-            font-size: 0.85rem;
-            letter-spacing: 1.5px;
-            width: 100%;
-            margin-top: 20px;
-            text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(197, 160, 89, 0.4);
-            transition: all 0.3s ease;
-        }
-        .pdf-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(197, 160, 89, 0.6);
-            filter: brightness(1.1);
-        }
-
+        .confirmed-box { background: var(--navy); color: white; padding: 25px; border-radius: 15px; border-left: 8px solid var(--gold); margin: 15px 0; font-size: 0.95rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .confirmed-box h3 { margin-top: 0; color: var(--gold); font-size: 1.1rem; text-transform: uppercase; }
+        .pdf-btn { background: linear-gradient(135deg, #d4af37 0%, #f9f0b3 50%, #c5a059 100%); color: #002d5a; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: 900; width: 100%; margin-top: 20px; text-transform: uppercase; box-shadow: 0 4px 15px rgba(197, 160, 89, 0.4); }
         .input-area { padding: 15px; background: white; border-top: 1px solid #eee; }
         .input-row { display: flex; gap: 10px; margin-bottom: 8px; }
         input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
-        button#send-btn { background: var(--navy); color: white; border: none; padding: 0 25px; border-radius: 8px; cursor: pointer; font-weight: 700; transition: 0.3s; }
-        button#send-btn:disabled { background: #ccc; cursor: not-allowed; }
-        
-        .consent-row { font-size: 0.7rem; color: #666; display: flex; align-items: flex-start; gap: 5px; padding-top: 5px; }
-        .consent-row a { color: var(--accent); cursor: pointer; text-decoration: underline; }
-
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); }
-        .modal-content { background: white; margin: 5% auto; padding: 30px; border-radius: 15px; width: 85%; max-width: 600px; max-height: 80vh; overflow-y: auto; position: relative; }
-        .close-modal { position: absolute; right: 20px; top: 15px; font-size: 24px; cursor: pointer; color: var(--navy); }
-
-        footer { background: var(--navy); color: white; padding: 30px; text-align: center; font-size: 0.7rem; }
-        .footer-links { margin-top: 10px; }
-        .footer-links a { color: var(--gold); cursor: pointer; text-decoration: none; margin: 0 10px; }
+        button#send-btn { background: var(--navy); color: white; border: none; padding: 0 25px; border-radius: 8px; cursor: pointer; font-weight: 700; }
     </style>
 </head>
 <body>
 
 <div class="hero-bg"></div>
-
 <header>
     <div style="font-family: 'Montserrat'; font-weight: 900; color: var(--navy); font-size: 1.1rem;">VV HOME PRO</div>
-    <button onclick="window.scrollTo({top:0, behavior:'smooth'})" style="background:none; border:none; cursor:pointer; font-weight:700; color:var(--navy);">HOME</button>
 </header>
 
 <main class="main-content">
     <div class="glass-card" style="background:var(--glass); padding:20px; border-radius:15px; height: fit-content;">
         <h3 style="color:var(--navy); font-family:'Montserrat'; margin-top:0;">V&V Verified</h3>
-        <p style="font-size:0.8rem; line-height:1.5;">Ontario's premium home service network. Get matched with verified professionals in Sarnia and across the province.</p>
+        <p style="font-size:0.8rem; line-height:1.5;">Ontario's premium home service network. Get matched with verified professionals across the province.</p>
     </div>
 
     <div class="chat-portal">
@@ -127,34 +50,22 @@
         <div id="chat-window">
             <div class="msg bot">Welcome to VV HOME PRO. What project are you planning? (e.g. Roofing, HVAC)</div>
         </div>
-        
         <div class="input-area">
             <div class="input-row">
                 <input type="text" id="user-input" placeholder="Tell us what you need..." onkeypress="if(event.key==='Enter') send()">
                 <button id="send-btn" onclick="send()" disabled>SEND</button>
             </div>
-            <div class="consent-row">
+            <div style="font-size: 0.7rem; color: #666; display: flex; gap: 5px; align-items: center;">
                 <input type="checkbox" id="consent-check" onchange="document.getElementById('send-btn').disabled = !this.checked">
-                <span>I agree to the <a onclick="openModal('privacyModal')">Privacy Policy</a> and <a onclick="openModal('termsModal')">Terms</a>.</span>
+                <span>I agree to the Privacy Policy and Terms.</span>
             </div>
         </div>
     </div>
 </main>
 
-<div id="privacyModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('privacyModal')">&times;</span><h2>Privacy Policy</h2><p>Your data is processed via secure API for service matching under Ontario PIPEDA guidelines.</p></div></div>
-<div id="termsModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('termsModal')">&times;</span><h2>Terms of Service</h2><p>VV HOME PRO is a matching engine; contractors are independent entities.</p></div></div>
-
-<footer>
-    © 2026 VV HOME PRO. Vetted. Verified. Validated.
-    <div class="footer-links">
-        <a onclick="openModal('privacyModal')">Privacy</a> | <a onclick="openModal('termsModal')">Terms</a>
-    </div>
-</footer>
-
 <script>
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/'; 
     let history = [];
-
     const { marked } = window;
     marked.setOptions({ headerIds: false, mangle: false });
 
@@ -164,13 +75,11 @@
         const text = input.value.trim();
         if(!text) return;
 
-        // Display user message
         box.innerHTML += `<div class="msg user">${text}</div>`;
         history.push({ role: "user", parts: [{ text: text }] });
         input.value = '';
         box.scrollTop = box.scrollHeight;
 
-        // Display loading state
         const load = document.createElement('div');
         load.className = 'msg bot';
         load.innerText = 'Syncing...';
@@ -179,41 +88,37 @@
         try {
             const res = await fetch(WORKER, {
                 method: 'POST',
-                mode: 'cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ contents: history })
             });
-
             const data = await res.json();
             
-            // Check for our "Branded Friendly Error" from the worker
             if (data.error) { 
-                load.innerHTML = `<span style="color: #d9534f;">${data.error}</span>`; 
+                load.innerHTML = `<span style="color: #d4af37; font-weight:600;">${data.error}</span>`; 
                 return; 
             }
 
             const aiText = data.candidates[0].content.parts[0].text;
             history.push({ role: "model", parts: [{ text: aiText }] });
             
-            // Use .innerHTML with marked to render AI buttons
+            // KEY FIX: Use innerHTML to render the AI's buttons
             load.innerHTML = marked.parse(aiText);
             
         } catch (e) {
-            load.innerText = "VV HOME PRO: Connection momentarily interrupted. Please try again.";
+            load.innerText = "System busy. Please try again.";
         }
         box.scrollTop = box.scrollHeight;
     }
 
     function editDetails() {
-        const input = document.getElementById('user-input');
-        input.value = "I need to change some details.";
+        document.getElementById('user-input').value = "I need to change my details.";
         send();
     }
 
     async function finalizeLead() {
         const box = document.getElementById('chat-window');
         box.innerHTML += `<div class="msg user">Confirming my details...</div>`;
-        history.push({ role: "user", parts: [{ text: "Everything is correct. Please generate my final summary and Gold PDF button." }] });
+        history.push({ role: "user", parts: [{ text: "CONFIRM. Everything is correct. Generate my final gold summary box." }] });
 
         const load = document.createElement('div');
         load.className = 'msg bot';
@@ -227,16 +132,10 @@
                 body: JSON.stringify({ contents: history })
             });
             const data = await res.json();
-            
-            if (data.error) {
-                load.innerHTML = data.error;
-                return;
-            }
-
             const aiText = data.candidates[0].content.parts[0].text;
             load.innerHTML = marked.parse(aiText);
         } catch (e) {
-            load.innerText = "Error finalizing. Please try again.";
+            load.innerText = "Error. Please try again.";
         }
         box.scrollTop = box.scrollHeight;
     }
@@ -245,23 +144,9 @@
         const element = document.getElementById('final-summary');
         if(!element) return;
         const btn = element.querySelector('.pdf-btn');
-        if(btn) btn.style.display = 'none';
-        
-        const opt = {
-            margin: 1,
-            filename: 'VV-Home-Pro-Summary.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-        };
-
-        html2pdf().set(opt).from(element).save().then(() => { 
-            if(btn) btn.style.display = 'block'; 
-        });
+        btn.style.display = 'none';
+        html2pdf().set({ margin: 1, filename: 'Lead-Summary.pdf', html2canvas: { scale: 2 } }).from(element).save().then(() => btn.style.display = 'block');
     }
-
-    function openModal(id) { document.getElementById(id).style.display = "block"; }
-    function closeModal(id) { document.getElementById(id).style.display = "none"; }
 </script>
 </body>
 </html>
