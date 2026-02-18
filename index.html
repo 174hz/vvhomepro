@@ -25,7 +25,8 @@
         .btn-confirm { background: var(--navy); color: white; border: none; padding: 10px; border-radius: 8px; flex: 2; cursor: pointer; font-weight: 700; }
         .confirmed-box { background: var(--navy); color: white; padding: 25px; border-radius: 15px; border-left: 8px solid var(--gold); margin: 15px 0; font-size: 0.95rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         .confirmed-box h3 { margin-top: 0; color: var(--gold); font-size: 1.1rem; text-transform: uppercase; }
-        .pdf-btn { background: linear-gradient(135deg, #d4af37 0%, #f9f0b3 50%, #c5a059 100%); color: #002d5a; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: 900; width: 100%; margin-top: 20px; text-transform: uppercase; box-shadow: 0 4px 15px rgba(197, 160, 89, 0.4); }
+        .pdf-btn { background: linear-gradient(135deg, #d4af37 0%, #f9f0b3 50%, #c5a059 100%); color: #002d5a; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: 900; width: 100%; margin-top: 20px; text-transform: uppercase; box-shadow: 0 4px 15px rgba(197, 160, 89, 0.4); transition: 0.3s; }
+        .pdf-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
         .input-area { padding: 15px; background: white; border-top: 1px solid #eee; }
         .input-row { display: flex; gap: 10px; margin-bottom: 8px; }
         input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
@@ -100,12 +101,10 @@
 
             const aiText = data.candidates[0].content.parts[0].text;
             history.push({ role: "model", parts: [{ text: aiText }] });
-            
-            // KEY FIX: Use innerHTML to render the AI's buttons
             load.innerHTML = marked.parse(aiText);
             
         } catch (e) {
-            load.innerText = "System busy. Please try again.";
+            load.innerText = "Connection busy. Please try again.";
         }
         box.scrollTop = box.scrollHeight;
     }
@@ -115,29 +114,41 @@
         send();
     }
 
+    // FINALIZED LEAD WITH RETRY LOGIC
     async function finalizeLead() {
         const box = document.getElementById('chat-window');
-        box.innerHTML += `<div class="msg user">Confirming my details...</div>`;
-        history.push({ role: "user", parts: [{ text: "CONFIRM. Everything is correct. Generate my final gold summary box." }] });
-
         const load = document.createElement('div');
         load.className = 'msg bot';
         load.innerText = 'Finalizing Lead...';
         box.appendChild(load);
-
-        try {
-            const res = await fetch(WORKER, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contents: history })
-            });
-            const data = await res.json();
-            const aiText = data.candidates[0].content.parts[0].text;
-            load.innerHTML = marked.parse(aiText);
-        } catch (e) {
-            load.innerText = "Error. Please try again.";
-        }
         box.scrollTop = box.scrollHeight;
+
+        history.push({ role: "user", parts: [{ text: "CONFIRM. Everything is correct. Generate my final gold summary box." }] });
+
+        const tryFetch = async (retries = 2) => {
+            try {
+                const res = await fetch(WORKER, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: history })
+                });
+                const data = await res.json();
+                
+                if (data.error) throw new Error(data.error);
+
+                const aiText = data.candidates[0].content.parts[0].text;
+                load.innerHTML = marked.parse(aiText);
+            } catch (e) {
+                if (retries > 0) {
+                    load.innerText = "System busy... retrying validation...";
+                    setTimeout(() => tryFetch(retries - 1), 2000);
+                } else {
+                    load.innerHTML = `<span style="color: #d4af37;">Validation sync is heavy. Please click "Confirm" once more.</span>`;
+                }
+            }
+            box.scrollTop = box.scrollHeight;
+        };
+        tryFetch();
     }
 
     function downloadPDF() {
@@ -145,7 +156,12 @@
         if(!element) return;
         const btn = element.querySelector('.pdf-btn');
         btn.style.display = 'none';
-        html2pdf().set({ margin: 1, filename: 'Lead-Summary.pdf', html2canvas: { scale: 2 } }).from(element).save().then(() => btn.style.display = 'block');
+        html2pdf().set({ 
+            margin: 0.5, 
+            filename: 'VV-Home-Pro-Lead.pdf', 
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        }).from(element).save().then(() => btn.style.display = 'block');
     }
 </script>
 </body>
