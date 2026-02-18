@@ -7,9 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-        :root { --navy: #002d5a; --accent: #0056b3; --glass: rgba(255, 255, 255, 0.88); }
+        :root { --navy: #002d5a; --accent: #0056b3; --gold: #c5a059; --glass: rgba(255, 255, 255, 0.9); }
         html { scroll-behavior: smooth; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #000; min-height: 100vh; overflow-x: hidden; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #000; min-height: 100vh; color: #1a1a1a; }
 
         .hero-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -19,60 +19,45 @@
         }
 
         header {
-            background: rgba(255, 255, 255, 0.95); padding: 0.8rem 5%;
+            background: rgba(255, 255, 255, 0.98); padding: 0.7rem 5%;
             display: flex; justify-content: space-between; align-items: center;
             backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 1000;
             border-bottom: 2px solid var(--navy);
         }
 
-        .nav-links button {
-            background: none; border: none; cursor: pointer; color: var(--navy);
-            font-family: 'Montserrat'; font-weight: 700; margin-left: 20px;
-            text-transform: uppercase; font-size: 0.75rem;
-        }
-
-        /* Smaller, more compact grid */
         .main-content {
-            max-width: 1100px; margin: 40px auto;
-            display: grid; grid-template-columns: 320px 1fr; gap: 30px; padding: 0 20px;
+            max-width: 1100px; margin: 50px auto;
+            display: grid; grid-template-columns: 280px 1fr; gap: 30px; padding: 0 20px;
         }
 
-        .glass-card {
-            background: var(--glass); backdrop-filter: blur(15px);
-            padding: 25px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.3);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15); align-self: start;
+        /* The Custom Colored Box for Confirmation */
+        .confirmed-box {
+            background: var(--navy);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 5px solid var(--gold);
+            margin: 10px 0;
+            font-size: 0.85rem;
+            line-height: 1.6;
         }
 
         .chat-portal {
-            background: white; border-radius: 18px; overflow: hidden;
-            display: flex; flex-direction: column; height: 500px; /* Reduced height */
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3); max-width: 550px; justify-self: end;
+            background: white; border-radius: 20px; overflow: hidden;
+            display: flex; flex-direction: column; height: 520px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3); max-width: 500px; justify-self: end;
         }
 
-        .chat-header { background: var(--navy); color: white; padding: 15px; text-align: center; font-family: 'Montserrat'; font-size: 0.8rem; letter-spacing: 1px; }
-        #chat-window { flex: 1; padding: 20px; overflow-y: auto; background: #fcfdfe; font-size: 0.9rem; }
-        
-        .msg { margin-bottom: 15px; padding: 12px 16px; border-radius: 12px; line-height: 1.4; max-width: 85%; }
-        .bot { background: white; border-left: 4px solid var(--accent); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        .user { background: var(--navy); color: white; align-self: flex-end; margin-left: auto; }
+        #chat-window { flex: 1; padding: 20px; overflow-y: auto; background: #fafafa; display: flex; flex-direction: column; }
+        .msg { margin-bottom: 12px; padding: 10px 15px; border-radius: 12px; line-height: 1.4; max-width: 85%; font-size: 0.9rem; }
+        .bot { background: white; border-left: 3px solid var(--accent); align-self: flex-start; }
+        .user { background: var(--navy); color: white; align-self: flex-end; }
 
         .input-area { padding: 15px; background: white; border-top: 1px solid #eee; display: flex; gap: 10px; }
-        input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
-        #send-btn { background: var(--navy); color: white; border: none; padding: 0 20px; border-radius: 8px; cursor: pointer; font-weight: 700; }
-
-        /* Footer Rebuild */
-        footer { 
-            background: rgba(0, 45, 90, 0.98); color: white; padding: 50px 5% 20px; 
-            margin-top: 100px; backdrop-filter: blur(10px);
-        }
-        .footer-grid {
-            max-width: 1100px; margin: 0 auto; display: grid; 
-            grid-template-columns: 2fr 1fr 1fr; gap: 40px; border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 40px;
-        }
-        .footer-col h4 { font-family: 'Montserrat'; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 20px; color: var(--accent); }
-        .footer-col p, .footer-col a { font-size: 0.85rem; color: #cbd5e1; text-decoration: none; display: block; margin-bottom: 10px; }
-        .footer-bottom { text-align: center; padding-top: 20px; font-size: 0.75rem; color: #94a3b8; }
+        input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; }
+        button#send-btn { background: var(--navy); color: white; border: none; padding: 0 20px; border-radius: 8px; cursor: pointer; font-weight: 700; }
+        
+        footer { background: var(--navy); color: white; padding: 40px 5%; text-align: center; font-size: 0.75rem; }
     </style>
 </head>
 <body>
@@ -80,67 +65,37 @@
 <div class="hero-bg"></div>
 
 <header>
-    <div style="font-family: 'Montserrat'; font-weight: 900; color: var(--navy);">VV HOME PRO</div>
-    <nav class="nav-links">
-        <button onclick="window.scrollTo({top:0, behavior:'smooth'})">Home</button>
-        <button onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">About</button>
-        <button onclick="document.getElementById('pros').scrollIntoView({behavior:'smooth'})">Pro Directory</button>
-    </nav>
+    <div style="font-family: 'Montserrat'; font-weight: 900; color: var(--navy); font-size: 1.1rem;">VV HOME PRO</div>
+    <div class="nav-links">
+        <button onclick="window.scrollTo({top:0, behavior:'smooth'})" style="background:none; border:none; cursor:pointer; font-weight:700; color:var(--navy);">HOME</button>
+    </div>
 </header>
 
 <main class="main-content">
-    <div class="glass-card" id="about">
-        <h2 style="font-family: 'Montserrat'; font-size: 1.4rem; color: var(--navy); margin-top: 0;">Vetted & Verified</h2>
-        <p style="font-size: 0.9rem; color: #444;">Ontario's premium network for home service professionals.</p>
-        <div style="margin-top: 20px; font-size: 0.85rem;">
-            <p>✅ <strong>WSIB Standing:</strong> All pros verified in good standing.</p>
-            <p>✅ <strong>Liability Coverage:</strong> All businesses are fully covered.</p>
-            <p>✅ <strong>Secure Data:</strong> Encrypted project transmission.</p>
-        </div>
+    <div class="glass-card" id="about" style="background:var(--glass); padding:20px; border-radius:15px;">
+        <h3 style="color:var(--navy); font-family:'Montserrat';">V&V Verified</h3>
+        <p style="font-size:0.8rem;">All professionals are vetted for standing and fully covered by business insurance.</p>
     </div>
 
     <div class="chat-portal">
-        <div class="chat-header">MATCHING ENGINE ACTIVE</div>
+        <div style="background:var(--navy); color:white; padding:10px; text-align:center; font-weight:800; font-size:0.7rem;">MATCHING ENGINE ACTIVE</div>
         <div id="chat-window">
             <div class="msg bot">Welcome to VV HOME PRO. What project are you planning? (e.g. Roofing, HVAC)</div>
         </div>
         <div class="input-area">
-            <input type="text" id="user-input" placeholder="Project details..." onkeypress="if(event.key==='Enter') send()">
+            <input type="text" id="user-input" placeholder="Type here..." onkeypress="if(event.key==='Enter') send()">
             <button id="send-btn" onclick="send()">SEND</button>
         </div>
     </div>
 </main>
 
-<div id="pros" style="height: 50px;"></div> <footer>
-    <div class="footer-grid">
-        <div class="footer-col">
-            <h4>VV HOME PRO</h4>
-            <p>The Gold Standard for Ontario home services. Connecting discerning homeowners with verified, high-end professionals.</p>
-        </div>
-        <div class="footer-col">
-            <h4>LEGAL</h4>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Pro Standards</a>
-        </div>
-        <div class="footer-col">
-            <h4>CONTACT</h4>
-            <p>Ontario, Canada</p>
-            <p>support@vvetpro.ca</p>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        © 2026 VV HOME PRO. All Rights Reserved. Vetted. Verified. Validated.
-    </div>
+<footer>
+    © 2026 VV HOME PRO. Vetted. Verified. Validated.
 </footer>
 
 <script>
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/'; 
-    // Moving system instruction into the content array for 100% compatibility
-    let history = [
-        { role: "user", parts: [{ text: "SYSTEM: You are the VV HOME PRO assistant. Greet professionaly. Collect: 1. Project, 2. Name, 3. City, 4. Phone, 5. Time. Then provide a summary for 'CONFIRM'." }] },
-        { role: "model", parts: [{ text: "Understood. I am ready to assist with the intake process." }] }
-    ];
+    let history = []; // Worker now handles the System Instructions
 
     async function send() {
         const input = document.getElementById('user-input');
@@ -148,14 +103,16 @@
         const text = input.value.trim();
         if(!text) return;
 
+        // Add user message to UI
         box.innerHTML += `<div class="msg user">${text}</div>`;
         history.push({ role: "user", parts: [{ text: text }] });
         input.value = '';
         box.scrollTop = box.scrollHeight;
 
+        // Add loading state
         const load = document.createElement('div');
         load.className = 'msg bot';
-        load.innerText = 'Verifying with V&V Engine...';
+        load.innerText = 'Syncing...';
         box.appendChild(load);
 
         try {
@@ -165,13 +122,14 @@
                 body: JSON.stringify({ contents: history })
             });
             const data = await res.json();
-            if(data.error) throw new Error(data.error);
-
+            
             const aiText = data.candidates[0].content.parts[0].text;
             history.push({ role: "model", parts: [{ text: aiText }] });
+            
+            // Use marked to parse HTML tags like <div class="confirmed-box">
             load.innerHTML = marked.parse(aiText);
         } catch (e) {
-            load.innerHTML = `<span style="color:#d32f2f;">⚠️ Engine Timeout:</span><br><small>${e.message}</small>`;
+            load.innerText = "Connection lost. Please refresh.";
         }
         box.scrollTop = box.scrollHeight;
     }
