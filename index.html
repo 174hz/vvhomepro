@@ -12,7 +12,7 @@
     <style>
         :root { --navy: #002d5a; --accent: #0056b3; --gold: #c5a059; --glass: rgba(255, 255, 255, 0.9); }
         html { scroll-behavior: smooth; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #000; min-height: 100vh; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #000; min-height: 100vh; overflow-x: hidden; }
 
         .hero-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -32,24 +32,10 @@
             display: grid; grid-template-columns: 280px 1fr; gap: 30px; padding: 0 20px;
         }
 
-        /* --- THE CONFIRMED BOX --- */
-        .confirmed-box {
-            background: var(--navy); color: white; padding: 20px; border-radius: 12px;
-            border-left: 6px solid var(--gold); margin: 15px 0; font-size: 0.9rem;
-        }
-        .confirmed-box h3 { margin-top: 0; color: var(--gold); font-size: 1rem; text-transform: uppercase; }
-        
-        .pdf-btn {
-            background: var(--gold); color: var(--navy); border: none; padding: 8px 15px;
-            border-radius: 5px; cursor: pointer; font-weight: 800; font-size: 0.7rem;
-            margin-top: 10px; width: 100%; transition: 0.3s;
-        }
-        .pdf-btn:hover { background: white; }
-
         /* --- CHAT STYLING --- */
         .chat-portal {
             background: white; border-radius: 20px; overflow: hidden;
-            display: flex; flex-direction: column; height: 550px;
+            display: flex; flex-direction: column; height: 580px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.3);
         }
         #chat-window { flex: 1; padding: 20px; overflow-y: auto; background: #fdfdfd; display: flex; flex-direction: column; }
@@ -57,11 +43,36 @@
         .bot { background: white; border-left: 3px solid var(--accent); align-self: flex-start; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .user { background: var(--navy); color: white; align-self: flex-end; }
 
-        .input-area { padding: 15px; background: white; border-top: 1px solid #eee; display: flex; gap: 10px; }
-        input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
+        /* --- CONFIRMATION BOX --- */
+        .confirmed-box {
+            background: var(--navy); color: white; padding: 20px; border-radius: 12px;
+            border-left: 6px solid var(--gold); margin: 15px 0; font-size: 0.9rem;
+        }
+        .confirmed-box h3 { margin-top: 0; color: var(--gold); font-size: 1rem; }
+        .pdf-btn {
+            background: var(--gold); color: var(--navy); border: none; padding: 10px;
+            border-radius: 5px; cursor: pointer; font-weight: 800; width: 100%; margin-top: 10px;
+        }
+
+        /* --- INPUT AREA & CONSENT --- */
+        .input-area { padding: 15px; background: white; border-top: 1px solid #eee; }
+        .input-row { display: flex; gap: 10px; margin-bottom: 8px; }
+        input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; }
         button#send-btn { background: var(--navy); color: white; border: none; padding: 0 25px; border-radius: 8px; cursor: pointer; font-weight: 700; }
+        button#send-btn:disabled { background: #ccc; cursor: not-allowed; }
         
+        .consent-row { font-size: 0.7rem; color: #666; display: flex; align-items: flex-start; gap: 5px; }
+        .consent-row a { color: var(--accent); cursor: pointer; text-decoration: underline; }
+
+        /* --- MODAL STYLING --- */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); }
+        .modal-content { background: white; margin: 5% auto; padding: 30px; border-radius: 15px; width: 85%; max-width: 600px; max-height: 80vh; overflow-y: auto; position: relative; }
+        .close-modal { position: absolute; right: 20px; top: 15px; font-size: 24px; cursor: pointer; color: var(--navy); }
+        .modal-content h2 { color: var(--navy); font-family: 'Montserrat'; margin-top: 0; }
+        .modal-content p, .modal-content li { font-size: 0.85rem; line-height: 1.6; color: #444; }
+
         footer { background: var(--navy); color: white; padding: 30px; text-align: center; font-size: 0.7rem; }
+        .footer-links a { color: var(--gold); cursor: pointer; text-decoration: none; margin: 0 10px; }
     </style>
 </head>
 <body>
@@ -76,22 +87,61 @@
 <main class="main-content">
     <div class="glass-card" style="background:var(--glass); padding:20px; border-radius:15px; height: fit-content;">
         <h3 style="color:var(--navy); font-family:'Montserrat'; margin-top:0;">V&V Verified</h3>
-        <p style="font-size:0.8rem; line-height:1.5;">All professionals in our network are fully vetted, insured, and verified for local compliance in Ontario.</p>
+        <p style="font-size:0.8rem; line-height:1.5;">Vetted experts for your home. We use AI to match you with top-rated Ontario professionals instantly.</p>
     </div>
 
     <div class="chat-portal">
-        <div style="background:var(--navy); color:white; padding:12px; text-align:center; font-weight:800; font-size:0.75rem; letter-spacing:1px;">MATCHING ENGINE ACTIVE</div>
+        <div style="background:var(--navy); color:white; padding:12px; text-align:center; font-weight:800; font-size:0.75rem;">MATCHING ENGINE ACTIVE</div>
         <div id="chat-window">
-            <div class="msg bot">Welcome to VV HOME PRO. What project are you planning? (e.g. Roofing, HVAC, Windows)</div>
+            <div class="msg bot">Welcome to VV HOME PRO. What project are you planning? (e.g. Roofing, HVAC)</div>
         </div>
+        
         <div class="input-area">
-            <input type="text" id="user-input" placeholder="Tell us what you need..." onkeypress="if(event.key==='Enter') send()">
-            <button id="send-btn" onclick="send()">SEND</button>
+            <div class="input-row">
+                <input type="text" id="user-input" placeholder="Tell us what you need..." onkeypress="if(event.key==='Enter') send()">
+                <button id="send-btn" onclick="send()" disabled>SEND</button>
+            </div>
+            <div class="consent-row">
+                <input type="checkbox" id="consent-check" onchange="document.getElementById('send-btn').disabled = !this.checked">
+                <span>I agree to the <a onclick="openModal('privacyModal')">Privacy Policy</a> and <a onclick="openModal('termsModal')">Terms</a>.</span>
+            </div>
         </div>
     </div>
 </main>
 
-<footer>© 2026 VV HOME PRO. Vetted. Verified. Validated.</footer>
+<div id="privacyModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('privacyModal')">&times;</span>
+        <h2>Privacy Policy</h2>
+        <p><strong>Effective: Feb 2026</strong></p>
+        <p>We collect your project details and contact info to match you with pros. Under Ontario PIPEDA laws:</p>
+        <ul>
+            <li><strong>Data Collection:</strong> We only collect what you type in chat.</li>
+            <li><strong>AI Processing:</strong> Data is processed by Google Gemini. For your security, avoid sharing social insurance numbers or sensitive financial data in chat.</li>
+            <li><strong>Your Rights:</strong> You can request data deletion at any time by emailing privacy@vvhomepro.com.</li>
+        </ul>
+    </div>
+</div>
+
+<div id="termsModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('termsModal')">&times;</span>
+        <h2>Terms of Service</h2>
+        <ul>
+            <li><strong>No Contract:</strong> Using this chat does not create a binding construction contract. We are a matching service only.</li>
+            <li><strong>Liability:</strong> VV HOME PRO is not liable for work performed by referred contractors.</li>
+            <li><strong>Verification:</strong> While we vet pros, users are encouraged to verify active insurance before work begins.</li>
+        </ul>
+    </div>
+</div>
+
+<footer>
+    © 2026 VV HOME PRO. Vetted. Verified. Validated.
+    <div class="footer-links">
+        <a onclick="openModal('privacyModal')">Privacy</a> | 
+        <a onclick="openModal('termsModal')">Terms</a>
+    </div>
+</footer>
 
 <script>
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/'; 
@@ -110,7 +160,7 @@
 
         const load = document.createElement('div');
         load.className = 'msg bot';
-        load.innerText = 'Analyzing...';
+        load.innerText = 'Syncing with Pro Network...';
         box.appendChild(load);
 
         try {
@@ -125,29 +175,31 @@
             history.push({ role: "model", parts: [{ text: aiText }] });
             load.innerHTML = marked.parse(aiText);
         } catch (e) {
-            load.innerText = "Connection error. Please check your internet.";
+            load.innerText = "Connection lost. Please refresh.";
         }
         box.scrollTop = box.scrollHeight;
     }
 
-    // THE PDF FUNCTION
     function downloadPDF() {
         const element = document.getElementById('final-summary');
-        const opt = {
-            margin:       1,
-            filename:     'VV-Home-Pro-Request.pdf',
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2 },
-            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-        };
-        // Remove button from PDF view temporarily
         const btn = element.querySelector('.pdf-btn');
         btn.style.display = 'none';
 
+        const opt = {
+            margin: 1, filename: 'VV-Home-Pro-Summary.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+
         html2pdf().set(opt).from(element).save().then(() => {
-            btn.style.display = 'block'; // Bring button back after saving
+            btn.style.display = 'block';
         });
     }
+
+    function openModal(id) { document.getElementById(id).style.display = "block"; }
+    function closeModal(id) { document.getElementById(id).style.display = "none"; }
+    window.onclick = function(e) { if(e.target.className === 'modal') e.target.style.display = "none"; }
 </script>
 </body>
 </html>
