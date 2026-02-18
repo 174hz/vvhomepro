@@ -10,37 +10,24 @@
 
     <style>
         :root { --navy: #002d5a; --accent: #0056b3; --gold: #c5a059; --glass: rgba(255, 255, 255, 0.9); }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #000; min-height: 100vh; overflow-x: hidden; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #000; min-height: 100vh; display: flex; flex-direction: column; }
         .hero-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat; z-index: -1; }
         
+        /* HEADER & NAV */
         header { background: rgba(255, 255, 255, 0.98); padding: 0.7rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 1000; }
-        
-        /* Optimized Container */
-        .main-content { max-width: 900px; margin: 30px auto; display: grid; grid-template-columns: 240px 1fr; gap: 20px; padding: 0 15px; }
-        
+        .logo { font-family: 'Montserrat'; font-weight: 900; color: var(--navy); font-size: 1.1rem; text-decoration: none; }
+        nav { display: flex; gap: 20px; }
+        nav a { text-decoration: none; color: var(--navy); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; transition: 0.3s; }
+        nav a:hover { color: var(--gold); }
+
+        /* MAIN LAYOUT */
+        .main-content { max-width: 900px; margin: 30px auto; display: grid; grid-template-columns: 240px 1fr; gap: 20px; padding: 0 15px; flex: 1; }
         .chat-portal { background: white; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; height: 550px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
         
-        /* IMPROVED HEADER & DISTINCT RESTART BUTTON */
         .chat-header { background: var(--navy); color: white; padding: 12px 15px; text-align: center; font-weight: 800; font-size: 0.75rem; position: relative; letter-spacing: 1px; }
-        .restart-btn { 
-            position: absolute; 
-            right: 12px; 
-            top: 50%; 
-            transform: translateY(-50%);
-            border: 1px solid var(--gold); 
-            color: var(--gold);
-            padding: 4px 10px; 
-            border-radius: 20px; 
-            cursor: pointer; 
-            font-size: 0.6rem; 
-            font-weight: 800;
-            transition: all 0.2s ease;
-            text-transform: uppercase;
-        }
-        .restart-btn:hover { background: var(--gold); color: var(--navy); }
+        .restart-btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); border: 1px solid var(--gold); color: var(--gold); padding: 4px 10px; border-radius: 20px; cursor: pointer; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; }
 
         #chat-window { flex: 1; padding: 15px; overflow-y: auto; background: #fdfdfd; display: flex; flex-direction: column; }
-        
         .msg { margin-bottom: 12px; padding: 10px 16px; border-radius: 15px; line-height: 1.4; max-width: 85%; font-size: 0.85rem; }
         .bot { background: white; border-left: 3px solid var(--accent); align-self: flex-start; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .user { background: var(--navy); color: white; align-self: flex-end; }
@@ -58,22 +45,34 @@
         .input-row { display: flex; gap: 8px; margin-bottom: 8px; }
         input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem; outline: none; }
         button#send-btn { background: var(--navy); color: white; border: none; padding: 0 20px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.8rem; }
-        button#send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        /* MOBILE OPTIMIZATION */
+        /* FOOTER */
+        footer { background: rgba(0, 0, 0, 0.8); color: white; padding: 20px 5%; text-align: center; font-size: 0.7rem; border-top: 1px solid #333; }
+        footer a { color: var(--gold); text-decoration: none; margin: 0 10px; }
+
+        /* MODAL FOR PRIVACY/ABOUT */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); }
+        .modal-content { background: white; margin: 10% auto; padding: 30px; border-radius: 15px; width: 80%; max-width: 600px; color: #333; line-height: 1.6; }
+        .close-modal { float: right; font-size: 20px; cursor: pointer; font-weight: bold; }
+
         @media (max-width: 768px) {
             .main-content { grid-template-columns: 1fr; margin: 15px auto; }
             .glass-card { display: none; }
-            .chat-portal { height: 75vh; border-radius: 15px; }
-            .msg { font-size: 0.8rem; max-width: 90%; }
+            nav { display: none; } /* Hide main nav on small mobile to save header space */
         }
     </style>
 </head>
 <body>
 
 <div class="hero-bg"></div>
+
 <header>
-    <div style="font-family: 'Montserrat'; font-weight: 900; color: var(--navy); font-size: 1rem;">VV HOME PRO</div>
+    <a href="#" class="logo">VV HOME PRO</a>
+    <nav>
+        <a href="/">Home</a>
+        <a href="javascript:void(0)" onclick="openModal('about')">About Us</a>
+        <a href="javascript:void(0)" onclick="openModal('privacy')">Privacy</a>
+    </nav>
 </header>
 
 <main class="main-content">
@@ -92,23 +91,59 @@
         </div>
         <div class="input-area">
             <div class="input-row">
-                <input type="text" id="user-input" placeholder="Tell us what you need..." onkeypress="if(event.key==='Enter') send()">
+                <input type="text" id="user-input" placeholder="Type here..." onkeypress="if(event.key==='Enter') send()">
                 <button id="send-btn" onclick="send()" disabled>SEND</button>
             </div>
             <div style="font-size: 0.65rem; color: #666; display: flex; gap: 5px; align-items: center;">
                 <input type="checkbox" id="consent-check" onchange="document.getElementById('send-btn').disabled = !this.checked">
-                <span>Agree to Privacy Policy and Terms.</span>
+                <span>I agree to the <a href="javascript:void(0)" onclick="openModal('privacy')" style="color:var(--navy)">Privacy Policy</a>.</span>
             </div>
         </div>
     </div>
 </main>
 
+<footer>
+    <p>&copy; 2026 VV HOME PRO. All rights reserved. Ontario's Trusted Home Service Matchmaker.</p>
+    <div style="margin-top:10px;">
+        <a href="javascript:void(0)" onclick="openModal('privacy')">Terms of Service</a> | 
+        <a href="javascript:void(0)" onclick="openModal('about')">About Our Network</a>
+    </div>
+</footer>
+
+<div id="infoModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <div id="modalText"></div>
+    </div>
+</div>
+
 <script>
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/'; 
     let history = [];
     const { marked } = window;
-    marked.setOptions({ headerIds: false, mangle: false });
 
+    // --- MODAL LOGIC ---
+    function openModal(type) {
+        const modal = document.getElementById('infoModal');
+        const text = document.getElementById('modalText');
+        modal.style.display = "block";
+        
+        if(type === 'privacy') {
+            text.innerHTML = `<h3>Privacy & Terms</h3><p>Your data is used solely to connect you with verified local professionals. We do not sell your contact information to third-party advertisers. By using this service, you agree to be contacted by up to 3 service pros regarding your leaky roof, HVAC, or other home projects.</p>`;
+        } else {
+            text.innerHTML = `<h3>About VV HOME PRO</h3><p>We are Ontario's premier matching engine for high-end home services. Our network consists only of contractors who pass our 5-point verification check, ensuring your home is in the best hands possible.</p>`;
+        }
+    }
+
+    function closeModal() {
+        document.getElementById('infoModal').style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('infoModal')) closeModal();
+    }
+
+    // --- CHAT LOGIC ---
     async function send() {
         const input = document.getElementById('user-input');
         const box = document.getElementById('chat-window');
@@ -133,15 +168,9 @@
             });
             const data = await res.json();
             
-            if (data.error) { 
-                load.innerHTML = `<span style="color: #d4af37; font-weight:600;">${data.error}</span>`; 
-                return; 
-            }
-
             const aiText = data.candidates[0].content.parts[0].text;
             history.push({ role: "model", parts: [{ text: aiText }] });
             
-            // MASTER FIX: Strips backticks if AI tries to wrap HTML in code blocks
             const cleanHTML = aiText.replace(/```html|```/g, "").trim();
             load.innerHTML = cleanHTML.includes('<div') ? cleanHTML : marked.parse(cleanHTML);
             
@@ -151,20 +180,10 @@
         box.scrollTop = box.scrollHeight;
     }
 
-    function editDetails() {
-        const input = document.getElementById('user-input');
-        input.placeholder = "Change scope to minor... / Change city to London...";
-        input.focus();
-        history.push({ role: "user", parts: [{ text: "I need to edit my info. Please adjust the specific detail I mention but maintain the Category (e.g., HVAC) and then show the review card again." }] });
-    }
-
     function resetChat() {
-        if(confirm("Restart the matching process?")) {
+        if(confirm("Restart the process?")) {
             history = [];
-            document.getElementById('chat-window').innerHTML = `
-                <div class="msg bot">Welcome to VV HOME PRO. What project are you planning? (e.g. Roofing, HVAC)</div>
-            `;
-            document.getElementById('user-input').placeholder = "Tell us what you need...";
+            document.getElementById('chat-window').innerHTML = `<div class="msg bot">Welcome to VV HOME PRO. What project are you planning? (e.g. Roofing, HVAC)</div>`;
         }
     }
 
@@ -176,32 +195,21 @@
         box.appendChild(load);
         box.scrollTop = box.scrollHeight;
 
-        history.push({ role: "user", parts: [{ text: "CONFIRM. Please generate the final validation gold box now." }] });
+        history.push({ role: "user", parts: [{ text: "CONFIRM. Generate my final gold box." }] });
 
-        const tryFetch = async (retries = 2) => {
-            try {
-                const res = await fetch(WORKER, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: history })
-                });
-                const data = await res.json();
-                if (data.error) throw new Error(data.error);
-
-                const aiText = data.candidates[0].content.parts[0].text;
-                const cleanHTML = aiText.replace(/```html|```/g, "").trim();
-                load.innerHTML = cleanHTML;
-            } catch (e) {
-                if (retries > 0) {
-                    load.innerText = "System busy... retrying...";
-                    setTimeout(() => tryFetch(retries - 1), 2000);
-                } else {
-                    load.innerHTML = `<span style="color: #d4af37;">Busy. Click "Confirm" again.</span>`;
-                }
-            }
-            box.scrollTop = box.scrollHeight;
-        };
-        tryFetch();
+        try {
+            const res = await fetch(WORKER, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contents: history })
+            });
+            const data = await res.json();
+            const aiText = data.candidates[0].content.parts[0].text;
+            load.innerHTML = aiText.replace(/```html|```/g, "").trim();
+        } catch (e) {
+            load.innerText = "Validation error. Please click confirm again.";
+        }
+        box.scrollTop = box.scrollHeight;
     }
 
     function downloadPDF() {
@@ -209,7 +217,7 @@
         if(!element) return;
         const btn = element.querySelector('.pdf-btn');
         btn.style.display = 'none';
-        html2pdf().set({ margin: 0.5, filename: 'VV-Lead-Summary.pdf', html2canvas: { scale: 2 } }).from(element).save().then(() => btn.style.display = 'block');
+        html2pdf().set({ margin: 0.5, filename: 'VV-Lead.pdf', html2canvas: { scale: 2 } }).from(element).save().then(() => btn.style.display = 'block');
     }
 </script>
 </body>
