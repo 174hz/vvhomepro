@@ -42,14 +42,51 @@
         .bot { background: white; border-left: 3px solid var(--accent); align-self: flex-start; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .user { background: var(--navy); color: white; align-self: flex-end; }
 
-        .confirmed-box {
-            background: var(--navy); color: white; padding: 20px; border-radius: 12px;
-            border-left: 6px solid var(--gold); margin: 15px 0; font-size: 0.9rem;
+        /* --- INTERACTIVE REVIEW CARD --- */
+        .review-card {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 10px 0;
+            color: #333;
         }
-        .confirmed-box h3 { margin-top: 0; color: var(--gold); font-size: 1rem; }
+        .review-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .btn-edit { background: #6c757d; color: white; border: none; padding: 10px; border-radius: 8px; flex: 1; cursor: pointer; font-weight: 600; }
+        .btn-confirm { background: var(--navy); color: white; border: none; padding: 10px; border-radius: 8px; flex: 2; cursor: pointer; font-weight: 700; }
+
+        /* --- THE PREMIUM GOLD BAR --- */
+        .confirmed-box {
+            background: var(--navy); color: white; padding: 25px; border-radius: 15px;
+            border-left: 8px solid var(--gold); margin: 15px 0; font-size: 0.95rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .confirmed-box h3 { margin-top: 0; color: var(--gold); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+        
         .pdf-btn {
-            background: var(--gold); color: var(--navy); border: none; padding: 10px;
-            border-radius: 5px; cursor: pointer; font-weight: 800; width: 100%; margin-top: 10px;
+            background: linear-gradient(135deg, #d4af37 0%, #f9f0b3 50%, #c5a059 100%);
+            color: #002d5a;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 900;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            width: 100%;
+            margin-top: 20px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(197, 160, 89, 0.4);
+            transition: all 0.3s ease;
+        }
+        .pdf-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(197, 160, 89, 0.6);
+            filter: brightness(1.1);
         }
 
         .input-area { padding: 15px; background: white; border-top: 1px solid #eee; }
@@ -118,12 +155,8 @@
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/'; 
     let history = [];
 
-    // CSP-Safe configuration for Marked
     const { marked } = window;
-    marked.setOptions({
-        headerIds: false,
-        mangle: false
-    });
+    marked.setOptions({ headerIds: false, mangle: false });
 
     async function send() {
         const input = document.getElementById('user-input');
@@ -150,21 +183,46 @@
             });
 
             const data = await res.json();
-            
-            if (data.error) {
-                load.innerText = "System: " + (data.error.message || data.error);
-                return;
-            }
+            if (data.error) { load.innerText = "System: " + (data.error.message || data.error); return; }
 
             const aiText = data.candidates[0].content.parts[0].text;
             history.push({ role: "model", parts: [{ text: aiText }] });
-            
-            // Safe rendering
             load.innerHTML = marked.parse(aiText);
             
         } catch (e) {
-            console.error("Security/Network Block:", e);
-            load.innerText = "Communication blocked. Please ensure you are not using extensions that block scripts.";
+            load.innerText = "Communication blocked. Please check your connection.";
+        }
+        box.scrollTop = box.scrollHeight;
+    }
+
+    // INTERACTIVE ACTIONS
+    function editDetails() {
+        const input = document.getElementById('user-input');
+        input.value = "I need to change some details.";
+        send();
+    }
+
+    async function finalizeLead() {
+        const box = document.getElementById('chat-window');
+        box.innerHTML += `<div class="msg user">Confirming my details...</div>`;
+        history.push({ role: "user", parts: [{ text: "Everything is correct. Please generate my final summary and Gold PDF button." }] });
+
+        const load = document.createElement('div');
+        load.className = 'msg bot';
+        load.innerText = 'Finalizing Lead...';
+        box.appendChild(load);
+
+        try {
+            const res = await fetch(WORKER, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contents: history })
+            });
+            const data = await res.json();
+            const aiText = data.candidates[0].content.parts[0].text;
+            load.innerHTML = marked.parse(aiText);
+        } catch (e) {
+            load.innerText = "Error finalizing. Please try again.";
         }
         box.scrollTop = box.scrollHeight;
     }
@@ -174,7 +232,7 @@
         if(!element) return;
         const btn = element.querySelector('.pdf-btn');
         if(btn) btn.style.display = 'none';
-        html2pdf().set({ margin: 1, filename: 'VV-Summary.pdf' }).from(element).save().then(() => { if(btn) btn.style.display = 'block'; });
+        html2pdf().set({ margin: 1, filename: 'VV-Home-Pro-Summary.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' } }).from(element).save().then(() => { if(btn) btn.style.display = 'block'; });
     }
 
     function openModal(id) { document.getElementById(id).style.display = "block"; }
