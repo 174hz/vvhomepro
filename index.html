@@ -19,16 +19,13 @@
         .msg { margin-bottom: 12px; padding: 12px 18px; border-radius: 15px; line-height: 1.4; max-width: 85%; font-size: 0.9rem; }
         .bot { background: white; border-left: 3px solid var(--accent); align-self: flex-start; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .user { background: var(--navy); color: white; align-self: flex-end; }
-        
         .review-card { background: #f8f9fa; border: 1px solid #dee2e6; padding: 15px; border-radius: 12px; margin: 10px 0; color: #333; }
         .review-actions { display: flex; gap: 10px; margin-top: 15px; }
         .btn-edit { background: #6c757d; color: white; border: none; padding: 10px; border-radius: 8px; flex: 1; cursor: pointer; font-weight: 600; }
         .btn-confirm { background: var(--navy); color: white; border: none; padding: 10px; border-radius: 8px; flex: 2; cursor: pointer; font-weight: 700; }
-        
         .confirmed-box { background: var(--navy); color: white; padding: 25px; border-radius: 15px; border-left: 8px solid var(--gold); margin: 15px 0; font-size: 0.95rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         .confirmed-box h3 { margin-top: 0; color: var(--gold); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
-        
-        .pdf-btn { background: linear-gradient(135deg, #d4af37 0%, #f9f0b3 50%, #c5a059 100%); color: #002d5a; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: 900; width: 100%; margin-top: 20px; text-transform: uppercase; box-shadow: 0 4px 15px rgba(197, 160, 89, 0.4); }
+        .pdf-btn { background: linear-gradient(135deg, #d4af37 0%, #f9f0b3 50%, #c5a059 100%); color: #002d5a; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: 900; width: 100%; margin-top: 20px; text-transform: uppercase; box-shadow: 0 4px 15px rgba(197, 160, 89, 0.4); transition: 0.3s; }
         .input-area { padding: 15px; background: white; border-top: 1px solid #eee; }
         .input-row { display: flex; gap: 10px; margin-bottom: 8px; }
         input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
@@ -118,8 +115,10 @@
     }
 
     function editDetails() {
-        document.getElementById('user-input').value = "I need to change my details.";
-        send();
+        const input = document.getElementById('user-input');
+        input.placeholder = "Tell me what to change (e.g., Change city to Toronto)...";
+        input.focus();
+        history.push({ role: "user", parts: [{ text: "I need to edit my info. Please ask me for the specific detail I want to change and show the review card once updated." }] });
     }
 
     function resetChat() {
