@@ -19,14 +19,20 @@
         .msg { margin-bottom: 12px; padding: 12px 18px; border-radius: 15px; line-height: 1.4; max-width: 85%; font-size: 0.9rem; }
         .bot { background: white; border-left: 3px solid var(--accent); align-self: flex-start; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .user { background: var(--navy); color: white; align-self: flex-end; }
+        
+        /* UI Components */
         .review-card { background: #f8f9fa; border: 1px solid #dee2e6; padding: 15px; border-radius: 12px; margin: 10px 0; color: #333; }
         .review-actions { display: flex; gap: 10px; margin-top: 15px; }
         .btn-edit { background: #6c757d; color: white; border: none; padding: 10px; border-radius: 8px; flex: 1; cursor: pointer; font-weight: 600; }
         .btn-confirm { background: var(--navy); color: white; border: none; padding: 10px; border-radius: 8px; flex: 2; cursor: pointer; font-weight: 700; }
-        .confirmed-box { background: var(--navy); color: white; padding: 25px; border-radius: 15px; border-left: 8px solid var(--gold); margin: 15px 0; font-size: 0.95rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .confirmed-box h3 { margin-top: 0; color: var(--gold); font-size: 1.1rem; text-transform: uppercase; }
+        
+        /* The Gold Bar Final Delivery */
+        .confirmed-box { background: var(--navy); color: white; padding: 25px; border-radius: 15px; border-left: 8px solid var(--gold); margin: 15px 0; font-size: 0.95rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: relative; }
+        .confirmed-box h3 { margin-top: 0; color: var(--gold); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
+        
         .pdf-btn { background: linear-gradient(135deg, #d4af37 0%, #f9f0b3 50%, #c5a059 100%); color: #002d5a; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: 900; width: 100%; margin-top: 20px; text-transform: uppercase; box-shadow: 0 4px 15px rgba(197, 160, 89, 0.4); transition: 0.3s; }
         .pdf-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
         .input-area { padding: 15px; background: white; border-top: 1px solid #eee; }
         .input-row { display: flex; gap: 10px; margin-bottom: 8px; }
         input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
@@ -101,7 +107,10 @@
 
             const aiText = data.candidates[0].content.parts[0].text;
             history.push({ role: "model", parts: [{ text: aiText }] });
-            load.innerHTML = marked.parse(aiText);
+            
+            // MASTER FIX: Strips backticks if AI tries to wrap HTML in code blocks
+            const cleanHTML = aiText.replace(/```html|```/g, "").trim();
+            load.innerHTML = cleanHTML.includes('<div') ? cleanHTML : marked.parse(cleanHTML);
             
         } catch (e) {
             load.innerText = "Connection busy. Please try again.";
@@ -114,7 +123,6 @@
         send();
     }
 
-    // FINALIZED LEAD WITH RETRY LOGIC
     async function finalizeLead() {
         const box = document.getElementById('chat-window');
         const load = document.createElement('div');
@@ -137,7 +145,8 @@
                 if (data.error) throw new Error(data.error);
 
                 const aiText = data.candidates[0].content.parts[0].text;
-                load.innerHTML = marked.parse(aiText);
+                const cleanHTML = aiText.replace(/```html|```/g, "").trim();
+                load.innerHTML = cleanHTML;
             } catch (e) {
                 if (retries > 0) {
                     load.innerText = "System busy... retrying validation...";
@@ -156,12 +165,15 @@
         if(!element) return;
         const btn = element.querySelector('.pdf-btn');
         btn.style.display = 'none';
+        
         html2pdf().set({ 
             margin: 0.5, 
             filename: 'VV-Home-Pro-Lead.pdf', 
             html2canvas: { scale: 2 },
             jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-        }).from(element).save().then(() => btn.style.display = 'block');
+        }).from(element).save().then(() => {
+            btn.style.display = 'block';
+        });
     }
 </script>
 </body>
