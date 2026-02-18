@@ -164,11 +164,13 @@
         const text = input.value.trim();
         if(!text) return;
 
+        // Display user message
         box.innerHTML += `<div class="msg user">${text}</div>`;
         history.push({ role: "user", parts: [{ text: text }] });
         input.value = '';
         box.scrollTop = box.scrollHeight;
 
+        // Display loading state
         const load = document.createElement('div');
         load.className = 'msg bot';
         load.innerText = 'Syncing...';
@@ -183,19 +185,25 @@
             });
 
             const data = await res.json();
-            if (data.error) { load.innerText = "System: " + (data.error.message || data.error); return; }
+            
+            // Check for our "Branded Friendly Error" from the worker
+            if (data.error) { 
+                load.innerHTML = `<span style="color: #d9534f;">${data.error}</span>`; 
+                return; 
+            }
 
             const aiText = data.candidates[0].content.parts[0].text;
             history.push({ role: "model", parts: [{ text: aiText }] });
+            
+            // Use .innerHTML with marked to render AI buttons
             load.innerHTML = marked.parse(aiText);
             
         } catch (e) {
-            load.innerText = "Communication blocked. Please check your connection.";
+            load.innerText = "VV HOME PRO: Connection momentarily interrupted. Please try again.";
         }
         box.scrollTop = box.scrollHeight;
     }
 
-    // INTERACTIVE ACTIONS
     function editDetails() {
         const input = document.getElementById('user-input');
         input.value = "I need to change some details.";
@@ -219,6 +227,12 @@
                 body: JSON.stringify({ contents: history })
             });
             const data = await res.json();
+            
+            if (data.error) {
+                load.innerHTML = data.error;
+                return;
+            }
+
             const aiText = data.candidates[0].content.parts[0].text;
             load.innerHTML = marked.parse(aiText);
         } catch (e) {
@@ -232,7 +246,18 @@
         if(!element) return;
         const btn = element.querySelector('.pdf-btn');
         if(btn) btn.style.display = 'none';
-        html2pdf().set({ margin: 1, filename: 'VV-Home-Pro-Summary.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' } }).from(element).save().then(() => { if(btn) btn.style.display = 'block'; });
+        
+        const opt = {
+            margin: 1,
+            filename: 'VV-Home-Pro-Summary.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(element).save().then(() => { 
+            if(btn) btn.style.display = 'block'; 
+        });
     }
 
     function openModal(id) { document.getElementById(id).style.display = "block"; }
