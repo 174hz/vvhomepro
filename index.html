@@ -3,164 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VV HOME PRO | Ontario's Elite Service Directory</title>
+    <title>VV HOME PRO | Ontario's Premier Contractor Network</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
             --navy: #0D1B2E;
             --gold: #E09F3E;
-            --white: #ffffff;
-            --light-gray: #f8f9fa;
-        }
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: var(--navy);
-            margin: 0;
-            line-height: 1.6;
-            scroll-behavior: smooth;
-        }
-        /* Navigation Style */
-        nav {
-            background: var(--navy);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        nav a { color: white; text-decoration: none; margin-left: 20px; font-weight: 500; }
-        
-        /* Hero Section */
-        #home {
-            padding: 100px 20px;
-            text-align: center;
-            background: linear-gradient(rgba(13, 27, 46, 0.9), rgba(13, 27, 46, 0.9)), url('https://images.unsplash.com/photo-1503387762-592dee58c160?auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            color: white;
-        }
-        .btn-primary {
-            background: var(--gold);
-            color: var(--navy);
-            padding: 15px 30px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 20px;
+            --white: #FFFFFF;
+            --light-grey: #F4F4F4;
         }
 
-        /* REVISED ABOUT US SECTION */
-        #about {
-            padding: 80px 20px;
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
             background-color: var(--white);
+            color: var(--navy);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--navy);
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 4px solid var(--gold);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero {
+            padding: 80px 20px;
+            text-align: center;
+            background: linear-gradient(rgba(13, 27, 46, 0.8), rgba(13, 27, 46, 0.8)), url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            display: inline-block;
+            max-width: 100%;
+        }
+
+        .benefits {
+            padding: 60px 20px;
             max-width: 1000px;
             margin: 0 auto;
-        }
-        .about-header {
-            border-left: 6px solid var(--gold);
-            padding-left: 20px;
-            margin-bottom: 40px;
-        }
-        h2 { font-size: 2.5rem; margin: 0; color: var(--navy); }
-        .sub-headline { color: var(--gold); font-weight: bold; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
-        
-        .about-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            margin-top: 40px;
         }
 
-        .feature-card {
-            background: var(--light-gray);
+        .benefit-card {
+            background: var(--light-grey);
             padding: 30px;
-            border-radius: 12px;
-            border-bottom: 4px solid var(--gold);
+            border-radius: 8px;
+            border-left: 5px solid var(--gold);
         }
-        .feature-card h3 { color: var(--navy); margin-top: 0; display: flex; align-items: center; }
 
-        .mission-statement {
-            font-size: 1.15rem;
-            color: #333;
-            margin-bottom: 30px;
-        }
-        .tagline-footer {
-            text-align: center;
-            margin-top: 60px;
-            padding-top: 30px;
-            border-top: 1px solid #eee;
-            font-weight: 800;
-            font-style: italic;
-            font-size: 1.4rem;
+        .benefit-card h3 {
+            color: var(--navy);
+            margin-top: 0;
         }
 
         footer {
-            background: var(--navy);
-            color: white;
+            background-color: var(--navy);
+            color: var(--white);
             padding: 40px 20px;
             text-align: center;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div style="font-weight: bold; color: white; font-size: 1.5rem;">VV HOME PRO</div>
-        <div>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="https://vvhomepro.beehiiv.com/">Join Directory</a>
-        </div>
-    </nav>
+    <header>
+        <div class="logo">VV HOME PRO</div>
+    </header>
 
-    <section id="home">
-        <h1>Ontario's Elite Service Directory</h1>
-        <p>AI-Vetted Leads for HVAC, Roofing, and Custom Trades.</p>
-        <a href="https://vvhomepro.beehiiv.com/" class="btn-primary">Grow Your Business</a>
+    <section class="hero">
+        <h1>Ontario's AI-Vetted Lead Network</h1>
+        <p>Exclusive territory access for premier contractors. Stop chasing leads. Start closing projects with the VV Verified Seal.</p>
+        
+        <div class="form-container">
+            <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
+            <iframe src="https://subscribe-forms.beehiiv.com/7d63a8f1-0820-4e93-a6c8-650faaa33cde" class="beehiiv-embed" data-test-id="beehiiv-embed" frameborder="0" scrolling="no" style="width: 768px; height: 338px; margin: 0; border-radius: 0px; background-color: transparent; box-shadow: 0 0 #0000; max-width: 100%;"></iframe>
+        </div>
     </section>
 
-    <section id="about">
-        <div class="about-header">
-            <p class="sub-headline">The Standard of Excellence</p>
-            <h2>About VV HOME PRO</h2>
+    <section class="benefits">
+        <div class="benefit-card">
+            <h3>AI-Driven Matching</h3>
+            <p>Our engine matches your specific trade to project scopes in your region, ensuring you only see high-intent opportunities.</p>
         </div>
-
-        <div class="mission-statement">
-            <p><strong>VV HOME PRO</strong> is Ontario’s premier AI-driven verification network, built specifically for elite residential contractors. We don’t just generate leads; we engineer connections. We bridge the gap between high-intent homeowners and the province’s most reliable trades.</p>
-            
-            <p>Our mission is to eliminate the "race to the bottom" pricing wars that plague traditional lead-gen sites. By utilizing advanced AI-vetting for project scopes, we ensure that every lead you receive includes verified budget ranges, project timelines, and high-resolution intent data.</p>
+        <div class="benefit-card">
+            <h3>The Verified Seal</h3>
+            <p>Earn the "VV Verified" digital badge to increase trust and authority on all your client quotes.</p>
         </div>
-
-        <div class="about-grid">
-            <div class="feature-card">
-                <h3>✅ AI-Vetted Scopes</h3>
-                <p>Our proprietary AI filters out the tire-kickers, leaving only serious projects ready for a professional quote.</p>
-            </div>
-            <div class="feature-card">
-                <h3>✅ Territory Exclusivity</h3>
-                <p>We strictly limit membership to 2-3 pros per region. When you’re in, your competition is out.</p>
-            </div>
-            <div class="feature-card">
-                <h3>✅ The Verified Seal</h3>
-                <p>Use our digital seal on your quotes to instantly build trust with homeowners as a VV-Verified Professional.</p>
-            </div>
-            <div class="feature-card">
-                <h3>✅ Quality Over Quantity</h3>
-                <p>No more paying for junk leads. We focus on high-ticket residential projects that match your expertise.</p>
-            </div>
-        </div>
-
-        <div class="tagline-footer">
-            One trade. One territory. One standard. <br>
-            <span style="color: var(--gold);">Welcome to the future of Ontario contracting.</span>
+        <div class="benefit-card">
+            <h3>Territory Exclusivity</h3>
+            <p>We limit slots per trade per region. Once your area is locked, competitors are locked out.</p>
         </div>
     </section>
 
     <footer>
-        <p>© 2026 VV HOME PRO | Ontario's Elite Service Directory</p>
-        <p><a href="#" style="color: white; font-size: 0.8rem;">Terms & Privacy</a></p>
+        <p>&copy; 2026 VV HOME PRO. All rights reserved.</p>
+        <p>Ontario, Canada | Premier Contractor Registry</p>
     </footer>
 
+    <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
 </body>
 </html>
