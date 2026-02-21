@@ -3,180 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VV HOME PRO | Ontario's Trusted Home Service Matchmaker</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <title>VV HOME PRO | Premium Home Services & Contractor Registry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
     <style>
-        :root {
-            --navy: #0D1B2E;
-            --gold: #E09F3E;
-            --white: #FFFFFF;
-            --light-grey: #F4F4F4;
-        }
+        :root { --navy: #002d5a; --accent: #0056b3; --gold: #c5a059; --glass: rgba(255, 255, 255, 0.9); }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #000; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        .hero-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat; z-index: -1; }
+        
+        header { background: rgba(255, 255, 255, 0.98); padding: 0.7rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-family: 'Montserrat'; font-weight: 900; color: var(--navy); font-size: 1.1rem; text-decoration: none; }
+        nav { display: flex; gap: 20px; }
+        nav a { text-decoration: none; color: var(--navy); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; transition: 0.3s; cursor: pointer; }
+        
+        .main-content { max-width: 900px; margin: 30px auto; display: grid; grid-template-columns: 240px 1fr; gap: 20px; padding: 0 15px; flex: 1; }
+        .chat-portal { background: white; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; height: 550px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        .chat-header { background: var(--navy); color: white; padding: 12px 15px; text-align: center; font-weight: 800; font-size: 0.75rem; position: relative; letter-spacing: 1px; }
+        .restart-btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); border: 1px solid var(--gold); color: var(--gold); padding: 4px 10px; border-radius: 20px; cursor: pointer; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; }
 
-        body {
-            margin: 0;
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--white);
-            color: var(--navy);
-        }
+        #chat-window { flex: 1; padding: 15px; overflow-y: auto; background: #fdfdfd; display: flex; flex-direction: column; }
+        .msg { margin-bottom: 12px; padding: 10px 16px; border-radius: 15px; line-height: 1.4; max-width: 85%; font-size: 0.85rem; }
+        .bot { background: white; border-left: 3px solid var(--accent); align-self: flex-start; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .user { background: var(--navy); color: white; align-self: flex-end; }
+        
+        /* CONTRACTOR SECTION STYLES */
+        .pro-section { background: white; padding: 60px 5%; margin-top: 50px; text-align: center; border-top: 5px solid var(--gold); }
+        .beehiiv-container { max-width: 800px; margin: 30px auto; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
 
-        /* Header Navigation */
-        header {
-            background-color: var(--navy);
-            padding: 15px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 3px solid var(--gold);
-        }
+        .confirmed-box { background: var(--navy); color: white; padding: 20px; border-radius: 15px; border-left: 8px solid var(--gold); margin: 10px 0; }
+        .pdf-btn { background: linear-gradient(135deg, #d4af37 0%, #f9f0b3 50%, #c5a059 100%); color: #002d5a; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: 900; width: 100%; margin-top: 15px; text-transform: uppercase; }
 
-        .logo {
-            font-family: 'Playfair Display', serif;
-            color: var(--gold);
-            font-size: 1.8rem;
-            text-decoration: none;
-            font-weight: bold;
-        }
+        .input-area { padding: 12px; background: white; border-top: 1px solid #eee; }
+        .input-row { display: flex; gap: 8px; margin-bottom: 8px; }
+        input[type="text"] { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 8px; outline: none; }
+        button#send-btn { background: var(--navy); color: white; border: none; padding: 0 20px; border-radius: 8px; cursor: pointer; font-weight: 700; }
 
-        nav a {
-            color: var(--white);
-            text-decoration: none;
-            margin-left: 20px;
-            font-size: 0.9rem;
-            font-weight: 700;
-        }
+        footer { background: rgba(0, 0, 0, 0.9); color: white; padding: 30px 5%; text-align: center; font-size: 0.7rem; }
+        footer a { color: var(--gold); text-decoration: none; margin: 0 10px; cursor: pointer; }
 
-        /* SECTION 1: HOMEOWNER MATCHING ENGINE (Top) */
-        .homeowner-hero {
-            position: relative;
-            padding: 60px 20px;
-            text-align: center;
-            background: linear-gradient(rgba(13, 27, 46, 0.7), rgba(13, 27, 46, 0.7)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            min-height: 500px;
-        }
-
-        .engine-container {
-            background: white;
-            max-width: 600px;
-            margin: 0 auto;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            overflow: hidden;
-            border-top: 5px solid var(--gold);
-        }
-
-        .engine-header {
-            background: var(--navy);
-            color: var(--gold);
-            padding: 10px;
-            font-weight: bold;
-            font-size: 0.8rem;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .engine-body {
-            padding: 30px;
-            min-height: 200px;
-        }
-
-        .chat-msg {
-            background: var(--light-grey);
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            text-align: left;
-            border-left: 4px solid var(--gold);
-        }
-
-        /* SECTION 2: CONTRACTOR REGISTRY (Middle) */
-        .contractor-section {
-            background-color: var(--light-grey);
-            padding: 80px 20px;
-            text-align: center;
-        }
-
-        .contractor-content {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .contractor-section h2 {
-            font-size: 2.5rem;
-            color: var(--navy);
-            margin-bottom: 10px;
-        }
-
-        .beehiiv-container {
-            margin-top: 40px;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            display: inline-block;
-            width: 100%;
-            max-width: 800px;
-        }
-
-        footer {
-            background: var(--navy);
-            color: var(--white);
-            padding: 40px;
-            text-align: center;
-            font-size: 0.8rem;
-        }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); }
+        .modal-content { background: white; margin: 10% auto; padding: 30px; border-radius: 15px; width: 85%; max-width: 600px; position: relative; }
     </style>
 </head>
 <body>
 
-    <header>
-        <a href="#" class="logo">VV HOME PRO</a>
-        <nav>
-            <a href="#">HOME</a>
-            <a href="#contractors">FOR CONTRACTORS</a>
-            <a href="#">PRIVACY</a>
-        </nav>
-    </header>
+<div class="hero-bg"></div>
 
-    <section class="homeowner-hero">
-        <h1 style="color: white; margin-bottom: 30px;">Find Your Elite Service Pro</h1>
-        <div class="engine-container">
-            <div class="engine-header">
-                <span>MATCHING ENGINE ACTIVE</span>
-                <span style="border: 1px solid var(--gold); padding: 2px 8px; border-radius: 4px; cursor: pointer;">RESTART</span>
+<header>
+    <a href="#" class="logo">VV HOME PRO</a>
+    <nav>
+        <a href="#" onclick="resetChat()">Home</a>
+        <a href="#contractors" style="color: var(--gold);">Join as a Pro</a>
+        <a onclick="openModal('about')">About Us</a>
+    </nav>
+</header>
+
+<main class="main-content">
+    <div class="glass-card" style="background:var(--glass); padding:20px; border-radius:15px; height: fit-content; box-shadow: 0 10px 20px rgba(0,0,0,0.2);">
+        <h3 style="color:var(--navy); font-family:'Montserrat'; margin-top:0; font-size:1rem;">V&V Verified</h3>
+        <p style="font-size:0.75rem; line-height:1.5; color: #333;">Ontario's premium home service network. Use our AI engine to scope your project and get matched with elite local professionals.</p>
+    </div>
+
+    <div class="chat-portal">
+        <div class="chat-header">
+            MATCHING ENGINE ACTIVE
+            <span onclick="resetChat()" class="restart-btn">Restart</span>
+        </div>
+        <div id="chat-window">
+            <div class="msg bot">Welcome to VV HOME PRO. What project are you planning? (e.g. Roofing, HVAC)</div>
+        </div>
+        <div class="input-area">
+            <div class="input-row">
+                <input type="text" id="user-input" placeholder="Tell us what you need..." onkeypress="if(event.key==='Enter') send()">
+                <button id="send-btn" onclick="send()" disabled>SEND</button>
             </div>
-            <div class="engine-body">
-                <div class="chat-msg">
-                    Welcome to VV HOME PRO. What project are you planning? (e.g. Roofing, HVAC, Custom Home)
-                </div>
-                <input type="text" placeholder="Tell us what you need..." style="width: 80%; padding: 12px; border: 1px solid #ccc; border-radius: 4px;">
-                <button style="padding: 12px 20px; background: var(--navy); color: white; border: none; border-radius: 4px; cursor: pointer;">SEND</button>
+            <div style="font-size: 0.65rem; color: #666; display: flex; gap: 5px; align-items: center;">
+                <input type="checkbox" id="consent-check" onchange="document.getElementById('send-btn').disabled = !this.checked">
+                <span>Agree to <a onclick="openModal('privacy')" style="color:var(--navy); text-decoration: underline; cursor: pointer;">Privacy Policy</a>.</span>
             </div>
         </div>
-    </section>
+    </div>
+</main>
 
-    <section id="contractors" class="contractor-section">
-        <div class="contractor-content">
-            <h2>Are You a Premier Contractor?</h2>
-            <p style="font-size: 1.1rem; color: #555;">Join Ontario's AI-vetted lead network. Secure your territory and receive high-intent project summaries.</p>
+<section id="contractors" class="pro-section">
+    <h2 style="font-family: 'Montserrat'; color: var(--navy);">Are You a Premier Contractor?</h2>
+    <p style="max-width: 600px; margin: 0 auto; color: #555;">Join Ontario's AI-vetted lead network. Secure your territory, build authority with the Verified Seal, and receive high-intent project leads.</p>
+    
+    <div class="beehiiv-container">
+        <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
+        <iframe src="https://subscribe-forms.beehiiv.com/7d63a8f1-0820-4e93-a6c8-650faaa33cde" class="beehiiv-embed" data-test-id="beehiiv-embed" frameborder="0" scrolling="no" style="width: 100%; height: 320px; background-color: transparent;"></iframe>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026 VV HOME PRO. Ontario's Elite Service Network.</p>
+    <div>
+        <a onclick="openModal('privacy')">Terms & Privacy</a> | <a onclick="openModal('about')">Our Mission</a>
+    </div>
+</footer>
+
+<div id="infoModal" class="modal">
+    <div class="modal-content">
+        <span onclick="closeModal()" style="position:absolute; right:20px; top:15px; cursor:pointer; font-weight:bold;">&times;</span>
+        <div id="modalText"></div>
+    </div>
+</div>
+
+<script>
+    const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/'; 
+    let history = [];
+    const { marked } = window;
+    marked.setOptions({ headerIds: false, mangle: false });
+
+    async function send() {
+        const input = document.getElementById('user-input');
+        const box = document.getElementById('chat-window');
+        const text = input.value.trim();
+        if(!text) return;
+
+        // User message
+        const userDiv = document.createElement('div');
+        userDiv.className = 'msg user';
+        userDiv.innerText = text;
+        box.appendChild(userDiv);
+        input.value = '';
+        
+        history.push({ role: "user", parts: [{ text: text }] });
+
+        // Bot loading
+        const load = document.createElement('div');
+        load.className = 'msg bot';
+        load.innerText = 'AI Analysis...';
+        box.appendChild(load);
+        box.scrollTop = box.scrollHeight;
+
+        try {
+            const res = await fetch(WORKER, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contents: history })
+            });
+            const data = await res.json();
+            const aiText = data.candidates[0].content.parts[0].text;
+            history.push({ role: "model", parts: [{ text: aiText }] });
             
-            <div class="beehiiv-container">
-                <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
-                <iframe src="https://subscribe-forms.beehiiv.com/7d63a8f1-0820-4e93-a6c8-650faaa33cde" class="beehiiv-embed" data-test-id="beehiiv-embed" frameborder="0" scrolling="no" style="width: 100%; height: 320px; margin: 0; border-radius: 0px; background-color: transparent;"></iframe>
-                </div>
-        </div>
-    </section>
+            const cleanHTML = aiText.replace(/```html|```/g, "").trim();
+            load.innerHTML = cleanHTML.includes('<div') ? cleanHTML : marked.parse(cleanHTML);
+        } catch (e) {
+            load.innerText = "Connection busy. Please retry.";
+        }
+        box.scrollTop = box.scrollHeight;
+    }
 
-    <footer>
-        <p>&copy; 2026 VV HOME PRO. Ontario's Trusted Home Service Matchmaker.</p>
-        <div style="margin-top: 10px;">
-            <a href="#" style="color: var(--gold); text-decoration: none; margin: 0 10px;">Terms of Service</a> | 
-            <a href="#" style="color: var(--gold); text-decoration: none; margin: 0 10px;">About Our Network</a>
-        </div>
-    </footer>
+    function resetChat() {
+        if(confirm("Restart the process?")) {
+            history = [];
+            document.getElementById('chat-window').innerHTML = `<div class="msg bot">Welcome to VV HOME PRO. What project are you planning? (e.g. Roofing, HVAC)</div>`;
+        }
+    }
 
-    <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
+    async function finalizeLead() {
+        const box = document.getElementById('chat-window');
+        const load = document.createElement('div');
+        load.className = 'msg bot';
+        load.innerText = 'Finalizing Lead Report...';
+        box.appendChild(load);
+        box.scrollTop = box.scrollHeight;
+
+        history.push({ role: "user", parts: [{ text: "CONFIRM. Please generate the final validation gold box now with the PDF button." }] });
+
+        try {
+            const res = await fetch(WORKER, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contents: history })
+            });
+            const data = await res.json();
+            const aiText = data.candidates[0].content.parts[0].text;
+            load.innerHTML = aiText.replace(/```html|```/g, "").trim();
+        } catch (e) {
+            load.innerText = "Error. Please click confirm again.";
+        }
+        box.scrollTop = box.scrollHeight;
+    }
+
+    function downloadPDF() {
+        const element = document.getElementById('final-summary');
+        if(!element) return alert("No summary found.");
+        const btn = element.querySelector('.pdf-btn');
+        btn.style.display = 'none';
+        
+        const opt = {
+            margin: 0.5, filename: 'VV-Home-Pro-Lead.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+        html2pdf().set(opt).from(element).save().then(() => btn.style.display = 'block');
+    }
+
+    function openModal(type) {
+        document.getElementById('infoModal').style.display = "block";
+        const txt = document.getElementById('modalText');
+        if(type==='privacy') txt.innerHTML = "<h3>Privacy Policy</h3><p>Your project data is used only to match you with vetted Ontario contractors.</p>";
+        else txt.innerHTML = "<h3>About Us</h3><p>VV HOME PRO is Ontario's premier AI concierge for home services.</p>";
+    }
+    function closeModal() { document.getElementById('infoModal').style.display = "none"; }
+</script>
 </body>
 </html>
