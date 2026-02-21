@@ -5,156 +5,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>VV HOME PRO | Ontario's Elite Service Directory</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
         :root { --navy: #002d5a; --accent: #0056b3; --gold: #c5a059; --glass: rgba(255, 255, 255, 0.95); }
-        
         * { box-sizing: border-box; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #000; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
-        
         .hero-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat; z-index: -1; }
-        
         header { background: white; padding: 0.8rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 1000; }
         .logo { font-family: 'Montserrat'; font-weight: 900; color: var(--navy); font-size: 1.1rem; text-decoration: none; }
-        
-        nav a { text-decoration: none; color: var(--navy); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-left: 15px; }
-
         .main-content { max-width: 1000px; margin: 20px auto; display: flex; flex-direction: row; gap: 20px; padding: 0 15px; flex: 1; }
-        
-        /* Sidebar/Welcome Card */
-        .glass-card { background: var(--glass); padding: 25px; border-radius: 20px; width: 280px; height: fit-content; box-shadow: 0 10px 30px rgba(0,0,0,0.2); flex-shrink: 0; }
-        
-        /* Chat Portal */
+        .glass-card { background: var(--glass); padding: 25px; border-radius: 20px; width: 280px; height: fit-content; flex-shrink: 0; }
         .chat-portal { background: white; border-radius: 25px; overflow: hidden; display: flex; flex-direction: column; height: 600px; flex-grow: 1; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
-        .chat-header { background: var(--navy); color: white; padding: 15px; text-align: center; font-weight: 800; font-size: 0.7rem; position: relative; letter-spacing: 1px; }
-        
+        .chat-header { background: var(--navy); color: white; padding: 15px; text-align: center; font-weight: 800; font-size: 0.7rem; position: relative; }
         #chat-window { flex: 1; padding: 20px; overflow-y: auto; background: #fdfdfd; display: flex; flex-direction: column; }
         .msg { margin-bottom: 15px; padding: 12px 18px; border-radius: 18px; line-height: 1.5; max-width: 85%; font-size: 0.9rem; }
         .bot { background: #f0f4f8; border-left: 4px solid var(--accent); align-self: flex-start; }
         .user { background: var(--navy); color: white; align-self: flex-end; }
-
-        /* Input Bar */
         .input-area { padding: 15px; background: white; border-top: 1px solid #eee; }
         .input-row { display: flex; gap: 10px; }
         input[type="text"] { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 12px; font-size: 1rem; outline: none; }
-        button#send-btn { background: var(--navy); color: white; border: none; padding: 0 20px; border-radius: 12px; cursor: pointer; font-weight: 700; }
-
-        /* Contractor Section */
-        .pro-section { background: white; padding: 60px 20px; text-align: center; margin-top: 40px; }
-        .beehiiv-container { max-width: 700px; margin: 30px auto; border: 1px solid #eee; border-radius: 15px; overflow: hidden; }
-
-        /* Mobile Breakpoints */
-        @media (max-width: 850px) {
-            .main-content { flex-direction: column; margin: 10px auto; padding: 0 10px; }
-            .glass-card { width: 100%; padding: 15px; margin-bottom: 10px; }
-            .chat-portal { height: 70vh; border-radius: 20px; }
-            nav { display: none; } /* Hide extra nav links on small mobile to save space */
-            .logo { font-size: 1rem; }
-        }
-
-        footer { background: rgba(0,0,0,0.9); color: white; padding: 30px; text-align: center; font-size: 0.75rem; }
+        button#send-btn { background: var(--navy); color: white; border: none; padding: 0 20px; border-radius: 12px; cursor: pointer; font-weight: 700; transition: 0.3s; }
+        button#send-btn:disabled { background: #ccc; cursor: not-allowed; }
+        @media (max-width: 850px) { .main-content { flex-direction: column; } .glass-card { width: 100%; } .chat-portal { height: 65vh; } }
+        footer { background: rgba(0,0,0,0.9); color: white; padding: 20px; text-align: center; font-size: 0.75rem; }
     </style>
 </head>
 <body>
 
 <div class="hero-bg"></div>
-
 <header>
     <a href="#" class="logo">VV HOME PRO</a>
-    <nav>
-        <a href="#contractors" style="color: var(--gold);">Pro Registry</a>
-        <a onclick="openModal('about')">About</a>
-    </nav>
+    <nav><a href="#contractors" style="color: var(--gold); text-decoration:none; font-weight:bold;">Pro Registry</a></nav>
 </header>
 
 <main class="main-content">
     <div class="glass-card">
-        <h3 style="color:var(--navy); font-family:'Montserrat'; margin-top:0; font-size:1.1rem;">V&V Verified</h3>
-        <p style="font-size:0.85rem; line-height:1.6; color: #333; margin-bottom: 0;">Ontario's premium home service network. Use our AI engine to scope your project and get matched with elite local professionals.</p>
+        <h3 style="color:var(--navy); margin-top:0;">V&V Verified</h3>
+        <p style="font-size:0.85rem; color: #333;">Ontario's premium home service network. Get matched with elite professionals.</p>
     </div>
 
     <div class="chat-portal">
-        <div class="chat-header">
-            MATCHING ENGINE ACTIVE
-            <span onclick="resetChat()" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); border: 1px solid var(--gold); color: var(--gold); padding: 3px 8px; border-radius: 10px; font-size: 0.6rem; cursor: pointer;">RESTART</span>
-        </div>
+        <div class="chat-header">MATCHING ENGINE ACTIVE</div>
         <div id="chat-window">
             <div class="msg bot">Welcome to VV HOME PRO. What project are you planning? (e.g. Roofing, HVAC)</div>
         </div>
         <div class="input-area">
             <div class="input-row">
-                <input type="text" id="user-input" placeholder="Project details..." onkeypress="if(event.key==='Enter') send()">
-                <button id="send-btn" onclick="send()" disabled>SEND</button>
+                <input type="text" id="user-input" placeholder="Project details...">
+                <button id="send-btn" onclick="handleSend()" disabled>SEND</button>
             </div>
-            <div style="font-size: 0.7rem; color: #666; margin-top: 8px; display: flex; align-items: center; gap: 8px;">
+            <div style="font-size: 0.7rem; color: #666; margin-top: 8px;">
                 <input type="checkbox" id="consent-check" onchange="document.getElementById('send-btn').disabled = !this.checked">
-                <span>Accept Privacy Policy</span>
+                <span>Accept Terms & Privacy</span>
             </div>
         </div>
     </div>
 </main>
 
-<section id="contractors" class="pro-section">
-    <h2 style="font-family: 'Montserrat'; color: var(--navy); margin-top: 0;">For Premier Contractors</h2>
-    <p style="color: #666; max-width: 500px; margin: 0 auto 20px;">Secure your territory in our AI-vetted lead network.</p>
-    <div class="beehiiv-container">
-        <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
-        <iframe src="https://subscribe-forms.beehiiv.com/7d63a8f1-0820-4e93-a6c8-650faaa33cde" class="beehiiv-embed" frameborder="0" scrolling="no" style="width: 100%; height: 320px;"></iframe>
+<section id="contractors" style="background:white; padding:40px 20px; text-align:center;">
+    <h2>Join the Pro Registry</h2>
+    <div style="max-width:700px; margin:auto; border:1px solid #eee; border-radius:15px; overflow:hidden;">
+        <iframe src="https://subscribe-forms.beehiiv.com/7d63a8f1-0820-4e93-a6c8-650faaa33cde" frameborder="0" scrolling="no" style="width: 100%; height: 320px;"></iframe>
     </div>
 </section>
 
-<footer>
-    <p>&copy; 2026 VV HOME PRO. Ontario's Elite Network.</p>
-</footer>
+<footer>&copy; 2026 VV HOME PRO</footer>
 
 <script>
-    const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/'; 
-    let history = [];
+    // CSP-SAFE AI SCRIPT
+    const WORKER_URL = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
+    let chatHistory = [];
 
-    async function send() {
+    async function handleSend() {
         const input = document.getElementById('user-input');
         const box = document.getElementById('chat-window');
-        const text = input.value.trim();
-        if(!text) return;
-
-        const userDiv = document.createElement('div');
-        userDiv.className = 'msg user';
-        userDiv.innerText = text;
-        box.appendChild(userDiv);
-        input.value = '';
+        const message = input.value.trim();
         
-        history.push({ role: "user", parts: [{ text: text }] });
+        if (!message) return;
 
-        const load = document.createElement('div');
-        load.className = 'msg bot';
-        load.innerText = 'AI Thinking...';
-        box.appendChild(load);
+        // Display User Message
+        const userMsg = document.createElement('div');
+        userMsg.className = 'msg user';
+        userMsg.textContent = message;
+        box.appendChild(userMsg);
+        
+        input.value = '';
+        chatHistory.push({ role: "user", parts: [{ text: message }] });
+
+        // Bot Loading State
+        const botMsg = document.createElement('div');
+        botMsg.className = 'msg bot';
+        botMsg.textContent = 'Analyzing...';
+        box.appendChild(botMsg);
         box.scrollTop = box.scrollHeight;
 
         try {
-            const res = await fetch(WORKER, {
+            const response = await fetch(WORKER_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contents: history })
+                body: JSON.stringify({ contents: chatHistory })
             });
-            const data = await res.json();
-            const aiText = data.candidates[0].content.parts[0].text;
-            history.push({ role: "model", parts: [{ text: aiText }] });
+
+            const data = await response.json();
+            const aiResponseText = data.candidates[0].content.parts[0].text;
             
-            load.innerHTML = window.marked.parse(aiText.replace(/```html|```/g, "").trim());
-        } catch (e) {
-            load.innerText = "Connection busy. Try again.";
+            chatHistory.push({ role: "model", parts: [{ text: aiResponseText }] });
+
+            // Safely render without triggerring CSP Eval
+            const cleanText = aiResponseText.replace(/```html|```/g, "").trim();
+            botMsg.innerHTML = cleanText; 
+
+        } catch (error) {
+            botMsg.textContent = "Service momentarily busy. Please try again.";
+            console.error("AI Error:", error);
         }
         box.scrollTop = box.scrollHeight;
-    }
-
-    function resetChat() {
-        if(confirm("Restart chat?")) {
-            history = [];
-            document.getElementById('chat-window').innerHTML = `<div class="msg bot">Welcome to VV HOME PRO. What project are you planning? (e.g. Roofing, HVAC)</div>`;
-        }
     }
 </script>
 </body>
