@@ -12,60 +12,71 @@
     <style>
         :root { --navy: #002d5a; --accent: #0056b3; --gold: #c5a059; --glass: rgba(255, 255, 255, 0.95); }
         * { box-sizing: border-box; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #000; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #000; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; scroll-behavior: smooth; }
         
         .hero-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat; z-index: -1; }
         
         header { background: white; padding: 0.8rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 1000; }
         .logo { font-family: 'Montserrat'; font-weight: 900; color: var(--navy); font-size: 1.1rem; text-decoration: none; }
         
+        /* Navigation Links */
+        .nav-links a { text-decoration: none; color: var(--navy); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-left: 20px; transition: 0.3s; }
+        .nav-links a.cta-gold { background: var(--gold); color: var(--navy); padding: 8px 15px; border-radius: 5px; }
+
         .main-content { max-width: 1100px; margin: 20px auto; display: flex; gap: 20px; padding: 0 15px; flex: 1; }
         .glass-card { background: var(--glass); padding: 25px; border-radius: 20px; width: 300px; height: fit-content; box-shadow: 0 10px 30px rgba(0,0,0,0.2); flex-shrink: 0; }
         
         .chat-portal { background: white; border-radius: 25px; overflow: hidden; display: flex; flex-direction: column; height: 620px; flex-grow: 1; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
         .chat-header { background: var(--navy); color: white; padding: 15px; text-align: center; font-weight: 800; font-size: 0.75rem; position: relative; letter-spacing: 1px; }
         
-        .restart-btn { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); border: 1px solid var(--gold); color: var(--gold); padding: 5px 12px; border-radius: 15px; cursor: pointer; font-size: 0.65rem; font-weight: bold; text-transform: uppercase; }
+        .restart-btn { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); border: 1px solid var(--gold); color: var(--gold); padding: 5px 12px; border-radius: 15px; cursor: pointer; font-size: 0.65rem; font-weight: bold; }
 
         #chat-window { flex: 1; padding: 20px; overflow-y: auto; background: #fdfdfd; display: flex; flex-direction: column; }
         .msg { margin-bottom: 15px; padding: 12px 18px; border-radius: 18px; line-height: 1.5; max-width: 85%; font-size: 0.9rem; }
         .bot { background: #f0f4f8; border-left: 4px solid var(--accent); align-self: flex-start; }
         .user { background: var(--navy); color: white; align-self: flex-end; }
 
-        /* Review Card / Confirm Button Styling */
+        /* Review Card & AI Buttons */
         .review-card { background: white; border: 1px solid #ddd; padding: 15px; border-radius: 12px; margin: 10px 0; }
         .btn-confirm, .pdf-btn { background: var(--navy); color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: 800; cursor: pointer; margin-top: 10px; text-transform: uppercase; }
-        .confirmed-box { background: var(--navy); color: white; padding: 20px; border-radius: 15px; border-left: 8px solid var(--gold); }
         .pdf-btn { background: var(--gold); color: var(--navy); }
 
         .input-area { padding: 15px; background: white; border-top: 1px solid #eee; }
         .input-row { display: flex; gap: 10px; }
         input[type="text"] { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 12px; font-size: 1rem; outline: none; }
         button#send-btn { background: var(--navy); color: white; border: none; padding: 0 25px; border-radius: 12px; cursor: pointer; font-weight: 700; }
-        button#send-btn:disabled { opacity: 0.5; }
+
+        /* CONTRACTOR SECTION - BEEHIIV */
+        .pro-section { background: white; padding: 80px 20px; text-align: center; border-top: 8px solid var(--gold); }
+        .pro-content { max-width: 800px; margin: 0 auto; }
+        .beehiiv-frame-container { margin-top: 40px; border-radius: 15px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.1); border: 1px solid #eee; }
 
         @media (max-width: 850px) {
             .main-content { flex-direction: column; padding: 0 10px; }
             .glass-card { width: 100%; }
             .chat-portal { height: 75vh; }
+            .nav-links { display: none; }
         }
 
-        .pro-section { background: white; padding: 60px 20px; text-align: center; border-top: 5px solid var(--gold); }
-        footer { background: rgba(0,0,0,0.9); color: white; padding: 30px; text-align: center; font-size: 0.75rem; }
+        footer { background: rgba(0,0,0,0.9); color: white; padding: 40px; text-align: center; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
 <div class="hero-bg"></div>
+
 <header>
     <a href="#" class="logo">VV HOME PRO</a>
-    <nav><a href="#contractors" style="color: var(--gold); text-decoration:none; font-weight:bold; font-size: 0.8rem;">PRO REGISTRY</a></nav>
+    <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#contractors" class="cta-gold">Join Pro Registry</a>
+    </div>
 </header>
 
 <main class="main-content">
     <div class="glass-card">
-        <h3 style="color:var(--navy); font-family:'Montserrat'; margin-top:0;">V&V Verified</h3>
-        <p style="font-size:0.85rem; line-height:1.6; color: #333;">Ontario's premier concierge for home services. Our AI engine scopes your project to ensure you only meet the top 1% of trades.</p>
+        <h3 style="color:var(--navy); font-family:'Montserrat'; margin-top:0;">For Homeowners</h3>
+        <p style="font-size:0.85rem; line-height:1.6; color: #333;">Use our AI engine to scope your project. We only match you with the top 1% of vetted Ontario professionals.</p>
     </div>
 
     <div class="chat-portal">
@@ -83,28 +94,34 @@
             </div>
             <div style="font-size: 0.7rem; color: #666; margin-top: 10px; display: flex; align-items: center; gap: 8px;">
                 <input type="checkbox" id="consent-check" onchange="document.getElementById('send-btn').disabled = !this.checked">
-                <span>I agree to the Privacy Policy.</span>
+                <span>I agree to the <a href="#" style="color: var(--navy)">Privacy Policy</a>.</span>
             </div>
         </div>
     </div>
 </main>
 
 <section id="contractors" class="pro-section">
-    <h2 style="font-family: 'Montserrat'; color: var(--navy); margin-top: 0;">Are You a Premier Contractor?</h2>
-    <p style="max-width: 600px; margin: 0 auto 30px; color: #555;">Join Ontario's AI-vetted lead network. Secure your exclusive territory and get high-intent project summaries.</p>
-    <div style="max-width: 750px; margin: auto; border: 1px solid #eee; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
-        <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
-        <iframe src="https://subscribe-forms.beehiiv.com/7d63a8f1-0820-4e93-a6c8-650faaa33cde" class="beehiiv-embed" frameborder="0" scrolling="no" style="width: 100%; height: 320px;"></iframe>
+    <div class="pro-content">
+        <h2 style="font-family: 'Montserrat'; color: var(--navy); font-size: 2rem; margin-top: 0;">Are You a Premier Contractor?</h2>
+        <p style="color: #555; font-size: 1.1rem; line-height: 1.6;">Secure your exclusive territory in Ontario's AI-vetted lead network. Limit 3 slots per region. Includes the VV-Verified seal and premium lead summaries.</p>
+        
+        <div class="beehiiv-frame-container">
+            <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
+            <iframe src="https://subscribe-forms.beehiiv.com/7d63a8f1-0820-4e93-a6c8-650faaa33cde" class="beehiiv-embed" frameborder="0" scrolling="no" style="width: 100%; height: 350px; background-color: transparent;"></iframe>
+        </div>
     </div>
 </section>
 
-<footer>&copy; 2026 VV HOME PRO | Ontario's Elite Network</footer>
+<footer>
+    <p>&copy; 2026 VV HOME PRO | Ontario's Elite Network</p>
+    <p style="opacity: 0.6; font-size: 0.7rem;">About Us | Terms of Service | Privacy Policy</p>
+</footer>
 
 <script>
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
     let history = [];
 
-    // Global listener for the AI-generated "Confirm" button
+    // Captures the AI's "Confirm" button click
     document.addEventListener('click', function(e) {
         if(e.target && e.target.classList.contains('btn-confirm')) {
             finalizeLead();
@@ -151,7 +168,7 @@
     }
 
     async function finalizeLead() {
-        appendMsg('bot', 'Finalizing validation and territory match...');
+        appendMsg('bot', 'Finalizing validation and matching territory...');
         history.push({ role: "user", parts: [{ text: "CONFIRM. Please generate the final validation gold box now with the PDF button." }] });
         
         try {
