@@ -19,7 +19,6 @@
         header { background: white; padding: 0.8rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 1000; }
         .logo { font-family: 'Montserrat'; font-weight: 900; color: var(--navy); font-size: 1.1rem; text-decoration: none; }
         
-        /* VV-VERIFIED SEAL STYLE */
         .vv-seal {
             display: inline-flex;
             align-items: center;
@@ -36,7 +35,7 @@
         }
         .vv-check { color: var(--gold); margin-right: 6px; font-size: 0.9rem; }
 
-        .nav-links a { text-decoration: none; color: var(--navy); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-left: 20px; transition: 0.3s; }
+        .nav-links a { text-decoration: none; color: var(--navy); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-left: 20px; transition: 0.3s; cursor: pointer; }
         .nav-links a.cta-gold { background: var(--gold); color: var(--navy); padding: 8px 15px; border-radius: 5px; }
 
         .main-content { max-width: 1100px; margin: 20px auto; display: flex; gap: 20px; padding: 0 15px; flex: 1; }
@@ -92,7 +91,7 @@
         </div>
     </div>
     <div class="nav-links">
-        <a href="#">Home</a>
+        <a onclick="openModal('aboutModal')">About Us</a>
         <a href="#contractors" class="cta-gold">Join Pro Registry</a>
     </div>
 </header>
@@ -142,27 +141,42 @@
 <footer>
     <p style="font-weight: 800; letter-spacing: 1px;">VV HOME PRO | ONTARIO'S ELITE NETWORK</p>
     <div class="footer-links">
+        <a onclick="openModal('aboutModal')">About Us</a> | 
         <a onclick="openModal('termsModal')">Terms of Service</a> | 
         <a onclick="openModal('privacyModal')">Privacy Policy</a>
     </div>
     <p style="opacity: 0.4; margin-top: 20px; font-size: 0.65rem;">&copy; 2026 VV HOME PRO. All rights reserved.</p>
 </footer>
 
+<div id="aboutModal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('aboutModal')">&times;</span>
+        <h2>About VV HOME PRO</h2>
+        <p>VV HOME PRO is Ontario’s premier AI-powered matching engine, designed to bridge the gap between high-intent homeowners and the province's top 1% of contractors.</p>
+        
+        <h3>For Homeowners</h3>
+        <p>Traditional search directories are cluttered and unreliable. VV HOME PRO replaces the guesswork with a proprietary <strong>AI Matching Engine</strong>. We pre-scope your residential projects, verify budgets, and match you exclusively with vetted professionals who have the specific capacity and expertise for your trade. It’s efficiency, engineered.</p>
+        
+        <h3>For Elite Contractors</h3>
+        <p>We solve the "junk lead" problem. VV HOME PRO provides contractors with <strong>verified project summaries</strong> before they ever leave the office. By strictly limiting our registry to only <strong>three professionals per region</strong>, we ensure our partners maintain a dominant market position without competing against a race-to-the-bottom crowd.</p>
+        
+        <button onclick="closeModal('aboutModal')" class="cta-gold" style="border:none; padding:10px 20px; border-radius:5px; margin-top:20px; cursor:pointer; font-weight:bold; color:var(--navy);">Return to Engine</button>
+    </div>
+</div>
+
 <div id="termsModal" class="modal-overlay">
     <div class="modal-content">
         <span class="close-modal" onclick="closeModal('termsModal')">&times;</span>
         <h2>Terms of Use</h2>
         <p><strong>Effective Date: February 22, 2026</strong></p>
-        <p>By accessing the VV HOME PRO Elite Registry, you agree to adhere to the following professional standards and legal obligations, modeled after the highest benchmarks of consumer and business transparency.</p>
+        <p>By accessing the VV HOME PRO Elite Registry, you agree to adhere to the following professional standards and legal obligations.</p>
         
-        <h3>1. Territory Exclusivity & Licensing</h3>
-        <p>Securing a territory listing grants the professional an exclusive "Top 3" designation within their specific Ontario region. Users must maintain active provincial licensing and insurance. VV HOME PRO reserves the right to audit credentials at any time during the 2026 season.</p>
+        <h3>1. Territory Exclusivity</h3>
+        <p>Securing a territory listing grants the professional an exclusive "Top 3" designation within their specific region. This exclusivity is maintained for the duration of the 2026 season.</p>
         
         <h3>2. Professional Integrity</h3>
-        <p>In alignment with BBB-style ethical standards, all contractors in our registry agree to provide transparent pricing and honor the AI-scoped project summaries provided by our platform. Intentional misquotation or bait-and-switch tactics will result in immediate termination of registry status.</p>
+        <p>Contractors agree to provide transparent pricing and honor the AI-scoped summaries. Misrepresentation of services is grounds for immediate removal.</p>
         
-        <h3>3. Limitation of Liability</h3>
-        <p>VV HOME PRO provides high-intent project leads based on proprietary AI analysis. While we verify budget and intent, we do not guarantee contract execution. VV HOME PRO is not liable for on-site disputes or project delays.</p>
         <button onclick="closeModal('termsModal')" class="cta-gold" style="border:none; padding:10px 20px; border-radius:5px; margin-top:20px; cursor:pointer; font-weight:bold; color:var(--navy);">I Understand</button>
     </div>
 </div>
@@ -172,16 +186,11 @@
         <span class="close-modal" onclick="closeModal('privacyModal')">&times;</span>
         <h2>Privacy & Data Integrity</h2>
         <p><strong>Last Updated: February 2026</strong></p>
-        <p>VV HOME PRO is committed to protecting the proprietary data of our professional partners and the personal privacy of Ontario homeowners.</p>
+        <p>VV HOME PRO implements industry-standard encryption to protect the proprietary data of our professional partners.</p>
         
-        <h3>1. Data Collection & Security</h3>
-        <p>We collect business-critical information, including service history and regional trade specialties. All data is encrypted using 256-bit SSL technology. We do not store full payment details on our local servers; all transactions are handled via secure, PCI-compliant gateways.</p>
+        <h3>1. Data Security</h3>
+        <p>All business and project data is encrypted using 256-bit SSL technology. We do not sell or trade professional data to third-party marketers.</p>
         
-        <h3>2. Anti-Spam & Data Sharing</h3>
-        <p>We follow strict anti-spam protocols. Professional data is never sold, leased, or traded to third-party marketing firms. Your business profile is only visible to homeowners who have been successfully vetted through our AI matching engine.</p>
-        
-        <h3>3. Homeowner Privacy</h3>
-        <p>Homeowners using the matching engine consent to have their project summaries shared with the matched Elite Professionals only. Redistribution of these summaries by contractors is strictly prohibited.</p>
         <button onclick="closeModal('privacyModal')" class="cta-gold" style="border:none; padding:10px 20px; border-radius:5px; margin-top:20px; cursor:pointer; font-weight:bold; color:var(--navy);">Close</button>
     </div>
 </div>
