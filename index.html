@@ -36,29 +36,32 @@
         .bot { background: #f0f4f8; border-left: 4px solid var(--accent); align-self: flex-start; }
         .user { background: var(--navy); color: white; align-self: flex-end; }
 
-        /* Review Card & AI Buttons */
-        .review-card { background: white; border: 1px solid #ddd; padding: 15px; border-radius: 12px; margin: 10px 0; }
-        .btn-confirm, .pdf-btn { background: var(--navy); color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: 800; cursor: pointer; margin-top: 10px; text-transform: uppercase; }
-        .pdf-btn { background: var(--gold); color: var(--navy); }
-
         .input-area { padding: 15px; background: white; border-top: 1px solid #eee; }
         .input-row { display: flex; gap: 10px; }
         input[type="text"] { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 12px; font-size: 1rem; outline: none; }
         button#send-btn { background: var(--navy); color: white; border: none; padding: 0 25px; border-radius: 12px; cursor: pointer; font-weight: 700; }
 
-        /* CONTRACTOR SECTION - BEEHIIV */
         .pro-section { background: white; padding: 80px 20px; text-align: center; border-top: 8px solid var(--gold); }
         .pro-content { max-width: 800px; margin: 0 auto; }
         .beehiiv-frame-container { margin-top: 40px; border-radius: 15px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.1); border: 1px solid #eee; }
+
+        footer { background: rgba(0,0,0,0.9); color: white; padding: 60px 40px; text-align: center; font-size: 0.8rem; }
+        .footer-links a { color: var(--gold); text-decoration: none; margin: 0 10px; cursor: pointer; }
+
+        /* MODAL STYLES */
+        .modal-overlay { display:none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:2000; overflow-y: auto; backdrop-filter: blur(5px); }
+        .modal-content { background: white; max-width: 700px; margin: 40px auto; padding: 40px; border-radius: 20px; position: relative; line-height: 1.7; color: #333; text-align: left; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .modal-content h2 { color: var(--navy); border-bottom: 2px solid var(--gold); padding-bottom: 10px; font-family: 'Montserrat'; }
+        .modal-content h3 { color: var(--navy); margin-top: 25px; font-size: 1.1rem; }
+        .close-modal { position: absolute; top: 20px; right: 25px; font-size: 35px; cursor: pointer; color: #999; }
 
         @media (max-width: 850px) {
             .main-content { flex-direction: column; padding: 0 10px; }
             .glass-card { width: 100%; }
             .chat-portal { height: 75vh; }
             .nav-links { display: none; }
+            .modal-content { margin: 20px; padding: 25px; }
         }
-
-        footer { background: rgba(0,0,0,0.9); color: white; padding: 40px; text-align: center; font-size: 0.8rem; }
     </style>
 </head>
 <body>
@@ -94,7 +97,7 @@
             </div>
             <div style="font-size: 0.7rem; color: #666; margin-top: 10px; display: flex; align-items: center; gap: 8px;">
                 <input type="checkbox" id="consent-check" onchange="document.getElementById('send-btn').disabled = !this.checked">
-                <span>I agree to the <a href="#" style="color: var(--navy)">Privacy Policy</a>.</span>
+                <span>I agree to the <a href="javascript:void(0)" onclick="openModal('privacyModal')" style="color: var(--navy); font-weight: bold;">Privacy Policy</a>.</span>
             </div>
         </div>
     </div>
@@ -113,15 +116,72 @@
 </section>
 
 <footer>
-    <p>&copy; 2026 VV HOME PRO | Ontario's Elite Network</p>
-    <p style="opacity: 0.6; font-size: 0.7rem;">About Us | Terms of Service | Privacy Policy</p>
+    <p style="font-weight: 800; letter-spacing: 1px;">VV HOME PRO | ONTARIO'S ELITE NETWORK</p>
+    <div class="footer-links">
+        <a onclick="openModal('termsModal')">Terms of Service</a> | 
+        <a onclick="openModal('privacyModal')">Privacy Policy</a>
+    </div>
+    <p style="opacity: 0.4; margin-top: 20px; font-size: 0.65rem;">&copy; 2026 VV HOME PRO. All rights reserved.</p>
 </footer>
+
+<div id="termsModal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('termsModal')">&times;</span>
+        <h2>Terms of Use</h2>
+        <p><strong>Effective Date: February 22, 2026</strong></p>
+        <p>By accessing the VV HOME PRO Elite Registry, you agree to adhere to the following professional standards and legal obligations, modeled after the highest benchmarks of consumer and business transparency.</p>
+        
+        <h3>1. Territory Exclusivity & Licensing</h3>
+        <p>Securing a territory listing grants the professional an exclusive "Top 3" designation within their specific Ontario region. Users must maintain active provincial licensing and insurance. VV HOME PRO reserves the right to audit credentials at any time during the 2026 season.</p>
+        
+        <h3>2. Professional Integrity</h3>
+        <p>In alignment with BBB-style ethical standards, all contractors in our registry agree to provide transparent pricing and honor the AI-scoped project summaries provided by our platform. Intentional misquotation or bait-and-switch tactics will result in immediate termination of registry status.</p>
+        
+        <h3>3. Limitation of Liability</h3>
+        <p>VV HOME PRO provides high-intent project leads based on proprietary AI analysis. While we verify budget and intent, we do not guarantee contract execution. VV HOME PRO is not liable for on-site disputes or project delays.</p>
+        <button onclick="closeModal('termsModal')" class="cta-gold" style="border:none; padding:10px 20px; border-radius:5px; margin-top:20px; cursor:pointer; font-weight:bold;">I Understand</button>
+    </div>
+</div>
+
+<div id="privacyModal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('privacyModal')">&times;</span>
+        <h2>Privacy & Data Integrity</h2>
+        <p><strong>Last Updated: February 2026</strong></p>
+        <p>VV HOME PRO is committed to protecting the proprietary data of our professional partners and the personal privacy of Ontario homeowners.</p>
+        
+        <h3>1. Data Collection & Security</h3>
+        <p>We collect business-critical information, including service history and regional trade specialties. All data is encrypted using 256-bit SSL technology. We do not store full payment details on our local servers; all transactions are handled via secure, PCI-compliant gateways.</p>
+        
+        <h3>2. Anti-Spam & Data Sharing</h3>
+        <p>We follow strict anti-spam protocols. Professional data is never sold, leased, or traded to third-party marketing firms. Your business profile is only visible to homeowners who have been successfully vetted through our AI matching engine.</p>
+        
+        <h3>3. Homeowner Privacy</h3>
+        <p>Homeowners using the matching engine consent to have their project summaries shared with the matched Elite Professionals only. Redistribution of these summaries by contractors is strictly prohibited.</p>
+        <button onclick="closeModal('privacyModal')" class="cta-gold" style="border:none; padding:10px 20px; border-radius:5px; margin-top:20px; cursor:pointer; font-weight:bold;">Close</button>
+    </div>
+</div>
 
 <script>
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
     let history = [];
 
-    // Captures the AI's "Confirm" button click
+    function openModal(id) {
+        document.getElementById(id).style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    window.onclick = function(event) {
+        if (event.target.className === 'modal-overlay') {
+            closeModal(event.target.id);
+        }
+    }
+
     document.addEventListener('click', function(e) {
         if(e.target && e.target.classList.contains('btn-confirm')) {
             finalizeLead();
