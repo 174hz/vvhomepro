@@ -19,7 +19,23 @@
         header { background: white; padding: 0.8rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 1000; }
         .logo { font-family: 'Montserrat'; font-weight: 900; color: var(--navy); font-size: 1.1rem; text-decoration: none; }
         
-        /* Navigation Links */
+        /* VV-VERIFIED SEAL STYLE */
+        .vv-seal {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--navy), #004080);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 50px;
+            border: 2px solid var(--gold);
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(197, 160, 89, 0.3);
+        }
+        .vv-check { color: var(--gold); margin-right: 6px; font-size: 0.9rem; }
+
         .nav-links a { text-decoration: none; color: var(--navy); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-left: 20px; transition: 0.3s; }
         .nav-links a.cta-gold { background: var(--gold); color: var(--navy); padding: 8px 15px; border-radius: 5px; }
 
@@ -69,7 +85,12 @@
 <div class="hero-bg"></div>
 
 <header>
-    <a href="#" class="logo">VV HOME PRO</a>
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <a href="#" class="logo">VV HOME PRO</a>
+        <div class="vv-seal">
+            <span class="vv-check">✓</span> VV-VERIFIED
+        </div>
+    </div>
     <div class="nav-links">
         <a href="#">Home</a>
         <a href="#contractors" class="cta-gold">Join Pro Registry</a>
@@ -105,6 +126,9 @@
 
 <section id="contractors" class="pro-section">
     <div class="pro-content">
+        <div class="vv-seal" style="margin-bottom: 20px; padding: 8px 20px; font-size: 0.85rem;">
+            <span class="vv-check">✓</span> 2026 ELITE REGISTRY AUTHORIZED
+        </div>
         <h2 style="font-family: 'Montserrat'; color: var(--navy); font-size: 2rem; margin-top: 0;">Are You a Premier Contractor?</h2>
         <p style="color: #555; font-size: 1.1rem; line-height: 1.6;">Secure your exclusive territory in Ontario's AI-vetted lead network. Limit 3 slots per region. Includes the VV-Verified seal and premium lead summaries.</p>
         
@@ -139,7 +163,7 @@
         
         <h3>3. Limitation of Liability</h3>
         <p>VV HOME PRO provides high-intent project leads based on proprietary AI analysis. While we verify budget and intent, we do not guarantee contract execution. VV HOME PRO is not liable for on-site disputes or project delays.</p>
-        <button onclick="closeModal('termsModal')" class="cta-gold" style="border:none; padding:10px 20px; border-radius:5px; margin-top:20px; cursor:pointer; font-weight:bold;">I Understand</button>
+        <button onclick="closeModal('termsModal')" class="cta-gold" style="border:none; padding:10px 20px; border-radius:5px; margin-top:20px; cursor:pointer; font-weight:bold; color:var(--navy);">I Understand</button>
     </div>
 </div>
 
@@ -158,7 +182,7 @@
         
         <h3>3. Homeowner Privacy</h3>
         <p>Homeowners using the matching engine consent to have their project summaries shared with the matched Elite Professionals only. Redistribution of these summaries by contractors is strictly prohibited.</p>
-        <button onclick="closeModal('privacyModal')" class="cta-gold" style="border:none; padding:10px 20px; border-radius:5px; margin-top:20px; cursor:pointer; font-weight:bold;">Close</button>
+        <button onclick="closeModal('privacyModal')" class="cta-gold" style="border:none; padding:10px 20px; border-radius:5px; margin-top:20px; cursor:pointer; font-weight:bold; color:var(--navy);">Close</button>
     </div>
 </div>
 
