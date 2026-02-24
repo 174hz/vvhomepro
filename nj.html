@@ -16,23 +16,24 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #000
 header { background: white; padding: 0.8rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 1000; }
 .logo { font-family: 'Montserrat'; font-weight: 900; color: var(--navy); font-size: 1.1rem; text-decoration: none; }
 .vv-seal { display: inline-flex; align-items: center; background: linear-gradient(135deg, var(--navy), #004080); color: white; padding: 4px 12px; border-radius: 50px; border: 2px solid var(--gold); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
-.nav-links a { text-decoration: none; color: var(--navy); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-left: 20px; cursor: pointer; }
+.nav-links a { text-decoration: none; color: var(--navy); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-left: 20px; cursor: pointer; transition: 0.3s; }
 .main-content { max-width: 1100px; margin: 20px auto; display: flex; gap: 20px; padding: 0 15px; flex: 1; }
 .glass-card { background: var(--glass); padding: 25px; border-radius: 20px; width: 300px; height: fit-content; box-shadow: 0 10px 30px rgba(0,0,0,0.2); flex-shrink: 0; }
 .chat-portal { background: white; border-radius: 25px; overflow: hidden; display: flex; flex-direction: column; height: 620px; flex-grow: 1; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
-.chat-header { background: var(--navy); color: white; padding: 15px; text-align: center; font-weight: 800; font-size: 0.75rem; letter-spacing: 1px; }
+.chat-header { background: var(--navy); color: white; padding: 15px; text-align: center; font-weight: 800; font-size: 0.75rem; position: relative; letter-spacing: 1px; }
 #chat-window { flex: 1; padding: 20px; overflow-y: auto; background: #fdfdfd; display: flex; flex-direction: column; }
 .msg { margin-bottom: 15px; padding: 12px 18px; border-radius: 18px; line-height: 1.5; max-width: 85%; font-size: 0.9rem; }
 .bot { background: #f0f4f8; border-left: 4px solid var(--accent); align-self: flex-start; }
 .user { background: var(--navy); color: white; align-self: flex-end; }
-.input-area { padding: 15px; background: white; border-top: 1px solid #eee; display: flex; gap: 10px; }
-input[type="text"] { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 12px; }
-#send-btn { background: var(--navy); color: white; border: none; padding: 0 25px; border-radius: 12px; cursor: pointer; font-weight: 700; }
+.input-area { padding: 15px; background: white; border-top: 1px solid #eee; }
+.input-row { display: flex; gap: 10px; }
+input[type="text"] { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 12px; font-size: 1rem; outline: none; }
+button#send-btn { background: var(--navy); color: white; border: none; padding: 0 25px; border-radius: 12px; cursor: pointer; font-weight: 700; }
 .pro-section { background: white; padding: 80px 20px; text-align: center; border-top: 8px solid var(--gold); }
-.pricing-card { max-width: 500px; margin: 0 auto; background: #fff9eb; border: 2px solid var(--gold); padding: 40px; border-radius: 20px; }
+.pricing-card { max-width: 600px; margin: 40px auto; background: #fff9eb; border: 2px solid var(--gold); padding: 40px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
 .price-val { font-size: 3.5rem; font-weight: 900; color: var(--navy); margin: 10px 0; }
-.modal { display:none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:2000; padding: 20px; }
-.modal-content { background: white; max-width: 600px; margin: 50px auto; padding: 40px; border-radius: 20px; position: relative; }
+.modal { display:none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:2000; overflow-y: auto; backdrop-filter: blur(5px); }
+.modal-content { background: white; max-width: 700px; margin: 40px auto; padding: 40px; border-radius: 20px; position: relative; text-align: left; }
 </style>
 </head>
 <body>
@@ -44,10 +45,9 @@ input[type="text"] { flex: 1; padding: 12px; border: 1px solid #ddd; border-radi
 </div>
 <div class="nav-links">
 <a onclick="document.getElementById('aboutModal').style.display='block'">About Us</a>
-<a href="#contractors" style="background:var(--gold); padding:8px 15px; border-radius:5px;">Join NJ Registry</a>
+<a href="#contractors" style="background:var(--gold); color:var(--navy); padding:8px 15px; border-radius:5px; font-weight:800;">Join NJ Registry</a>
 </div>
 </header>
-
 <main class="main-content">
 <div class="glass-card">
 <h3 style="color:var(--navy); font-family:'Montserrat'; margin-top:0;">Stop Guessing. Start Scoping.</h3>
@@ -55,49 +55,60 @@ input[type="text"] { flex: 1; padding: 12px; border: 1px solid #ddd; border-radi
 </div>
 <div class="chat-portal">
 <div class="chat-header">NJ MATCHING ENGINE ACTIVE</div>
-<div id="chat-window"><div class="msg bot">Welcome. What New Jersey project are you planning today?</div></div>
+<div id="chat-window">
+<div class="msg bot">Welcome. What New Jersey project are you planning today? (e.g. Roofing, HVAC, Custom Build)</div>
+</div>
 <div class="input-area">
+<div class="input-row">
 <input type="text" id="user-input" placeholder="Type your project..." onkeypress="if(event.key==='Enter') send()">
 <button id="send-btn" onclick="send()">SEND</button>
 </div>
 </div>
+</div>
 </main>
-
 <section id="contractors" class="pro-section">
 <div class="pricing-card">
-<div class="vv-seal" style="margin-bottom:20px;">2026 ELITE REGISTRY: NJ</div>
-<h2 style="font-family:'Montserrat'; color:var(--navy); margin:0;">Secure NJ Territory</h2>
-<div class="price-val">$349 <span style="font-size:1rem; color:#666;">/ YEAR</span></div>
-<p>Limit 3 Contractors per trade. Lock your 2026 season rate.</p>
-<a href="https://buy.stripe.com/7sY5klfoS4HQbtC39Ja7C0l" style="display:inline-block; background:var(--navy); color:white; padding:18px 40px; border-radius:10px; text-decoration:none; font-weight:800; margin-top:20px;">ACTIVATE REGISTRY</a>
+<div class="vv-seal" style="margin-bottom: 20px; padding: 8px 20px; font-size: 0.85rem;"><span class="vv-check">✓</span> 2026 ELITE REGISTRY AUTHORIZED</div>
+<h2 style="font-family: 'Montserrat'; color: var(--navy); font-size: 2rem; margin-top: 0;">Secure NJ Territory</h2>
+<div class="price-val">$349 <span style="font-size:1.2rem; color:#666;">/ YEAR</span></div>
+<p style="color: #555; font-size: 1.1rem; line-height: 1.6;">Limit 3 authorized partners per region. Includes territory lock, AI-lead summaries, and the VV-Verified seal.</p>
+<a href="https://buy.stripe.com/7sY5klfoS4HQbtC39Ja7C0l" style="display:inline-block; background:var(--navy); color:white; padding:20px 45px; border-radius:10px; text-decoration:none; font-weight:800; font-size:1.3rem; margin-top:20px;">ACTIVATE REGISTRY</a>
 </div>
 </section>
-
 <div id="aboutModal" class="modal">
 <div class="modal-content">
-<span style="position:absolute; top:20px; right:20px; cursor:pointer; font-size:24px;" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
-<h2 style="font-family:'Montserrat'; color:var(--navy);">About VV HOME PRO</h2>
+<span style="position:absolute; top:20px; right:25px; font-size:35px; cursor:pointer; color:#999;" onclick="document.getElementById('aboutModal').style.display='none'">&times;</span>
+<h2 style="color: var(--navy); font-family: 'Montserrat'; border-bottom: 2px solid var(--gold); padding-bottom: 10px;">About VV HOME PRO</h2>
 <p>VV HOME PRO is the premier matching engine for high-value home improvements. In New Jersey, where the average project spend is <strong>$4,634</strong>, precision matters.</p>
-<p>We protect homeowners from subpar work and ensure our Elite Registry partners are matched only with projects that fit their expertise.</p>
+<p>We protect homeowners from subpar contractors and ensure our Elite Registry partners are matched only with high-intent projects that fit their expertise.</p>
 </div>
 </div>
-
 <script>
 const WORKER = 'PASTE_YOUR_WORKER_URL_HERE';
 let history = [];
 async function send() {
 const input = document.getElementById('user-input');
+const box = document.getElementById('chat-window');
 const text = input.value.trim();
 if(!text) return;
 appendMsg('user', text);
 input.value = '';
 history.push({ role: "user", parts: [{ text: text }] });
 const botMsg = appendMsg('bot', 'AI is analyzing NJ project scope...');
-const res = await fetch(WORKER, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: history }) });
+try {
+const res = await fetch(WORKER, {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({ contents: history })
+});
 const data = await res.json();
 const aiText = data.candidates[0].content.parts[0].text;
 history.push({ role: "model", parts: [{ text: aiText }] });
 botMsg.innerHTML = marked.parse(aiText);
+} catch (e) {
+botMsg.innerText = "Connection busy. Please try again.";
+}
+box.scrollTop = box.scrollHeight;
 }
 function appendMsg(role, text) {
 const box = document.getElementById('chat-window');
@@ -109,6 +120,5 @@ box.scrollTop = box.scrollHeight;
 return div;
 }
 </script>
-
 </body>
 </html>
