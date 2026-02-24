@@ -5,28 +5,90 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VV HOME PRO | New Jersey Elite Registry</title>
+<link href="" rel="stylesheet">
+<script src=""></script>
+<script src=""></script>
 <style>
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f4f7f9; }
-.header { background-color: #002d5a; color: white; padding: 40px 20px; text-align: center; }
-.container { max-width: 800px; margin: -40px auto 40px; background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 5px solid #c5a059; }
-h1 { margin-top: 0; color: #ffffff; }
-h2 { color: #002d5a; }
-.price-card { background-color: #fff9eb; border: 2px solid #c5a059; padding: 30px; border-radius: 12px; text-align: center; margin: 30px 0; }
-.price { font-size: 48px; font-weight: bold; color: #002d5a; margin: 10px 0; }
-.btn { display: inline-block; background-color: #002d5a; color: white !important; padding: 18px 36px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 18px; transition: background 0.3s; }
-.btn:hover { background-color: #004080; }
-.stats { display: flex; justify-content: space-around; margin: 30px 0; border-top: 1px solid #eee; padding-top: 30px; }
-.stat-box { text-align: center; }
-.stat-num { display: block; font-size: 24px; font-weight: bold; color: #c5a059; }
+:root { --navy: #002d5a; --accent: #0056b3; --gold: #c5a059; --glass: rgba(255, 255, 255, 0.95); }
+body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #000; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+.hero-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('') center/cover; z-index: -1; }
+header { background: white; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--navy); sticky; top: 0; z-index: 1000; }
+.logo { font-family: 'Montserrat'; font-weight: 900; color: var(--navy); font-size: 1.2rem; text-decoration: none; }
+.vv-seal { background: var(--navy); color: white; padding: 5px 15px; border-radius: 50px; border: 2px solid var(--gold); font-size: 0.7rem; font-weight: 800; }
+.main-content { max-width: 1100px; margin: 30px auto; display: flex; gap: 20px; padding: 0 15px; flex: 1; }
+.glass-card { background: var(--glass); padding: 30px; border-radius: 20px; width: 320px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+.chat-portal { background: white; border-radius: 25px; overflow: hidden; display: flex; flex-direction: column; height: 600px; flex-grow: 1; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+.chat-header { background: var(--navy); color: white; padding: 15px; text-align: center; font-weight: 800; }
+#chat-window { flex: 1; padding: 20px; overflow-y: auto; background: #fdfdfd; display: flex; flex-direction: column; }
+.msg { margin-bottom: 15px; padding: 12px 18px; border-radius: 18px; font-size: 0.9rem; max-width: 85%; }
+.bot { background: #f0f4f8; border-left: 4px solid var(--accent); align-self: flex-start; }
+.user { background: var(--navy); color: white; align-self: flex-end; }
+.input-area { padding: 20px; background: white; border-top: 1px solid #eee; display: flex; gap: 10px; }
+input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 12px; }
+.pricing-section { background: white; padding: 80px 20px; text-align: center; border-top: 10px solid var(--gold); }
+.gold-card { max-width: 500px; margin: 0 auto; background: #fff9eb; border: 2px solid var(--gold); padding: 40px; border-radius: 20px; }
+.price-text { font-size: 4rem; font-weight: 900; color: var(--navy); margin: 10px 0; }
+.cta-button { display: inline-block; background: var(--navy); color: white; padding: 20px 50px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 1.3rem; }
 </style>
 </head>
 <body>
-<div class="header">
-<h1>New Jersey Elite Registry</h1>
+<div class="hero-bg"></div>
+<header>
+<a href="#" class="logo">VV HOME PRO | NJ</a>
+<div class="vv-seal">✓ ELITE REGISTRY</div>
+</header>
+<main class="main-content">
+<div class="glass-card">
+<h2 style="color:var(--navy); font-family:'Montserrat';">NJ Territory</h2>
+<p>Average NJ Project: <strong>$4,634</strong></p>
+<p>Use the AI scoper to the right to see how we verify leads before matching them to our 3 authorized NJ pros.</p>
 </div>
-<div class="container">
-<h2>Secure Your Territory</h2>
-<p>New Jersey homeowners lead the nation in project spending. Our AI-vetted registry connects elite contractors with high-intent local leads in exclusive corridors.</p>
-
+<div class="chat-portal">
+<div class="chat-header">NJ MATCHING ENGINE ACTIVE</div>
+<div id="chat-window">
+<div class="msg bot">Welcome. What New Jersey project are you scoping today?</div>
+</div>
+<div class="input-area">
+<input type="text" id="user-input" placeholder="Describe the project...">
+<button onclick="send()" style="background:var(--navy); color:white; border:none; padding:10px 20px; border-radius:10px; cursor:pointer;">SEND</button>
+</div>
+</div>
+</main>
+<section class="pricing-section">
+<div class="gold-card">
+<div class="vv-seal" style="margin-bottom:20px;">FOUNDING MEMBER: NEW JERSEY</div>
+<h2 style="margin:0; font-family:'Montserrat';">Secure Your Slot</h2>
+<div class="price-text">$349<span style="font-size:1rem;">/YR</span></div>
+<p>Strict limit: 3 Contractors per trade. Includes Territory Lock.</p>
+<a href="YOUR_NJ_STRIPE_LINK" class="cta-button">ACTIVATE MY REGISTRY</a>
+</div>
+</section>
+<script>
+const WORKER = 'YOUR_WORKER_URL';
+let history = [];
+async function send() {
+const input = document.getElementById('user-input');
+const text = input.value.trim();
+if(!text) return;
+appendMsg('user', text);
+input.value = '';
+history.push({ role: "user", parts: [{ text: text }] });
+const botMsg = appendMsg('bot', 'AI is analyzing scope...');
+const res = await fetch(WORKER, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: history }) });
+const data = await res.json();
+const aiText = data.candidates[0].content.parts[0].text;
+history.push({ role: "model", parts: [{ text: aiText }] });
+botMsg.innerHTML = marked.parse(aiText);
+}
+function appendMsg(role, text) {
+const box = document.getElementById('chat-window');
+const div = document.createElement('div');
+div.className = msg ${role};
+div.innerText = text;
+box.appendChild(div);
+box.scrollTop = box.scrollHeight;
+return div;
+}
+</script>
 </body>
 </html>
