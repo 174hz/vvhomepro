@@ -70,7 +70,7 @@ button#send-btn { background: var(--navy); color: white; border: none; padding: 
 <h2 style="font-family: 'Montserrat'; color: var(--navy); font-size: 2rem; margin-top: 0;">Secure NJ Territory</h2>
 <div class="price-val">$349 <span style="font-size:1.2rem; color:#666;">/ YEAR</span></div>
 <p style="color: #555; font-size: 1.1rem; line-height: 1.6;">Limit 3 authorized partners per region. Includes territory lock, AI-lead summaries, and the VV-Verified seal.</p>
-<a href="https://buy.stripe.com/7sY5klfoS4HQbtC39Ja7C0l" style="display:inline-block; background:var(--navy); color:white; padding:20px 45px; border-radius:10px; text-decoration:none; font-weight:800; font-size:1.3rem; margin-top:20px;">ACTIVATE REGISTRY</a>
+<a href="" style="display:inline-block; background:var(--navy); color:white; padding:20px 45px; border-radius:10px; text-decoration:none; font-weight:800; font-size:1.3rem; margin-top:20px;">ACTIVATE REGISTRY</a>
 </div>
 </section>
 <div id="aboutModal" class="modal"><div class="modal-content">
@@ -91,7 +91,7 @@ button#send-btn { background: var(--navy); color: white; border: none; padding: 
 <p>Membership in the NJ Elite Registry is limited to 3 professionals per region. This annual fee secures territory exclusivity within our AI network. Users should perform final due diligence before signing contracts.</p>
 </div></div>
 <script>
-const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
+const WORKER = '';
 let history = [];
 async function send() {
 const input = document.getElementById('user-input');
@@ -102,11 +102,19 @@ appendMsg('user', text);
 input.value = '';
 history.push({ role: "user", parts: [{ text: text }] });
 const botMsg = appendMsg('bot', 'AI is analyzing NJ project scope...');
-const res = await fetch(WORKER, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: history }) });
+try {
+const res = await fetch(WORKER, {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({ contents: history })
+});
 const data = await res.json();
 const aiText = data.candidates[0].content.parts[0].text;
 history.push({ role: "model", parts: [{ text: aiText }] });
 botMsg.innerHTML = marked.parse(aiText);
+} catch (e) {
+botMsg.innerText = "Connection busy. Please try again.";
+}
 box.scrollTop = box.scrollHeight;
 }
 function appendMsg(role, text) {
