@@ -31,21 +31,18 @@
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(197, 160, 89, 0.3);
         }
         .vv-check { color: var(--gold); margin-right: 6px; font-size: 0.9rem; }
 
-        .nav-links a { text-decoration: none; color: var(--navy); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-left: 20px; transition: 0.3s; cursor: pointer; }
+        .nav-links a { text-decoration: none; color: var(--navy); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-left: 20px; cursor: pointer; }
         .nav-links a.cta-gold { background: var(--gold); color: var(--navy); padding: 8px 15px; border-radius: 5px; }
 
         .main-content { max-width: 1100px; margin: 20px auto; display: flex; gap: 20px; padding: 0 15px; flex: 1; }
-        .glass-card { background: var(--glass); padding: 25px; border-radius: 20px; width: 300px; height: fit-content; box-shadow: 0 10px 30px rgba(0,0,0,0.2); flex-shrink: 0; }
+        .glass-card { background: var(--glass); padding: 25px; border-radius: 20px; width: 300px; height: fit-content; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
         
         .chat-portal { background: white; border-radius: 25px; overflow: hidden; display: flex; flex-direction: column; height: 620px; flex-grow: 1; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
-        .chat-header { background: var(--navy); color: white; padding: 15px; text-align: center; font-weight: 800; font-size: 0.75rem; position: relative; letter-spacing: 1px; }
+        .chat-header { background: var(--navy); color: white; padding: 15px; text-align: center; font-weight: 800; font-size: 0.75rem; position: relative; }
         
-        .restart-btn { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); border: 1px solid var(--gold); color: var(--gold); padding: 5px 12px; border-radius: 15px; cursor: pointer; font-size: 0.65rem; font-weight: bold; }
-
         #chat-window { flex: 1; padding: 20px; overflow-y: auto; background: #fdfdfd; display: flex; flex-direction: column; }
         .msg { margin-bottom: 15px; padding: 12px 18px; border-radius: 18px; line-height: 1.5; max-width: 85%; font-size: 0.9rem; }
         .bot { background: #f0f4f8; border-left: 4px solid var(--accent); align-self: flex-start; }
@@ -56,27 +53,22 @@
         input[type="text"] { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 12px; font-size: 1rem; outline: none; }
         button#send-btn { background: var(--navy); color: white; border: none; padding: 0 25px; border-radius: 12px; cursor: pointer; font-weight: 700; }
 
+        /* REGION SELECTOR STYLES */
         .pro-section { background: white; padding: 80px 20px; text-align: center; border-top: 8px solid var(--gold); }
-        .pro-content { max-width: 800px; margin: 0 auto; }
-        .beehiiv-frame-container { margin-top: 40px; border-radius: 15px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.1); border: 1px solid #eee; }
+        .pricing-card { max-width: 550px; margin: 0 auto; background: #fff9eb; border: 2px solid var(--gold); padding: 40px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .price-val { font-size: 3.5rem; font-weight: 900; color: var(--navy); margin: 10px 0; }
+        
+        select.region-dropdown {
+            width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--gold);
+            font-size: 1.1rem; font-weight: 700; color: var(--navy); margin: 20px 0; cursor: pointer; outline: none;
+        }
+        .activate-btn {
+            display: inline-block; background: var(--navy); color: white; padding: 20px 45px;
+            border-radius: 12px; text-decoration: none; font-weight: 800; font-size: 1.3rem; width: 100%; transition: 0.3s;
+        }
+        .activate-btn:hover { background: var(--accent); transform: translateY(-2px); }
 
         footer { background: rgba(0,0,0,0.9); color: white; padding: 60px 40px; text-align: center; font-size: 0.8rem; }
-        .footer-links a { color: var(--gold); text-decoration: none; margin: 0 10px; cursor: pointer; }
-
-        /* MODAL STYLES */
-        .modal-overlay { display:none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:2000; overflow-y: auto; backdrop-filter: blur(5px); }
-        .modal-content { background: white; max-width: 700px; margin: 40px auto; padding: 40px; border-radius: 20px; position: relative; line-height: 1.7; color: #333; text-align: left; font-family: 'Plus Jakarta Sans', sans-serif; }
-        .modal-content h2 { color: var(--navy); border-bottom: 2px solid var(--gold); padding-bottom: 10px; font-family: 'Montserrat'; }
-        .modal-content h3 { color: var(--navy); margin-top: 25px; font-size: 1.1rem; }
-        .close-modal { position: absolute; top: 20px; right: 25px; font-size: 35px; cursor: pointer; color: #999; }
-
-        @media (max-width: 850px) {
-            .main-content { flex-direction: column; padding: 0 10px; }
-            .glass-card { width: 100%; }
-            .chat-portal { height: 75vh; }
-            .nav-links { display: none; }
-            .modal-content { margin: 20px; padding: 25px; }
-        }
     </style>
 </head>
 <body>
@@ -86,12 +78,9 @@
 <header>
     <div style="display: flex; align-items: center; gap: 15px;">
         <a href="#" class="logo">VV HOME PRO</a>
-        <div class="vv-seal">
-            <span class="vv-check">✓</span> VV-VERIFIED
-        </div>
+        <div class="vv-seal"><span class="vv-check">✓</span> VV-VERIFIED</div>
     </div>
     <div class="nav-links">
-        <a onclick="openModal('aboutModal')">About Us</a>
         <a href="#contractors" class="cta-gold">Join Pro Registry</a>
     </div>
 </header>
@@ -99,16 +88,13 @@
 <main class="main-content">
     <div class="glass-card">
         <h3 style="color:var(--navy); font-family:'Montserrat'; margin-top:0;">For Homeowners</h3>
-        <p style="font-size:0.85rem; line-height:1.6; color: #333;">Use our AI engine to scope your project. We only match you with the top 1% of vetted professionals in Ontario, Massachusetts, and New Jersey.</p>
+        <p style="font-size:0.85rem; line-height:1.6; color: #333;">Use our AI engine to scope your project. We match you with the top 1% of vetted professionals in Ontario, MA, and NJ.</p>
     </div>
 
     <div class="chat-portal">
-        <div class="chat-header">
-            MATCHING ENGINE ACTIVE
-            <span onclick="resetChat()" class="restart-btn">Restart</span>
-        </div>
+        <div class="chat-header">MATCHING ENGINE ACTIVE</div>
         <div id="chat-window">
-            <div class="msg bot">Welcome. What project are you planning today? (e.g. Roofing, HVAC, Custom Build)</div>
+            <div class="msg bot">Welcome. What project are you planning today?</div>
         </div>
         <div class="input-area">
             <div class="input-row">
@@ -117,100 +103,45 @@
             </div>
             <div style="font-size: 0.7rem; color: #666; margin-top: 10px; display: flex; align-items: center; gap: 8px;">
                 <input type="checkbox" id="consent-check" onchange="document.getElementById('send-btn').disabled = !this.checked">
-                <span>I agree to the <a href="javascript:void(0)" onclick="openModal('privacyModal')" style="color: var(--navy); font-weight: bold;">Privacy Policy</a>.</span>
+                <span>I agree to the Privacy Policy.</span>
             </div>
         </div>
     </div>
 </main>
 
 <section id="contractors" class="pro-section">
-    <div class="pro-content">
+    <div class="pricing-card">
         <div class="vv-seal" style="margin-bottom: 20px; padding: 8px 20px; font-size: 0.85rem;">
             <span class="vv-check">✓</span> 2026 ELITE REGISTRY AUTHORIZED
         </div>
-        <h2 style="font-family: 'Montserrat'; color: var(--navy); font-size: 2rem; margin-top: 0;">Are You a Premier Contractor?</h2>
-        <p style="color: #555; font-size: 1.1rem; line-height: 1.6;">Secure your exclusive territory in our AI-vetted lead network across <strong>Ontario, MA, and NJ</strong>. Limit 3 slots per region. Includes the VV-Verified seal and premium lead summaries.</p>
+        <h2 style="font-family: 'Montserrat'; color: var(--navy); font-size: 2rem; margin-top: 0;">Secure Your Territory</h2>
+        <div class="price-val">$349 <span style="font-size:1.2rem; color:#666;">/ YEAR</span></div>
+        <p style="color: #555; line-height: 1.6;">Limit 3 slots per region. Select your location below to activate your exclusive territory lock and VV-Verified status.</p>
         
-        <div class="beehiiv-frame-container">
-            <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
-            <iframe src="https://subscribe-forms.beehiiv.com/7d63a8f1-0820-4e93-a6c8-650faaa33cde" class="beehiiv-embed" frameborder="0" scrolling="no" style="width: 100%; height: 350px; background-color: transparent;"></iframe>
-        </div>
+        <select id="region-select" class="region-dropdown" onchange="updateStripeLink()">
+            <option value="https://buy.stripe.com/7sY5klfoS4HQbtC39Ja7C0l">New Jersey (NJ)</option>
+            <option value="PASTE_MA_STRIPE_LINK_HERE">Massachusetts (MA)</option>
+            <option value="https://buy.stripe.com/eVq9AB2C67U28hqbGfa7C0k">Ontario (CAN)</option>
+        </select>
+
+        <a id="stripe-button" href="https://buy.stripe.com/7sY5klfoS4HQbtC39Ja7C0l" class="activate-btn">ACTIVATE REGISTRY</a>
     </div>
 </section>
 
 <footer>
-    <p style="font-weight: 800; letter-spacing: 1px;">VV HOME PRO | ELITE NORTH AMERICAN NETWORK</p>
-    <div class="footer-links">
-        <a onclick="openModal('aboutModal')">About Us</a> | 
-        <a onclick="openModal('termsModal')">Terms of Service</a> | 
-        <a onclick="openModal('privacyModal')">Privacy Policy</a>
-    </div>
-    <p style="opacity: 0.4; margin-top: 20px; font-size: 0.65rem;">&copy; 2026 VV HOME PRO. All rights reserved.</p>
+    <p>&copy; 2026 VV HOME PRO. All Rights Reserved.</p>
 </footer>
-
-<div id="aboutModal" class="modal-overlay">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeModal('aboutModal')">&times;</span>
-        <h2>About VV HOME PRO</h2>
-        <p>VV HOME PRO is an elite, AI-driven matching engine facilitating high-value residential connections across <strong>Ontario, Massachusetts, and New Jersey.</strong></p>
-        
-        <h3>A Market-Specific Approach</h3>
-        <p>We focus on the highest-performing renovation markets in North America. Whether it's the growth sectors of <strong>Ontario</strong>, the high-intent corridors of <strong>Massachusetts</strong>, or the premium high-spending households of <strong>New Jersey</strong>, our engine is tuned to regional economic data.</p>
-        
-        <h3>For Homeowners</h3>
-        <p>Our <strong>AI Matching Engine</strong> pre-scopes your projects—calculating complexity, verifying intent, and matching you exclusively with the top 1% of vetted professionals. We serve homeowners who demand precision in their project planning.</p>
-        
-        <h3>For Elite Contractors</h3>
-        <p>We solve the "junk lead" problem. VV HOME PRO provides contractors with <strong>Verified Project Summaries</strong> before the first phone call. By limiting our registry to <strong>three professionals per region</strong>, we protect your margins and territory exclusivity.</p>
-        
-        <button onclick="closeModal('aboutModal')" class="cta-gold" style="border:none; padding:10px 20px; border-radius:5px; margin-top:20px; cursor:pointer; font-weight:bold; color:var(--navy);">Return to Engine</button>
-    </div>
-</div>
-
-<div id="termsModal" class="modal-overlay">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeModal('termsModal')">&times;</span>
-        <h2>Terms of Use</h2>
-        <p><strong>Effective Date: February 22, 2026</strong></p>
-        <p>By accessing the VV HOME PRO Elite Registry, you agree to adhere to professional standards and legal obligations regarding territory exclusivity and lead integrity.</p>
-        <button onclick="closeModal('termsModal')" class="cta-gold" style="border:none; padding:10px 20px; border-radius:5px; margin-top:20px; cursor:pointer; font-weight:bold; color:var(--navy);">I Understand</button>
-    </div>
-</div>
-
-<div id="privacyModal" class="modal-overlay">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeModal('privacyModal')">&times;</span>
-        <h2>Privacy & Data Integrity</h2>
-        <p>VV HOME PRO implements 256-bit SSL encryption to protect proprietary data. We do not sell or trade professional data to third-party marketers.</p>
-        <button onclick="closeModal('privacyModal')" class="cta-gold" style="border:none; padding:10px 20px; border-radius:5px; margin-top:20px; cursor:pointer; font-weight:bold; color:var(--navy);">Close</button>
-    </div>
-</div>
 
 <script>
     const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
     let history = [];
 
-    function openModal(id) {
-        document.getElementById(id).style.display = 'block';
-        document.body.style.overflow = 'hidden';
+    // Updates the Stripe button based on selected region
+    function updateStripeLink() {
+        const select = document.getElementById('region-select');
+        const button = document.getElementById('stripe-button');
+        button.href = select.value;
     }
-
-    function closeModal(id) {
-        document.getElementById(id).style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
-
-    window.onclick = function(event) {
-        if (event.target.className === 'modal-overlay') {
-            closeModal(event.target.id);
-        }
-    }
-
-    document.addEventListener('click', function(e) {
-        if(e.target && e.target.classList.contains('btn-confirm')) {
-            finalizeLead();
-        }
-    });
 
     async function send() {
         const input = document.getElementById('user-input');
@@ -249,36 +180,6 @@
         box.appendChild(div);
         box.scrollTop = box.scrollHeight;
         return div;
-    }
-
-    async function finalizeLead() {
-        appendMsg('bot', 'Finalizing validation and matching territory...');
-        history.push({ role: "user", parts: [{ text: "CONFIRM. Please generate the final validation gold box now with the PDF button." }] });
-        
-        try {
-            const res = await fetch(WORKER, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contents: history })
-            });
-            const data = await res.json();
-            const aiText = data.candidates[0].content.parts[0].text;
-            appendMsg('bot', '').innerHTML = marked.parse(aiText.replace(/```html|```/g, "").trim());
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    function resetChat() {
-        if(confirm("Clear this session and restart?")) {
-            history = [];
-            document.getElementById('chat-window').innerHTML = `<div class="msg bot">Welcome. What project are you planning today?</div>`;
-        }
-    }
-
-    function downloadPDF() {
-        const element = document.getElementById('final-summary');
-        html2pdf().from(element).save('VV-Home-Pro-Lead.pdf');
     }
 </script>
 </body>
