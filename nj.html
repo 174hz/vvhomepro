@@ -16,7 +16,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #000
 header { background: white; padding: 0.8rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 1000; }
 .logo { font-family: 'Montserrat'; font-weight: 900; color: var(--navy); font-size: 1.1rem; text-decoration: none; }
 .vv-seal { display: inline-flex; align-items: center; background: linear-gradient(135deg, var(--navy), #004080); color: white; padding: 4px 12px; border-radius: 50px; border: 2px solid var(--gold); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
-.nav-links a { text-decoration: none; color: var(--navy); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-left: 20px; cursor: pointer; transition: 0.3s; }
+.nav-links a { text-decoration: none; color: var(--navy); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-left: 20px; cursor: pointer; }
 .main-content { max-width: 1100px; margin: 20px auto; display: flex; gap: 20px; padding: 0 15px; flex: 1; }
 .glass-card { background: var(--glass); padding: 25px; border-radius: 20px; width: 300px; height: fit-content; box-shadow: 0 10px 30px rgba(0,0,0,0.2); flex-shrink: 0; }
 .chat-portal { background: white; border-radius: 25px; overflow: hidden; display: flex; flex-direction: column; height: 620px; flex-grow: 1; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
@@ -44,7 +44,9 @@ button#send-btn { background: var(--navy); color: white; border: none; padding: 
 <div class="vv-seal"><span class="vv-check">✓</span> VV-VERIFIED</div>
 </div>
 <div class="nav-links">
-<a onclick="document.getElementById('aboutModal').style.display='block'">About Us</a>
+<a onclick="document.getElementById('aboutModal').style.display='block'">About</a>
+<a onclick="document.getElementById('privacyModal').style.display='block'">Privacy</a>
+<a onclick="document.getElementById('termsModal').style.display='block'">Terms</a>
 <a href="#contractors" style="background:var(--gold); color:var(--navy); padding:8px 15px; border-radius:5px; font-weight:800;">Join NJ Registry</a>
 </div>
 </header>
@@ -55,15 +57,11 @@ button#send-btn { background: var(--navy); color: white; border: none; padding: 
 </div>
 <div class="chat-portal">
 <div class="chat-header">NJ MATCHING ENGINE ACTIVE</div>
-<div id="chat-window">
-<div class="msg bot">Welcome. What New Jersey project are you planning today? (e.g. Roofing, HVAC, Custom Build)</div>
-</div>
-<div class="input-area">
-<div class="input-row">
+<div id="chat-window"><div class="msg bot">Welcome. What New Jersey project are you planning today?</div></div>
+<div class="input-area"><div class="input-row">
 <input type="text" id="user-input" placeholder="Type your project..." onkeypress="if(event.key==='Enter') send()">
 <button id="send-btn" onclick="send()">SEND</button>
-</div>
-</div>
+</div></div>
 </div>
 </main>
 <section id="contractors" class="pro-section">
@@ -75,14 +73,23 @@ button#send-btn { background: var(--navy); color: white; border: none; padding: 
 <a href="https://buy.stripe.com/7sY5klfoS4HQbtC39Ja7C0l" style="display:inline-block; background:var(--navy); color:white; padding:20px 45px; border-radius:10px; text-decoration:none; font-weight:800; font-size:1.3rem; margin-top:20px;">ACTIVATE REGISTRY</a>
 </div>
 </section>
-<div id="aboutModal" class="modal">
-<div class="modal-content">
-<span style="position:absolute; top:20px; right:25px; font-size:35px; cursor:pointer; color:#999;" onclick="document.getElementById('aboutModal').style.display='none'">&times;</span>
+<div id="aboutModal" class="modal"><div class="modal-content">
+<span style="position:absolute; top:20px; right:25px; font-size:35px; cursor:pointer; color:#999;" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
 <h2 style="color: var(--navy); font-family: 'Montserrat'; border-bottom: 2px solid var(--gold); padding-bottom: 10px;">About VV HOME PRO</h2>
 <p>VV HOME PRO is the premier matching engine for high-value home improvements. In New Jersey, where the average project spend is <strong>$4,634</strong>, precision matters.</p>
-<p>We protect homeowners from subpar contractors and ensure our Elite Registry partners are matched only with high-intent projects that fit their expertise.</p>
-</div>
-</div>
+<p>We protect homeowners from subpar work and ensure our Elite Registry partners are matched only with projects that fit their expertise.</p>
+</div></div>
+<div id="privacyModal" class="modal"><div class="modal-content">
+<span style="position:absolute; top:20px; right:25px; font-size:35px; cursor:pointer; color:#999;" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
+<h2 style="color: var(--navy); font-family: 'Montserrat'; border-bottom: 2px solid var(--gold); padding-bottom: 10px;">Privacy Policy</h2>
+<p><strong>Last Updated: Feb 2026</strong></p>
+<p>At VV HOME PRO, we protect the privacy of our NJ users. Project data is used solely for scoping and matching with verified professionals. We never sell your personal contact information.</p>
+</div></div>
+<div id="termsModal" class="modal"><div class="modal-content">
+<span style="position:absolute; top:20px; right:25px; font-size:35px; cursor:pointer; color:#999;" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
+<h2 style="color: var(--navy); font-family: 'Montserrat'; border-bottom: 2px solid var(--gold); padding-bottom: 10px;">Terms of Service</h2>
+<p>Membership in the NJ Elite Registry is limited to 3 professionals per region. This annual fee secures territory exclusivity within our AI network. Users should perform final due diligence before signing contracts.</p>
+</div></div>
 <script>
 const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
 let history = [];
@@ -95,19 +102,11 @@ appendMsg('user', text);
 input.value = '';
 history.push({ role: "user", parts: [{ text: text }] });
 const botMsg = appendMsg('bot', 'AI is analyzing NJ project scope...');
-try {
-const res = await fetch(WORKER, {
-method: 'POST',
-headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({ contents: history })
-});
+const res = await fetch(WORKER, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: history }) });
 const data = await res.json();
 const aiText = data.candidates[0].content.parts[0].text;
 history.push({ role: "model", parts: [{ text: aiText }] });
 botMsg.innerHTML = marked.parse(aiText);
-} catch (e) {
-botMsg.innerText = "Connection busy. Please try again.";
-}
 box.scrollTop = box.scrollHeight;
 }
 function appendMsg(role, text) {
