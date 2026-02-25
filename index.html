@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>VV HOME PRO | North America Elite Service Directory</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -34,50 +34,51 @@
         }
         .vv-check { color: var(--gold); margin-right: 6px; font-size: 0.9rem; }
 
-        .nav-links a { text-decoration: none; color: var(--navy); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-left: 20px; cursor: pointer; transition: 0.3s; }
+        .nav-links a { text-decoration: none; color: var(--navy); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-left: 20px; cursor: pointer; font-family: 'Montserrat'; }
         .nav-links a.cta-gold { background: var(--gold); color: var(--navy); padding: 8px 15px; border-radius: 5px; }
 
-        .main-content { max-width: 1100px; margin: 20px auto; display: flex; gap: 20px; padding: 0 15px; flex: 1; }
-        .glass-card { background: var(--glass); padding: 25px; border-radius: 20px; width: 300px; height: fit-content; box-shadow: 0 10px 30px rgba(0,0,0,0.2); flex-shrink: 0; }
+        .main-content { max-width: 1200px; margin: 20px auto; display: flex; gap: 20px; padding: 0 15px; flex: 1; }
+        .glass-card { background: var(--glass); padding: 25px; border-radius: 20px; width: 320px; height: fit-content; box-shadow: 0 10px 30px rgba(0,0,0,0.2); flex-shrink: 0; }
         
-        .chat-portal { background: white; border-radius: 25px; overflow: hidden; display: flex; flex-direction: column; height: 620px; flex-grow: 1; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
-        .chat-header { background: var(--navy); color: white; padding: 15px; text-align: center; font-weight: 800; font-size: 0.75rem; position: relative; letter-spacing: 1px; }
+        /* CHAT PORTAL */
+        .chat-portal { background: white; border-radius: 25px; overflow: hidden; display: flex; flex-direction: column; height: 700px; flex-grow: 1; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+        .chat-header { background: var(--navy); color: white; padding: 18px; text-align: center; font-weight: 900; font-size: 0.8rem; font-family: 'Montserrat'; letter-spacing: 2px; text-transform: uppercase; }
         
-        #chat-window { flex: 1; padding: 20px; overflow-y: auto; background: #fdfdfd; display: flex; flex-direction: column; }
+        #chat-window { flex: 1; padding: 30px; overflow-y: auto; background: #fdfdfd; display: flex; flex-direction: column; }
         
-        /* CHAT MESSAGE WIDTH FIX (AS PER SCREENSHOT) */
-        .msg { margin-bottom: 15px; padding: 12px 18px; border-radius: 18px; line-height: 1.5; width: 85%; max-width: 85%; font-size: 0.9rem; }
-        .bot { background: #f0f4f8; border-left: 4px solid var(--accent); align-self: flex-start; }
-        .user { background: var(--navy); color: white; align-self: flex-end; }
+        /* EXACT FONT & ALIGNMENT FOR MESSAGES */
+        .msg { margin-bottom: 25px; padding: 20px 25px; border-radius: 12px; line-height: 1.6; font-size: 1rem; width: 95%; font-family: 'Plus Jakarta Sans'; font-weight: 500; }
+        .bot { background: #f4f7fa; border-left: 6px solid var(--accent); align-self: flex-start; color: #222; text-align: left; }
+        .user { background: var(--navy); color: white; align-self: flex-end; text-align: right; border-right: 6px solid var(--gold); }
 
-        .input-area { padding: 15px; background: white; border-top: 1px solid #eee; }
-        input[type="text"] { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 12px; font-size: 1rem; outline: none; }
-        button#send-btn { background: var(--navy); color: white; border: none; padding: 0 25px; border-radius: 12px; cursor: pointer; font-weight: 700; font-family: 'Montserrat'; }
+        .input-area { padding: 20px; background: white; border-top: 1px solid #eee; }
+        input[type="text"] { flex: 1; padding: 15px; border: 1px solid #ddd; border-radius: 12px; font-size: 1.1rem; outline: none; font-family: 'Plus Jakarta Sans'; }
+        button#send-btn { background: var(--navy); color: white; border: none; padding: 0 35px; border-radius: 12px; cursor: pointer; font-weight: 900; font-family: 'Montserrat'; text-transform: uppercase; }
         button#send-btn:disabled { background: #ccc; cursor: not-allowed; }
 
-        /* PREMIER SECTION - REFINED */
+        /* PREMIER CONTRACTOR SECTION */
         .pro-section { background: white; padding: 100px 20px; text-align: center; border-top: 5px solid var(--navy); }
-        .pricing-card { max-width: 650px; margin: 0 auto; background: var(--offwhite); border: 1px solid #e0e0e0; padding: 50px; border-radius: 30px; box-shadow: 0 25px 50px rgba(0,0,0,0.05); }
+        .pricing-card { max-width: 700px; margin: 0 auto; background: var(--offwhite); border: 1px solid #e0e0e0; padding: 60px 40px; border-radius: 30px; box-shadow: 0 25px 50px rgba(0,0,0,0.05); }
         
-        .region-dropdown { width: 100%; padding: 18px; border-radius: 12px; border: 2px solid #ddd; font-size: 1.1rem; font-weight: 700; color: var(--navy); cursor: pointer; background: white; outline: none; margin-bottom: 25px; font-family: 'Plus Jakarta Sans'; }
-        
-        .activate-btn { display: inline-block; background: var(--navy); color: white; padding: 22px 50px; border-radius: 15px; text-decoration: none; font-weight: 800; font-size: 1.4rem; width: 100%; max-width: 400px; box-shadow: 0 10px 20px rgba(0,45,90,0.2); transition: 0.3s; font-family: 'Montserrat'; }
-        .activate-btn:hover { background: var(--accent); transform: translateY(-2px); }
+        h2.premium-title { font-family: 'Montserrat'; color: var(--navy); font-size: 2.5rem; margin-top: 0; margin-bottom: 20px; font-weight: 900; }
+        .region-dropdown { width: 100%; padding: 18px; border-radius: 12px; border: 2px solid #ddd; font-size: 1.1rem; font-weight: 700; color: var(--navy); cursor: pointer; background: white; outline: none; margin-bottom: 30px; font-family: 'Plus Jakarta Sans'; }
+        .activate-btn { display: inline-block; background: var(--navy); color: white; padding: 22px 50px; border-radius: 15px; text-decoration: none; font-weight: 900; font-size: 1.4rem; width: 100%; max-width: 450px; box-shadow: 0 10px 20px rgba(0,45,90,0.2); transition: 0.3s; font-family: 'Montserrat'; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* MODAL STYLES */
+        /* MODALS */
         .modal-overlay { display:none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:2000; overflow-y: auto; backdrop-filter: blur(5px); }
-        .modal-content { background: white; max-width: 700px; margin: 40px auto; padding: 40px; border-radius: 20px; position: relative; line-height: 1.7; color: #333; text-align: left; }
-        .modal-content h2 { color: var(--navy); border-bottom: 2px solid var(--gold); padding-bottom: 10px; font-family: 'Montserrat'; }
+        .modal-content { background: white; max-width: 700px; margin: 40px auto; padding: 40px; border-radius: 20px; position: relative; line-height: 1.7; color: #333; font-family: 'Plus Jakarta Sans'; }
+        .modal-content h2 { color: var(--navy); border-bottom: 2px solid var(--gold); padding-bottom: 10px; font-family: 'Montserrat'; font-weight: 900; }
         .close-modal { position: absolute; top: 20px; right: 25px; font-size: 35px; cursor: pointer; color: #999; }
 
-        footer { background: rgba(0,0,0,0.9); color: white; padding: 60px 40px; text-align: center; font-size: 0.8rem; }
-        .footer-links { margin-top: 20px; }
-        .footer-links a { color: var(--gold); text-decoration: none; margin: 0 10px; cursor: pointer; }
+        footer { background: rgba(0,0,0,0.9); color: white; padding: 60px 40px; text-align: center; font-size: 0.85rem; font-family: 'Plus Jakarta Sans'; }
+        .footer-links { margin-top: 25px; }
+        .footer-links a { color: var(--gold); text-decoration: none; margin: 0 15px; cursor: pointer; font-weight: 700; font-family: 'Montserrat'; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; }
 
         @media (max-width: 850px) {
             .main-content { flex-direction: column; }
             .glass-card { width: 100%; }
-            .msg { width: 90%; max-width: 90%; }
+            .msg { width: 100%; }
+            h2.premium-title { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -98,23 +99,23 @@
 
 <main class="main-content">
     <div class="glass-card">
-        <h3 style="color:var(--navy); font-family:'Montserrat'; margin-top:0;">For Homeowners</h3>
-        <p style="font-size:0.85rem; line-height:1.6; color: #333;">Use our AI engine to scope your project. We match you with the top vetted professionals in Ontario, MA, and NJ.</p>
+        <h3 style="color:var(--navy); font-family:'Montserrat'; margin-top:0; font-size: 1.3rem; font-weight: 900;">FOR HOMEOWNERS</h3>
+        <p style="font-size:0.95rem; line-height:1.7; color: #333; font-family: 'Plus Jakarta Sans'; font-weight: 500;">Use our AI engine to scope your project. We match you with the top vetted professionals in Ontario, MA, and NJ.</p>
     </div>
 
     <div class="chat-portal">
         <div class="chat-header">MATCHING ENGINE ACTIVE</div>
         <div id="chat-window">
-            <div class="msg bot">Welcome. What project are you planning today?</div>
+            <div class="msg bot">Welcome. What project are you planning today? (e.g., HVAC, Roofing, Renovation)</div>
         </div>
         <div class="input-area">
-            <div style="display: flex; gap: 10px;">
+            <div style="display: flex; gap: 12px;">
                 <input type="text" id="user-input" placeholder="Type your project..." onkeypress="if(event.key==='Enter') send()">
                 <button id="send-btn" onclick="send()" disabled>SEND</button>
             </div>
-            <div style="font-size: 0.7rem; color: #666; margin-top: 10px; display: flex; align-items: center; gap: 8px;">
+            <div style="font-size: 0.75rem; color: #666; margin-top: 15px; display: flex; align-items: center; gap: 8px;">
                 <input type="checkbox" id="consent-check" onchange="document.getElementById('send-btn').disabled = !this.checked">
-                <span>I agree to the <a href="javascript:void(0)" onclick="openModal('privacyModal')" style="color: var(--navy); font-weight: bold;">Privacy Policy</a>.</span>
+                <span style="font-family: 'Plus Jakarta Sans';">I agree to the <a href="javascript:void(0)" onclick="openModal('privacyModal')" style="color: var(--navy); font-weight: 800; text-decoration: none;">Privacy Policy</a>.</span>
             </div>
         </div>
     </div>
@@ -122,25 +123,25 @@
 
 <section id="contractors" class="pro-section">
     <div class="pricing-card">
-        <div class="vv-seal" style="margin-bottom: 25px; padding: 10px 24px; font-size: 0.75rem; background: var(--navy); color: white; border-radius: 50px; display: inline-block;">
+        <div class="vv-seal" style="margin-bottom: 25px; padding: 12px 28px; font-size: 0.8rem; background: var(--navy); color: white; border-radius: 50px; display: inline-block;">
             <span class="vv-check">✓</span> 2026 ELITE REGISTRY AUTHORIZED
         </div>
         
-        <h2 style="font-family: 'Montserrat'; color: var(--navy); font-size: 2.4rem; margin-top: 0; margin-bottom: 15px; font-weight: 900;">Are You a Premier Contractor?</h2>
+        <h2 class="premium-title">Are You a Premier Contractor?</h2>
         
-        <p style="color: #444; font-size: 1.15rem; line-height: 1.6; max-width: 550px; margin: 0 auto 30px auto; font-weight: 500;">
-            Secure your exclusive territory in our AI-vetted lead network across <strong>Ontario, MA, and NJ</strong>. Join a limited group of regional partners. Includes the VV-Verified seal and premium AI lead summaries.
+        <p style="color: #444; font-size: 1.2rem; line-height: 1.7; max-width: 600px; margin: 0 auto 35px auto; font-family: 'Plus Jakarta Sans'; font-weight: 500;">
+            Secure your exclusive territory in our AI-vetted lead network. Join a limited group of regional partners across Ontario, MA, and NJ. Includes the VV-Verified seal and premium AI lead summaries.
         </p>
 
-        <hr style="border: 0; height: 1px; background: linear-gradient(to right, transparent, #c5a059, transparent); margin-bottom: 30px;">
+        <hr style="border: 0; height: 1px; background: linear-gradient(to right, transparent, #c5a059, transparent); margin-bottom: 35px;">
 
-        <div style="margin-bottom: 35px;">
-            <h3 style="font-family: 'Montserrat'; color: var(--navy); font-size: 1.1rem; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;">Secure Your Territory</h3>
-            <p style="color: #666; font-size: 0.95rem; font-weight: 600; font-family: 'Plus Jakarta Sans';">North America's AI-vetted lead network. Stop chasing, start closing. Get the VV Verified Seal today.</p>
+        <div style="margin-bottom: 40px;">
+            <h3 style="font-family: 'Montserrat'; color: var(--navy); font-size: 1.2rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; font-weight: 900;">Secure Your Territory</h3>
+            <p style="color: #666; font-size: 1.05rem; font-weight: 600; font-family: 'Plus Jakarta Sans';">North America's AI-vetted lead network. Stop chasing, start closing. Get the VV Verified Seal today.</p>
         </div>
 
-        <div style="text-align: left; max-width: 450px; margin: 0 auto 25px auto;">
-            <label for="region-select" style="display:block; font-weight:800; color:var(--navy); margin-bottom:8px; text-transform:uppercase; font-size:0.75rem;">Select Region & Pricing:</label>
+        <div style="text-align: left; max-width: 500px; margin: 0 auto 30px auto;">
+            <label for="region-select" style="display:block; font-weight:800; color:var(--navy); margin-bottom:10px; text-transform:uppercase; font-size:0.8rem; letter-spacing: 1px; font-family: 'Montserrat';">Choose Region & Pricing:</label>
             <select id="region-select" class="region-dropdown" onchange="updateStripeLink()">
                 <option value="https://buy.stripe.com/7sY5klfoS4HQbtC39Ja7C0l">New Jersey (NJ) - $349 USD / Year</option>
                 <option value="https://buy.stripe.com/14AbIJ7Wq2zI69ibGfa7C0m">Massachusetts (MA) - $349 USD / Year</option>
@@ -149,8 +150,6 @@
         </div>
 
         <a id="stripe-button" href="https://buy.stripe.com/7sY5klfoS4HQbtC39Ja7C0l" class="activate-btn">ACTIVATE REGISTRY</a>
-        
-        <p style="font-size: 0.8rem; color: #999; margin-top: 20px; font-style: italic;">Instant activation. Premium territory lock applies immediately upon checkout.</p>
     </div>
 </section>
 
@@ -158,7 +157,7 @@
     <div class="modal-content" onclick="event.stopPropagation()">
         <span class="close-modal" onclick="closeModal('aboutModal')">&times;</span>
         <h2>About VV HOME PRO</h2>
-        <p>VV HOME PRO is North America's elite AI-vetted service registry. We solve the "trust gap" in home improvement by using advanced matching engines to connect high-intent homeowners with top-tier contractors.</p>
+        <p>VV HOME PRO is North America's elite AI-vetted service registry. We solve the "trust gap" in home improvement by using advanced matching engines to connect high-intent homeowners with the top 1% of contractors.</p>
     </div>
 </div>
 
@@ -170,20 +169,11 @@
     </div>
 </div>
 
-<div id="termsModal" class="modal-overlay" onclick="closeModal('termsModal')">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <span class="close-modal" onclick="closeModal('termsModal')">&times;</span>
-        <h2>Terms of Service</h2>
-        <p>By using the VV HOME PRO AI engine, you agree that we are a matching service. The final contract for work is between the homeowner and the service provider.</p>
-    </div>
-</div>
-
 <footer>
-    <p>&copy; 2026 VV HOME PRO. All Rights Reserved.</p>
+    <p style="font-family: 'Montserrat'; font-weight: 700; letter-spacing: 1px;">&copy; 2026 VV HOME PRO. ALL RIGHTS RESERVED.</p>
     <div class="footer-links">
         <a onclick="openModal('aboutModal')">About</a>
         <a onclick="openModal('privacyModal')">Privacy</a>
-        <a onclick="openModal('termsModal')">Terms</a>
     </div>
 </footer>
 
