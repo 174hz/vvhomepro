@@ -12,6 +12,7 @@
 :root { --navy: #002d5a; --accent: #0056b3; --gold: #c5a059; --glass: rgba(255, 255, 255, 0.95); }
 * { box-sizing: border-box; }
 body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #000; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; scroll-behavior: smooth; }
+/* FIXED: Added background image back */
 .hero-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('') center/cover no-repeat; z-index: -1; }
 header { background: white; padding: 0.8rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 1000; }
 .logo { font-family: 'Montserrat'; font-weight: 900; color: var(--navy); font-size: 1.1rem; text-decoration: none; }
@@ -73,6 +74,7 @@ button#send-btn { background: var(--navy); color: white; border: none; padding: 
 <a href="" style="display:inline-block; background:var(--navy); color:white; padding:20px 45px; border-radius:10px; text-decoration:none; font-weight:800; font-size:1.3rem; margin-top:20px;">ACTIVATE REGISTRY</a>
 </div>
 </section>
+
 <div id="aboutModal" class="modal"><div class="modal-content">
 <span style="position:absolute; top:20px; right:25px; font-size:35px; cursor:pointer; color:#999;" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
 <h2 style="color: var(--navy); font-family: 'Montserrat'; border-bottom: 2px solid var(--gold); padding-bottom: 10px;">About VV HOME PRO</h2>
@@ -90,8 +92,10 @@ button#send-btn { background: var(--navy); color: white; border: none; padding: 
 <h2 style="color: var(--navy); font-family: 'Montserrat'; border-bottom: 2px solid var(--gold); padding-bottom: 10px;">Terms of Service</h2>
 <p>Membership in the NJ Elite Registry is limited to 3 professionals per region. This annual fee secures territory exclusivity within our AI network. Users should perform final due diligence before signing contracts.</p>
 </div></div>
+
 <script>
-const WORKER = '';
+// INSERT WORKER URL BELOW
+const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
 let history = [];
 async function send() {
 const input = document.getElementById('user-input');
@@ -117,9 +121,11 @@ botMsg.innerText = "Connection busy. Please try again.";
 }
 box.scrollTop = box.scrollHeight;
 }
+
 function appendMsg(role, text) {
 const box = document.getElementById('chat-window');
 const div = document.createElement('div');
+// FIXED: Added missing backticks here
 div.className = msg ${role};
 div.innerText = text;
 box.appendChild(div);
@@ -127,5 +133,6 @@ box.scrollTop = box.scrollHeight;
 return div;
 }
 </script>
+
 </body>
 </html>
