@@ -54,30 +54,30 @@
     <h1>Apply to Join</h1>
     <p style="text-align:center; color: #666; margin-bottom: 30px;">Start your verification process to secure your regional territory.</p>
     
-    <form action="#" method="POST">
+    <form action="https://formspree.io/f/xreadynk" method="POST">
         <div class="form-group">
             <label>Business Name</label>
-            <input type="text" placeholder="e.g. Elite Roofing NJ" required>
+            <input type="text" name="business_name" placeholder="e.g. Elite Roofing NJ" required>
         </div>
         
         <div class="form-group">
             <label>Business Email Address</label>
-            <input type="email" placeholder="contact@yourbusiness.com" required>
+            <input type="email" name="email" placeholder="contact@yourbusiness.com" required>
         </div>
 
         <div class="form-group">
             <label>Phone Number</label>
-            <input type="tel" placeholder="(555) 000-0000" required>
+            <input type="tel" name="phone" placeholder="(555) 000-0000" required>
         </div>
 
         <div class="form-group">
             <label>License Number</label>
-            <input type="text" placeholder="State/Provincial License #" required>
+            <input type="text" name="license_number" placeholder="State/Provincial License #" required>
         </div>
 
         <div class="form-group">
             <label>Operating Region</label>
-            <select required>
+            <select name="region" required>
                 <option value="" disabled selected>Select your territory</option>
                 <option value="NJ">New Jersey (NJ)</option>
                 <option value="MA">Massachusetts (MA)</option>
