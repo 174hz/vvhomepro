@@ -4,227 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>VV HOME PRO | North America Elite Service Directory</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
-    
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
         :root { --navy: #002d5a; --accent: #0056b3; --gold: #c5a059; --glass: rgba(255, 255, 255, 0.95); --offwhite: #f8f9fa; }
-        * { box-sizing: border-box; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #000; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; scroll-behavior: smooth; }
+        body { font-family: sans-serif; margin: 0; background: #000; min-height: 100vh; display: flex; flex-direction: column; }
         
-        .hero-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat; z-index: -1; }
+        /* Minimal Styles for Navigation */
+        .nav { background: white; padding: 15px; text-align: center; border-bottom: 2px solid var(--navy); }
+        .nav a { margin: 0 10px; color: var(--navy); text-decoration: none; font-weight: bold; }
         
-        header { background: white; padding: 0.8rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 1000; }
-        .logo { font-family: 'Montserrat'; font-weight: 900; color: var(--navy); font-size: 1.1rem; text-decoration: none; }
-        
-        .vv-seal {
-            display: inline-flex;
-            align-items: center;
-            background: linear-gradient(135deg, var(--navy), #004080);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 50px;
-            border: 2px solid var(--gold);
-            font-size: 0.7rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .vv-check { color: var(--gold); margin-right: 6px; font-size: 0.9rem; }
-
-        .nav-links a { text-decoration: none; color: var(--navy); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-left: 20px; cursor: pointer; font-family: 'Montserrat'; }
-        .nav-links a.cta-gold { background: var(--gold); color: var(--navy); padding: 8px 15px; border-radius: 5px; }
-
-        .main-content { max-width: 1200px; margin: 20px auto; display: flex; gap: 20px; padding: 0 15px; flex: 1; }
-        .glass-card { background: var(--glass); padding: 25px; border-radius: 20px; width: 320px; height: fit-content; box-shadow: 0 10px 30px rgba(0,0,0,0.2); flex-shrink: 0; }
-        
-        /* CHAT PORTAL */
-        .chat-portal { background: white; border-radius: 25px; overflow: hidden; display: flex; flex-direction: column; height: 700px; flex-grow: 1; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
-        .chat-header { background: var(--navy); color: white; padding: 18px; text-align: center; font-weight: 900; font-size: 0.8rem; font-family: 'Montserrat'; letter-spacing: 2px; text-transform: uppercase; }
-        
-        #chat-window { flex: 1; padding: 30px; overflow-y: auto; background: #fdfdfd; display: flex; flex-direction: column; }
-        
-        /* EXACT FONT & ALIGNMENT FOR MESSAGES */
-        .msg { margin-bottom: 25px; padding: 20px 25px; border-radius: 12px; line-height: 1.6; font-size: 1rem; width: 95%; font-family: 'Plus Jakarta Sans'; font-weight: 500; }
-        .bot { background: #f4f7fa; border-left: 6px solid var(--accent); align-self: flex-start; color: #222; text-align: left; }
-        .user { background: var(--navy); color: white; align-self: flex-end; text-align: right; border-right: 6px solid var(--gold); }
-
-        .input-area { padding: 20px; background: white; border-top: 1px solid #eee; }
-        input[type="text"] { flex: 1; padding: 15px; border: 1px solid #ddd; border-radius: 12px; font-size: 1.1rem; outline: none; font-family: 'Plus Jakarta Sans'; }
-        button#send-btn { background: var(--navy); color: white; border: none; padding: 0 35px; border-radius: 12px; cursor: pointer; font-weight: 900; font-family: 'Montserrat'; text-transform: uppercase; }
-        button#send-btn:disabled { background: #ccc; cursor: not-allowed; }
-
-        /* PREMIER CONTRACTOR SECTION */
-        .pro-section { background: white; padding: 100px 20px; text-align: center; border-top: 5px solid var(--navy); }
-        .pricing-card { max-width: 700px; margin: 0 auto; background: var(--offwhite); border: 1px solid #e0e0e0; padding: 60px 40px; border-radius: 30px; box-shadow: 0 25px 50px rgba(0,0,0,0.05); }
-        
-        h2.premium-title { font-family: 'Montserrat'; color: var(--navy); font-size: 2.5rem; margin-top: 0; margin-bottom: 20px; font-weight: 900; }
-        .region-dropdown { width: 100%; padding: 18px; border-radius: 12px; border: 2px solid #ddd; font-size: 1.1rem; font-weight: 700; color: var(--navy); cursor: pointer; background: white; outline: none; margin-bottom: 30px; font-family: 'Plus Jakarta Sans'; }
-        .activate-btn { display: inline-block; background: var(--navy); color: white; padding: 22px 50px; border-radius: 15px; text-decoration: none; font-weight: 900; font-size: 1.4rem; width: 100%; max-width: 450px; box-shadow: 0 10px 20px rgba(0,45,90,0.2); transition: 0.3s; font-family: 'Montserrat'; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* MODALS */
-        .modal-overlay { display:none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:2000; overflow-y: auto; backdrop-filter: blur(5px); }
-        .modal-content { background: white; max-width: 700px; margin: 40px auto; padding: 40px; border-radius: 20px; position: relative; line-height: 1.7; color: #333; font-family: 'Plus Jakarta Sans'; }
-        .modal-content h2 { color: var(--navy); border-bottom: 2px solid var(--gold); padding-bottom: 10px; font-family: 'Montserrat'; font-weight: 900; }
-        .close-modal { position: absolute; top: 20px; right: 25px; font-size: 35px; cursor: pointer; color: #999; }
-
-        footer { background: rgba(0,0,0,0.9); color: white; padding: 60px 40px; text-align: center; font-size: 0.85rem; font-family: 'Plus Jakarta Sans'; }
-        .footer-links { margin-top: 25px; }
-        .footer-links a { color: var(--gold); text-decoration: none; margin: 0 15px; cursor: pointer; font-weight: 700; font-family: 'Montserrat'; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; }
-
-        @media (max-width: 850px) {
-            .main-content { flex-direction: column; }
-            .glass-card { width: 100%; }
-            .msg { width: 100%; }
-            h2.premium-title { font-size: 1.8rem; }
-        }
+        /* Chat Portal Styles */
+        .chat-portal { background: white; border-radius: 25px; overflow: hidden; display: flex; flex-direction: column; height: 600px; margin: 20px auto; max-width: 800px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .chat-header { background: var(--navy); color: white; padding: 15px; text-align: center; font-weight: bold; }
+        #chat-window { flex: 1; padding: 20px; overflow-y: auto; background: #fdfdfd; }
+        .msg { margin-bottom: 15px; padding: 15px; border-radius: 10px; line-height: 1.4; }
+        .bot { background: #f4f7fa; border-left: 5px solid var(--accent); align-self: flex-start; }
+        .user { background: var(--navy); color: white; align-self: flex-end; }
+        .input-area { padding: 15px; background: white; border-top: 1px solid #eee; display: flex; gap: 10px; }
+        input[type="text"] { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
+        button#send-btn { background: var(--navy); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-<div class="hero-bg"></div>
-
-<header>
-    <div style="display: flex; align-items: center; gap: 15px;">
-        <a href="#" class="logo">VV HOME PRO</a>
-        <div class="vv-seal"><span class="vv-check">✓</span> VV-VERIFIED</div>
-    </div>
-    <div class="nav-links">
-        <a onclick="openModal('aboutModal')">About Us</a>
-        <a href="#contractors" class="cta-gold">Join Pro Registry</a>
-    </div>
-</header>
-
-<main class="main-content">
-    <div class="glass-card">
-        <h3 style="color:var(--navy); font-family:'Montserrat'; margin-top:0; font-size: 1.3rem; font-weight: 900;">FOR HOMEOWNERS</h3>
-        <p style="font-size:0.95rem; line-height:1.7; color: #333; font-family: 'Plus Jakarta Sans'; font-weight: 500;">Use our AI engine to scope your project. We match you with the top vetted professionals in Ontario, MA, and NJ.</p>
+    <div class="nav">
+        <a href="why-choose-vv-pro.html">For Homeowners</a> |
+        <a href="operating-standards.html">For Contractors</a> |
+        <a href="apply.html">Apply Now</a>
     </div>
 
     <div class="chat-portal">
-        <div class="chat-header">MATCHING ENGINE ACTIVE</div>
+        <div class="chat-header">AI MATCHING ENGINE</div>
         <div id="chat-window">
-            <div class="msg bot">Welcome. What project are you planning today? (e.g., HVAC, Roofing, Renovation)</div>
+            <div class="msg bot">Welcome. What project are you planning today? (e.g., HVAC, Roofing)</div>
         </div>
         <div class="input-area">
-            <div style="display: flex; gap: 12px;">
-                <input type="text" id="user-input" placeholder="Type your project..." onkeypress="if(event.key==='Enter') send()">
-                <button id="send-btn" onclick="send()" disabled>SEND</button>
-            </div>
-            <div style="font-size: 0.75rem; color: #666; margin-top: 15px; display: flex; align-items: center; gap: 8px;">
-                <input type="checkbox" id="consent-check" onchange="document.getElementById('send-btn').disabled = !this.checked">
-                <span style="font-family: 'Plus Jakarta Sans';">I agree to the <a href="javascript:void(0)" onclick="openModal('privacyModal')" style="color: var(--navy); font-weight: 800; text-decoration: none;">Privacy Policy</a>.</span>
-            </div>
+            <input type="text" id="user-input" placeholder="Type your project..." onkeypress="if(event.key==='Enter') send()">
+            <button id="send-btn" onclick="send()">SEND</button>
         </div>
     </div>
-</main>
 
-<section id="contractors" class="pro-section">
-    <div class="pricing-card">
-        <div class="vv-seal" style="margin-bottom: 25px; padding: 12px 28px; font-size: 0.8rem; background: var(--navy); color: white; border-radius: 50px; display: inline-block;">
-            <span class="vv-check">✓</span> 2026 ELITE REGISTRY AUTHORIZED
-        </div>
-        
-        <h2 class="premium-title">Are You a Premier Contractor?</h2>
-        
-        <p style="color: #444; font-size: 1.2rem; line-height: 1.7; max-width: 600px; margin: 0 auto 35px auto; font-family: 'Plus Jakarta Sans'; font-weight: 500;">
-            Secure your exclusive territory in our AI-vetted lead network. Join a limited group of regional partners across Ontario, MA, and NJ. Includes the VV-Verified seal and premium AI lead summaries.
-        </p>
+    <script>
+        // --- THIS IS THE WORKER LINE THAT KEEPS THE AI WORKING ---
+        const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
+        let history = [];
 
-        <hr style="border: 0; height: 1px; background: linear-gradient(to right, transparent, #c5a059, transparent); margin-bottom: 35px;">
-
-        <div style="margin-bottom: 40px;">
-            <h3 style="font-family: 'Montserrat'; color: var(--navy); font-size: 1.2rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; font-weight: 900;">Secure Your Territory</h3>
-            <p style="color: #666; font-size: 1.05rem; font-weight: 600; font-family: 'Plus Jakarta Sans';">North America's AI-vetted lead network. Stop chasing, start closing. Get the VV Verified Seal today.</p>
-        </div>
-
-        <div style="text-align: left; max-width: 500px; margin: 0 auto 30px auto;">
-            <label for="region-select" style="display:block; font-weight:800; color:var(--navy); margin-bottom:10px; text-transform:uppercase; font-size:0.8rem; letter-spacing: 1px; font-family: 'Montserrat';">Choose Region & Pricing:</label>
-            <select id="region-select" class="region-dropdown" onchange="updateStripeLink()">
-                <option value="https://buy.stripe.com/7sY5klfoS4HQbtC39Ja7C0l">New Jersey (NJ) - $349 USD / Year</option>
-                <option value="https://buy.stripe.com/14AbIJ7Wq2zI69ibGfa7C0m">Massachusetts (MA) - $349 USD / Year</option>
-                <option value="https://buy.stripe.com/eVq9AB2C67U28hqbGfa7C0k">Ontario (CAN) - $249 CAD / Year</option>
-            </select>
-        </div>
-
-        <a id="stripe-button" href="https://buy.stripe.com/7sY5klfoS4HQbtC39Ja7C0l" class="activate-btn">ACTIVATE REGISTRY</a>
-    </div>
-</section>
-
-<div id="aboutModal" class="modal-overlay" onclick="closeModal('aboutModal')">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <span class="close-modal" onclick="closeModal('aboutModal')">&times;</span>
-        <h2>About VV HOME PRO</h2>
-        <p>VV HOME PRO is North America's elite AI-vetted service registry. We solve the "trust gap" in home improvement by using advanced matching engines to connect high-intent homeowners with the top 1% of contractors.</p>
-    </div>
-</div>
-
-<div id="privacyModal" class="modal-overlay" onclick="closeModal('privacyModal')">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <span class="close-modal" onclick="closeModal('privacyModal')">&times;</span>
-        <h2>Privacy Policy</h2>
-        <p>Your privacy is paramount. We use the data provided in the chat only to scope your project and match you with a verified professional.</p>
-    </div>
-</div>
-
-<footer>
-    <p style="font-family: 'Montserrat'; font-weight: 700; letter-spacing: 1px;">&copy; 2026 VV HOME PRO. ALL RIGHTS RESERVED.</p>
-    <div class="footer-links">
-        <a onclick="openModal('aboutModal')">About</a>
-        <a onclick="openModal('privacyModal')">Privacy</a>
-    </div>
-</footer>
-
-<script>
-    const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
-    let history = [];
-
-    function openModal(id) { document.getElementById(id).style.display = 'block'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-
-    function updateStripeLink() {
-        const select = document.getElementById('region-select');
-        const button = document.getElementById('stripe-button');
-        button.href = select.value;
-    }
-
-    async function send() {
-        const input = document.getElementById('user-input');
-        const box = document.getElementById('chat-window');
-        const text = input.value.trim();
-        if(!text) return;
-        appendMsg('user', text);
-        input.value = '';
-        history.push({ role: "user", parts: [{ text: text }] });
-        const botMsg = appendMsg('bot', 'AI is analyzing your scope...');
-        try {
-            const res = await fetch(WORKER, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contents: history })
-            });
-            const data = await res.json();
-            const aiText = data.candidates[0].content.parts[0].text;
-            history.push({ role: "model", parts: [{ text: aiText }] });
-            botMsg.innerHTML = marked.parse(aiText.replace(/```html|```/g, "").trim());
-        } catch (e) {
-            botMsg.innerText = "Connection busy. Try again.";
+        async function send() {
+            const input = document.getElementById('user-input');
+            const box = document.getElementById('chat-window');
+            const text = input.value.trim();
+            if(!text) return;
+            
+            // Add user message
+            appendMsg('user', text);
+            input.value = '';
+            history.push({ role: "user", parts: [{ text: text }] });
+            
+            // Add loading message
+            const botMsg = appendMsg('bot', 'AI is analyzing your scope...');
+            
+            try {
+                const res = await fetch(WORKER, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: history })
+                });
+                const data = await res.json();
+                const aiText = data.candidates[0].content.parts[0].text;
+                
+                history.push({ role: "model", parts: [{ text: aiText }] });
+                // Parse markdown for formatting
+                botMsg.innerHTML = marked.parse(aiText);
+            } catch (e) {
+                botMsg.innerText = "Connection busy. Try again.";
+            }
+            box.scrollTop = box.scrollHeight;
         }
-        box.scrollTop = box.scrollHeight;
-    }
 
-    function appendMsg(role, text) {
-        const box = document.getElementById('chat-window');
-        const div = document.createElement('div');
-        div.className = `msg ${role}`;
-        div.innerText = text;
-        box.appendChild(div);
-        box.scrollTop = box.scrollHeight;
-        return div;
-    }
-</script>
+        function appendMsg(role, text) {
+            const box = document.getElementById('chat-window');
+            const div = document.createElement('div');
+            div.className = `msg ${role}`;
+            div.innerText = text;
+            box.appendChild(div);
+            box.scrollTop = box.scrollHeight;
+            return div;
+        }
+    </script>
 
 </body>
 </html>
