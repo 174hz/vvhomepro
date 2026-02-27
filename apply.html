@@ -3,30 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apply | VV HOME PRO</title>
+    <title>Contractor Application | VV HOME PRO</title>
     <style>
         :root { --navy: #002d5a; --gold: #c5a059; }
         body { font-family: sans-serif; background-color: #f4f7fa; color: #333; padding: 20px; }
-        .container { max-width: 600px; margin: 0 auto; background: white; padding: 40px; border-radius: 20px; }
-        h1 { color: var(--navy); text-align: center; }
+        .container { max-width: 600px; margin: 40px auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        h1 { color: var(--navy); text-align: center; font-family: 'Montserrat', sans-serif; }
         .form-group { margin-bottom: 20px; }
-        label { display: block; font-weight: bold; color: var(--navy); }
-        input, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
-        button { background-color: var(--navy); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        a { color: var(--gold); text-decoration: none; }
+        label { display: block; font-weight: bold; color: var(--navy); margin-bottom: 5px; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        button { background-color: var(--navy); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1.1rem; }
+        button:hover { background-color: #0056b3; }
+        a { color: var(--gold); text-decoration: none; font-weight: bold; }
+        .footer-nav { text-align: center; margin-top: 30px; font-size: 0.9rem; }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <h1>Apply to Join</h1>
-        <p style="text-align:center;">Fill out the form below to begin vetting.</p>
-        <form>
-            <div class="form-group"><label>Business Name</label><input type="text"></div>
-            <div class="form-group"><label>License Number</label><input type="text"></div>
+        <h1>Apply for Verification</h1>
+        <p style="text-align:center;">Fill out the form below to initiate your background check and license verification.</p>
+
+        <form action="https://formspree.io/f/YOUR_UNIQUE_FORMSPREE_ID" method="POST">
+            
+            <div class="form-group">
+                <label>Business Name</label>
+                <input type="text" name="business_name" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Contact Email</label>
+                <input type="email" name="contact_email" required>
+            </div>
+
+            <div class="form-group">
+                <label>License Number</label>
+                <input type="text" name="license_number" placeholder="e.g., MA-12345" required>
+            </div>
+
+            <div class="form-group">
+                <label>Primary Trade</label>
+                <select name="trade" required>
+                    <option value="hvac">HVAC</option>
+                    <option value="roofing">Roofing</option>
+                    <option value="reno">Renovation</option>
+                    <option value="plumbing">Plumbing</option>
+                </select>
+            </div>
+
             <button type="submit">Submit for Review</button>
         </form>
-        <br>
-        <a href="operating-standards.html">Review Operating Standards</a> | <a href="index.html">Back to Home</a>
+
+        <div class="footer-nav">
+            <a href="operating-standards.html">Review Operating Standards</a> | 
+            <a href="index.html">Back to Home</a>
+        </div>
     </div>
+
 </body>
 </html>
