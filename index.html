@@ -2,77 +2,143 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VV HOME PRO | Elite Service Directory</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VV HOME PRO | North America Elite Service Directory</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
     <style>
-        :root { --navy: #002d5a; --gold: #c5a059; --accent: #0056b3; }
-        body { font-family: sans-serif; margin: 0; background: #f4f7fa; }
-        .nav { background: white; padding: 15px; text-align: center; border-bottom: 2px solid var(--navy); }
-        .nav a { margin: 0 10px; color: var(--navy); text-decoration: none; font-weight: bold; }
-        .chat-portal { background: white; border-radius: 25px; overflow: hidden; display: flex; flex-direction: column; height: 600px; margin: 20px auto; max-width: 800px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .chat-header { background: var(--navy); color: white; padding: 15px; text-align: center; font-weight: bold; }
-        #chat-window { flex: 1; padding: 20px; overflow-y: auto; }
-        .msg { margin-bottom: 15px; padding: 15px; border-radius: 10px; line-height: 1.4; }
-        .bot { background: #f4f7fa; border-left: 5px solid var(--accent); align-self: flex-start; }
-        .user { background: var(--navy); color: white; align-self: flex-end; }
-        .input-area { padding: 15px; background: white; border-top: 1px solid #eee; display: flex; gap: 10px; }
-        input[type="text"] { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
-        button#send-btn { background: var(--navy); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; }
+        :root { --navy: #002d5a; --accent: #0056b3; --gold: #c5a059; --glass: rgba(255, 255, 255, 0.95); --offwhite: #f8f9fa; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #000; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        
+        /* BACKGROUND IMAGE */
+        .hero-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('http://googleusercontent.com/image_collection/image_retrieval/11694434252261205649_0') center/cover no-repeat; z-index: -1; }
+        
+        /* NAVIGATION BAR */
+        header { background: white; padding: 0.8rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-family: 'Montserrat'; font-weight: 900; color: var(--navy); font-size: 1.1rem; text-decoration: none; }
+        .nav-links a { text-decoration: none; color: var(--navy); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-left: 20px; cursor: pointer; font-family: 'Montserrat'; }
+        .nav-links a.cta-gold { background: var(--gold); color: var(--navy); padding: 8px 15px; border-radius: 5px; }
+
+        /* CHAT PORTAL */
+        .main-content { max-width: 1200px; margin: 20px auto; padding: 0 15px; flex: 1; width: 100%; }
+        .chat-portal { background: white; border-radius: 25px; overflow: hidden; display: flex; flex-direction: column; height: 600px; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+        .chat-header { background: var(--navy); color: white; padding: 18px; text-align: center; font-weight: 900; font-size: 0.8rem; font-family: 'Montserrat'; letter-spacing: 2px; text-transform: uppercase; }
+        #chat-window { flex: 1; padding: 30px; overflow-y: auto; background: #fdfdfd; }
+        .msg { margin-bottom: 25px; padding: 20px 25px; border-radius: 12px; line-height: 1.6; font-size: 1rem; width: 95%; font-family: 'Plus Jakarta Sans'; font-weight: 500; }
+        .bot { background: #f4f7fa; border-left: 6px solid var(--accent); align-self: flex-start; color: #222; }
+        .user { background: var(--navy); color: white; align-self: flex-end; text-align: right; border-right: 6px solid var(--gold); }
+        .input-area { padding: 20px; background: white; border-top: 1px solid #eee; }
+        input[type="text"] { flex: 1; padding: 15px; border: 1px solid #ddd; border-radius: 12px; font-size: 1.1rem; outline: none; width: 100%; margin-bottom: 10px; }
+        button#send-btn { background: var(--navy); color: white; border: none; padding: 15px 35px; border-radius: 12px; cursor: pointer; font-weight: 900; font-family: 'Montserrat'; text-transform: uppercase; width: 100%; }
+
+        /* PREMIER CONTRACTOR SECTION */
+        .pro-section { background: white; padding: 60px 20px; text-align: center; border-top: 5px solid var(--navy); margin-top: 40px; }
+        .pricing-card { max-width: 700px; margin: 0 auto; background: var(--offwhite); border: 1px solid #e0e0e0; padding: 40px; border-radius: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        h2.premium-title { font-family: 'Montserrat'; color: var(--navy); font-size: 2rem; margin-top: 0; font-weight: 900; }
+        .region-dropdown { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid #ddd; font-size: 1rem; color: var(--navy); background: white; margin-bottom: 20px; font-weight: bold; }
+        .activate-btn { display: inline-block; background: var(--navy); color: white; padding: 18px 30px; border-radius: 12px; text-decoration: none; font-weight: 900; font-size: 1.2rem; width: 100%; font-family: 'Montserrat'; text-transform: uppercase; }
+
+        /* FOOTER */
+        footer { background: rgba(0,0,0,0.8); color: white; padding: 30px; text-align: center; font-size: 0.85rem; margin-top: auto; }
+        .footer-links a { color: var(--gold); text-decoration: none; margin: 0 15px; cursor: pointer; font-weight: 700; font-family: 'Montserrat'; font-size: 0.7rem; }
     </style>
 </head>
 <body>
-    <div class="nav">
-        <a href="why-choose-vv-pro.html">For Homeowners</a> |
-        <a href="operating-standards.html">For Contractors</a> |
-        <a href="apply.html">Apply Now</a>
+
+<div class="hero-bg"></div>
+
+<header>
+    <a href="index.html" class="logo">VV HOME PRO</a>
+    <div class="nav-links">
+        <a href="why-choose-vv-pro.html">For Homeowners</a>
+        <a href="operating-standards.html">For Contractors</a>
+        <a href="apply.html" class="cta-gold">Join Pro Registry</a>
     </div>
+</header>
+
+<main class="main-content">
     <div class="chat-portal">
-        <div class="chat-header">AI MATCHING ENGINE</div>
+        <div class="chat-header">AI MATCHING ENGINE ACTIVE</div>
         <div id="chat-window">
-            <div class="msg bot">Welcome. What project are you planning today?</div>
+            <div class="msg bot">Welcome. What project are you planning today? (e.g., HVAC, Roofing)</div>
         </div>
         <div class="input-area">
             <input type="text" id="user-input" placeholder="Type your project..." onkeypress="if(event.key==='Enter') send()">
             <button id="send-btn" onclick="send()">SEND</button>
         </div>
     </div>
-    <script>
-        const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
-        let history = [];
-        async function send() {
-            const input = document.getElementById('user-input');
-            const box = document.getElementById('chat-window');
-            const text = input.value.trim();
-            if(!text) return;
-            appendMsg('user', text);
-            input.value = '';
-            history.push({ role: "user", parts: [{ text: text }] });
-            const botMsg = appendMsg('bot', 'AI is analyzing your scope...');
-            try {
-                const res = await fetch(WORKER, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: history })
-                });
-                const data = await res.json();
-                const aiText = data.candidates[0].content.parts[0].text;
-                history.push({ role: "model", parts: [{ text: aiText }] });
-                botMsg.innerHTML = marked.parse(aiText);
-            } catch (e) {
-                botMsg.innerText = "Connection busy. Try again.";
-            }
-            box.scrollTop = box.scrollHeight;
+
+    <section id="contractors" class="pro-section">
+        <div class="pricing-card">
+            <h2 class="premium-title">Are You a Premier Contractor?</h2>
+            <p style="color: #444; font-size: 1rem; margin-bottom: 25px;">Secure your exclusive territory in our AI-vetted lead network. Join a limited group of regional partners.</p>
+            
+            <label for="region-select" style="display:block; font-weight:800; color:var(--navy); margin-bottom:10px; text-transform:uppercase; font-size:0.8rem; font-family: 'Montserrat';">Choose Region & Pricing:</label>
+            <select id="region-select" class="region-dropdown" onchange="updateStripeLink()">
+                <option value="https://buy.stripe.com/7sY5klfoS4HQbtC39Ja7C0l">New Jersey (NJ) - $349 USD / Year</option>
+                <option value="https://buy.stripe.com/14AbIJ7Wq2zI69ibGfa7C0m">Massachusetts (MA) - $349 USD / Year</option>
+                <option value="https://buy.stripe.com/eVq9AB2C67U28hqbGfa7C0k">Ontario (CAN) - $249 CAD / Year</option>
+            </select>
+
+            <a id="stripe-button" href="https://buy.stripe.com/7sY5klfoS4HQbtC39Ja7C0l" class="activate-btn">ACTIVATE REGISTRY</a>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2026 VV HOME PRO. ALL RIGHTS RESERVED.</p>
+    <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms & Conditions</a>
+    </div>
+</footer>
+
+<script>
+    const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
+    let history = [];
+
+    function updateStripeLink() {
+        const select = document.getElementById('region-select');
+        const button = document.getElementById('stripe-button');
+        button.href = select.value;
+    }
+
+    async function send() {
+        const input = document.getElementById('user-input');
+        const box = document.getElementById('chat-window');
+        const text = input.value.trim();
+        if(!text) return;
+        appendMsg('user', text);
+        input.value = '';
+        history.push({ role: "user", parts: [{ text: text }] });
+        const botMsg = appendMsg('bot', 'AI is analyzing your scope...');
+        try {
+            const res = await fetch(WORKER, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contents: history })
+            });
+            const data = await res.json();
+            const aiText = data.candidates[0].content.parts[0].text;
+            history.push({ role: "model", parts: [{ text: aiText }] });
+            botMsg.innerHTML = marked.parse(aiText);
+        } catch (e) {
+            botMsg.innerText = "Connection busy. Try again.";
         }
-        function appendMsg(role, text) {
-            const box = document.getElementById('chat-window');
-            const div = document.createElement('div');
-            div.className = `msg ${role}`;
-            div.innerText = text;
-            box.appendChild(div);
-            box.scrollTop = box.scrollHeight;
-            return div;
-        }
-    </script>
+        box.scrollTop = box.scrollHeight;
+    }
+    function appendMsg(role, text) {
+        const box = document.getElementById('chat-window');
+        const div = document.createElement('div');
+        div.className = `msg ${role}`;
+        div.innerText = text;
+        box.appendChild(div);
+        box.scrollTop = box.scrollHeight;
+        return div;
+    }
+</script>
+
 </body>
 </html>
