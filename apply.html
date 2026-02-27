@@ -2,63 +2,71 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contractor Application | VV HOME PRO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Apply | VV HOME PRO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     <style>
-        :root { --navy: #002d5a; --gold: #c5a059; }
-        body { font-family: sans-serif; background-color: #f4f7fa; color: #333; padding: 20px; }
-        .container { max-width: 600px; margin: 40px auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-        h1 { color: var(--navy); text-align: center; font-family: 'Montserrat', sans-serif; }
+        :root { --navy: #002d5a; --gold: #c5a059; --glass: rgba(255, 255, 255, 0.95); }
+        * { box-sizing: border-box; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #000; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        /* BACKGROUND IMAGE */
+        .hero-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('') center/cover no-repeat; z-index: -1; }
+        
+        /* NAVIGATION BAR */
+        header { background: white; padding: 0.8rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-family: 'Montserrat'; font-weight: 900; color: var(--navy); font-size: 1.1rem; text-decoration: none; }
+        .nav-links a { text-decoration: none; color: var(--navy); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-left: 20px; cursor: pointer; font-family: 'Montserrat'; }
+        .nav-links a.cta-gold { background: var(--gold); color: var(--navy); padding: 8px 15px; border-radius: 5px; }
+
+        /* CONTENT AREA */
+        .main-content { max-width: 600px; margin: 40px auto; padding: 40px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); width: 90%; }
+        h1 { font-family: 'Montserrat'; color: var(--navy); font-weight: 900; text-align: center; border-bottom: 2px solid var(--gold); padding-bottom: 10px; }
         .form-group { margin-bottom: 20px; }
-        label { display: block; font-weight: bold; color: var(--navy); margin-bottom: 5px; }
-        input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        button { background-color: var(--navy); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1.1rem; }
-        button:hover { background-color: #0056b3; }
-        a { color: var(--gold); text-decoration: none; font-weight: bold; }
-        .footer-nav { text-align: center; margin-top: 30px; font-size: 0.9rem; }
+        label { display: block; font-weight: bold; color: var(--navy); }
+        input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-top: 5px; }
+        button { background-color: var(--navy); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        a { color: var(--gold); text-decoration: none; font-weight: bold;}
+        .footer-nav { text-align: center; margin-top: 20px; }
+
+        /* FOOTER */
+        footer { background: rgba(0,0,0,0.8); color: white; padding: 30px; text-align: center; font-size: 0.85rem; margin-top: auto; }
+        .footer-links a { color: var(--gold); text-decoration: none; margin: 0 15px; cursor: pointer; font-weight: 700; font-family: 'Montserrat'; font-size: 0.7rem; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Apply for Verification</h1>
-        <p style="text-align:center;">Fill out the form below to initiate your background check and license verification.</p>
+<div class="hero-bg"></div>
 
-        <form action="https://formspree.io/f/YOUR_UNIQUE_FORMSPREE_ID" method="POST">
-            
-            <div class="form-group">
-                <label>Business Name</label>
-                <input type="text" name="business_name" required>
-            </div>
-            
-            <div class="form-group">
-                <label>Contact Email</label>
-                <input type="email" name="contact_email" required>
-            </div>
-
-            <div class="form-group">
-                <label>License Number</label>
-                <input type="text" name="license_number" placeholder="e.g., MA-12345" required>
-            </div>
-
-            <div class="form-group">
-                <label>Primary Trade</label>
-                <select name="trade" required>
-                    <option value="hvac">HVAC</option>
-                    <option value="roofing">Roofing</option>
-                    <option value="reno">Renovation</option>
-                    <option value="plumbing">Plumbing</option>
-                </select>
-            </div>
-
-            <button type="submit">Submit for Review</button>
-        </form>
-
-        <div class="footer-nav">
-            <a href="operating-standards.html">Review Operating Standards</a> | 
-            <a href="index.html">Back to Home</a>
-        </div>
+<header>
+    <a href="index.html" class="logo">VV HOME PRO</a>
+    <div class="nav-links">
+        <a href="why-choose-vv-pro.html">For Homeowners</a>
+        <a href="operating-standards.html">For Contractors</a>
+        <a href="apply.html" class="cta-gold">Join Pro Registry</a>
     </div>
+</header>
+
+<main class="main-content">
+    <h1>Apply to Join</h1>
+    <p style="text-align:center;">Fill out the form below to begin vetting.</p>
+    <form>
+        <div class="form-group"><label>Business Name</label><input type="text"></div>
+        <div class="form-group"><label>License Number</label><input type="text"></div>
+        <button type="submit">Submit for Review</button>
+    </form>
+    <div class="footer-nav">
+        <a href="operating-standards.html">Review Operating Standards</a> | <a href="index.html">Back to Home</a>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2026 VV HOME PRO. ALL RIGHTS RESERVED.</p>
+    <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms & Conditions</a>
+    </div>
+</footer>
 
 </body>
 </html>
