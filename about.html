@@ -2,47 +2,64 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | V&V HOME PRO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>About Us | VV HOME PRO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;800&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     <style>
-        :root { --navy: #003366; --deep-navy: #001a33; --accent-blue: #0056b3; }
-        body { 
-            margin: 0; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh;
-            background: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1920&q=80');
-            background-size: cover; background-attachment: fixed; background-position: center;
-        }
-        header {
-            display: flex; align-items: center; justify-content: space-between; padding: 10px 40px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(5px); border-bottom: 2px solid var(--navy);
-        }
-        .content { 
-            flex: 1; max-width: 800px; margin: 60px auto; padding: 40px; 
-            background: rgba(255, 255, 255, 0.75); 
-            backdrop-filter: blur(15px); 
-            border-radius: 16px; 
-            border: 1px solid rgba(255, 255, 255, 0.3); 
-            box-shadow: 0 8px 32px rgba(0,0,0,0.15); 
-        }
-        h1, h2 { font-family: 'Montserrat'; color: var(--navy); }
-        .highlight { border-left: 5px solid var(--accent-blue); padding: 20px; background: rgba(255, 255, 255, 0.5); font-style: italic; margin: 30px 0; border-radius: 0 8px 8px 0; }
-        footer { background: var(--deep-navy); color: #cbd5e1; padding: 60px 20px 30px; text-align: center; }
+        :root { --navy: #002d5a; --gold: #c5a059; --glass: rgba(255, 255, 255, 0.95); }
+        * { box-sizing: border-box; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #000; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        /* BACKGROUND IMAGE - ASPIRATIONAL HOME */
+        .hero-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('http://googleusercontent.com/image_collection/image_retrieval/11859153709909796778_0') center/cover no-repeat; z-index: -1; }
+        
+        /* NAVIGATION BAR */
+        header { background: white; padding: 0.8rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-family: 'Montserrat'; font-weight: 900; color: var(--navy); font-size: 1.1rem; text-decoration: none; }
+        .nav-links a { text-decoration: none; color: var(--navy); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-left: 20px; cursor: pointer; font-family: 'Montserrat'; }
+        .nav-links a.cta-gold { background: var(--gold); color: var(--navy); padding: 8px 15px; border-radius: 5px; }
+
+        /* CONTENT AREA */
+        .main-content { max-width: 800px; margin: 40px auto; padding: 40px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        h1 { font-family: 'Montserrat'; color: var(--navy); font-weight: 900; text-align: center; border-bottom: 2px solid var(--gold); padding-bottom: 10px; }
+        h2 { font-family: 'Montserrat'; color: var(--navy); margin-top: 30px; }
+        p { line-height: 1.7; font-size: 1.05rem; }
+        .highlight { font-weight: bold; color: var(--navy); }
+
+        /* FOOTER */
+        footer { background: rgba(0,0,0,0.8); color: white; padding: 30px; text-align: center; font-size: 0.85rem; margin-top: auto; }
+        .footer-links a { color: var(--gold); text-decoration: none; margin: 0 15px; cursor: pointer; font-weight: 700; font-family: 'Montserrat'; font-size: 0.7rem; }
     </style>
 </head>
 <body>
+
+<div class="hero-bg"></div>
+
 <header>
-    <div style="display:flex; align-items:center; gap:15px;">
-        <img src="logo.png" height="50">
-        <div style="font-family:'Montserrat'; font-weight:800; color:var(--navy); text-transform:uppercase;">Vetted & Verified Home Pro</div>
+    <a href="index.html" class="logo">VV HOME PRO</a>
+    <div class="nav-links">
+        <a href="why-choose-vv-pro.html">For Homeowners</a>
+        <a href="operating-standards.html">For Contractors</a>
+        <a href="apply.html" class="cta-gold">Join Pro Registry</a>
     </div>
-    <nav><a href="index.html" style="text-decoration:none; color:var(--navy); font-weight:700;">Home</a></nav>
 </header>
-<main class="content">
-    <h1>Our Mission</h1>
-    <p>VV HOME PRO redefines home service procurement in Ontario. We act as a high-security bridge between homeowners and Tier-1 trade specialists.</p>
-    <div class="highlight">"We don't just facilitate introductions; we safeguard the integrity of your home projects."</div>
+
+<main class="main-content">
+    <h1>About Us</h1>
+    <h2>Our Mission</h2>
+    <p>VV HOME PRO redefines home service procurement across North America. We act as a high-security bridge between homeowners and Tier-1 trade specialists.</p>
+    <blockquote style="border-left: 5px solid var(--gold); padding-left: 15px; font-style: italic; color: var(--navy); font-weight: bold;">"We don't just facilitate introductions; we safeguard the integrity of your home projects."</blockquote>
     <h2>Tier-1 Standards</h2>
-    <p>Our "Pinnacle Audit" verifies trade licensing, insurance, and past performance history. You are accessing the top tier of Ontario’s professionals.</p>
+    <p>Our <span class="highlight">"Pinnacle Audit"</span> verifies trade licensing, insurance, and past performance history. You are accessing the top tier of professionals in your community.</p>
 </main>
-<footer>&copy; 2026 Vetted & Verified Home Pro.</footer>
+
+<footer>
+    <p>&copy; 2026 VV HOME PRO. ALL RIGHTS RESERVED.</p>
+    <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms & Conditions</a>
+    </div>
+</footer>
+
 </body>
 </html>
