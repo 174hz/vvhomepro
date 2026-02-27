@@ -20,14 +20,17 @@
         .nav-links a.cta-gold { background: var(--gold); color: var(--navy); padding: 8px 15px; border-radius: 5px; }
 
         /* CONTENT AREA */
-        .main-content { max-width: 600px; margin: 40px auto; padding: 40px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); width: 90%; }
-        h1 { font-family: 'Montserrat'; color: var(--navy); font-weight: 900; text-align: center; border-bottom: 2px solid var(--gold); padding-bottom: 10px; }
+        .main-content { max-width: 600px; margin: 40px auto; padding: 40px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); width: 95%; }
+        h1 { font-family: 'Montserrat'; color: var(--navy); font-weight: 900; text-align: center; border-bottom: 2px solid var(--gold); padding-bottom: 10px; margin-bottom: 20px; }
         .form-group { margin-bottom: 20px; }
-        label { display: block; font-weight: bold; color: var(--navy); }
-        input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-top: 5px; }
-        button { background-color: var(--navy); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        a { color: var(--gold); text-decoration: none; font-weight: bold;}
-        .footer-nav { text-align: center; margin-top: 20px; }
+        label { display: block; font-weight: 800; color: var(--navy); text-transform: uppercase; font-size: 0.75rem; font-family: 'Montserrat'; margin-bottom: 5px; }
+        input, select { width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 12px; font-size: 1rem; font-family: 'Plus Jakarta Sans'; background: #fdfdfd; }
+        input:focus { border-color: var(--gold); outline: none; background: white; }
+        button { background-color: var(--navy); color: white; border: none; padding: 18px; width: 100%; border-radius: 12px; font-weight: 900; font-family: 'Montserrat'; text-transform: uppercase; cursor: pointer; font-size: 1rem; letter-spacing: 1px; transition: 0.3s; }
+        button:hover { background: var(--accent); }
+        
+        .footer-nav { text-align: center; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; }
+        .footer-nav a { color: var(--gold); text-decoration: none; font-weight: 800; font-family: 'Montserrat'; font-size: 0.75rem; margin: 0 10px; }
 
         /* FOOTER */
         footer { background: rgba(0,0,0,0.8); color: white; padding: 30px; text-align: center; font-size: 0.85rem; margin-top: auto; }
@@ -49,14 +52,45 @@
 
 <main class="main-content">
     <h1>Apply to Join</h1>
-    <p style="text-align:center;">Fill out the form below to begin vetting.</p>
-    <form>
-        <div class="form-group"><label>Business Name</label><input type="text"></div>
-        <div class="form-group"><label>License Number</label><input type="text"></div>
-        <button type="submit">Submit for Review</button>
+    <p style="text-align:center; color: #666; margin-bottom: 30px;">Start your verification process to secure your regional territory.</p>
+    
+    <form action="#" method="POST">
+        <div class="form-group">
+            <label>Business Name</label>
+            <input type="text" placeholder="e.g. Elite Roofing NJ" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Business Email Address</label>
+            <input type="email" placeholder="contact@yourbusiness.com" required>
+        </div>
+
+        <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" placeholder="(555) 000-0000" required>
+        </div>
+
+        <div class="form-group">
+            <label>License Number</label>
+            <input type="text" placeholder="State/Provincial License #" required>
+        </div>
+
+        <div class="form-group">
+            <label>Operating Region</label>
+            <select required>
+                <option value="" disabled selected>Select your territory</option>
+                <option value="NJ">New Jersey (NJ)</option>
+                <option value="MA">Massachusetts (MA)</option>
+                <option value="ON">Ontario (CAN)</option>
+            </select>
+        </div>
+
+        <button type="submit">Submit for Vetting</button>
     </form>
+
     <div class="footer-nav">
-        <a href="operating-standards.html">Review Operating Standards</a> | <a href="index.html">Back to Home</a>
+        <a href="operating-standards.html">REVIEW STANDARDS</a>
+        <a href="index.html">BACK TO HOME</a>
     </div>
 </main>
 
