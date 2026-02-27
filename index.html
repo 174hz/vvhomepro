@@ -2,22 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VV HOME PRO | North America Elite Service Directory</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VV HOME PRO | Elite Service Directory</title>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
     <style>
-        :root { --navy: #002d5a; --accent: #0056b3; --gold: #c5a059; --glass: rgba(255, 255, 255, 0.95); --offwhite: #f8f9fa; }
-        body { font-family: sans-serif; margin: 0; background: #000; min-height: 100vh; display: flex; flex-direction: column; }
-        
-        /* Minimal Styles for Navigation */
+        :root { --navy: #002d5a; --gold: #c5a059; --accent: #0056b3; }
+        body { font-family: sans-serif; margin: 0; background: #f4f7fa; }
         .nav { background: white; padding: 15px; text-align: center; border-bottom: 2px solid var(--navy); }
         .nav a { margin: 0 10px; color: var(--navy); text-decoration: none; font-weight: bold; }
-        
-        /* Chat Portal Styles */
-        .chat-portal { background: white; border-radius: 25px; overflow: hidden; display: flex; flex-direction: column; height: 600px; margin: 20px auto; max-width: 800px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .chat-portal { background: white; border-radius: 25px; overflow: hidden; display: flex; flex-direction: column; height: 600px; margin: 20px auto; max-width: 800px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         .chat-header { background: var(--navy); color: white; padding: 15px; text-align: center; font-weight: bold; }
-        #chat-window { flex: 1; padding: 20px; overflow-y: auto; background: #fdfdfd; }
+        #chat-window { flex: 1; padding: 20px; overflow-y: auto; }
         .msg { margin-bottom: 15px; padding: 15px; border-radius: 10px; line-height: 1.4; }
         .bot { background: #f4f7fa; border-left: 5px solid var(--accent); align-self: flex-start; }
         .user { background: var(--navy); color: white; align-self: flex-end; }
@@ -27,43 +22,33 @@
     </style>
 </head>
 <body>
-
     <div class="nav">
         <a href="why-choose-vv-pro.html">For Homeowners</a> |
         <a href="operating-standards.html">For Contractors</a> |
         <a href="apply.html">Apply Now</a>
     </div>
-
     <div class="chat-portal">
         <div class="chat-header">AI MATCHING ENGINE</div>
         <div id="chat-window">
-            <div class="msg bot">Welcome. What project are you planning today? (e.g., HVAC, Roofing)</div>
+            <div class="msg bot">Welcome. What project are you planning today?</div>
         </div>
         <div class="input-area">
             <input type="text" id="user-input" placeholder="Type your project..." onkeypress="if(event.key==='Enter') send()">
             <button id="send-btn" onclick="send()">SEND</button>
         </div>
     </div>
-
     <script>
-        // --- THIS IS THE WORKER LINE THAT KEEPS THE AI WORKING ---
         const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
         let history = [];
-
         async function send() {
             const input = document.getElementById('user-input');
             const box = document.getElementById('chat-window');
             const text = input.value.trim();
             if(!text) return;
-            
-            // Add user message
             appendMsg('user', text);
             input.value = '';
             history.push({ role: "user", parts: [{ text: text }] });
-            
-            // Add loading message
             const botMsg = appendMsg('bot', 'AI is analyzing your scope...');
-            
             try {
                 const res = await fetch(WORKER, {
                     method: 'POST',
@@ -72,16 +57,13 @@
                 });
                 const data = await res.json();
                 const aiText = data.candidates[0].content.parts[0].text;
-                
                 history.push({ role: "model", parts: [{ text: aiText }] });
-                // Parse markdown for formatting
                 botMsg.innerHTML = marked.parse(aiText);
             } catch (e) {
                 botMsg.innerText = "Connection busy. Try again.";
             }
             box.scrollTop = box.scrollHeight;
         }
-
         function appendMsg(role, text) {
             const box = document.getElementById('chat-window');
             const div = document.createElement('div');
@@ -92,6 +74,5 @@
             return div;
         }
     </script>
-
 </body>
 </html>
