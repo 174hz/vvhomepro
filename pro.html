@@ -10,10 +10,10 @@
         * { box-sizing: border-box; }
         body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark); color: white; line-height: 1.4; overflow-x: hidden; }
 
-        /* VIDEO BACKGROUND SYSTEM */
+        /* FIXED VIDEO BACKGROUND SYSTEM */
         .video-wrapper {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; overflow: hidden;
+            z-index: -1; overflow: hidden; background: #000;
         }
         .video-wrapper video {
             min-width: 100%; min-height: 100%;
@@ -21,16 +21,16 @@
             position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             object-fit: cover;
-            filter: brightness(25%) contrast(110%);
+            filter: brightness(30%) contrast(110%) grayscale(30%);
         }
         .video-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(5,5,5,0.2), rgba(5,5,5,0.9));
+            background: linear-gradient(to bottom, rgba(5,5,5,0.3) 0%, rgba(5,5,5,0.9) 100%);
         }
 
         /* HERO & CONTENT */
         .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 80px 5%; position: relative; }
-        h1 { font-family: 'Montserrat'; font-size: clamp(2.2rem, 8vw, 5rem); text-transform: uppercase; letter-spacing: -3px; margin: 0; line-height: 0.9; }
+        h1 { font-family: 'Montserrat'; font-size: clamp(2.2rem, 8vw, 5rem); text-transform: uppercase; letter-spacing: -3px; margin: 0; line-height: 0.9; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .highlight { color: var(--neon); }
         .money { color: var(--gold); text-decoration: underline; }
         .sub-hook { font-size: clamp(1.1rem, 3vw, 1.8rem); font-weight: 800; margin-top: 25px; max-width: 900px; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; }
@@ -41,12 +41,12 @@
         .feature-card { background: rgba(255,255,255,0.03); padding: 30px; border-radius: 20px; border-left: 4px solid var(--gold); margin-top: 20px; }
         .feature-card h3 { color: var(--gold); margin-top: 0; font-size: 1rem; text-transform: uppercase; font-family: 'Montserrat'; }
 
-        /* PERFECTLY ALIGNED CTA ROW */
+        /* CTA ROW ALIGNMENT */
         .cta-container {
             background: rgba(17, 17, 17, 0.9); padding: 35px; border-radius: 40px; border: 2px solid var(--neon);
             width: 100%; max-width: 650px; margin-top: 50px;
             display: flex; flex-direction: column; gap: 15px;
-            box-shadow: 0 0 50px rgba(57, 255, 20, 0.2);
+            box-shadow: 0 0 50px rgba(57, 255, 20, 0.3);
             backdrop-filter: blur(10px);
         }
         .cta-row { display: flex; gap: 10px; width: 100%; }
@@ -72,15 +72,15 @@
         .modal li { margin-bottom: 10px; }
 
         .legal-bubbles { display: flex; justify-content: center; gap: 15px; margin-top: 60px; flex-wrap: wrap; }
-        .bubble { padding: 12px 25px; border-radius: 50px; background: rgba(255,255,255,0.08); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: #aaa; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
+        .bubble { padding: 12px 25px; border-radius: 50px; background: rgba(255,255,255,0.1); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: #aaa; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
         .bubble:hover { background: var(--gold); color: black; border-color: var(--gold); }
     </style>
 </head>
 <body>
 
     <div class="video-wrapper">
-        <video autoplay muted loop playsinline>
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-worker-repairing-an-air-conditioner-unit-34535-large.mp4" type="video/mp4">
+        <video autoplay muted loop playsinline poster="https://images.pexels.com/photos/544965/pexels-photo-544965.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2">
+            <source src="https://player.vimeo.com/external/434045526.sd.mp4?s=c3a233367a02203e4291888a71f0084f7e6f8090&profile_id=164&oauth2_token_id=57447761" type="video/mp4">
         </video>
         <div class="video-overlay"></div>
     </div>
@@ -132,52 +132,22 @@
 
         const modalData = {
             standards: `
-                <h1 style="font-family:'Montserrat'; color:var(--gold); border-bottom:2px solid var(--gold); padding-bottom:10px;">Vetted & Verified Operating Standards</h1>
-                <p>To be authorized as a <strong>VV-Verified Partner</strong>, a contractor affirms they meet the following benchmarks:</p>
-                <h2>1. Build Elite Trust</h2>
-                <ul>
-                    <li><strong>Proven Stability:</strong> Minimum 2 years active trade experience.</li>
-                    <li><strong>Verified Credentials:</strong> Active competency licenses & high-limit GL/Workers Comp insurance.</li>
-                    <li><strong>Ethical Standing:</strong> No history of failure to support principles of honesty and quality.</li>
-                </ul>
-                <h2>2. Advertise with Integrity</h2>
-                <ul>
-                    <li><strong>Accurate Scope:</strong> Must clearly distinguish between direct labor and subcontracted work.</li>
-                    <li><strong>Trademark Usage:</strong> Use "Vetted & Verified" badge only while in good standing.</li>
-                </ul>
-                <h2>3. Commit to Total Transparency</h2>
-                <ul>
-                    <li><strong>Customer Clarity:</strong> Provide itemized scopes, total costs, and clear craftsmanship warranties.</li>
-                </ul>
-                <h2>4. Proactive Responsiveness</h2>
-                <ul>
-                    <li><strong>Dispute Resolution:</strong> Participate in VV HOME PRO mediation if homeowner disputes arise.</li>
-                </ul>
-                <h2>5. Safeguard Information</h2>
-                <ul>
-                    <li><strong>Data Security:</strong> Ensure sensitive homeowner data is stored securely according to industry standards.</li>
-                </ul>
+                <h2 style="color:var(--gold);">Operating Standards</h2>
+                <p>To be authorized as a <strong>VV-Verified Partner</strong>, you affirm:</p>
+                <h3>1. Elite Trust</h3>
+                <ul><li>Minimum 2 years active trade experience.</li><li>Active competency licenses & high-limit insurance.</li></ul>
+                <h3>2. Transparency</h3>
+                <ul><li>Provide itemized scopes and clear craftsmanship warranties.</li></ul>
+                <h3>3. Responsiveness</h3>
+                <ul><li>Commit to a 60-minute response time on AI-dispatched Lead Cards.</li></ul>
             `,
             privacy: `
-                <h2>Privacy & Data Integrity Policy</h2>
-                <p>VV HOME PRO operates as a high-security bridge between homeowners and service providers.</p>
-                <h3>1. Data Collection</h3>
-                <p>We collect project-specific data (Lead Cards) including home addresses, photos, and project timelines. This data is the property of VV HOME PRO and is leased to the Territory Partner.</p>
-                <h3>2. Data Usage</h3>
-                <p>Homeowner data is never sold to third-party marketing lists. It is used strictly for the fulfillment of the specific service request initiated by the homeowner.</p>
-                <h3>3. Security</h3>
-                <p>We utilize industry-standard encryption for all Lead Card dispatches to ensure contractor and homeowner privacy remains uncompromised.</p>
+                <h2>Privacy Policy</h2>
+                <p>VV HOME PRO values data integrity. Homeowner data is used strictly for fulfillment and is never sold to third-party marketing lists.</p>
             `,
             terms: `
-                <h2>Contractor Service Agreement</h2>
-                <h3>1. Territory Exclusivity</h3>
-                <p>Activation of a region grants a 12-month exclusive right to all AI-generated leads in that specific trade and postal district. We do not sell the same lead twice.</p>
-                <h3>2. Lead Response Commitment</h3>
-                <p>Partners agree to contact AI-dispatched leads within 60 minutes of receiving a Lead Card during standard business hours to maintain registry standing.</p>
-                <h3>3. Subscription & Renewals</h3>
-                <p>Registry fees are annual. Failure to maintain active insurance or valid licensing results in immediate suspension from the AI dispatch queue without refund.</p>
-                <h3>4. Representation</h3>
-                <p>Partners may use the "VV Vetted & Verified" badge on marketing materials only while their territory subscription is active and in good standing.</p>
+                <h2>Contractor Terms</h2>
+                <p>Territories are assigned on a 12-month exclusive basis. Fees are annual and non-refundable once territory is activated.</p>
             `
         };
 
