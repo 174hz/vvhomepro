@@ -2,101 +2,94 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VV HOME PRO | Project Matching Engine</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;800&family=Montserrat:wght@900&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VV HOME | AI-Powered Home Service Matching</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --navy: #001a33; --accent: #007AFF; --gold: #FFD700; --glass: rgba(255, 255, 255, 0.95); }
+        :root { --navy: #001a33; --gold: #FFD700; --neon: #39FF14; }
         * { box-sizing: border-box; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: var(--navy); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; color: white; }
-        
-        .hero-bg { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: linear-gradient(rgba(0,26,51,0.7), rgba(0,26,51,0.8)), url('https://images.unsplash.com/photo-1513584684374-8bdb74838a0f?auto=format&fit=crop&q=80&w=2070') center/cover no-repeat; 
-            z-index: -1; 
+        body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: #000; color: white; overflow-x: hidden; }
+
+        /* THE "LIVING" BACKGROUND SYSTEM */
+        .hero-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; overflow: hidden; background: #001a33;
         }
-        
-        header { padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Montserrat'; font-weight: 900; color: white; font-size: 1.5rem; text-decoration: none; letter-spacing: -1px; }
-        .logo span { color: var(--gold); }
+        .hero-bg video {
+            min-width: 100%; min-height: 100%;
+            width: auto; height: auto;
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: brightness(40%) contrast(110%);
+            animation: slowZoom 20s infinite alternate;
+        }
+        .hero-bg-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, rgba(0,26,51,0.2) 0%, rgba(0,0,0,0.8) 100%);
+        }
 
-        .main-content { max-width: 800px; margin: 0 auto; padding: 20px; flex: 1; width: 100%; text-align: center; }
-        
-        h1 { font-family: 'Montserrat'; font-size: 3rem; text-transform: uppercase; line-height: 0.9; margin-bottom: 10px; }
+        @keyframes slowZoom {
+            from { transform: translate(-50%, -50%) scale(1); }
+            to { transform: translate(-50%, -50%) scale(1.15); }
+        }
 
-        .chat-portal { background: white; border-radius: 30px; overflow: hidden; display: flex; flex-direction: column; height: 550px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); margin-top: 20px; text-align: left; }
-        .chat-header { background: #eee; color: #666; padding: 12px; text-align: center; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; }
+        /* CONTENT LAYOUT */
+        .hero-content {
+            min-height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            padding: 0 5%;
+        }
 
-        #chat-window { flex: 1; padding: 25px; overflow-y: auto; background: #fdfdfd; display: flex; flex-direction: column; }
-        .msg { margin-bottom: 20px; padding: 18px; border-radius: 15px; font-size: 1rem; width: fit-content; max-width: 85%; font-weight: 500; }
-        .bot { background: #f0f2f5; color: #222; align-self: flex-start; border-bottom-left-radius: 2px; }
-        .user { background: var(--navy); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
+        h1 { font-family: 'Montserrat'; font-size: clamp(2.5rem, 8vw, 5.5rem); text-transform: uppercase; letter-spacing: -3px; line-height: 0.9; margin: 0; }
+        h1 span { color: var(--gold); }
 
-        .input-area { padding: 20px; background: white; border-top: 1px solid #eee; display: flex; gap: 10px; }
-        input[type="text"] { flex: 1; padding: 15px; border: 2px solid #ddd; border-radius: 12px; font-size: 1rem; outline: none; font-weight: 600; }
-        button#send-btn { background: var(--navy); color: white; border: none; padding: 15px 25px; border-radius: 12px; cursor: pointer; font-weight: 900; font-family: 'Montserrat'; text-transform: uppercase; }
+        .sub-text { font-size: clamp(1rem, 2.5vw, 1.5rem); font-weight: 800; text-transform: uppercase; margin-top: 20px; color: rgba(255,255,255,0.8); letter-spacing: 1px; }
 
-        footer { padding: 40px; text-align: center; font-size: 0.8rem; opacity: 0.7; }
-        footer a { color: var(--gold); text-decoration: none; font-weight: 800; margin: 0 10px; }
+        /* THE CHAT/CTA INTERFACE */
+        .chat-container {
+            margin-top: 50px; background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.2);
+            padding: 30px; border-radius: 30px; width: 100%; max-width: 600px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .chat-bubble { background: white; color: black; padding: 20px; border-radius: 20px 20px 20px 0; text-align: left; font-weight: 700; margin-bottom: 25px; font-size: 1.1rem; }
+
+        .btn-main {
+            display: block; width: 100%; padding: 22px; background: var(--gold);
+            color: #001a33; text-decoration: none; font-family: 'Montserrat';
+            font-weight: 900; font-size: 1.3rem; border-radius: 15px;
+            text-transform: uppercase; transition: 0.3s;
+        }
+        .btn-main:hover { transform: scale(1.03); background: white; box-shadow: 0 0 30px var(--gold); }
+
+        .pro-link { margin-top: 30px; font-size: 0.8rem; text-transform: uppercase; font-weight: 800; color: white; opacity: 0.6; text-decoration: none; }
+        .pro-link:hover { opacity: 1; color: var(--neon); }
     </style>
 </head>
 <body>
-<div class="hero-bg"></div>
-<header><a href="index.html" class="logo">VV HOME <span>PRO</span></a></header>
 
-<main class="main-content">
-    <h1>Project <span>Matched.</span></h1>
-    <p style="font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">AI-Verified Vetting • Elite Contractors Only</p>
-
-    <div class="chat-portal">
-        <div class="chat-header">Secure AI Matching Active</div>
-        <div id="chat-window">
-            <div class="msg bot">Describe your project (e.g., Roof leak, HVAC repair). Our AI will build your lead card and match you with a premier pro.</div>
-        </div>
-        <div class="input-area">
-            <input type="text" id="user-input" placeholder="What do you need fixed?" onkeypress="if(event.key==='Enter') send()">
-            <button id="send-btn" onclick="send()">MATCH ME</button>
-        </div>
+    <div class="hero-bg">
+        <video autoplay muted loop playsinline poster="http://googleusercontent.com/image_collection/image_retrieval/5132630992915125046_0">
+            <source src="https://player.vimeo.com/external/459389137.sd.mp4?s=910243615456b9432608c0f56a02f306d87e07a3&profile_id=164&oauth2_token_id=57447761" type="video/mp4">
+        </video>
+        <div class="hero-bg-overlay"></div>
     </div>
-</main>
 
-<footer>
-    <p>&copy; 2026 VV HOME PRO</p>
-    <a href="privacy.html">Privacy</a> | <a href="terms.html">Terms</a> | <a href="pro.html">Are you a Contractor?</a>
-</footer>
+    <section class="hero-content">
+        <h1>Your Home. <span>Verified.</span></h1>
+        <p class="sub-text">The AI Engine that matches you with Elite Local Pros.</p>
 
-<script>
-    const WORKER = 'https://vvhomepro-brain.dbelnavis.workers.dev/';
-    let history = [];
+        <div class="chat-container">
+            <div class="chat-bubble">
+                "Hi! I'm the VV AI. I'll help you find the best Roofer or HVAC pro in your area in under 60 seconds. Ready to start?"
+            </div>
+            <a href="why-choose-vv-pro.html" class="btn-main">Get Started Now</a>
+        </div>
 
-    async function send() {
-        const input = document.getElementById('user-input');
-        const text = input.value.trim();
-        if(!text) return;
-        appendMsg('user', text);
-        input.value = '';
-        history.push({ role: "user", parts: [{ text: text }] });
-        const botMsg = appendMsg('bot', 'Processing territory availability...');
-        try {
-            const res = await fetch(WORKER, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contents: history }) });
-            const data = await res.json();
-            const aiText = data.candidates[0].content.parts[0].text;
-            history.push({ role: "model", parts: [{ text: aiText }] });
-            botMsg.innerHTML = marked.parse(aiText);
-        } catch (e) { botMsg.innerText = "Engine busy. Try again."; }
-        document.getElementById('chat-window').scrollTop = document.getElementById('chat-window').scrollHeight;
-    }
-    function appendMsg(role, text) {
-        const box = document.getElementById('chat-window');
-        const div = document.createElement('div');
-        div.className = `msg ${role}`;
-        div.innerHTML = text;
-        box.appendChild(div);
-        box.scrollTop = box.scrollHeight;
-        return div;
-    }
-</script>
+        <a href="pro.html" class="pro-link">Are you a Contractor? Access the Pro Registry →</a>
+    </section>
+
 </body>
 </html>
