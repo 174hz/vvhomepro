@@ -12,37 +12,51 @@
         * { box-sizing: border-box; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #000; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
         
-        /* BACKGROUND IMAGE - ASPIRATIONAL HOME */
-        .hero-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('http://googleusercontent.com/image_collection/image_retrieval/11859153709909796778_0') center/cover no-repeat; z-index: -1; }
+        /* BACKGROUND IMAGE */
+        .hero-bg { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat; 
+            z-index: -1; 
+        }
         
-        /* NAVIGATION BAR */
         header { background: white; padding: 0.8rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 1000; }
         .logo { font-family: 'Montserrat'; font-weight: 900; color: var(--navy); font-size: 1.1rem; text-decoration: none; }
         .nav-links a { text-decoration: none; color: var(--navy); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-left: 20px; cursor: pointer; font-family: 'Montserrat'; }
         .nav-links a.cta-gold { background: var(--gold); color: var(--navy); padding: 8px 15px; border-radius: 5px; }
 
-        /* CHAT PORTAL */
-        .main-content { max-width: 1200px; margin: 20px auto; padding: 0 15px; flex: 1; width: 100%; }
+        /* NARROWER LAYOUT */
+        .main-content { max-width: 850px; margin: 20px auto; padding: 0 15px; flex: 1; width: 100%; }
+
+        /* INSTRUCTIONS AREA */
+        .instruction-box { background: var(--glass); padding: 20px; border-radius: 15px; margin-bottom: 20px; border-left: 5px solid var(--gold); }
+        .instruction-box h3 { margin-top: 0; color: var(--navy); font-family: 'Montserrat'; font-size: 0.9rem; text-transform: uppercase; }
+        .instruction-box p { font-size: 0.85rem; color: #333; line-height: 1.5; margin-bottom: 5px; }
+
         .chat-portal { background: white; border-radius: 25px; overflow: hidden; display: flex; flex-direction: column; height: 600px; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
-        .chat-header { background: var(--navy); color: white; padding: 18px; text-align: center; font-weight: 900; font-size: 0.8rem; font-family: 'Montserrat'; letter-spacing: 2px; text-transform: uppercase; }
+        .chat-header { background: var(--navy); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; font-weight: 900; font-size: 0.75rem; font-family: 'Montserrat'; letter-spacing: 1px; text-transform: uppercase; }
+        .refresh-btn { background: var(--gold); color: var(--navy); border: none; padding: 5px 12px; border-radius: 4px; cursor: pointer; font-weight: 800; font-size: 0.7rem; }
+        
         #chat-window { flex: 1; padding: 30px; overflow-y: auto; background: #fdfdfd; }
-        .msg { margin-bottom: 25px; padding: 20px 25px; border-radius: 12px; line-height: 1.6; font-size: 1rem; width: 95%; font-family: 'Plus Jakarta Sans'; font-weight: 500; }
-        .bot { background: #f4f7fa; border-left: 6px solid var(--accent); align-self: flex-start; color: #222; }
-        .user { background: var(--navy); color: white; align-self: flex-end; text-align: right; border-right: 6px solid var(--gold); }
-        .input-area { padding: 20px; background: white; border-top: 1px solid #eee; }
-        input[type="text"] { flex: 1; padding: 15px; border: 1px solid #ddd; border-radius: 12px; font-size: 1.1rem; outline: none; width: 100%; margin-bottom: 10px; }
-        button#send-btn { background: var(--navy); color: white; border: none; padding: 15px 35px; border-radius: 12px; cursor: pointer; font-weight: 900; font-family: 'Montserrat'; text-transform: uppercase; width: 100%; }
+        .msg { margin-bottom: 20px; padding: 15px 20px; border-radius: 12px; line-height: 1.6; font-size: 0.95rem; width: 90%; font-weight: 500; }
+        .bot { background: #f4f7fa; border-left: 5px solid var(--accent); align-self: flex-start; }
+        .user { background: var(--navy); color: white; align-self: flex-end; margin-left: auto; border-right: 5px solid var(--gold); }
+        
+        /* LEAD CARD BUTTONS */
+        .action-btn { background: var(--gold); color: var(--navy); border: none; padding: 10px 20px; border-radius: 8px; font-weight: 800; margin-top: 10px; cursor: pointer; font-size: 0.8rem; text-transform: uppercase; margin-right: 10px; }
+        .confirm-btn { background: #28a745; color: white; }
 
-        /* PREMIER CONTRACTOR SECTION */
-        .pro-section { background: white; padding: 60px 20px; text-align: center; border-top: 5px solid var(--navy); margin-top: 40px; }
-        .pricing-card { max-width: 700px; margin: 0 auto; background: var(--offwhite); border: 1px solid #e0e0e0; padding: 40px; border-radius: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        h2.premium-title { font-family: 'Montserrat'; color: var(--navy); font-size: 2rem; margin-top: 0; font-weight: 900; }
-        .region-dropdown { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid #ddd; font-size: 1rem; color: var(--navy); background: white; margin-bottom: 20px; font-weight: bold; }
-        .activate-btn { display: inline-block; background: var(--navy); color: white; padding: 18px 30px; border-radius: 12px; text-decoration: none; font-weight: 900; font-size: 1.2rem; width: 100%; font-family: 'Montserrat'; text-transform: uppercase; }
+        .input-area { padding: 20px; background: white; border-top: 1px solid #eee; display: flex; gap: 10px; }
+        input[type="text"] { flex: 1; padding: 15px; border: 1px solid #ddd; border-radius: 12px; font-size: 1rem; outline: none; }
+        button#send-btn { background: var(--navy); color: white; border: none; padding: 15px 30px; border-radius: 12px; cursor: pointer; font-weight: 900; font-family: 'Montserrat'; text-transform: uppercase; }
 
-        /* FOOTER */
-        footer { background: rgba(0,0,0,0.8); color: white; padding: 30px; text-align: center; font-size: 0.85rem; margin-top: auto; }
-        .footer-links a { color: var(--gold); text-decoration: none; margin: 0 15px; cursor: pointer; font-weight: 700; font-family: 'Montserrat'; font-size: 0.7rem; }
+        .pro-section { background: white; padding: 40px 20px; text-align: center; border-top: 5px solid var(--navy); margin-top: 40px; border-radius: 25px 25px 0 0; }
+        .pricing-card { max-width: 600px; margin: 0 auto; }
+        h2.premium-title { font-family: 'Montserrat'; color: var(--navy); font-size: 1.6rem; margin-top: 0; font-weight: 900; }
+        .region-dropdown { width: 100%; padding: 12px; border-radius: 10px; border: 2px solid #ddd; font-weight: bold; margin-bottom: 20px; }
+        .activate-btn { display: block; background: var(--navy); color: white; padding: 18px; border-radius: 12px; text-decoration: none; font-weight: 900; font-family: 'Montserrat'; text-transform: uppercase; }
+
+        footer { background: rgba(0,0,0,0.9); color: white; padding: 30px; text-align: center; font-size: 0.8rem; }
+        .footer-links a { color: var(--gold); text-decoration: none; margin: 0 15px; font-weight: 700; }
     </style>
 </head>
 <body>
@@ -59,29 +73,36 @@
 </header>
 
 <main class="main-content">
+    <div class="instruction-box">
+        <h3>How to Connect with Elite Contractors:</h3>
+        <p>1. <strong>Identify Your Project:</strong> Type your problem (e.g., "I have a leaky roof" or "My AC is broken").</p>
+        <p>2. <strong>Define the Scope:</strong> Answer a few brief questions from our AI Engine to build your Lead Card.</p>
+        <p>3. <strong>Confirm & Match:</strong> Review your details, click "Confirm," and your lead is instantly sent to an elite contractor in your territory. They will contact you at your requested time.</p>
+    </div>
+
     <div class="chat-portal">
-        <div class="chat-header">AI MATCHING ENGINE ACTIVE</div>
+        <div class="chat-header">
+            <span>AI MATCHING ENGINE ACTIVE</span>
+            <button class="refresh-btn" onclick="window.location.reload()">REFRESH</button>
+        </div>
         <div id="chat-window">
             <div class="msg bot">Welcome. What project are you planning today? (e.g., HVAC, Roofing)</div>
         </div>
         <div class="input-area">
-            <input type="text" id="user-input" placeholder="Type your project..." onkeypress="if(event.key==='Enter') send()">
+            <input type="text" id="user-input" placeholder="e.g. I have a leaky roof..." onkeypress="if(event.key==='Enter') send()">
             <button id="send-btn" onclick="send()">SEND</button>
         </div>
     </div>
 
     <section id="contractors" class="pro-section">
         <div class="pricing-card">
-            <h2 class="premium-title">Are You a Premier Contractor?</h2>
-            <p style="color: #444; font-size: 1rem; margin-bottom: 25px;">Secure your exclusive territory in our AI-vetted lead network. Join a limited group of regional partners.</p>
-            
-            <label for="region-select" style="display:block; font-weight:800; color:var(--navy); margin-bottom:10px; text-transform:uppercase; font-size:0.8rem; font-family: 'Montserrat';">Choose Region & Pricing:</label>
+            <h2 class="premium-title">Premier Contractor Registry</h2>
+            <p style="color: #444; font-size: 0.9rem; margin-bottom: 20px;">Secure your exclusive territory in our AI-vetted lead network.</p>
             <select id="region-select" class="region-dropdown" onchange="updateStripeLink()">
                 <option value="https://buy.stripe.com/7sY5klfoS4HQbtC39Ja7C0l">New Jersey (NJ) - $349 USD / Year</option>
                 <option value="https://buy.stripe.com/14AbIJ7Wq2zI69ibGfa7C0m">Massachusetts (MA) - $349 USD / Year</option>
                 <option value="https://buy.stripe.com/eVq9AB2C67U28hqbGfa7C0k">Ontario (CAN) - $249 CAD / Year</option>
             </select>
-
             <a id="stripe-button" href="https://buy.stripe.com/7sY5klfoS4HQbtC39Ja7C0l" class="activate-btn">ACTIVATE REGISTRY</a>
         </div>
     </section>
@@ -107,13 +128,15 @@
 
     async function send() {
         const input = document.getElementById('user-input');
-        const box = document.getElementById('chat-window');
         const text = input.value.trim();
         if(!text) return;
+
         appendMsg('user', text);
         input.value = '';
         history.push({ role: "user", parts: [{ text: text }] });
+
         const botMsg = appendMsg('bot', 'AI is analyzing your scope...');
+        
         try {
             const res = await fetch(WORKER, {
                 method: 'POST',
@@ -121,22 +144,51 @@
                 body: JSON.stringify({ contents: history })
             });
             const data = await res.json();
-            const aiText = data.candidates[0].content.parts[0].text;
+            let aiText = data.candidates[0].content.parts[0].text;
+            
             history.push({ role: "model", parts: [{ text: aiText }] });
+            
+            // Clean AI formatting and add buttons if the AI looks like it's finishing a lead card
             botMsg.innerHTML = marked.parse(aiText);
+
+            if(aiText.toLowerCase().includes("confirm") || aiText.toLowerCase().includes("lead card")) {
+                const btnContainer = document.createElement('div');
+                btnContainer.innerHTML = `
+                    <button class="action-btn confirm-btn" onclick="confirmLead()">CONFIRM LEAD</button>
+                    <button class="action-btn" onclick="editLead()">EDIT DETAILS</button>
+                `;
+                botMsg.appendChild(btnContainer);
+            }
+
         } catch (e) {
             botMsg.innerText = "Connection busy. Try again.";
         }
-        box.scrollTop = box.scrollHeight;
+        scrollToBottom();
     }
+
+    function confirmLead() {
+        const botMsg = appendMsg('bot', '<strong>LEAD CONFIRMED.</strong> We have dispatched your project summary to the elite contractor for your territory. They will reach out shortly.');
+        scrollToBottom();
+    }
+
+    function editLead() {
+        appendMsg('bot', 'No problem. Which part of the lead card should we adjust? (e.g., the time, the budget, or the description?)');
+        scrollToBottom();
+    }
+
     function appendMsg(role, text) {
         const box = document.getElementById('chat-window');
         const div = document.createElement('div');
         div.className = `msg ${role}`;
-        div.innerText = text;
+        div.innerHTML = text; // Changed to innerHTML to support buttons
         box.appendChild(div);
-        box.scrollTop = box.scrollHeight;
+        scrollToBottom();
         return div;
+    }
+
+    function scrollToBottom() {
+        const box = document.getElementById('chat-window');
+        box.scrollTop = box.scrollHeight;
     }
 </script>
 
