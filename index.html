@@ -12,51 +12,57 @@
         * { box-sizing: border-box; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #000; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
         
-        /* BACKGROUND IMAGE */
+        /* VISUAL VALIDATION BACKGROUND */
         .hero-bg { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat; 
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('http://googleusercontent.com/image_collection/image_retrieval/16055782447792464314_0') center/cover no-repeat; 
             z-index: -1; 
         }
         
+        /* NAVIGATION */
         header { background: white; padding: 0.8rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--navy); position: sticky; top: 0; z-index: 1000; }
         .logo { font-family: 'Montserrat'; font-weight: 900; color: var(--navy); font-size: 1.1rem; text-decoration: none; }
         .nav-links a { text-decoration: none; color: var(--navy); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-left: 20px; cursor: pointer; font-family: 'Montserrat'; }
         .nav-links a.cta-gold { background: var(--gold); color: var(--navy); padding: 8px 15px; border-radius: 5px; }
 
-        /* NARROWER LAYOUT */
-        .main-content { max-width: 850px; margin: 20px auto; padding: 0 15px; flex: 1; width: 100%; }
+        /* NARROWER MAIN CONTENT AREA */
+        .main-content { max-width: 800px; margin: 20px auto; padding: 0 15px; flex: 1; width: 100%; }
 
-        /* INSTRUCTIONS AREA */
-        .instruction-box { background: var(--glass); padding: 20px; border-radius: 15px; margin-bottom: 20px; border-left: 5px solid var(--gold); }
-        .instruction-box h3 { margin-top: 0; color: var(--navy); font-family: 'Montserrat'; font-size: 0.9rem; text-transform: uppercase; }
-        .instruction-box p { font-size: 0.85rem; color: #333; line-height: 1.5; margin-bottom: 5px; }
+        /* INSTRUCTION BOX */
+        .instruction-box { background: var(--glass); padding: 25px; border-radius: 20px; margin-bottom: 20px; border-left: 6px solid var(--gold); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .instruction-box h3 { margin-top: 0; color: var(--navy); font-family: 'Montserrat'; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        .instruction-box p { font-size: 0.9rem; color: #333; line-height: 1.6; margin: 8px 0; }
 
+        /* CHAT PORTAL */
         .chat-portal { background: white; border-radius: 25px; overflow: hidden; display: flex; flex-direction: column; height: 600px; box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
-        .chat-header { background: var(--navy); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; font-weight: 900; font-size: 0.75rem; font-family: 'Montserrat'; letter-spacing: 1px; text-transform: uppercase; }
-        .refresh-btn { background: var(--gold); color: var(--navy); border: none; padding: 5px 12px; border-radius: 4px; cursor: pointer; font-weight: 800; font-size: 0.7rem; }
-        
-        #chat-window { flex: 1; padding: 30px; overflow-y: auto; background: #fdfdfd; }
-        .msg { margin-bottom: 20px; padding: 15px 20px; border-radius: 12px; line-height: 1.6; font-size: 0.95rem; width: 90%; font-weight: 500; }
-        .bot { background: #f4f7fa; border-left: 5px solid var(--accent); align-self: flex-start; }
-        .user { background: var(--navy); color: white; align-self: flex-end; margin-left: auto; border-right: 5px solid var(--gold); }
-        
-        /* LEAD CARD BUTTONS */
-        .action-btn { background: var(--gold); color: var(--navy); border: none; padding: 10px 20px; border-radius: 8px; font-weight: 800; margin-top: 10px; cursor: pointer; font-size: 0.8rem; text-transform: uppercase; margin-right: 10px; }
+        .chat-header { background: var(--navy); color: white; padding: 18px; display: flex; justify-content: space-between; align-items: center; font-weight: 900; font-size: 0.75rem; font-family: 'Montserrat'; letter-spacing: 2px; text-transform: uppercase; }
+        .refresh-btn { background: var(--gold); color: var(--navy); border: none; padding: 6px 15px; border-radius: 5px; cursor: pointer; font-weight: 800; font-size: 0.7rem; transition: 0.3s; }
+        .refresh-btn:hover { background: #b08d4a; }
+
+        #chat-window { flex: 1; padding: 30px; overflow-y: auto; background: #fdfdfd; display: flex; flex-direction: column; }
+        .msg { margin-bottom: 25px; padding: 18px 22px; border-radius: 12px; line-height: 1.6; font-size: 1rem; width: fit-content; max-width: 90%; font-family: 'Plus Jakarta Sans'; font-weight: 500; }
+        .bot { background: #f4f7fa; border-left: 6px solid var(--accent); align-self: flex-start; color: #222; }
+        .user { background: var(--navy); color: white; align-self: flex-end; border-right: 6px solid var(--gold); }
+
+        /* LEAD CARD ACTION BUTTONS */
+        .card-actions { margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
+        .action-btn { border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-family: 'Montserrat'; font-weight: 800; text-transform: uppercase; font-size: 0.8rem; }
         .confirm-btn { background: #28a745; color: white; }
+        .edit-btn { background: #6c757d; color: white; }
 
-        .input-area { padding: 20px; background: white; border-top: 1px solid #eee; display: flex; gap: 10px; }
+        .input-area { padding: 20px; background: white; border-top: 1px solid #eee; display: flex; flex-direction: column; gap: 10px; }
         input[type="text"] { flex: 1; padding: 15px; border: 1px solid #ddd; border-radius: 12px; font-size: 1rem; outline: none; }
-        button#send-btn { background: var(--navy); color: white; border: none; padding: 15px 30px; border-radius: 12px; cursor: pointer; font-weight: 900; font-family: 'Montserrat'; text-transform: uppercase; }
+        button#send-btn { background: var(--navy); color: white; border: none; padding: 15px; border-radius: 12px; cursor: pointer; font-weight: 900; font-family: 'Montserrat'; text-transform: uppercase; }
 
-        .pro-section { background: white; padding: 40px 20px; text-align: center; border-top: 5px solid var(--navy); margin-top: 40px; border-radius: 25px 25px 0 0; }
-        .pricing-card { max-width: 600px; margin: 0 auto; }
-        h2.premium-title { font-family: 'Montserrat'; color: var(--navy); font-size: 1.6rem; margin-top: 0; font-weight: 900; }
-        .region-dropdown { width: 100%; padding: 12px; border-radius: 10px; border: 2px solid #ddd; font-weight: bold; margin-bottom: 20px; }
-        .activate-btn { display: block; background: var(--navy); color: white; padding: 18px; border-radius: 12px; text-decoration: none; font-weight: 900; font-family: 'Montserrat'; text-transform: uppercase; }
+        /* CONTRACTOR PRICING SECTION */
+        .pro-section { background: white; padding: 50px 20px; text-align: center; border-top: 5px solid var(--navy); margin-top: 40px; border-radius: 25px 25px 0 0; }
+        .pricing-card { max-width: 600px; margin: 0 auto; background: var(--offwhite); border: 1px solid #e0e0e0; padding: 35px; border-radius: 25px; }
+        h2.premium-title { font-family: 'Montserrat'; color: var(--navy); font-size: 1.8rem; margin-top: 0; font-weight: 900; }
+        .region-dropdown { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid #ddd; font-size: 1rem; font-weight: bold; margin-bottom: 20px; }
+        .activate-btn { display: block; background: var(--navy); color: white; padding: 20px; border-radius: 12px; text-decoration: none; font-weight: 900; font-family: 'Montserrat'; text-transform: uppercase; font-size: 1.1rem; }
 
-        footer { background: rgba(0,0,0,0.9); color: white; padding: 30px; text-align: center; font-size: 0.8rem; }
-        .footer-links a { color: var(--gold); text-decoration: none; margin: 0 15px; font-weight: 700; }
+        footer { background: rgba(0,0,0,0.9); color: white; padding: 40px; text-align: center; font-size: 0.85rem; }
+        .footer-links a { color: var(--gold); text-decoration: none; margin: 0 15px; font-weight: 700; font-family: 'Montserrat'; font-size: 0.75rem; }
     </style>
 </head>
 <body>
@@ -75,34 +81,37 @@
 <main class="main-content">
     <div class="instruction-box">
         <h3>How to Connect with Elite Contractors:</h3>
-        <p>1. <strong>Identify Your Project:</strong> Type your problem (e.g., "I have a leaky roof" or "My AC is broken").</p>
-        <p>2. <strong>Define the Scope:</strong> Answer a few brief questions from our AI Engine to build your Lead Card.</p>
-        <p>3. <strong>Confirm & Match:</strong> Review your details, click "Confirm," and your lead is instantly sent to an elite contractor in your territory. They will contact you at your requested time.</p>
+        <p><strong>1. State Your Problem:</strong> Type your need (e.g., "I have a leaky roof" or "HVAC repair") into the chat.</p>
+        <p><strong>2. Create Lead Card:</strong> Answer the AI questions to generate your project scope.</p>
+        <p><strong>3. Confirm:</strong> Click "Confirm" to send your lead card to our elite directory. The contractor will contact you at your requested time.</p>
     </div>
 
     <div class="chat-portal">
         <div class="chat-header">
             <span>AI MATCHING ENGINE ACTIVE</span>
-            <button class="refresh-btn" onclick="window.location.reload()">REFRESH</button>
+            <button class="refresh-btn" onclick="resetChat()">REFRESH</button>
         </div>
         <div id="chat-window">
             <div class="msg bot">Welcome. What project are you planning today? (e.g., HVAC, Roofing)</div>
         </div>
         <div class="input-area">
-            <input type="text" id="user-input" placeholder="e.g. I have a leaky roof..." onkeypress="if(event.key==='Enter') send()">
-            <button id="send-btn" onclick="send()">SEND</button>
+            <input type="text" id="user-input" placeholder="Type your project e.g. I have a leaky roof..." onkeypress="if(event.key==='Enter') send()">
+            <button id="send-btn" onclick="send()">SEND PROJECT DETAILS</button>
         </div>
     </div>
 
     <section id="contractors" class="pro-section">
         <div class="pricing-card">
-            <h2 class="premium-title">Premier Contractor Registry</h2>
-            <p style="color: #444; font-size: 0.9rem; margin-bottom: 20px;">Secure your exclusive territory in our AI-vetted lead network.</p>
+            <h2 class="premium-title">Are You a Premier Contractor?</h2>
+            <p style="color: #444; font-size: 1rem; margin-bottom: 25px;">Secure your exclusive territory in our AI-vetted lead network.</p>
+            
+            <label style="display:block; font-weight:800; color:var(--navy); margin-bottom:10px; text-transform:uppercase; font-size:0.8rem; font-family: 'Montserrat';">Choose Region:</label>
             <select id="region-select" class="region-dropdown" onchange="updateStripeLink()">
                 <option value="https://buy.stripe.com/7sY5klfoS4HQbtC39Ja7C0l">New Jersey (NJ) - $349 USD / Year</option>
                 <option value="https://buy.stripe.com/14AbIJ7Wq2zI69ibGfa7C0m">Massachusetts (MA) - $349 USD / Year</option>
                 <option value="https://buy.stripe.com/eVq9AB2C67U28hqbGfa7C0k">Ontario (CAN) - $249 CAD / Year</option>
             </select>
+
             <a id="stripe-button" href="https://buy.stripe.com/7sY5klfoS4HQbtC39Ja7C0l" class="activate-btn">ACTIVATE REGISTRY</a>
         </div>
     </section>
@@ -126,6 +135,11 @@
         button.href = select.value;
     }
 
+    function resetChat() {
+        history = [];
+        document.getElementById('chat-window').innerHTML = '<div class="msg bot">Welcome. What project are you planning today? (e.g., HVAC, Roofing)</div>';
+    }
+
     async function send() {
         const input = document.getElementById('user-input');
         const text = input.value.trim();
@@ -144,20 +158,20 @@
                 body: JSON.stringify({ contents: history })
             });
             const data = await res.json();
-            let aiText = data.candidates[0].content.parts[0].text;
+            const aiText = data.candidates[0].content.parts[0].text;
             
             history.push({ role: "model", parts: [{ text: aiText }] });
-            
-            // Clean AI formatting and add buttons if the AI looks like it's finishing a lead card
             botMsg.innerHTML = marked.parse(aiText);
 
-            if(aiText.toLowerCase().includes("confirm") || aiText.toLowerCase().includes("lead card")) {
-                const btnContainer = document.createElement('div');
-                btnContainer.innerHTML = `
-                    <button class="action-btn confirm-btn" onclick="confirmLead()">CONFIRM LEAD</button>
-                    <button class="action-btn" onclick="editLead()">EDIT DETAILS</button>
+            // Logic to show Lead Card Actions
+            if(aiText.toLowerCase().includes("lead card") || aiText.toLowerCase().includes("confirm")) {
+                const actionDiv = document.createElement('div');
+                actionDiv.className = 'card-actions';
+                actionDiv.innerHTML = `
+                    <button class="action-btn confirm-btn" onclick="finalizeLead()">CONFIRM LEAD</button>
+                    <button class="action-btn edit-btn" onclick="requestEdit()">EDIT DETAILS</button>
                 `;
-                botMsg.appendChild(btnContainer);
+                botMsg.appendChild(actionDiv);
             }
 
         } catch (e) {
@@ -166,21 +180,19 @@
         scrollToBottom();
     }
 
-    function confirmLead() {
-        const botMsg = appendMsg('bot', '<strong>LEAD CONFIRMED.</strong> We have dispatched your project summary to the elite contractor for your territory. They will reach out shortly.');
-        scrollToBottom();
+    function finalizeLead() {
+        appendMsg('bot', '<strong>LEAD SECURED.</strong> Your project summary has been sent to our elite partner for your region. They will contact you at your requested time. Thank you for using VV HOME PRO.');
     }
 
-    function editLead() {
-        appendMsg('bot', 'No problem. Which part of the lead card should we adjust? (e.g., the time, the budget, or the description?)');
-        scrollToBottom();
+    function requestEdit() {
+        appendMsg('bot', 'Understood. Please type exactly which details you would like to change (e.g., "Change my contact time to 3 PM").');
     }
 
     function appendMsg(role, text) {
         const box = document.getElementById('chat-window');
         const div = document.createElement('div');
         div.className = `msg ${role}`;
-        div.innerHTML = text; // Changed to innerHTML to support buttons
+        div.innerHTML = text;
         box.appendChild(div);
         scrollToBottom();
         return div;
