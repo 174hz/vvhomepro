@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contractor Registry | VV HOME PRO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --neon-green: #39FF14; --gold: #FFD700; --dark: #050505; }
+        body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark); color: white; line-height: 1.2; }
+        
+        /* THE "PUNCH" HEADER */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 5%; }
+        
+        h1 { font-family: 'Montserrat'; font-size: clamp(2.5rem, 8vw, 5rem); text-transform: uppercase; letter-spacing: -3px; margin: 0; }
+        .highlight { color: var(--neon-green); }
+        .money { color: var(--gold); text-decoration: underline; }
+
+        .sub-hook { font-size: clamp(1rem, 3vw, 1.8rem); font-weight: 800; margin-top: 20px; max-width: 900px; opacity: 0.9; }
+
+        /* TERRITORY CARD */
+        .cta-box { 
+            margin-top: 50px; 
+            background: rgba(255,255,255,0.05); 
+            padding: 40px; 
+            border-radius: 30px; 
+            border: 1px solid rgba(255,255,255,0.1);
+            width: 100%; max-width: 500px;
+        }
+
+        select { 
+            width: 100%; padding: 20px; border-radius: 12px; border: none; 
+            font-size: 1.1rem; font-weight: 900; margin-bottom: 20px; background: white;
+        }
+
+        .btn { 
+            display: block; width: 100%; padding: 25px; border-radius: 12px; 
+            background: var(--neon-green); color: black; text-decoration: none;
+            font-family: 'Montserrat'; font-weight: 900; font-size: 1.4rem; 
+            text-transform: uppercase; transition: 0.3s;
+        }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--neon-green); }
+
+        .demo-link { margin-top: 20px; font-size: 0.8rem; text-transform: uppercase; opacity: 0.6; color: white; }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <h1>Stop Losing <span class="money">$20,000+</span> Leads To Your <br>Slowest Competitor.</h1>
+        <p class="sub-hook">
+            VV HOME PRO installs a 24/7 AI "Lead-Responder" for <span class="highlight">Roofers & HVAC</span> that captures, vets, and connects inquiries in <span class="highlight">< 30 Seconds.</span>
+        </p>
+
+        <div class="cta-box">
+            <p style="text-transform: uppercase; font-weight: 900; margin-bottom: 10px; color: var(--gold);">Lock Your Exclusive Territory</p>
+            <select id="region-select" onchange="updateLink()">
+                <option value="https://buy.stripe.com/7sY5klfoS4HQbtC39Ja7C0l">New Jersey (NJ) - $349 / Year</option>
+                <option value="https://buy.stripe.com/14AbIJ7Wq2zI69ibGfa7C0m">Massachusetts (MA) - $349 / Year</option>
+                <option value="https://buy.stripe.com/eVq9AB2C67U28hqbGfa7C0k">Ontario (CAN) - $249 / Year</option>
+            </select>
+            <a id="stripe-btn" href="https://buy.stripe.com/7sY5klfoS4HQbtC39Ja7C0l" class="btn">SECURE MY SPOT</a>
+            
+            <a href="index.html" class="demo-link">See the Homeowner AI Portal in Action →</a>
+        </div>
+    </section>
+
+    <script>
+        function updateLink() {
+            document.getElementById('stripe-btn').href = document.getElementById('region-select').value;
+        }
+    </script>
+</body>
+</html>
