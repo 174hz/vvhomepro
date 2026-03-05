@@ -3,92 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VV HOME | Messenger Engine</title>
+    <title>VV HOME | AI Matching Engine</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        :root { --navy: #001a33; --gold: #c5a059; --neon: #39FF14; --bg: #0a0a0a; --ai-bubble: #e9e9eb; --user-bubble: #007aff; }
+        :root { --navy: #001a33; --gold: #c5a059; --neon: #39FF14; --bg: #0a0a0a; --ai-bubble: #f0f0f0; --user-bubble: #007aff; }
         * { box-sizing: border-box; }
-        body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; }
-
-        /* MESSENGER WINDOW */
-        .messenger-card {
-            background: #fff; width: 100%; max-width: 500px; height: 700px; 
-            border-radius: 30px; border: 3px solid var(--navy); display: flex; flex-direction: column; overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-        }
-
-        .header { background: var(--navy); color: white; padding: 20px; text-align: center; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
-
-        .chat-area { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth; }
-
-        /* BUBBLES */
-        .bubble { max-width: 80%; padding: 14px 18px; border-radius: 20px; font-size: 0.95rem; line-height: 1.4; position: relative; }
-        .ai { align-self: flex-start; background: var(--ai-bubble); color: #000; border-bottom-left-radius: 5px; font-weight: 500; }
-        .user { align-self: flex-end; background: var(--user-bubble); color: #fff; border-bottom-right-radius: 5px; font-weight: 700; text-align: right; }
-
-        /* INPUT AREA */
-        .input-box { padding: 20px; border-top: 1px solid #eee; background: #fafafa; display: flex; gap: 10px; }
-        input, select { flex: 1; border: 2px solid #ddd; padding: 12px 15px; border-radius: 25px; outline: none; font-family: inherit; font-weight: 600; }
-        .send-btn { background: var(--navy); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: 900; }
-
-        /* LEAD CARD */
-        #finalOutput { display: none; padding: 20px; }
-        #leadCardCapture { background: var(--navy); color: white; padding: 25px; border-radius: 20px; border: 2px solid var(--neon); font-family: monospace; position: relative; }
-        .card-row { margin-bottom: 8px; font-size: 0.85rem; }
+        body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .container { display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 500px; }
+        .instructions { background: #fff; padding: 25px; border-radius: 20px; border: 2px solid var(--gold); }
+        .instructions h3 { margin-top: 0; font-family: 'Montserrat'; font-size: 1rem; color: var(--navy); }
+        .instructions ol { padding-left: 20px; font-size: 0.85rem; line-height: 1.6; color: #444; margin-bottom: 0; }
+        .messenger-card { background: #fff; height: 600px; border-radius: 30px; border: 3px solid var(--navy); display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
+        .header { background: var(--navy); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .header span { font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
+        .refresh-btn { background: var(--gold); color: white; border: none; padding: 8px 15px; border-radius: 8px; font-family: 'Montserrat'; font-weight: 900; font-size: 0.7rem; cursor: pointer; }
+        .chat-area { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
+        .bubble { max-width: 85%; padding: 12px 16px; border-radius: 18px; font-size: 0.9rem; line-height: 1.4; }
+        .ai { align-self: flex-start; background: var(--ai-bubble); color: #000; border-bottom-left-radius: 4px; font-weight: 600; }
+        .user { align-self: flex-end; background: var(--user-bubble); color: #fff; border-bottom-right-radius: 4px; font-weight: 700; }
+        .input-box { padding: 15px; border-top: 1px solid #eee; background: #fafafa; display: flex; gap: 8px; }
+        input, select { flex: 1; border: 2px solid #ddd; padding: 12px; border-radius: 20px; outline: none; font-family: inherit; font-weight: 600; }
+        .send-btn { background: var(--navy); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
+        #finalOutput { display: none; padding: 15px; }
+        #leadCardCapture { background: var(--navy); color: white; padding: 25px; border-radius: 15px; border: 2px solid var(--neon); font-family: monospace; }
+        .card-row { margin-bottom: 8px; font-size: 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 4px; }
         .card-row span { color: var(--gold); }
-        .actions { display: flex; gap: 10px; margin-top: 20px; }
-        .btn { padding: 15px; border-radius: 10px; cursor: pointer; border: none; font-weight: 900; text-transform: uppercase; font-size: 0.8rem; flex: 1; }
+        .actions { display: flex; gap: 10px; margin-top: 15px; }
+        .btn { padding: 14px; border-radius: 10px; cursor: pointer; border: none; font-weight: 900; text-transform: uppercase; font-size: 0.75rem; flex: 1; }
         .btn-confirm { background: var(--neon); color: black; }
         .btn-edit { background: transparent; border: 1px solid white; color: white; }
         .btn-download { background: var(--gold); color: white; display: none; width: 100%; margin-top: 10px; }
     </style>
 </head>
 <body>
-
-    <div class="messenger-card">
-        <div class="header">Project Engine</div>
-        
-        <div class="chat-area" id="chatArea">
-            <div class="bubble ai">Hello. What is the project issue you're dealing with today?</div>
+    <div class="container">
+        <div class="instructions">
+            <h3>How to use AI Matching Engine</h3>
+            <ol>
+                <li><b>State project:</b> e.g., Roofing, Renovations, HVAC.</li>
+                <li><b>Details:</b> Name, City/Province, and Phone.</li>
+                <li><b>Service Zones:</b> We currently service MA, NJ, and Ontario.</li>
+            </ol>
         </div>
-
-        <div class="input-box" id="inputContainer">
-            <input type="text" id="userInput" placeholder="Type your message..." onkeypress="handleKey(event)">
-            <button class="send-btn" onclick="processInput()">↑</button>
-        </div>
-
-        <div id="scopeSelectWrapper" style="display:none; padding: 10px 20px;">
-            <select id="scopeInput">
-                <option value="Minor Repair">Minor Repair</option>
-                <option value="Major Job">Major Job</option>
-            </select>
-            <button class="btn-confirm" onclick="processInput(true)" style="margin-top:5px; width:100%;">Set Scope</button>
-        </div>
-
-        <div id="finalOutput">
-            <div id="leadCardCapture">
-                <div style="color:var(--neon); margin-bottom:10px; font-size:0.7rem;">ID: #795917 | VV HOME PRO</div>
-                <div class="card-row">NAME: <span id="out_name"></span></div>
-                <div class="card-row">ISSUE: <span id="out_issue"></span></div>
-                <div class="card-row">MARKET: <span id="out_market"></span></div>
-                <div class="card-row">PHONE: <span id="out_phone"></span></div>
-                <div class="card-row">TIME: <span id="out_time"></span></div>
+        <div class="messenger-card">
+            <div class="header"><span>AI Matching Engine</span><button class="refresh-btn" onclick="location.reload()">Refresh</button></div>
+            <div class="chat-area" id="chatArea"><div class="bubble ai">Hello. What project are you looking to start? (e.g. Roofing, Renovations, Improvements)</div></div>
+            <div class="input-box" id="inputContainer"><input type="text" id="userInput" placeholder="Type here..." onkeypress="handleKey(event)"><button class="send-btn" onclick="processInput()">↑</button></div>
+            <div id="scopeSelectWrapper" style="display:none; padding: 15px; border-top: 1px solid #eee;"><select id="scopeInput"><option value="Minor Repair">Minor Repair</option><option value="Major Job">Major Job</option></select><button class="btn-confirm" onclick="processInput(true)" style="margin-top:8px; width:100%;">Set Scope</button></div>
+            <div id="finalOutput">
+                <div id="leadCardCapture">
+                    <div style="color:var(--neon); margin-bottom:12px; font-size:0.7rem; font-weight:bold;">ID: #795917 | VV HOME MATCH</div>
+                    <div class="card-row">PROJECT: <span id="out_issue"></span></div>
+                    <div class="card-row">NAME: <span id="out_name"></span></div>
+                    <div class="card-row">LOCATION: <span id="out_market"></span></div>
+                    <div class="card-row">PHONE: <span id="out_phone"></span></div>
+                    <div class="card-row">CALLBACK: <span id="out_time"></span></div>
+                </div>
+                <div class="actions" id="verifyButtons"><button class="btn btn-edit" onclick="location.reload()">Edit</button><button class="btn btn-confirm" onclick="dispatch()">Confirm & Match</button></div>
+                <button class="btn btn-download" id="dlBtn" onclick="downloadPNG()">Download Lead PNG</button>
             </div>
-            <div class="actions" id="verifyButtons">
-                <button class="btn btn-edit" onclick="location.reload()">Restart</button>
-                <button class="btn btn-confirm" onclick="dispatch()">Confirm & Lock</button>
-            </div>
-            <button class="btn btn-download" id="dlBtn" onclick="downloadPNG()">Download Lead PNG</button>
         </div>
     </div>
 
     <script>
         let step = 1;
         let data = { issue: '', name: '', market: '', phone: '', scope: '', time: '' };
+        const KEYWORDS = ['roof', 'hvac', 'window', 'repair', 'home', 'leak', 'pipe', 'door', 'fix', 'install', 'renovation', 'improvement', 'kitchen', 'bath', 'basement'];
+        const VALID_ZONES = ['MA', 'NJ', 'ON', 'ONTARIO', 'MASSACHUSETTS', 'NEW JERSEY', 'TORONTO', 'OTTAWA', 'BOSTON', 'NEWARK'];
 
         function handleKey(e) { if(e.key === 'Enter') processInput(); }
-
         function addBubble(text, type) {
             const area = document.getElementById('chatArea');
             const b = document.createElement('div');
@@ -100,42 +84,41 @@
 
         function processInput(isScope = false) {
             const input = document.getElementById('userInput');
-            const val = isScope ? document.getElementById('scopeInput').value : input.value;
+            const val = isScope ? document.getElementById('scopeInput').value : input.value.trim();
             if(!val && !isScope) return;
+
+            // Parameter Guard (Step 1)
+            if (step === 1 && !isScope) {
+                const isGermane = KEYWORDS.some(k => val.toLowerCase().includes(k));
+                if (!isGermane) {
+                    addBubble(val, 'user'); input.value = '';
+                    setTimeout(() => addBubble("I am specifically tuned for home service projects and renovations. I cannot assist with that. Please state your project to begin.", 'ai'), 600);
+                    return;
+                }
+            }
 
             addBubble(val, 'user');
             if(!isScope) input.value = '';
 
             setTimeout(() => {
-                if(step === 1) {
-                    data.issue = val;
-                    addBubble("Got it. And what is your full name?", 'ai');
-                    step++;
-                } else if(step === 2) {
-                    data.name = val;
-                    addBubble("Which city/region? (MA, NJ, or Ontario)", 'ai');
-                    step++;
-                } else if(step === 3) {
-                    data.market = val.toUpperCase();
-                    addBubble("What is the best phone number to reach you?", 'ai');
-                    step++;
+                if(step === 1) { data.issue = val; addBubble("What is your full name?", 'ai'); step++; }
+                else if(step === 2) { data.name = val; addBubble("Which city/region? (MA, NJ, or Ontario)", 'ai'); step++; }
+                else if(step === 3) {
+                    const isTarget = VALID_ZONES.some(z => val.toUpperCase().includes(z));
+                    if (!isTarget) {
+                        addBubble("I am currently only optimized for the MA, NJ, and Ontario markets. Please provide a location in one of these zones to proceed.", 'ai');
+                        return; // Hard block
+                    }
+                    data.market = val.toUpperCase(); addBubble("What is your phone number?", 'ai'); step++;
                 } else if(step === 4) {
-                    data.phone = val;
-                    addBubble("What is the scope of this job?", 'ai');
+                    data.phone = val; addBubble("Is this a Major job or a Minor repair?", 'ai');
                     document.getElementById('inputContainer').style.display = 'none';
-                    document.getElementById('scopeSelectWrapper').style.display = 'block';
-                    step++;
+                    document.getElementById('scopeSelectWrapper').style.display = 'block'; step++;
                 } else if(step === 5) {
-                    data.scope = val;
-                    document.getElementById('scopeSelectWrapper').style.display = 'none';
+                    data.scope = val; document.getElementById('scopeSelectWrapper').style.display = 'none';
                     document.getElementById('inputContainer').style.display = 'flex';
-                    addBubble("Finally, what is the best time to call you?", 'ai');
-                    step++;
-                } else if(step === 6) {
-                    data.time = val;
-                    addBubble("Generating your Lead Card now...", 'ai');
-                    showFinal();
-                }
+                    addBubble("Finally, what is the best time to call you?", 'ai'); step++;
+                } else if(step === 6) { data.time = val; addBubble("Analyzing matches... View your Lead Card below.", 'ai'); showFinal(); }
             }, 600);
         }
 
@@ -151,7 +134,7 @@
         }
 
         async function dispatch() {
-            document.querySelector('.btn-confirm').innerText = "LOCKING...";
+            document.querySelector('.btn-confirm').innerText = "DISPATCHING...";
             try {
                 await fetch('https://vvhomepro-brain.dbelnavis.workers.dev/', {
                     method: 'POST',
@@ -166,7 +149,7 @@
         function downloadPNG() {
             html2canvas(document.getElementById('leadCardCapture'), { backgroundColor: '#001a33' }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = 'Lead_Card.png';
+                link.download = 'AI_Match_Lead.png';
                 link.href = canvas.toDataURL();
                 link.click();
             });
