@@ -6,106 +6,66 @@
     <title>VV HOME | AI Matchmaking Engine</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --navy: #001a33; 
-            --gold: #c5a059; 
-            --neon: #39FF14; 
-            --glass: rgba(255, 255, 255, 0.85); 
-        }
-        
+        :root { --navy: #001a33; --gold: #c5a059; --neon: #39FF14; --glass: rgba(255, 255, 255, 0.95); }
         * { box-sizing: border-box; }
         body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: #f4f4f4; color: #000; overflow-x: hidden; }
 
-        /* HIGH VISIBILITY VIDEO BACKGROUND */
-        .video-wrapper {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; overflow: hidden;
-        }
-        .video-wrapper video {
-            min-width: 100%; min-height: 100%;
-            width: auto; height: auto;
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-            filter: brightness(85%) contrast(100%);
-        }
-        .video-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.4) 100%);
-        }
+        /* HIGH-VIS VIDEO BACKGROUND */
+        .video-wrapper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
+        .video-wrapper video { min-width: 100%; min-height: 100%; width: auto; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(90%); }
+        .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 100%); }
 
-        .hero-content {
-            min-height: 100vh; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center;
-            padding: 80px 5%;
-        }
-
-        h1 { 
-            font-family: 'Montserrat'; font-size: clamp(2.5rem, 8vw, 5.5rem); 
-            text-transform: uppercase; letter-spacing: -3px; line-height: 0.9; margin: 0; 
-            color: var(--navy);
-        }
+        .hero-content { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 60px 5%; }
+        h1 { font-family: 'Montserrat'; font-size: clamp(2rem, 7vw, 4.5rem); text-transform: uppercase; letter-spacing: -2px; line-height: 0.95; margin-bottom: 30px; color: var(--navy); }
         h1 span { color: var(--gold); }
 
-        /* THE AI MATCHING ENGINE (RESTORED) */
+        /* THE AI ENGINE CONTAINER */
         .engine-container {
-            margin-top: 40px; 
-            background: var(--glass);
-            backdrop-filter: blur(10px); 
-            padding: 40px; border-radius: 40px; width: 100%; max-width: 600px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
-            position: relative; overflow: hidden;
-            border: 2px solid var(--navy);
+            background: var(--glass); backdrop-filter: blur(10px); padding: 45px; border-radius: 40px; 
+            width: 100%; max-width: 550px; border: 3px solid var(--navy);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15); position: relative; overflow: hidden;
         }
 
-        /* The Neon Scan Animation */
+        /* Neon Scan Animation */
         .engine-container::after {
-            content: ''; position: absolute; top: -100%; left: 0; width: 100%; height: 5px;
-            background: var(--neon);
-            box-shadow: 0 0 15px var(--neon);
-            animation: scan 3s infinite linear; pointer-events: none;
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--neon); box-shadow: 0 0 15px var(--neon);
+            animation: scanLoop 4s infinite linear;
         }
-        @keyframes scan { 0% { top: 0%; } 100% { top: 100%; } }
+        @keyframes scanLoop { 0% { top: 0%; } 100% { top: 100%; } }
 
-        .engine-header { color: var(--navy); font-family: 'Montserrat'; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; font-weight: 900; }
+        .engine-label { color: var(--navy); font-family: 'Montserrat'; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; font-weight: 900; opacity: 0.7; }
 
-        .chat-bubble { 
-            background: white; color: var(--navy); padding: 25px; 
-            border-radius: 25px 25px 25px 0; text-align: left; 
-            font-weight: 800; margin-bottom: 30px; font-size: 1.15rem;
-            border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-        }
+        /* STEP SYSTEM */
+        .step { display: none; text-align: left; }
+        .step.active { display: block; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .btn-main {
-            display: block; width: 100%; padding: 22px; background: var(--navy);
-            color: #fff; text-decoration: none; font-family: 'Montserrat';
-            font-weight: 900; font-size: 1.3rem; border-radius: 15px;
-            text-transform: uppercase; transition: 0.3s;
-        }
-        .btn-main:hover { transform: scale(1.03); box-shadow: 0 10px 30px rgba(0,26,51,0.2); }
-
-        /* LEGAL BUBBLES */
-        .legal-bubbles { display: flex; justify-content: center; gap: 12px; margin-top: 50px; flex-wrap: wrap; }
-        .bubble { 
-            padding: 10px 20px; border-radius: 50px; background: var(--navy); 
-            font-size: 0.7rem; font-weight: 800; text-transform: uppercase; 
-            color: #fff; cursor: pointer; border: 1px solid var(--navy); transition: 0.3s; 
-        }
-        .bubble:hover { background: var(--gold); border-color: var(--gold); }
-
-        /* MODAL SYSTEM */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(10px); padding: 20px; }
-        .modal-content { background: #fff; border: 4px solid var(--navy); padding: 40px; border-radius: 30px; max-width: 750px; width: 100%; max-height: 80vh; overflow-y: auto; position: relative; text-align: left; color: #000; }
-        .close-modal { position: absolute; top: 20px; right: 20px; color: var(--navy); font-size: 2.5rem; cursor: pointer; font-weight: 900; }
+        label { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--navy); margin-bottom: 8px; display: block; }
         
-        .footer-link { margin-top: 40px; color: var(--navy); text-decoration: none; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; border-bottom: 2px solid var(--gold); }
+        input, select {
+            width: 100%; height: 65px; border-radius: 12px; border: 2px solid #ddd;
+            padding: 0 20px; font-family: 'Plus Jakarta Sans'; font-size: 1.1rem; 
+            font-weight: 700; color: var(--navy); outline: none; background: white; margin-bottom: 20px;
+        }
+
+        .btn-next {
+            display: block; width: 100%; padding: 22px; background: var(--navy);
+            color: #fff; border: none; font-family: 'Montserrat'; font-weight: 900; 
+            font-size: 1.2rem; border-radius: 12px; text-transform: uppercase; cursor: pointer; transition: 0.3s;
+        }
+        .btn-next:hover { background: var(--gold); transform: translateY(-2px); }
+
+        /* BUBBLES */
+        .legal-bubbles { display: flex; justify-content: center; gap: 10px; margin-top: 40px; flex-wrap: wrap; }
+        .bubble { padding: 10px 18px; border-radius: 50px; background: var(--navy); font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: #fff; cursor: pointer; text-decoration: none; transition: 0.3s; }
+        .bubble:hover { background: var(--gold); }
     </style>
 </head>
 <body>
 
     <div class="video-wrapper">
-        <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2070">
+        <video autoplay muted loop playsinline>
             <source src="https://player.vimeo.com/external/459389137.sd.mp4?s=910243615456b9432608c0f56a02f306d87e07a3&profile_id=164&oauth2_token_id=57447761" type="video/mp4">
         </video>
         <div class="video-overlay"></div>
@@ -115,40 +75,57 @@
         <h1>Vetted. Verified. <span>Matched.</span></h1>
         
         <div class="engine-container">
-            <div class="engine-header">AI Matching Engine Active</div>
-            <div class="chat-bubble">
-                "I'm scanning the registry for elite Roofing, HVAC, and Window specialists in your area. Ready to find your match?"
+            <div class="engine-label">AI Matchmaking Infrastructure v1.0</div>
+            
+            <div class="step active" id="step1">
+                <label>What is the issue?</label>
+                <input type="text" id="problem" placeholder="e.g. Leaky roof, AC not cooling...">
+                <label>Project Trade</label>
+                <select id="trade">
+                    <option>Roofing</option>
+                    <option>HVAC</option>
+                    <option>Windows</option>
+                </select>
+                <button class="btn-next" onclick="nextStep(2)">Analyze Problem</button>
             </div>
-            <a href="why-choose-vv-pro.html" class="btn-main">Launch AI Engine</a>
+
+            <div class="step" id="step2">
+                <label>Your Full Name</label>
+                <input type="text" id="name" placeholder="John Doe">
+                <label>Phone Number</label>
+                <input type="tel" id="phone" placeholder="(555) 000-0000">
+                <button class="btn-next" onclick="nextStep(3)">Verify Contact</button>
+            </div>
+
+            <div class="step" id="step3">
+                <label>Zip Code</label>
+                <input type="text" id="zip" placeholder="Zip Code" maxlength="5">
+                <button class="btn-next" onclick="finish()">Find My Match</button>
+            </div>
         </div>
 
         <div class="legal-bubbles">
-            <div class="bubble" onclick="openModal('privacy')">Privacy Policy</div>
-            <div class="bubble" onclick="openModal('terms')">Consumer Terms</div>
-            <div class="bubble" onclick="openModal('standards')">Vetting Standards</div>
+            <a href="why-choose-vv-pro.html" class="bubble">Vetting Standards</a>
+            <a href="pro.html" class="bubble" style="background:var(--gold); color:#000;">Pro Entrance</a>
         </div>
-        
-        <a href="pro.html" class="footer-link">Contractor Entrance</a>
     </section>
 
-    <div id="modal-overlay" class="modal" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <div id="modal-text"></div>
-        </div>
-    </div>
-
     <script>
-        const modalData = {
-            privacy: "<h2>Privacy</h2><p>Your data is encrypted and only used to match you with a verified pro.</p>",
-            terms: "<h2>Terms</h2><p>VV HOME PRO is a free matching service for homeowners.</p>",
-            standards: "<h2>Vetting Standards</h2><ul><li>Active Licensing Verification</li><li>$1M+ Insurance Audit</li><li>60-Minute Response Standard</li></ul>"
-        };
-        function openModal(type) {
-            document.getElementById('modal-text').innerHTML = modalData[type];
-            document.getElementById('modal-overlay').style.display = 'flex';
+        function nextStep(stepNumber) {
+            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+            document.getElementById('step' + stepNumber).classList.add('active');
         }
-        function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; }
+
+        function finish() {
+            const btn = document.querySelector('#step3 .btn-next');
+            btn.innerHTML = "MATCHING WITH PRO...";
+            btn.style.background = "#39FF14";
+            btn.style.color = "#000";
+            setTimeout(() => {
+                alert("AI Match Found! A verified specialist will contact you shortly.");
+                location.reload(); 
+            }, 2000);
+        }
     </script>
 </body>
 </html>
