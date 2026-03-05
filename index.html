@@ -4,82 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VV HOME | AI Matching Engine</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --navy: #001a33; 
-            --gold: #c5a059; 
-            --neon: #39FF14; 
-        }
-        
+        :root { --navy: #001a33; --gold: #c5a059; --neon: #39FF14; }
         * { box-sizing: border-box; }
         body, html { margin: 0; padding: 0; height: 100%; font-family: 'Plus Jakarta Sans', sans-serif; background: #000; overflow-x: hidden; }
 
-        /* LIGHTER VIDEO BACKGROUND - ENABLED VISIBILITY */
+        /* VIDEO BACKGROUND - FULL BRIGHTNESS */
         #video-bg {
             position: fixed; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
             z-index: -100; transform: translateX(-50%) translateY(-50%);
-            object-fit: cover; 
-            filter: brightness(0.7) contrast(1.1); /* Lightened from 0.3 to 0.7 */
+            object-fit: cover; filter: brightness(0.9) contrast(1.2);
+        }
+
+        /* BRANDING TOP LEFT */
+        .brand-header {
+            position: absolute; top: 20px; left: 20px; display: flex; align-items: center; gap: 15px; z-index: 100;
+        }
+        .brand-header img { width: 60px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5)); }
+        .brand-header h2 { 
+            font-family: 'Montserrat'; color: #fff; margin: 0; font-size: 1.8rem; 
+            text-transform: uppercase; letter-spacing: -1px; 
+            text-shadow: 2px 2px 0px var(--navy), 4px 4px 10px rgba(0,0,0,0.8);
         }
 
         .main-wrapper {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            min-height: 100vh; width: 100vw; padding: 40px 20px;
-            background: rgba(0,0,0,0.2); /* Very light overlay to let video show through */
+            min-height: 100vh; width: 100vw; padding: 100px 20px 40px 20px;
+            background: rgba(0,0,0,0.1); 
         }
 
-        /* SEMI-TRANSPARENT CARDS FOR GLASS EFFECT */
+        /* BOLD INSTRUCTIONS */
         .how-to-card {
-            background: rgba(197, 160, 89, 0.85); /* Semi-transparent gold */
-            padding: 20px; border-radius: 12px; 
-            width: 100%; max-width: 550px; margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            border-bottom: 4px solid #8e6d3b;
-            color: #fff;
+            background: var(--gold); padding: 20px; border-radius: 0; 
+            width: 100%; max-width: 550px; margin-bottom: 20px;
+            border: 4px solid var(--navy); transform: skew(-2deg);
+            box-shadow: 10px 10px 0px var(--navy);
         }
-        .how-to-card h3 { margin: 0 0 10px 0; font-family: 'Montserrat'; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; }
-        .how-to-card ol { margin: 0; padding-left: 25px; font-size: 0.9rem; line-height: 1.5; font-weight: 800; }
+        .how-to-card h3 { margin: 0 0 5px 0; font-family: 'Montserrat'; font-size: 1.2rem; color: #fff; text-transform: uppercase; }
+        .how-to-card ol { margin: 0; padding-left: 20px; font-size: 0.9rem; color: #fff; font-weight: 800; transform: skew(2deg); }
 
+        /* THE ENGINE - HIGH ENERGY */
         .engine-ui {
-            background: rgba(255, 255, 255, 0.9); /* Slight transparency */
-            width: 100%; max-width: 550px; height: 600px; 
-            border-radius: 20px; border: 6px solid var(--navy); display: flex; flex-direction: column; 
-            overflow: hidden; box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+            background: rgba(255, 255, 255, 0.95); width: 100%; max-width: 550px; height: 580px; 
+            border-radius: 0; border: 6px solid var(--navy); display: flex; flex-direction: column; 
+            box-shadow: 20px 20px 0px var(--gold); position: relative;
         }
 
         .engine-header { 
-            background: var(--navy); color: white; padding: 20px 25px; 
+            background: var(--navy); color: white; padding: 20px; 
             display: flex; justify-content: space-between; align-items: center; 
-            border-bottom: 2px solid var(--gold);
         }
-        .engine-header span { font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 2px; color: var(--gold); }
+        .engine-header span { font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; font-size: 1rem; color: var(--neon); }
         
         .btn-refresh { 
-            background: var(--neon); color: #000; border: none; padding: 10px 18px; 
-            border-radius: 5px; font-family: 'Montserrat'; font-weight: 900; 
-            font-size: 0.75rem; cursor: pointer; text-transform: uppercase;
+            background: var(--neon); color: #000; border: none; padding: 8px 15px; 
+            font-family: 'Montserrat'; font-weight: 900; cursor: pointer; text-transform: uppercase;
         }
 
-        .chat-stream { flex: 1; padding: 25px; overflow-y: auto; display: flex; flex-direction: column; gap: 18px; background: rgba(244, 247, 249, 0.5); }
+        .chat-stream { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; background: rgba(255,255,255,0.1); }
+        .bubble { max-width: 85%; padding: 15px; font-size: 1rem; line-height: 1.3; border: 3px solid var(--navy); }
+        .ai-msg { align-self: flex-start; background: #fff; color: var(--navy); font-weight: 700; box-shadow: 4px 4px 0px var(--gold); }
+        .user-msg { align-self: flex-end; background: var(--navy); color: #fff; font-weight: 800; box-shadow: -4px 4px 0px var(--neon); }
 
-        .bubble { max-width: 85%; padding: 16px 20px; border-radius: 15px; font-size: 1rem; line-height: 1.4; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .ai-msg { align-self: flex-start; background: #fff; color: var(--navy); border: 2px solid #eee; border-bottom-left-radius: 2px; font-weight: 600; }
-        .user-msg { align-self: flex-end; background: var(--navy); color: #fff; border-bottom-right-radius: 2px; font-weight: 700; }
+        .input-bar { padding: 20px; border-top: 4px solid var(--navy); display: flex; gap: 10px; background: #fff; }
+        input { flex: 1; border: 3px solid var(--navy); padding: 15px; font-weight: 800; font-size: 1rem; outline: none; }
+        .btn-send { background: var(--navy); color: var(--neon); border: none; width: 50px; cursor: pointer; font-size: 1.5rem; font-weight: 900; }
 
-        .input-bar { padding: 25px; border-top: 2px solid #eee; display: flex; gap: 12px; background: #fff; }
-        input { flex: 1; border: 3px solid #eee; padding: 15px 20px; border-radius: 10px; outline: none; font-family: inherit; font-weight: 700; font-size: 1.1rem; }
-        .btn-send { background: var(--navy); color: var(--gold); border: none; width: 55px; height: 55px; border-radius: 10px; cursor: pointer; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; }
+        /* LEGAL FOOTER */
+        .legal-footer { margin-top: 50px; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; background: var(--navy); padding: 15px; width: 100%; }
+        .legal-footer a { color: var(--gold); text-decoration: none; font-size: 0.75rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; }
+        .legal-footer a:hover { color: var(--neon); }
 
-        .legal-footer { margin-top: 40px; display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; }
-        .legal-footer a { color: #fff; text-decoration: none; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 2px solid var(--gold); padding-bottom: 4px; text-shadow: 1px 1px 4px #000; }
-
-        #finalResult { display: none; padding: 20px; }
-        #captureArea { background: var(--navy); color: white; padding: 35px; border-radius: 15px; border: 3px solid var(--neon); font-family: monospace; }
-        .data-row { margin-bottom: 12px; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; }
-        .data-row span { color: var(--gold); text-transform: uppercase; }
-        .btn-confirm { background: var(--neon); color: #000; width: 100%; padding: 20px; border-radius: 10px; border: none; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 15px; font-size: 1rem; }
+        #finalResult { display: none; padding: 20px; background: #fff; height: 100%; }
+        #captureArea { background: var(--navy); color: white; padding: 25px; border: 4px solid var(--neon); }
+        .data-row { margin-bottom: 8px; font-size: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; text-transform: uppercase; }
+        .data-row span { color: var(--gold); font-weight: 900; }
+        .btn-confirm { background: var(--neon); color: #000; width: 100%; padding: 20px; border: 4px solid var(--navy); font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 15px; font-size: 1.2rem; }
     </style>
 </head>
 <body>
@@ -88,34 +89,39 @@
         <source src="https://v.ftcdn.net/02/93/34/09/700_F_293340917_0H0B67qX5ZcT6Q0H0B67qX5ZcT6Q0.mp4" type="video/mp4">
     </video>
 
+    <div class="brand-header">
+        <img src="vv-verified-badge.png" alt="Verified">
+        <h2>VV HOME PRO</h2>
+    </div>
+
     <div class="main-wrapper">
         <div class="how-to-card">
-            <h3>HOW TO USE AI MATCHING ENGINE</h3>
+            <h3>AI MATCHING PROTOCOL</h3>
             <ol>
-                <li>STATE PROJECT (ROOFING, WINDOWS, RENOVATIONS)</li>
-                <li>PROVIDE SCOPE, NAME, LOCATION, AND PHONE</li>
-                <li>ZONES: MA, NJ, AND ONTARIO</li>
+                <li>DESCRIBE PROJECT & LEAK SCOPE</li>
+                <li>ENTER NAME, ZONE & PHONE</li>
+                <li>ZONES: MA | NJ | ON</li>
             </ol>
         </div>
 
         <div class="engine-ui">
             <div class="engine-header">
-                <span>AI MATCHING ENGINE</span>
-                <button class="btn-refresh" onclick="location.reload()">REFRESH</button>
+                <span>SYSTEM ACTIVE: AI ENGINE</span>
+                <button class="btn-refresh" onclick="location.reload()">RESET</button>
             </div>
             
             <div class="chat-stream" id="chatStream">
-                <div class="bubble ai-msg">Welcome. Describe your project to begin. (e.g. Roofing, HVAC, Home Improvements)</div>
+                <div class="bubble ai-msg">SYSTEM READY. DESCRIBE YOUR PROJECT (ROOFING, HVAC, ETC.)</div>
             </div>
 
             <div class="input-bar" id="inputBar">
-                <input type="text" id="userInput" placeholder="TYPE PROJECT HERE..." onkeypress="handleKey(event)">
-                <button class="btn-send" onclick="process()">↑</button>
+                <input type="text" id="userInput" placeholder="TYPE HERE..." onkeypress="handleKey(event)">
+                <button class="btn-send" onclick="process()">></button>
             </div>
 
             <div id="finalResult">
                 <div id="captureArea">
-                    <div style="color:var(--neon); margin-bottom:15px; font-size:0.8rem; font-weight:bold; letter-spacing:2px;">ID: #795917 | VV HOME MATCH</div>
+                    <div style="color:var(--neon); margin-bottom:10px; font-weight:900;">ID: #795917 | VV VERIFIED</div>
                     <div class="data-row">PROJECT: <span id="out_issue"></span></div>
                     <div class="data-row">SCOPE: <span id="out_scope"></span></div>
                     <div class="data-row">NAME: <span id="out_name"></span></div>
@@ -123,11 +129,12 @@
                     <div class="data-row">PHONE: <span id="out_phone"></span></div>
                     <div class="data-row">CALLBACK: <span id="out_time"></span></div>
                 </div>
-                <button class="btn-confirm" id="confirmBtn" onclick="sendLead()">CONFIRM & MATCH</button>
+                <button class="btn-confirm" id="confirmBtn" onclick="sendLead()">DISPATCH MATCH</button>
             </div>
         </div>
 
         <div class="legal-footer">
+            <a href="about.html">About Us</a>
             <a href="privacy.html">Privacy Policy</a>
             <a href="terms.html">Terms of Use</a>
             <a href="standards.html">Operating Standards</a>
@@ -142,12 +149,11 @@
         const ZONES = ['MA', 'NJ', 'ON', 'ONTARIO', 'MASSACHUSETTS', 'NEW JERSEY', 'TORONTO', 'BOSTON', 'NEWARK'];
 
         function handleKey(e) { if(e.key === 'Enter') process(); }
-        
         function addMsg(txt, type) {
             const stream = document.getElementById('chatStream');
             const b = document.createElement('div');
             b.className = `bubble ${type}-msg`;
-            b.innerText = txt;
+            b.innerText = txt.toUpperCase();
             stream.appendChild(b);
             stream.scrollTop = stream.scrollHeight;
         }
@@ -161,7 +167,7 @@
                 const isHome = KEYWORDS.some(k => val.toLowerCase().includes(k));
                 if (!isHome) {
                     addMsg(val, 'user'); input.value = '';
-                    setTimeout(() => addMsg("I am optimized for home renovations. Please state a project (e.g., Roofing) to begin.", 'ai'), 600);
+                    setTimeout(() => addMsg("UNSUPPORTED PROJECT. PLEASE STATE A VALID HOME SERVICE (E.G. ROOFING).", 'ai'), 600);
                     return;
                 }
             }
@@ -170,39 +176,15 @@
             input.value = '';
 
             setTimeout(() => {
-                if(step === 1) { 
-                    data.issue = val; 
-                    addMsg("Understood. What is the scope of the issue? (e.g., Major leak, Minor repair, or Full Replacement?)", 'ai'); 
-                    step++; 
-                }
-                else if(step === 2) {
-                    data.scope = val;
-                    addMsg("Got it. What is your full name?", 'ai');
-                    step++;
-                }
-                else if(step === 3) { 
-                    data.name = val; 
-                    addMsg("Which city and province/state are you in?", 'ai'); 
-                    step++; 
-                }
+                if(step === 1) { data.issue = val; addMsg("SCOPE: IS THIS A MAJOR LEAK, MINOR REPAIR, OR FULL REPLACEMENT?", 'ai'); step++; }
+                else if(step === 2) { data.scope = val; addMsg("ENTER FULL NAME:", 'ai'); step++; }
+                else if(step === 3) { data.name = val; addMsg("ENTER LOCATION (CITY/STATE):", 'ai'); step++; }
                 else if(step === 4) {
                     const isValid = ZONES.some(z => val.toUpperCase().includes(z));
-                    if (!isValid) {
-                        addMsg("I am optimized for MA, NJ, and Ontario. Please provide a location in these areas.", 'ai');
-                        return;
-                    }
-                    data.market = val.toUpperCase(); 
-                    addMsg("What is your phone number?", 'ai'); 
-                    step++;
-                } else if(step === 5) {
-                    data.phone = val; 
-                    addMsg("Finally, what is the best time for a callback?", 'ai'); 
-                    step++;
-                } else if(step === 6) {
-                    data.time = val; 
-                    addMsg("Lead Card generated. Please verify below.", 'ai'); 
-                    showFinal();
-                }
+                    if (!isValid) { addMsg("OUTSIDE SERVICE ZONE. PLEASE PROVIDE MA, NJ, OR ONTARIO.", 'ai'); return; }
+                    data.market = val.toUpperCase(); addMsg("ENTER PHONE NUMBER:", 'ai'); step++;
+                } else if(step === 5) { data.phone = val; addMsg("BEST CALLBACK TIME?", 'ai'); step++; }
+                else if(step === 6) { data.time = val; addMsg("LEAD GENERATED. VERIFY DATA.", 'ai'); showFinal(); }
             }, 700);
         }
 
@@ -227,9 +209,9 @@
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(data)
                 });
-                btn.innerText = "MATCH DISPATCHED!";
+                btn.innerText = "MATCH CONFIRMED";
                 btn.style.background = "#39FF14";
-            } catch(e) { console.error(e); btn.innerText = "CONFIRM & MATCH"; }
+            } catch(e) { btn.innerText = "RETRY DISPATCH"; }
         }
     </script>
 </body>
