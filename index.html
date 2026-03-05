@@ -146,6 +146,7 @@
         const ZONES = ['MA', 'NJ', 'ON', 'ONTARIO', 'MASSACHUSETTS', 'NEW JERSEY', 'TORONTO', 'BOSTON', 'NEWARK'];
 
         function handleKey(e) { if(e.key === 'Enter') process(); }
+        
         function addMsg(txt, type) {
             const stream = document.getElementById('chatStream');
             const b = document.createElement('div');
@@ -173,19 +174,33 @@
             input.value = '';
 
             setTimeout(() => {
-                if(step === 1) { data.issue = val; addMsg("Got it. What is your full name?", 'ai'); step++; }
-                else if(step === 2) { data.name = val; addMsg("Which city and province/state are you in?", 'ai'); step++; }
+                if(step === 1) { 
+                    data.issue = val; 
+                    addMsg("Got it. What is your full name?", 'ai'); 
+                    step++; 
+                }
+                else if(step === 2) { 
+                    data.name = val; 
+                    addMsg("Which city and province/state are you in?", 'ai'); 
+                    step++; 
+                }
                 else if(step === 3) {
                     const isValid = ZONES.some(z => val.toUpperCase().includes(z));
                     if (!isValid) {
                         addMsg("I am optimized for MA, NJ, and Ontario. Please provide a location in these areas to continue.", 'ai');
                         return;
                     }
-                    data.market = val.toUpperCase(); addMsg("What is your phone number?", 'ai'); step++;
+                    data.market = val.toUpperCase(); 
+                    addMsg("What is your phone number?", 'ai'); 
+                    step++;
                 } else if(step === 4) {
-                    data.phone = val; addMsg("Finally, what is the best time for a callback?", 'ai'); step++;
+                    data.phone = val; 
+                    addMsg("Finally, what is the best time for a callback?", 'ai'); 
+                    step++;
                 } else if(step === 5) {
-                    data.time = val; addMsg("Lead Card generated. Please verify your details below.", 'ai'); showFinal();
+                    data.time = val; 
+                    addMsg("Lead Card generated. Please verify your details below.", 'ai'); 
+                    showFinal();
                 }
             }, 700);
         }
@@ -212,7 +227,10 @@
                 });
                 btn.style.display = 'none';
                 document.getElementById('dlBtn').style.display = 'block';
-            } catch(e) { console.error(e); btn.innerText = "CONFIRM & MATCH"; }
+            } catch(e) { 
+                console.error(e); 
+                btn.innerText = "CONFIRM & MATCH"; 
+            }
         }
 
         function takeScreenshot() {
