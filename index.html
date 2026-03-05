@@ -7,145 +7,145 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        :root { --navy: #001a33; --gold: #c5a059; --neon: #39FF14; --glass: rgba(255, 255, 255, 0.95); }
+        :root { 
+            --navy: #001a33; 
+            --gold: #c5a059; 
+            --neon: #39FF14; 
+            --glass: rgba(0, 26, 51, 0.95); 
+        }
         
         * { box-sizing: border-box; }
         body, html { margin: 0; padding: 0; height: 100%; font-family: 'Plus Jakarta Sans', sans-serif; background: #000; overflow-x: hidden; }
 
-        /* FULLSCREEN VIDEO BACKGROUND */
+        /* VIDEO BACKGROUND - FULL BOLDNESS */
         #video-bg {
             position: fixed; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
-            width: auto; height: auto; z-index: -100; transform: translateX(-50%) translateY(-50%);
-            object-fit: cover; filter: brightness(0.4);
+            z-index: -100; transform: translateX(-50%) translateY(-50%);
+            object-fit: cover; filter: brightness(0.3) contrast(1.2);
         }
 
         .main-wrapper {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             min-height: 100vh; width: 100vw; padding: 40px 20px;
+            background: radial-gradient(circle, rgba(0,26,51,0.4) 0%, rgba(0,0,0,0.8) 100%);
         }
 
-        /* INSTRUCTIONS CARD */
+        /* BOLD INSTRUCTIONS CARD */
         .how-to-card {
-            background: var(--glass); padding: 25px; border-radius: 20px; 
-            width: 100%; max-width: 500px; margin-bottom: 20px; border-left: 6px solid var(--gold);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            background: var(--gold); padding: 20px; border-radius: 12px; 
+            width: 100%; max-width: 550px; margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-bottom: 4px solid #8e6d3b;
         }
-        .how-to-card h3 { margin: 0 0 15px 0; font-family: 'Montserrat'; font-size: 1rem; color: var(--navy); text-transform: uppercase; }
-        .how-to-card ol { margin: 0; padding-left: 20px; font-size: 0.85rem; line-height: 1.6; color: #333; font-weight: 600; }
+        .how-to-card h3 { margin: 0 0 10px 0; font-family: 'Montserrat'; font-size: 1.1rem; color: #fff; text-transform: uppercase; letter-spacing: 2px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+        .how-to-card ol { margin: 0; padding-left: 25px; font-size: 0.9rem; line-height: 1.5; color: #fff; font-weight: 800; }
 
-        /* THE MESSENGER INTERFACE */
+        /* THE ENGINE - MATCHING THE PRO UI */
         .engine-ui {
-            background: #fff; width: 100%; max-width: 500px; height: 600px; 
-            border-radius: 30px; border: 3px solid var(--navy); display: flex; flex-direction: column; 
-            overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+            background: #fff; width: 100%; max-width: 550px; height: 600px; 
+            border-radius: 20px; border: 6px solid var(--navy); display: flex; flex-direction: column; 
+            overflow: hidden; box-shadow: 0 50px 100px rgba(0,0,0,0.9);
         }
 
-        /* HEADER WITH REFRESH */
         .engine-header { 
-            background: var(--navy); color: white; padding: 18px 25px; 
+            background: var(--navy); color: white; padding: 20px 25px; 
             display: flex; justify-content: space-between; align-items: center; 
+            border-bottom: 2px solid var(--gold);
         }
-        .engine-header span { font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
+        .engine-header span { font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 2px; color: var(--gold); }
         
         .btn-refresh { 
-            background: var(--gold); color: white; border: none; padding: 8px 16px; 
-            border-radius: 8px; font-family: 'Montserrat'; font-weight: 900; 
-            font-size: 0.7rem; cursor: pointer; text-transform: uppercase; transition: 0.2s;
+            background: var(--neon); color: #000; border: none; padding: 10px 18px; 
+            border-radius: 5px; font-family: 'Montserrat'; font-weight: 900; 
+            font-size: 0.75rem; cursor: pointer; text-transform: uppercase;
         }
-        .btn-refresh:hover { background: #a6864a; transform: scale(1.05); }
 
-        .chat-stream { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; background: #fdfdfd; }
+        .chat-stream { flex: 1; padding: 25px; overflow-y: auto; display: flex; flex-direction: column; gap: 18px; background: #f4f7f9; }
 
-        /* BUBBLES */
-        .bubble { max-width: 85%; padding: 14px 18px; border-radius: 20px; font-size: 0.95rem; line-height: 1.4; }
-        .ai-msg { align-self: flex-start; background: #f0f0f0; color: #222; border-bottom-left-radius: 4px; font-weight: 600; }
-        .user-msg { align-self: flex-end; background: #007aff; color: #fff; border-bottom-right-radius: 4px; font-weight: 700; }
+        /* BUBBLES - CLEAN & ENGAGING */
+        .bubble { max-width: 85%; padding: 16px 20px; border-radius: 15px; font-size: 1rem; line-height: 1.4; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .ai-msg { align-self: flex-start; background: #fff; color: var(--navy); border: 2px solid #eee; border-bottom-left-radius: 2px; font-weight: 600; }
+        .user-msg { align-self: flex-end; background: var(--navy); color: #fff; border-bottom-right-radius: 2px; font-weight: 700; }
 
         /* INPUT BAR */
-        .input-bar { padding: 20px; border-top: 1px solid #eee; display: flex; gap: 10px; background: #fff; }
-        input { flex: 1; border: 2px solid #ddd; padding: 12px 18px; border-radius: 25px; outline: none; font-family: inherit; font-weight: 600; font-size: 1rem; }
-        .btn-send { background: var(--navy); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; }
+        .input-bar { padding: 25px; border-top: 2px solid #eee; display: flex; gap: 12px; background: #fff; }
+        input { flex: 1; border: 3px solid #eee; padding: 15px 20px; border-radius: 10px; outline: none; font-family: inherit; font-weight: 700; font-size: 1.1rem; transition: 0.3s; }
+        input:focus { border-color: var(--gold); }
+        .btn-send { background: var(--navy); color: var(--gold); border: none; width: 55px; height: 55px; border-radius: 10px; cursor: pointer; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; }
 
-        /* FINAL OUTPUT CARD */
-        #finalResult { display: none; padding: 15px; }
-        #captureArea { background: var(--navy); color: white; padding: 30px; border-radius: 20px; border: 2px solid var(--neon); font-family: monospace; }
-        .data-row { margin-bottom: 10px; font-size: 0.85rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
-        .data-row span { color: var(--gold); font-weight: bold; }
-        
-        .match-actions { display: flex; gap: 10px; margin-top: 20px; }
-        .btn-action { flex: 1; padding: 16px; border-radius: 12px; cursor: pointer; border: none; font-weight: 900; text-transform: uppercase; font-size: 0.8rem; }
-        .btn-confirm { background: var(--neon); color: black; }
-        .btn-dl { background: var(--gold); color: white; display: none; width: 100%; margin-top: 10px; }
+        /* LEGAL FOOTER - NOW WORKING */
+        .legal-footer { margin-top: 40px; display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; }
+        .legal-footer a { color: #fff; text-decoration: none; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 2px solid var(--gold); padding-bottom: 4px; transition: 0.3s; }
+        .legal-footer a:hover { color: var(--neon); border-color: var(--neon); }
 
-        /* LEGAL FOOTER */
-        .legal-footer { margin-top: 30px; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-        .legal-footer a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; transition: 0.3s; }
-        .legal-footer a:hover { color: var(--gold); opacity: 1; }
+        /* LEAD CARD RESULT */
+        #finalResult { display: none; padding: 20px; }
+        #captureArea { background: var(--navy); color: white; padding: 35px; border-radius: 15px; border: 3px solid var(--neon); font-family: monospace; }
+        .data-row { margin-bottom: 12px; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; }
+        .data-row span { color: var(--gold); text-transform: uppercase; }
+        .btn-confirm { background: var(--neon); color: #000; width: 100%; padding: 20px; border-radius: 10px; border: none; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 15px; font-size: 1rem; }
     </style>
 </head>
 <body>
 
     <video autoplay muted loop playsinline id="video-bg">
-        <source src="INSERT_VIDEO_URL_HERE" type="video/mp4">
+        <source src="https://v.ftcdn.net/02/93/34/09/700_F_293340917_0H0B67qX5ZcT6Q0H0B67qX5ZcT6Q0.mp4" type="video/mp4">
     </video>
 
     <div class="main-wrapper">
         <div class="how-to-card">
-            <h3>How to use AI Matching Engine</h3>
+            <h3>HOW TO USE AI MATCHING ENGINE</h3>
             <ol>
-                <li>State project (Roofing, HVAC, Renovations, etc.)</li>
-                <li>Provide Name, City/Province, and Phone.</li>
-                <li>Zones: Optimized for MA, NJ, and Ontario.</li>
+                <li>STATE YOUR PROJECT (ROOFING, WINDOWS, RENOVATIONS)</li>
+                <li>PROVIDE NAME, CITY/PROVINCE, AND PHONE</li>
+                <li>ZONES: OPTIMIZED FOR MA, NJ, AND ONTARIO</li>
             </ol>
         </div>
 
         <div class="engine-ui">
             <div class="engine-header">
-                <span>AI Matching Engine</span>
-                <button class="btn-refresh" onclick="location.reload()">Refresh</button>
+                <span>AI MATCHING ENGINE</span>
+                <button class="btn-refresh" onclick="location.reload()">REFRESH</button>
             </div>
             
             <div class="chat-stream" id="chatStream">
-                <div class="bubble ai-msg">Hello. Describe your project to begin. (e.g. Roofing, Home Renovations)</div>
+                <div class="bubble ai-msg">Welcome. Describe your project to begin. (e.g. Roofing, HVAC, Home Improvements)</div>
             </div>
 
             <div class="input-bar" id="inputBar">
-                <input type="text" id="userInput" placeholder="Type message..." onkeypress="handleKey(event)">
+                <input type="text" id="userInput" placeholder="TYPE PROJECT HERE..." onkeypress="handleKey(event)">
                 <button class="btn-send" onclick="process()">↑</button>
             </div>
 
             <div id="finalResult">
                 <div id="captureArea">
-                    <div style="color:var(--neon); margin-bottom:15px; font-size:0.7rem; font-weight:bold; letter-spacing:1px;">ID: #795917 | VV HOME MATCH</div>
+                    <div style="color:var(--neon); margin-bottom:15px; font-size:0.8rem; font-weight:bold; letter-spacing:2px;">ID: #795917 | VV HOME MATCH</div>
                     <div class="data-row">PROJECT: <span id="out_issue"></span></div>
                     <div class="data-row">NAME: <span id="out_name"></span></div>
                     <div class="data-row">LOCATION: <span id="out_market"></span></div>
                     <div class="data-row">PHONE: <span id="out_phone"></span></div>
                     <div class="data-row">CALLBACK: <span id="out_time"></span></div>
                 </div>
-                <div class="match-actions" id="actionPanel">
-                    <button class="btn-action btn-confirm" onclick="sendLead()">Confirm & Match</button>
-                </div>
-                <button class="btn-action btn-dl" id="dlBtn" onclick="takeScreenshot()">Download Lead PNG</button>
+                <button class="btn-confirm" id="confirmBtn" onclick="sendLead()">CONFIRM & MATCH</button>
+                <button class="btn-confirm" id="dlBtn" style="display:none; background:var(--gold); color:#fff;" onclick="takeScreenshot()">DOWNLOAD LEAD PNG</button>
             </div>
         </div>
 
         <div class="legal-footer">
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms of Use</a>
-            <a href="/standards">Operating Standards</a>
-            <a href="/contact">Contact Us</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Use</a>
+            <a href="standards.html">Operating Standards</a>
+            <a href="contact.html">Contact Us</a>
         </div>
     </div>
 
     <script>
         let step = 1;
         let data = { issue: '', name: '', market: '', phone: '', time: '' };
-        const KEYWORDS = ['roof', 'hvac', 'window', 'repair', 'home', 'leak', 'renovation', 'improvement', 'kitchen', 'bath', 'paint', 'landscap'];
-        const ZONES = ['MA', 'NJ', 'ON', 'ONTARIO', 'MASSACHUSETTS', 'NEW JERSEY', 'TORONTO', 'BOSTON', 'NEWARK', 'OTTAWA'];
+        const KEYWORDS = ['roof', 'hvac', 'window', 'repair', 'home', 'leak', 'renovation', 'improvement', 'kitchen', 'bath', 'paint', 'landscap', 'deck', 'fence'];
+        const ZONES = ['MA', 'NJ', 'ON', 'ONTARIO', 'MASSACHUSETTS', 'NEW JERSEY', 'TORONTO', 'BOSTON', 'NEWARK'];
 
         function handleKey(e) { if(e.key === 'Enter') process(); }
-
         function addMsg(txt, type) {
             const stream = document.getElementById('chatStream');
             const b = document.createElement('div');
@@ -160,12 +160,11 @@
             const val = input.value.trim();
             if(!val) return;
 
-            // Germane Topic Check
             if (step === 1) {
                 const isHome = KEYWORDS.some(k => val.toLowerCase().includes(k));
                 if (!isHome) {
                     addMsg(val, 'user'); input.value = '';
-                    setTimeout(() => addMsg("I am currently optimized for home renovations and repairs. Please state a project to begin.", 'ai'), 600);
+                    setTimeout(() => addMsg("I am currently optimized for home renovations and repairs. Please state a valid project (e.g., Roofing, HVAC) to begin.", 'ai'), 600);
                     return;
                 }
             }
@@ -174,19 +173,19 @@
             input.value = '';
 
             setTimeout(() => {
-                if(step === 1) { data.issue = val; addMsg("Great. What is your full name?", 'ai'); step++; }
-                else if(step === 2) { data.name = val; addMsg("Which city and province/state are you in? (MA, NJ, or Ontario)", 'ai'); step++; }
+                if(step === 1) { data.issue = val; addMsg("Got it. What is your full name?", 'ai'); step++; }
+                else if(step === 2) { data.name = val; addMsg("Which city and province/state are you in?", 'ai'); step++; }
                 else if(step === 3) {
                     const isValid = ZONES.some(z => val.toUpperCase().includes(z));
                     if (!isValid) {
-                        addMsg("I am specifically tuned for the MA, NJ, and Ontario markets. Please provide a location in these areas.", 'ai');
+                        addMsg("I am optimized for MA, NJ, and Ontario. Please provide a location in these areas to continue.", 'ai');
                         return;
                     }
                     data.market = val.toUpperCase(); addMsg("What is your phone number?", 'ai'); step++;
                 } else if(step === 4) {
                     data.phone = val; addMsg("Finally, what is the best time for a callback?", 'ai'); step++;
                 } else if(step === 5) {
-                    data.time = val; addMsg("Lead Card generated. Please verify below.", 'ai'); showFinal();
+                    data.time = val; addMsg("Lead Card generated. Please verify your details below.", 'ai'); showFinal();
                 }
             }, 700);
         }
@@ -203,22 +202,23 @@
         }
 
         async function sendLead() {
-            document.querySelector('.btn-confirm').innerText = "DISPATCHING...";
+            const btn = document.getElementById('confirmBtn');
+            btn.innerText = "DISPATCHING...";
             try {
                 await fetch('https://vvhomepro-brain.dbelnavis.workers.dev/', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(data)
                 });
-                document.getElementById('actionPanel').style.display = 'none';
+                btn.style.display = 'none';
                 document.getElementById('dlBtn').style.display = 'block';
-            } catch(e) { console.error(e); }
+            } catch(e) { console.error(e); btn.innerText = "CONFIRM & MATCH"; }
         }
 
         function takeScreenshot() {
             html2canvas(document.getElementById('captureArea'), { backgroundColor: '#001a33' }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = 'VV_Match_Card.png';
+                link.download = 'VV_HOME_MATCH.png';
                 link.href = canvas.toDataURL();
                 link.click();
             });
