@@ -3,128 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VV HOME | Engine</title>
+    <title>VV HOME | AI Matchmaking Engine</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        :root { --navy: #001a33; --gold: #c5a059; --neon: #39FF14; }
+        :root { --navy: #001a33; --gold: #c5a059; --neon: #39FF14; --glass: rgba(255, 255, 255, 0.98); }
         * { box-sizing: border-box; }
-        body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: #f4f4f4; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 40px 20px; }
+        body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: #0a0a0a; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
 
-        .engine-card {
-            background: #fff; padding: 40px; border-radius: 30px; 
-            width: 100%; max-width: 600px; border: 3px solid var(--navy);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        .engine-container {
+            background: var(--glass); padding: 45px; border-radius: 35px; 
+            width: 100%; max-width: 500px; border: 3px solid var(--navy);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
         }
 
-        .engine-header { font-family: 'Montserrat'; font-weight: 900; font-size: 1.8rem; color: var(--navy); margin-bottom: 30px; text-transform: uppercase; border-bottom: 5px solid var(--gold); display: inline-block; }
+        .step { display: none; }
+        .step.active { display: block; animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .form-group { margin-bottom: 20px; }
-        label { display: block; font-weight: 800; color: var(--navy); margin-bottom: 10px; font-size: 1rem; text-transform: uppercase; }
-        input, select, textarea { width: 100%; padding: 18px; border-radius: 12px; border: 2px solid #ddd; font-family: inherit; font-weight: 700; font-size: 1.1rem; outline: none; background: #fafafa; }
-        textarea { height: 100px; resize: none; }
-        input:focus { border-color: var(--navy); background: #fff; }
+        .ai-q { font-size: 1.3rem; font-weight: 800; color: var(--navy); margin-bottom: 25px; line-height: 1.3; }
+        input, select { width: 100%; border-radius: 12px; border: 2.5px solid #ddd; padding: 20px; font-family: inherit; font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; outline: none; }
 
-        .btn-generate { width: 100%; padding: 22px; background: var(--navy); color: white; border: none; font-family: 'Montserrat'; font-weight: 900; border-radius: 15px; text-transform: uppercase; cursor: pointer; font-size: 1.2rem; margin-top: 20px; transition: 0.3s; }
-        .btn-generate:hover { background: var(--gold); }
+        .btn-next { width: 100%; padding: 22px; background: var(--navy); color: white; border: none; font-family: 'Montserrat'; font-weight: 900; border-radius: 12px; text-transform: uppercase; cursor: pointer; font-size: 1.1rem; }
+        .btn-next:hover { background: var(--gold); }
 
-        /* THE LEAD CARD */
-        #leadCard { display: none; background: var(--navy); color: white; padding: 35px; border-radius: 25px; border: 2px solid var(--neon); font-family: monospace; margin-top: 30px; }
-        .card-header { color: var(--neon); margin-bottom: 20px; font-weight: bold; font-size: 1.1rem; border-bottom: 1px solid rgba(57,255,20,0.3); padding-bottom: 10px; }
-        .card-row { margin-bottom: 12px; font-size: 1rem; line-height: 1.4; }
-        .card-row span { color: var(--gold); }
-        .confirm-btn { width: 100%; padding: 20px; background: var(--neon); color: black; border: none; font-family: 'Montserrat'; font-weight: 900; border-radius: 12px; text-transform: uppercase; margin-top: 25px; cursor: pointer; font-size: 1rem; }
+        /* LEAD CARD */
+        #leadCardCapture { background: var(--navy); color: white; padding: 30px; border-radius: 20px; border: 2px solid var(--neon); font-family: monospace; }
+        .market-tag { color: var(--neon); font-size: 0.75rem; letter-spacing: 2px; margin-bottom: 10px; display: block; }
+        .card-id { color: white; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 12px; margin-bottom: 20px; font-size: 1rem; }
+        .row { margin-bottom: 12px; font-size: 0.95rem; text-transform: uppercase; }
+        .row span { color: var(--gold); }
+        
+        .card-actions { display: flex; gap: 12px; margin-top: 25px; }
+        .btn-edit { flex: 1; background: transparent; border: 1px solid white; color: white; padding: 18px; border-radius: 10px; cursor: pointer; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; }
+        .btn-lock { flex: 2; background: var(--neon); color: black; border: none; padding: 18px; border-radius: 10px; cursor: pointer; font-weight: 900; font-size: 0.9rem; text-transform: uppercase; }
+        
+        .btn-download { width: 100%; background: var(--gold); color: white; border: none; padding: 20px; border-radius: 12px; cursor: pointer; font-weight: 900; text-transform: uppercase; margin-top: 15px; display: none; }
     </style>
 </head>
 <body>
 
-    <div class="engine-card">
-        <div class="engine-header">Project Engine</div>
-        
-        <div class="form-group">
-            <label>State your issue:</label>
-            <textarea id="issue" placeholder="Describe the problem (e.g., Leaky roof in the master bedroom)"></textarea>
+    <div class="engine-container">
+        <div class="step active" id="s1">
+            <div class="ai-q">State your issue (e.g. leaky roof, HVAC):</div>
+            <input type="text" id="in_issue" placeholder="i have a leaky roof">
+            <button class="btn-next" onclick="move(2)">Next</button>
+        </div>
+        <div class="step" id="s2">
+            <div class="ai-q">What is your name?</div>
+            <input type="text" id="in_name" placeholder="Frank Jones">
+            <button class="btn-next" onclick="move(3)">Next</button>
+        </div>
+        <div class="step" id="s3">
+            <div class="ai-q">Which market/city? (MA, NJ, or Ontario):</div>
+            <input type="text" id="in_city" placeholder="e.g. Boston, MA or Toronto, ON">
+            <button class="btn-next" onclick="move(4)">Next</button>
+        </div>
+        <div class="step" id="s4">
+            <div class="ai-q">What is your phone number?</div>
+            <input type="tel" id="in_phone" placeholder="232-345-0967">
+            <button class="btn-next" onclick="move(5)">Next</button>
+        </div>
+        <div class="step" id="s5">
+            <div class="ai-q">Scope of job:</div>
+            <select id="in_scope"><option>Minor Repair</option><option>Major Job</option></select>
+            <button class="btn-next" onclick="move(6)">Next</button>
+        </div>
+        <div class="step" id="s6">
+            <div class="ai-q">Best time to call?</div>
+            <input type="text" id="in_time" placeholder="any time after 10 am daily">
+            <button class="btn-next" onclick="renderCard()">Generate Lead Card</button>
         </div>
 
-        <div class="form-group">
-            <label>Full Name:</label>
-            <input type="text" id="name" placeholder="Frank Jones">
-        </div>
+        <div class="step" id="s7">
+            <div id="leadCardCapture">
+                <span class="market-tag" id="out_market">MARKET DETECTED</span>
+                <div class="card-id">LEAD ID: #795917</div>
+                <div class="row">NAME: <span id="out_name"></span></div>
+                <div class="row">ISSUE: <span id="out_issue"></span></div>
+                <div class="row">CITY: <span id="out_city"></span></div>
+                <div class="row">PHONE: <span id="out_phone"></span></div>
+                <div class="row">TIME: <span id="out_time"></span></div>
+            </div>
+            
+            <div class="card-actions" id="verifyActions">
+                <button class="btn-edit" onclick="move(1)">Edit Info</button>
+                <button class="btn-lock" onclick="confirmLead()">Confirm & Lock In</button>
+            </div>
 
-        <div class="form-group">
-            <label>City:</label>
-            <input type="text" id="city" placeholder="Boston, MA">
-        </div>
-
-        <div class="form-group">
-            <label>Phone Number:</label>
-            <input type="tel" id="phone" placeholder="232-345-0967">
-        </div>
-
-        <div class="form-group">
-            <label>Scope of Job:</label>
-            <select id="scope">
-                <option value="Minor Repair">Minor Repair</option>
-                <option value="Major Job">Major Job</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>Best Time to Call:</label>
-            <input type="text" id="time" placeholder="Any time after 10am daily">
-        </div>
-
-        <button class="btn-generate" onclick="generate()">Generate Lead Card</button>
-
-        <div id="leadCard">
-            <div class="card-header">LEAD ID: #795917 | VERIFIED STATUS</div>
-            <div class="card-row">NAME: <span id="out-name"></span></div>
-            <div class="card-row">ISSUE: <span id="out-issue"></span></div>
-            <div class="card-row">CITY: <span id="out-city"></span></div>
-            <div class="card-row">PHONE: <span id="out-phone"></span></div>
-            <div class="card-row">TIME: <span id="out-time"></span></div>
-            <button class="confirm-btn" onclick="sendToWorker()">Confirm & Dispatch Lead</button>
+            <button class="btn-download" id="dlBtn" onclick="downloadCard()">Download PNG Card</button>
         </div>
     </div>
 
     <script>
-        function generate() {
-            document.getElementById('out-name').innerText = document.getElementById('name').value;
-            document.getElementById('out-issue').innerText = document.getElementById('issue').value + " (" + document.getElementById('scope').value + ")";
-            document.getElementById('out-city').innerText = document.getElementById('city').value;
-            document.getElementById('out-phone').innerText = document.getElementById('phone').value;
-            document.getElementById('out-time').innerText = document.getElementById('time').value;
-            document.getElementById('leadCard').style.display = 'block';
-            document.getElementById('leadCard').scrollIntoView({ behavior: 'smooth' });
+        function move(n){ 
+            document.querySelectorAll('.step').forEach(s=>s.classList.remove('active')); 
+            document.getElementById('s'+n).classList.add('active'); 
         }
 
-        async function sendToWorker() {
-            const btn = document.querySelector('.confirm-btn');
+        function detectMarket(input) {
+            const val = input.toUpperCase();
+            if (val.includes('MA') || val.includes('MASSACHUSETTS')) return "MASSACHUSETTS MARKET";
+            if (val.includes('NJ') || val.includes('NEW JERSEY')) return "NEW JERSEY MARKET";
+            if (val.includes('ON') || val.includes('ONTARIO') || val.includes('TORONTO')) return "ONTARIO MARKET";
+            return "GENERAL MARKET";
+        }
+
+        function renderCard(){
+            const cityVal = document.getElementById('in_city').value;
+            document.getElementById('out_market').innerText = detectMarket(cityVal);
+            document.getElementById('out_name').innerText = document.getElementById('in_name').value;
+            document.getElementById('out_issue').innerText = document.getElementById('in_issue').value + " (" + document.getElementById('in_scope').value + ")";
+            document.getElementById('out_city').innerText = cityVal;
+            document.getElementById('out_phone').innerText = document.getElementById('in_phone').value;
+            document.getElementById('out_time').innerText = document.getElementById('in_time').value;
+            move(7);
+        }
+
+        async function confirmLead(){
+            const btn = document.querySelector('.btn-lock');
             btn.innerText = "DISPATCHING...";
             
-            const payload = {
-                name: document.getElementById('name').value,
-                issue: document.getElementById('issue').value,
-                city: document.getElementById('city').value,
-                phone: document.getElementById('phone').value,
-                scope: document.getElementById('scope').value,
-                time: document.getElementById('time').value,
-                timestamp: new Date().toISOString()
+            const data = {
+                market: document.getElementById('out_market').innerText,
+                name: document.getElementById('in_name').value,
+                issue: document.getElementById('in_issue').value,
+                city: document.getElementById('in_city').value,
+                phone: document.getElementById('in_phone').value,
+                time: document.getElementById('in_time').value
             };
 
             try {
-                const response = await fetch('https://vvhomepro-brain.dbelnavis.workers.dev/', {
+                const res = await fetch('https://vvhomepro-brain.dbelnavis.workers.dev/', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify(data)
                 });
-                if (response.ok) {
-                    alert("Lead #795917 has been locked and dispatched.");
-                    location.reload();
+                
+                if(res.ok) {
+                    document.getElementById('verifyActions').style.display = 'none';
+                    document.getElementById('dlBtn').style.display = 'block';
                 }
-            } catch(e) { 
-                alert("Dispatch Error. Check console.");
-                console.error(e); 
-            }
+            } catch(e) { console.error(e); }
+        }
+
+        function downloadCard() {
+            const card = document.getElementById('leadCardCapture');
+            html2canvas(card, { backgroundColor: '#001a33' }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'VV_Lead_Card.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
         }
     </script>
 </body>
