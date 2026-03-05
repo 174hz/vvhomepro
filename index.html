@@ -11,40 +11,42 @@
             --navy: #001a33; 
             --gold: #c5a059; 
             --neon: #39FF14; 
-            --glass: rgba(0, 26, 51, 0.95); 
         }
         
         * { box-sizing: border-box; }
         body, html { margin: 0; padding: 0; height: 100%; font-family: 'Plus Jakarta Sans', sans-serif; background: #000; overflow-x: hidden; }
 
-        /* VIDEO BACKGROUND - FULL BOLDNESS */
+        /* LIGHTER VIDEO BACKGROUND - ENABLED VISIBILITY */
         #video-bg {
             position: fixed; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
             z-index: -100; transform: translateX(-50%) translateY(-50%);
-            object-fit: cover; filter: brightness(0.3) contrast(1.2);
+            object-fit: cover; 
+            filter: brightness(0.7) contrast(1.1); /* Lightened from 0.3 to 0.7 */
         }
 
         .main-wrapper {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             min-height: 100vh; width: 100vw; padding: 40px 20px;
-            background: radial-gradient(circle, rgba(0,26,51,0.4) 0%, rgba(0,0,0,0.8) 100%);
+            background: rgba(0,0,0,0.2); /* Very light overlay to let video show through */
         }
 
-        /* BOLD INSTRUCTIONS CARD */
+        /* SEMI-TRANSPARENT CARDS FOR GLASS EFFECT */
         .how-to-card {
-            background: var(--gold); padding: 20px; border-radius: 12px; 
+            background: rgba(197, 160, 89, 0.85); /* Semi-transparent gold */
+            padding: 20px; border-radius: 12px; 
             width: 100%; max-width: 550px; margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             border-bottom: 4px solid #8e6d3b;
+            color: #fff;
         }
-        .how-to-card h3 { margin: 0 0 10px 0; font-family: 'Montserrat'; font-size: 1.1rem; color: #fff; text-transform: uppercase; letter-spacing: 2px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
-        .how-to-card ol { margin: 0; padding-left: 25px; font-size: 0.9rem; line-height: 1.5; color: #fff; font-weight: 800; }
+        .how-to-card h3 { margin: 0 0 10px 0; font-family: 'Montserrat'; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; }
+        .how-to-card ol { margin: 0; padding-left: 25px; font-size: 0.9rem; line-height: 1.5; font-weight: 800; }
 
-        /* THE ENGINE - MATCHING THE PRO UI */
         .engine-ui {
-            background: #fff; width: 100%; max-width: 550px; height: 600px; 
+            background: rgba(255, 255, 255, 0.9); /* Slight transparency */
+            width: 100%; max-width: 550px; height: 600px; 
             border-radius: 20px; border: 6px solid var(--navy); display: flex; flex-direction: column; 
-            overflow: hidden; box-shadow: 0 50px 100px rgba(0,0,0,0.9);
+            overflow: hidden; box-shadow: 0 50px 100px rgba(0,0,0,0.5);
         }
 
         .engine-header { 
@@ -60,25 +62,19 @@
             font-size: 0.75rem; cursor: pointer; text-transform: uppercase;
         }
 
-        .chat-stream { flex: 1; padding: 25px; overflow-y: auto; display: flex; flex-direction: column; gap: 18px; background: #f4f7f9; }
+        .chat-stream { flex: 1; padding: 25px; overflow-y: auto; display: flex; flex-direction: column; gap: 18px; background: rgba(244, 247, 249, 0.5); }
 
-        /* BUBBLES - CLEAN & ENGAGING */
         .bubble { max-width: 85%; padding: 16px 20px; border-radius: 15px; font-size: 1rem; line-height: 1.4; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .ai-msg { align-self: flex-start; background: #fff; color: var(--navy); border: 2px solid #eee; border-bottom-left-radius: 2px; font-weight: 600; }
         .user-msg { align-self: flex-end; background: var(--navy); color: #fff; border-bottom-right-radius: 2px; font-weight: 700; }
 
-        /* INPUT BAR */
         .input-bar { padding: 25px; border-top: 2px solid #eee; display: flex; gap: 12px; background: #fff; }
-        input { flex: 1; border: 3px solid #eee; padding: 15px 20px; border-radius: 10px; outline: none; font-family: inherit; font-weight: 700; font-size: 1.1rem; transition: 0.3s; }
-        input:focus { border-color: var(--gold); }
+        input { flex: 1; border: 3px solid #eee; padding: 15px 20px; border-radius: 10px; outline: none; font-family: inherit; font-weight: 700; font-size: 1.1rem; }
         .btn-send { background: var(--navy); color: var(--gold); border: none; width: 55px; height: 55px; border-radius: 10px; cursor: pointer; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; }
 
-        /* LEGAL FOOTER - NOW WORKING */
         .legal-footer { margin-top: 40px; display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; }
-        .legal-footer a { color: #fff; text-decoration: none; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 2px solid var(--gold); padding-bottom: 4px; transition: 0.3s; }
-        .legal-footer a:hover { color: var(--neon); border-color: var(--neon); }
+        .legal-footer a { color: #fff; text-decoration: none; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 2px solid var(--gold); padding-bottom: 4px; text-shadow: 1px 1px 4px #000; }
 
-        /* LEAD CARD RESULT */
         #finalResult { display: none; padding: 20px; }
         #captureArea { background: var(--navy); color: white; padding: 35px; border-radius: 15px; border: 3px solid var(--neon); font-family: monospace; }
         .data-row { margin-bottom: 12px; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; }
@@ -96,9 +92,9 @@
         <div class="how-to-card">
             <h3>HOW TO USE AI MATCHING ENGINE</h3>
             <ol>
-                <li>STATE YOUR PROJECT (ROOFING, WINDOWS, RENOVATIONS)</li>
-                <li>PROVIDE NAME, CITY/PROVINCE, AND PHONE</li>
-                <li>ZONES: OPTIMIZED FOR MA, NJ, AND ONTARIO</li>
+                <li>STATE PROJECT (ROOFING, WINDOWS, RENOVATIONS)</li>
+                <li>PROVIDE SCOPE, NAME, LOCATION, AND PHONE</li>
+                <li>ZONES: MA, NJ, AND ONTARIO</li>
             </ol>
         </div>
 
@@ -121,13 +117,13 @@
                 <div id="captureArea">
                     <div style="color:var(--neon); margin-bottom:15px; font-size:0.8rem; font-weight:bold; letter-spacing:2px;">ID: #795917 | VV HOME MATCH</div>
                     <div class="data-row">PROJECT: <span id="out_issue"></span></div>
+                    <div class="data-row">SCOPE: <span id="out_scope"></span></div>
                     <div class="data-row">NAME: <span id="out_name"></span></div>
                     <div class="data-row">LOCATION: <span id="out_market"></span></div>
                     <div class="data-row">PHONE: <span id="out_phone"></span></div>
                     <div class="data-row">CALLBACK: <span id="out_time"></span></div>
                 </div>
                 <button class="btn-confirm" id="confirmBtn" onclick="sendLead()">CONFIRM & MATCH</button>
-                <button class="btn-confirm" id="dlBtn" style="display:none; background:var(--gold); color:#fff;" onclick="takeScreenshot()">DOWNLOAD LEAD PNG</button>
             </div>
         </div>
 
@@ -141,7 +137,7 @@
 
     <script>
         let step = 1;
-        let data = { issue: '', name: '', market: '', phone: '', time: '' };
+        let data = { issue: '', scope: '', name: '', market: '', phone: '', time: '' };
         const KEYWORDS = ['roof', 'hvac', 'window', 'repair', 'home', 'leak', 'renovation', 'improvement', 'kitchen', 'bath', 'paint', 'landscap', 'deck', 'fence'];
         const ZONES = ['MA', 'NJ', 'ON', 'ONTARIO', 'MASSACHUSETTS', 'NEW JERSEY', 'TORONTO', 'BOSTON', 'NEWARK'];
 
@@ -165,7 +161,7 @@
                 const isHome = KEYWORDS.some(k => val.toLowerCase().includes(k));
                 if (!isHome) {
                     addMsg(val, 'user'); input.value = '';
-                    setTimeout(() => addMsg("I am currently optimized for home renovations and repairs. Please state a valid project (e.g., Roofing, HVAC) to begin.", 'ai'), 600);
+                    setTimeout(() => addMsg("I am optimized for home renovations. Please state a project (e.g., Roofing) to begin.", 'ai'), 600);
                     return;
                 }
             }
@@ -176,30 +172,35 @@
             setTimeout(() => {
                 if(step === 1) { 
                     data.issue = val; 
-                    addMsg("Got it. What is your full name?", 'ai'); 
+                    addMsg("Understood. What is the scope of the issue? (e.g., Major leak, Minor repair, or Full Replacement?)", 'ai'); 
                     step++; 
                 }
-                else if(step === 2) { 
+                else if(step === 2) {
+                    data.scope = val;
+                    addMsg("Got it. What is your full name?", 'ai');
+                    step++;
+                }
+                else if(step === 3) { 
                     data.name = val; 
                     addMsg("Which city and province/state are you in?", 'ai'); 
                     step++; 
                 }
-                else if(step === 3) {
+                else if(step === 4) {
                     const isValid = ZONES.some(z => val.toUpperCase().includes(z));
                     if (!isValid) {
-                        addMsg("I am optimized for MA, NJ, and Ontario. Please provide a location in these areas to continue.", 'ai');
+                        addMsg("I am optimized for MA, NJ, and Ontario. Please provide a location in these areas.", 'ai');
                         return;
                     }
                     data.market = val.toUpperCase(); 
                     addMsg("What is your phone number?", 'ai'); 
                     step++;
-                } else if(step === 4) {
+                } else if(step === 5) {
                     data.phone = val; 
                     addMsg("Finally, what is the best time for a callback?", 'ai'); 
                     step++;
-                } else if(step === 5) {
+                } else if(step === 6) {
                     data.time = val; 
-                    addMsg("Lead Card generated. Please verify your details below.", 'ai'); 
+                    addMsg("Lead Card generated. Please verify below.", 'ai'); 
                     showFinal();
                 }
             }, 700);
@@ -209,6 +210,7 @@
             document.getElementById('inputBar').style.display = 'none';
             document.getElementById('out_name').innerText = data.name;
             document.getElementById('out_issue').innerText = data.issue;
+            document.getElementById('out_scope').innerText = data.scope;
             document.getElementById('out_market').innerText = data.market;
             document.getElementById('out_phone').innerText = data.phone;
             document.getElementById('out_time').innerText = data.time;
@@ -225,21 +227,9 @@
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(data)
                 });
-                btn.style.display = 'none';
-                document.getElementById('dlBtn').style.display = 'block';
-            } catch(e) { 
-                console.error(e); 
-                btn.innerText = "CONFIRM & MATCH"; 
-            }
-        }
-
-        function takeScreenshot() {
-            html2canvas(document.getElementById('captureArea'), { backgroundColor: '#001a33' }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = 'VV_HOME_MATCH.png';
-                link.href = canvas.toDataURL();
-                link.click();
-            });
+                btn.innerText = "MATCH DISPATCHED!";
+                btn.style.background = "#39FF14";
+            } catch(e) { console.error(e); btn.innerText = "CONFIRM & MATCH"; }
         }
     </script>
 </body>
