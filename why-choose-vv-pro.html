@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Choose VV Pro | Vetted & Verified Home Services</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --navy: #001a33; --gold: #FFD700; --neon: #39FF14; --glass: rgba(255, 255, 255, 0.05); }
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: #000; color: white; line-height: 1.6; }
+
+        /* HERO BACKGROUND */
+        .hero-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; overflow: hidden;
+        }
+        .hero-bg img {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: brightness(25%);
+        }
+
+        /* HEADER */
+        header { padding: 30px 5%; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Montserrat'; font-weight: 900; color: white; font-size: 1.2rem; text-decoration: none; text-transform: uppercase; }
+        .logo span { color: var(--gold); }
+
+        /* CONTENT */
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; text-align: center; }
+        h1 { font-family: 'Montserrat'; font-size: clamp(2rem, 6vw, 4rem); text-transform: uppercase; letter-spacing: -2px; line-height: 1; margin-bottom: 40px; }
+        h1 span { color: var(--gold); }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 50px; }
+        
+        .card { 
+            background: var(--glass); border: 1px solid rgba(255,255,255,0.1); 
+            padding: 40px; border-radius: 25px; backdrop-filter: blur(15px); 
+            text-align: left; transition: 0.3s;
+        }
+        .card:hover { border-color: var(--neon); transform: translateY(-5px); }
+        .card b { color: var(--neon); font-family: 'Montserrat'; font-size: 1.2rem; display: block; margin-bottom: 15px; }
+        .card p { opacity: 0.8; font-size: 0.95rem; margin: 0; }
+
+        /* CALL TO ACTION */
+        .cta-section { margin-top: 80px; padding: 60px; background: var(--gold); border-radius: 30px; color: #001a33; }
+        .cta-section h2 { font-family: 'Montserrat'; font-size: 2.5rem; text-transform: uppercase; margin-top: 0; line-height: 1; }
+        .btn-black { 
+            display: inline-block; margin-top: 20px; padding: 20px 40px; 
+            background: #000; color: white; text-decoration: none; 
+            font-family: 'Montserrat'; font-weight: 900; border-radius: 12px; 
+            text-transform: uppercase; transition: 0.3s;
+        }
+        .btn-black:hover { transform: scale(1.05); }
+
+        footer { text-align: center; padding: 60px; opacity: 0.5; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; }
+    </style>
+</head>
+<body>
+
+    <div class="hero-bg">
+        <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=2069" alt="Home Interior">
+    </div>
+
+    <header>
+        <a href="index.html" class="logo">VV HOME <span>PRO</span></a>
+    </header>
+
+    <div class="container">
+        <h1>The <span>Verification</span> Standard.</h1>
+        <p style="font-size: 1.2rem; opacity: 0.9; max-width: 700px; margin: 0 auto;">We don't just "list" contractors. We audit them. Every pro in the VV Registry has passed a rigorous multi-point vetting process.</p>
+
+        <div class="grid">
+            <div class="card">
+                <b>01. LICENSED & INSURED</b>
+                <p>We verify active local licensing and high-limit liability insurance. If their paperwork lapses, they are removed from the registry immediately.</p>
+            </div>
+            <div class="card">
+                <b>02. RESPONSE VELOCITY</b>
+                <p>Our partners are held to a 60-minute response standard. You won't be left waiting for days just to get a return phone call.</p>
+            </div>
+            <div class="card">
+                <b>03. WORKMANSHIP AUDIT</b>
+                <p>We review project portfolios and verified customer history to ensure the technical quality matches our "Elite" designation.</p>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>Ready for a <span>Better</span> Experience?</h2>
+            <p style="font-weight: 700; font-size: 1.1rem;">Skip the search. Get matched with a verified local expert now.</p>
+            <a href="index.html" class="btn-black">Find My Pro Now</a>
+        </div>
+    </div>
+
+    <footer>&copy; 2026 VV HOME PRO</footer>
+
+</body>
+</html>
