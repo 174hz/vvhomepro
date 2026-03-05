@@ -3,73 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About VV HOME PRO | The Gold Standard in Matching</title>
+    <title>VV HOME PRO | Top-Tier Contractor Match</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --navy: #001a33; --gold: #c5a059; --neon: #39FF14; --white: #ffffff; }
-        * { box-sizing: border-box; }
-        body, html { margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--navy); color: var(--navy); }
+        :root { 
+            --navy: #001a33; 
+            --gold: #c5a059; 
+            --neon: #39FF14; 
+            --white: #ffffff;
+        }
 
+        * { box-sizing: border-box; }
+        body, html { 
+            margin: 0; padding: 0; height: 100%; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: var(--navy);
+            overflow-x: hidden;
+        }
+
+        /* BACKGROUND: INDUSTRIAL-STRENGTH RENOVATION */
         .hero-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0, 26, 51, 0.75), rgba(0, 26, 51, 0.9)), 
-                        url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80&w=2000');
-            background-size: cover; background-position: center; z-index: -1;
+            background: linear-gradient(rgba(0, 26, 51, 0.7), rgba(0, 26, 51, 0.9)), 
+                        url('https://images.unsplash.com/photo-1505798577917-a65157d3320a?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
         }
 
-        .header-nav { padding: 40px; display: flex; align-items: center; gap: 20px; }
-        .brand-container img { width: 80px; height: auto; object-fit: contain; filter: drop-shadow(5px 5px 0px var(--navy)); border: 4px solid var(--white); }
-        .brand-text { font-family: 'Montserrat'; color: var(--white); font-size: 2.2rem; line-height: 0.85; text-transform: uppercase; letter-spacing: -2px; text-shadow: 4px 4px 0px var(--navy); }
-
-        .content-wrapper { display: flex; justify-content: center; padding: 40px 20px; }
-        .info-card { 
-            background: var(--white); width: 100%; max-width: 850px; 
-            border: 12px solid var(--navy); box-shadow: 40px 40px 0px var(--gold);
-            padding: 60px;
+        /* HEADER / BRANDING - FIXED LOGO SCALE */
+        .header-nav {
+            position: absolute; top: 0; left: 0; width: 100%;
+            padding: 40px; display: flex; align-items: center; gap: 20px;
+            z-index: 100;
         }
 
-        h1 { font-family: 'Montserrat'; font-size: 3rem; text-transform: uppercase; line-height: 0.9; margin-bottom: 30px; border-bottom: 10px solid var(--neon); display: inline-block; }
-        p { font-size: 1.2rem; font-weight: 700; line-height: 1.6; margin-bottom: 25px; }
+        .brand-container { display: flex; align-items: center; gap: 20px; }
         
-        .value-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px; }
-        .value-item { background: #f4f4f4; padding: 25px; border-left: 8px solid var(--gold); }
-        .value-item h3 { font-family: 'Montserrat'; text-transform: uppercase; margin-top: 0; color: var(--navy); }
-
-        .btn-back { 
-            display: inline-block; margin-top: 40px; background: var(--navy); color: var(--neon); 
-            padding: 20px 40px; text-decoration: none; font-family: 'Montserrat'; 
-            font-weight: 900; text-transform: uppercase; border: none; transition: 0.2s;
+        .brand-container img { 
+            width: 85px; 
+            height: auto; /* Prevents squishing */
+            object-fit: contain; 
+            filter: drop-shadow(6px 6px 0px var(--navy));
+            border: 4px solid var(--white);
         }
-        .btn-back:hover { box-shadow: 0 10px 0 var(--gold); transform: translateY(-5px); }
+
+        .brand-text {
+            font-family: 'Montserrat'; color: var(--white);
+            font-size: 2.2rem; line-height: 0.85; text-transform: uppercase;
+            letter-spacing: -2px; text-shadow: 4px 4px 0px var(--navy);
+        }
+
+        /* CENTERED LAYOUT */
+        .main-content {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            min-height: 100vh; padding: 140px 20px 80px 20px;
+        }
+
+        /* POWERFUL CTA TAGLINE */
+        .cta-header {
+            text-align: center; margin-bottom: 50px; max-width: 1000px;
+        }
+        .cta-header h1 {
+            font-family: 'Montserrat'; color: var(--white); font-size: 3.5rem;
+            text-transform: uppercase; line-height: 0.95; margin: 0;
+            text-shadow: 6px 6px 0px var(--gold);
+        }
+        .cta-header .highlight { color: var(--neon); }
+
+        /* THE ENGINE CARD - INDUSTRIAL CENTERPIECE */
+        .engine-card {
+            width: 100%; max-width: 650px;
+            background: var(--white);
+            border: 12px solid var(--navy);
+            box-shadow: 40px 40px 0px var(--gold);
+            display: flex; flex-direction: column;
+        }
+
+        .engine-top {
+            background: var(--navy); color: var(--white); padding: 25px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .engine-top h2 { margin: 0; font-family: 'Montserrat'; font-size: 1.3rem; letter-spacing: 2px; }
+        
+        .btn-refresh {
+            background: var(--neon); color: var(--navy); border: none;
+            padding: 10px 20px; font-family: 'Montserrat'; font-weight: 900;
+            text-transform: uppercase; cursor: pointer; transition: 0.2s;
+        }
+        .btn-refresh:hover { transform: scale(1.05); }
+
+        .chat-stream {
+            height: 400px; overflow-y: auto; padding: 30px;
+            background: #f4f7f9; display: flex; flex-direction: column; gap: 20px;
+            border-bottom: 8px solid var(--navy);
+        }
+
+        /* BUBBLES - HEAVY WEIGHT */
+        .bubble { 
+            max-width: 85%; padding: 20px; font-size: 1.1rem; line-height: 1.4;
+            font-weight: 800; border: 4px solid var(--navy);
+        }
+        .ai-msg { background: var(--white); color: var(--navy); box-shadow: 10px 10px 0px var(--gold); }
+        .user-msg { align-self: flex-end; background: var(--navy); color: var(--white); box-shadow: -10px 10px 0px var(--neon); }
+
+        /* INPUT AREA */
+        .input-bar { padding: 30px; display: flex; gap: 15px; background: var(--white); }
+        input { 
+            flex: 1; border: 5px solid var(--navy); padding: 18px; 
+            font-size: 1.2rem; font-weight: 900; outline: none; text-transform: uppercase;
+        }
+        .btn-send { 
+            background: var(--navy); color: var(--neon); border: none; 
+            width: 80px; cursor: pointer; font-size: 2.5rem; display: flex;
+            align-items: center; justify-content: center;
+        }
+
+        /* FINAL CARD PIZZAZZ */
+        #finalResult { display: none; padding: 40px; background: var(--white); }
+        .data-card { background: var(--navy); color: #fff; padding: 30px; border: 6px solid var(--neon); }
+        .data-line { margin-bottom: 12px; font-size: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
+        .data-line b { color: var(--gold); text-transform: uppercase; }
+        .btn-dispatch {
+            width: 100%; background: var(--neon); color: var(--navy); padding: 25px;
+            font-family: 'Montserrat'; font-weight: 900; font-size: 1.6rem;
+            border: none; margin-top: 25px; cursor: pointer; text-transform: uppercase;
+        }
+
+        /* FOOTER NAV */
+        .footer-nav {
+            margin-top: 80px; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;
+        }
+        .footer-nav a {
+            color: var(--white); text-decoration: none; font-weight: 900; font-size: 0.8rem;
+            text-transform: uppercase; background: var(--navy); border: 3px solid var(--gold);
+            padding: 12px 25px; transition: 0.3s;
+        }
+        .footer-nav a:hover { box-shadow: 0 10px 0 var(--gold); transform: translateY(-5px); }
     </style>
 </head>
 <body>
+
     <div class="hero-bg"></div>
+
     <div class="header-nav">
         <div class="brand-container">
-            <img src="vv-verified-badge.png" alt="VV Verified">
+            <img src="vv-verified-badge.png" alt="VV Verified Badge">
             <div class="brand-text">VV HOME<br>PRO</div>
         </div>
     </div>
 
-    <div class="content-wrapper">
-        <div class="info-card">
-            <h1>We Kill the Chaos.</h1>
-            <p>Homeowners are tired of being ghosted. You deserve a contractor who treats your home like their own project. VV HOME PRO was built to bridge the gap between high-end architectural needs and the top-tier professionals who actually deliver.</p>
-            
-            <div class="value-grid">
-                <div class="value-item">
-                    <h3>The 1% Standard</h3>
-                    <p>We only dispatch to contractors with a proven track record in MA, NJ, and Ontario. No amateurs.</p>
-                </div>
-                <div class="value-item">
-                    <h3>AI Dispatch</h3>
-                    <p>Our engine matches your specific leak or renovation scope to the professional's current real-time availability.</p>
-                </div>
+    <div class="main-content">
+        <div class="cta-header">
+            <h1>STOP GAMBLING YOUR HOME'S VALUE ON <span class="highlight">UNVERIFIED, SLOW CONTRACTORS.</span></h1>
+        </div>
+
+        <div class="engine-card">
+            <div class="engine-top">
+                <h2>AI MATCHING ENGINE</h2>
+                <button class="btn-refresh" onclick="location.reload()">Refresh</button>
             </div>
 
-            <a href="index.html" class="btn-back">Return to Engine</a>
+            <div class="chat-stream" id="chatStream">
+                <div class="bubble ai-msg">SYSTEM READY. STATE YOUR PROJECT CATEGORY (E.G. ROOFING, HVAC, WINDOWS) TO BEGIN THE MATCHING PROTOCOL.</div>
+            </div>
+
+            <div class="input-bar" id="inputBar">
+                <input type="text" id="userInput" placeholder="TYPE PROJECT HERE..." onkeypress="handleKey(event)">
+                <button class="btn-send" onclick="process()">→</button>
+            </div>
+
+            <div id="finalResult">
+                <div class="data-card">
+                    <div class="data-line"><b>Project:</b> <span id="out_issue"></span></div>
+                    <div class="data-line"><b>Scope:</b> <span id="out_scope"></span></div>
+                    <div class="data-line"><b>Name:</b> <span id="out_name"></span></div>
+                    <div class="data-line"><b>Location:</b> <span id="out_market"></span></div>
+                    <div class="data-line"><b>Contact:</b> <span id="out_phone"></span></div>
+                </div>
+                <button class="btn-dispatch" onclick="sendLead()">Confirm & Dispatch Match</button>
+            </div>
+        </div>
+
+        <div class="footer-nav">
+            <a href="about.html">About Us</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Use</a>
+            <a href="standards.html">Operating Standards</a>
+            <a href="contact.html">Contact Us</a>
         </div>
     </div>
+
+    <script>
+        let step = 1;
+        let data = { issue: '', scope: '', name: '', market: '', phone: '' };
+
+        function handleKey(e) { if(e.key === 'Enter') process(); }
+        function addMsg(txt, type) {
+            const stream = document.getElementById('chatStream');
+            const b = document.createElement('div');
+            b.className = `bubble ${type}-msg`;
+            b.innerText = txt.toUpperCase();
+            stream.appendChild(b);
+            stream.scrollTop = stream.scrollHeight;
+        }
+
+        function process() {
+            const input = document.getElementById('userInput');
+            const val = input.value.trim();
+            if(!val) return;
+            addMsg(val, 'user');
+            input.value = '';
+
+            setTimeout(() => {
+                if(step === 1) { data.issue = val; addMsg("SPECIFY SCOPE: MAJOR LEAK, MINOR REPAIR, OR FULL REPLACEMENT?", 'ai'); step++; }
+                else if(step === 2) { data.scope = val; addMsg("PLEASE PROVIDE YOUR FULL NAME:", 'ai'); step++; }
+                else if(step === 3) { data.name = val; addMsg("IDENTIFY YOUR CITY AND STATE/PROVINCE:", 'ai'); step++; }
+                else if(step === 4) { data.market = val; addMsg("WHAT IS THE BEST CONTACT PHONE NUMBER?", 'ai'); step++; }
+                else if(step === 5) { data.phone = val; addMsg("PROTOCOL COMPLETE. VERIFY YOUR MATCH DATA BELOW.", 'ai'); showFinal(); }
+            }, 700);
+        }
+
+        function showFinal() {
+            document.getElementById('inputBar').style.display = 'none';
+            document.getElementById('out_name').innerText = data.name;
+            document.getElementById('out_issue').innerText = data.issue;
+            document.getElementById('out_scope').innerText = data.scope;
+            document.getElementById('out_market').innerText = data.market;
+            document.getElementById('out_phone').innerText = data.phone;
+            document.getElementById('finalResult').style.display = 'block';
+        }
+
+        async function sendLead() {
+            alert("MATCH DISPATCHED TO TOP-TIER PRO NETWORK");
+            location.reload();
+        }
+    </script>
 </body>
 </html>
