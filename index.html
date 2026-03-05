@@ -10,7 +10,7 @@
             --navy: #001a33; --gold: #c5a059; --neon: #39FF14; --white: #ffffff; --black: #000000;
         }
 
-        /* 1:1 TYPOGRAPHY & LAYOUT RESET */
+        /* RESET & CORE FONTS */
         * { box-sizing: border-box; border-radius: 0 !important; }
         body, html { 
             margin: 0; padding: 0; height: 100%; 
@@ -20,107 +20,109 @@
 
         .hero-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0, 26, 51, 0.7), rgba(0, 26, 51, 0.9)), 
+            background: linear-gradient(rgba(0, 26, 51, 0.75), rgba(0, 26, 51, 0.95)), 
                         url('https://images.unsplash.com/photo-1541888946425-d81bb19480c5?q=80&w=2000');
             background-size: cover; background-position: center; z-index: -1;
         }
 
-        /* TOP BRANDING (SCREENSHOT TOP-LEFT) */
+        /* HEADER BRANDING - SIZED PER SCREENSHOT */
         .header-section {
-            padding: 40px; display: flex; align-items: center; gap: 20px;
+            padding: 30px 40px; display: flex; align-items: center; gap: 15px;
         }
         .logo-box {
-            width: 90px; height: 90px; background: #fff;
-            border: 8px solid var(--black); display: flex; align-items: center; justify-content: center;
-            box-shadow: 6px 6px 0px var(--black);
+            width: 75px; height: 75px; background: #fff;
+            border: 6px solid var(--black); display: flex; align-items: center; justify-content: center;
+            box-shadow: 4px 4px 0px var(--black);
         }
-        .logo-box img { width: 80%; height: auto; }
+        .logo-box img { width: 75%; height: auto; }
         .logo-text {
-            font-family: 'Montserrat'; font-size: 2.5rem; line-height: 0.85;
-            text-transform: uppercase; letter-spacing: -2px; text-shadow: 5px 5px 0px var(--black);
+            font-family: 'Montserrat'; font-size: 1.8rem; line-height: 0.9;
+            text-transform: uppercase; letter-spacing: -1px; text-shadow: 3px 3px 0px var(--black);
         }
 
-        /* MAIN CENTERED ENGINE AREA */
+        /* MAIN LAYOUT */
         .main-layout {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: 20px; min-height: calc(100vh - 180px);
+            padding: 20px; min-height: calc(100vh - 200px);
         }
 
-        /* THE TAGLINE (IDENTICAL FONT SIZE & WEIGHT) */
+        /* REDUCED TAGLINE SIZES */
         .hero-tagline {
-            text-align: center; margin-bottom: 50px; max-width: 1200px;
+            text-align: center; margin-bottom: 40px; max-width: 900px;
         }
         .hero-tagline h1 {
-            font-family: 'Montserrat'; font-size: 3.8rem; line-height: 0.9;
-            text-transform: uppercase; margin: 0; text-shadow: 8px 8px 0px var(--black);
+            font-family: 'Montserrat'; font-size: 2.8rem; line-height: 1;
+            text-transform: uppercase; margin: 0; text-shadow: 5px 5px 0px var(--black);
         }
         .hero-tagline span { color: var(--neon); }
 
-        /* THE AI ENGINE BOX (RED HIGHLIGHTED AREA FROM SCREENSHOT) */
+        /* THE AI ENGINE - BALANCED PROPORTIONS */
         .engine-container {
-            width: 100%; max-width: 700px;
+            width: 100%; max-width: 600px;
             background: var(--white);
-            border: 15px solid var(--black);
-            box-shadow: 35px 35px 0px var(--gold);
+            border: 10px solid var(--black);
+            box-shadow: 25px 25px 0px var(--gold);
             display: flex; flex-direction: column;
         }
 
         .engine-header {
-            background: var(--black); color: var(--neon); padding: 25px;
+            background: var(--black); color: var(--neon); padding: 18px 25px;
             display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 12px solid var(--gold);
+            border-bottom: 8px solid var(--gold);
         }
-        .engine-header h2 { margin: 0; font-family: 'Montserrat'; font-size: 1.4rem; letter-spacing: 2px; }
+        .engine-header h2 { margin: 0; font-family: 'Montserrat'; font-size: 1.1rem; letter-spacing: 1.5px; }
         
         .btn-reset {
-            background: var(--gold); color: #000; border: 4px solid #000;
-            padding: 8px 18px; font-family: 'Montserrat'; font-weight: 900;
-            text-transform: uppercase; cursor: pointer; font-size: 0.8rem;
+            background: var(--gold); color: #000; border: 3px solid #000;
+            padding: 6px 14px; font-family: 'Montserrat'; font-weight: 900;
+            text-transform: uppercase; cursor: pointer; font-size: 0.7rem;
         }
 
-        /* CHAT FEED */
+        /* CHAT FEED - COMPACT FONTS */
         .chat-feed {
-            height: 400px; overflow-y: auto; padding: 35px;
-            background: #e2e8f0; display: flex; flex-direction: column; gap: 25px;
+            height: 350px; overflow-y: auto; padding: 25px;
+            background: #e5e7eb; display: flex; flex-direction: column; gap: 20px;
         }
         .msg { 
-            padding: 22px; font-size: 1.2rem; font-weight: 800; 
-            border: 6px solid var(--black); text-transform: uppercase; line-height: 1.1;
+            padding: 16px; font-size: 0.95rem; font-weight: 800; 
+            border: 4px solid var(--black); text-transform: uppercase; line-height: 1.2;
         }
-        .ai-msg { background: #fff; color: #000; box-shadow: 10px 10px 0px var(--gold); width: 85%; }
-        .user-msg { align-self: flex-end; background: #000; color: var(--neon); box-shadow: -10px 10px 0px var(--gold); width: 85%; }
+        .ai-msg { background: #fff; color: #000; box-shadow: 6px 6px 0px var(--gold); width: 85%; }
+        .user-msg { align-self: flex-end; background: #000; color: var(--neon); box-shadow: -6px 6px 0px var(--gold); width: 85%; }
 
         /* INPUT BAR */
         .input-tray { 
-            padding: 30px; display: flex; gap: 15px; background: #fff; border-top: 10px solid var(--black);
+            padding: 20px; display: flex; gap: 10px; background: #fff; border-top: 8px solid var(--black);
         }
         input { 
-            flex: 1; border: 8px solid var(--black); padding: 22px; 
-            font-size: 1.4rem; font-weight: 800; font-family: 'Plus Jakarta Sans';
+            flex: 1; border: 5px solid var(--black); padding: 15px; 
+            font-size: 1rem; font-weight: 800; font-family: 'Plus Jakarta Sans';
             text-transform: uppercase; outline: none;
         }
-        .btn-send { background: #000; color: var(--neon); border: none; width: 90px; font-size: 2.5rem; cursor: pointer; }
+        .btn-send { background: #000; color: var(--neon); border: none; width: 60px; font-size: 1.8rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-        /* FINAL CARD - MODELED AFTER LEAD DISPLAY */
-        #finalMatch { display: none; padding: 40px; background: #fff; }
-        .summary-box { background: #000; color: #fff; padding: 35px; border: 12px solid var(--neon); }
-        .summary-line { margin-bottom: 15px; font-size: 1.2rem; border-bottom: 2px solid #333; padding-bottom: 10px; font-weight: 800; }
-        .summary-line b { color: var(--gold); font-family: 'Montserrat'; }
+        /* FINAL CARD */
+        #finalMatch { display: none; padding: 30px; background: #fff; }
+        .summary-box { background: #000; color: #fff; padding: 25px; border: 8px solid var(--neon); }
+        .summary-line { margin-bottom: 12px; font-size: 1rem; border-bottom: 2px solid #333; padding-bottom: 8px; font-weight: 800; }
+        .summary-line b { color: var(--gold); font-family: 'Montserrat'; font-size: 0.85rem; }
+        
         .btn-confirm {
-            width: 100%; background: var(--neon); color: #000; padding: 30px;
-            font-family: 'Montserrat'; font-weight: 900; font-size: 2rem;
-            border: 8px solid var(--black); margin-top: 25px; cursor: pointer; text-transform: uppercase;
+            width: 100%; background: var(--neon); color: #000; padding: 20px;
+            font-family: 'Montserrat'; font-weight: 900; font-size: 1.4rem;
+            border: 6px solid var(--black); margin-top: 20px; cursor: pointer; text-transform: uppercase;
         }
 
-        /* FOOTER LINKS (BLOCK STYLE) */
+        /* FOOTER NAV */
         .footer-nav {
-            margin-top: 80px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; padding-bottom: 60px;
+            margin-top: 60px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding-bottom: 40px;
         }
         .footer-nav a {
-            background: #000; color: #fff; text-decoration: none; padding: 18px 35px;
-            font-family: 'Montserrat'; font-weight: 900; font-size: 1rem; border: 6px solid var(--gold);
-            text-transform: uppercase;
+            background: #000; color: #fff; text-decoration: none; padding: 14px 25px;
+            font-family: 'Montserrat'; font-weight: 900; font-size: 0.8rem; border: 4px solid var(--gold);
+            text-transform: uppercase; transition: 0.2s;
         }
+        .footer-nav a:hover { transform: translateY(-3px); box-shadow: 0 5px 0 var(--gold); }
     </style>
 </head>
 <body>
@@ -144,11 +146,11 @@
             </div>
 
             <div class="chat-feed" id="chatStream">
-                <div class="msg ai-msg">IDENTIFY PROJECT CATEGORY (E.G. ROOFING, HVAC, WINDOWS) TO COMMENCE MATCHING.</div>
+                <div class="bubble ai-msg">SELECT PROJECT TYPE (ROOFING, HVAC, WINDOWS, PLUMBING).</div>
             </div>
 
             <div class="input-tray" id="inputBar">
-                <input type="text" id="userInput" placeholder="TYPE HERE..." onkeypress="handleKey(event)">
+                <input type="text" id="userInput" placeholder="TYPE PROJECT..." onkeypress="handleKey(event)">
                 <button class="btn-send" onclick="process()">→</button>
             </div>
 
@@ -156,10 +158,10 @@
                 <div class="summary-box">
                     <div class="summary-line"><b>PROJECT:</b> <span id="out_issue"></span></div>
                     <div class="summary-line"><b>NAME:</b> <span id="out_name"></span></div>
-                    <div class="summary-line"><b>LOCATION:</b> <span id="out_market"></span></div>
-                    <div class="summary-line"><b>CONTACT:</b> <span id="out_phone"></span></div>
+                    <div class="summary-line"><b>MARKET:</b> <span id="out_market"></span></div>
+                    <div class="summary-line"><b>PHONE:</b> <span id="out_phone"></span></div>
                 </div>
-                <button class="btn-confirm" onclick="alert('DISPATCHED')">Dispatch Match</button>
+                <button class="btn-confirm" onclick="alert('MATCH DISPATCHED')">Confirm Match</button>
             </div>
         </div>
 
