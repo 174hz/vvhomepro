@@ -11,36 +11,35 @@
         body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: #f4f4f4; color: #000; overflow: hidden; }
 
         .video-wrapper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
-        .video-wrapper video { min-width: 100%; min-height: 100%; width: auto; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); object-fit: cover; }
-        .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.25); }
+        .video-wrapper video { min-width: 100%; min-height: 100%; width: auto; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(95%); }
+        .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.2); }
 
         .hero-content { min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
         
-        /* ORIGINAL COMPACT CARD */
         .engine-container {
             background: var(--glass); padding: 40px; border-radius: 35px; 
-            width: 100%; max-width: 520px; border: 3px solid var(--navy);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.2); position: relative;
+            width: 100%; max-width: 500px; border: 3px solid var(--navy);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
 
         .step { display: none; }
         .step.active { display: block; }
 
-        .q-text { font-size: 1.25rem; font-weight: 800; color: var(--navy); margin-bottom: 20px; display: block; line-height: 1.3; }
-        input, select { width: 100%; border-radius: 12px; border: 2.5px solid #ddd; padding: 22px; font-family: inherit; font-size: 1.1rem; font-weight: 700; margin-bottom: 25px; outline: none; }
-        
-        .btn-next { width: 100%; padding: 22px; background: var(--navy); color: white; border: none; font-family: 'Montserrat'; font-weight: 900; border-radius: 12px; text-transform: uppercase; cursor: pointer; font-size: 1.1rem; transition: 0.3s; }
+        .ai-q { font-size: 1.2rem; font-weight: 800; color: var(--navy); margin-bottom: 20px; line-height: 1.4; }
+        input, select { width: 100%; border-radius: 12px; border: 2.5px solid #ddd; padding: 20px; font-family: inherit; font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; outline: none; background: #fff; }
+
+        .btn-next { width: 100%; padding: 20px; background: var(--navy); color: white; border: none; font-family: 'Montserrat'; font-weight: 900; border-radius: 12px; text-transform: uppercase; cursor: pointer; font-size: 1.1rem; }
         .btn-next:hover { background: var(--gold); }
 
-        /* LEAD CARD RESULT */
+        /* LEAD CARD */
         .lead-card { background: var(--navy); color: white; padding: 30px; border-radius: 20px; border: 1.5px solid var(--neon); font-family: monospace; }
-        .lead-id { color: var(--neon); border-bottom: 1px solid rgba(57,255,20,0.3); padding-bottom: 12px; margin-bottom: 18px; font-size: 1rem; }
-        .lead-row { margin-bottom: 12px; font-size: 0.95rem; }
-        .lead-row span { color: var(--gold); }
+        .lead-id { color: var(--neon); border-bottom: 1px solid rgba(57,255,20,0.3); padding-bottom: 10px; margin-bottom: 15px; font-size: 0.9rem; }
+        .l-line { margin-bottom: 10px; font-size: 0.95rem; }
+        .l-line span { color: var(--gold); }
         
-        .card-controls { display: flex; gap: 12px; margin-top: 25px; }
-        .btn-edit { flex: 1; background: transparent; border: 1px solid white; color: white; padding: 18px; border-radius: 10px; cursor: pointer; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; }
-        .btn-lock { flex: 2; background: var(--neon); color: black; border: none; padding: 18px; border-radius: 10px; cursor: pointer; font-weight: 900; font-size: 0.9rem; text-transform: uppercase; }
+        .card-btns { display: flex; gap: 10px; margin-top: 25px; }
+        .btn-edit { flex: 1; background: transparent; border: 1px solid white; color: white; padding: 15px; border-radius: 10px; cursor: pointer; font-weight: 800; text-transform: uppercase; font-size: 0.8rem; }
+        .btn-lock { flex: 2; background: var(--neon); color: black; border: none; padding: 15px; border-radius: 10px; cursor: pointer; font-weight: 900; text-transform: uppercase; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -53,46 +52,46 @@
     <div class="hero-content">
         <div class="engine-container">
             <div class="step active" id="s1">
-                <span class="q-text">What is your project?</span>
-                <input type="text" id="in_problem" placeholder="e.g. leaky roof">
+                <div class="ai-q">State your issue (e.g. leaky roof, HVAC problem):</div>
+                <input type="text" id="val_problem" placeholder="i have a leaky roof">
                 <button class="btn-next" onclick="move(2)">Next</button>
             </div>
             <div class="step" id="s2">
-                <span class="q-text">What is your name?</span>
-                <input type="text" id="in_name" placeholder="Frank Jones">
+                <div class="ai-q">What is your name?</div>
+                <input type="text" id="val_name" placeholder="Frank Jones">
                 <button class="btn-next" onclick="move(3)">Next</button>
             </div>
             <div class="step" id="s3">
-                <span class="q-text">Which city?</span>
-                <input type="text" id="in_city" placeholder="Boston, MA">
+                <div class="ai-q">What is your city?</div>
+                <input type="text" id="val_city" placeholder="Boston, MA">
                 <button class="btn-next" onclick="move(4)">Next</button>
             </div>
             <div class="step" id="s4">
-                <span class="q-text">Phone Number:</span>
-                <input type="tel" id="in_phone" placeholder="232-345-0967">
+                <div class="ai-q">What is your phone number?</div>
+                <input type="tel" id="val_phone" placeholder="232-345-0967">
                 <button class="btn-next" onclick="move(5)">Next</button>
             </div>
             <div class="step" id="s5">
-                <span class="q-text">Major or minor repair?</span>
-                <select id="in_scope"><option>Minor Repair</option><option>Major Job</option></select>
+                <div class="ai-q">Scope of job:</div>
+                <select id="val_scope"><option>Minor Repair</option><option>Major Job</option></select>
                 <button class="btn-next" onclick="move(6)">Next</button>
             </div>
             <div class="step" id="s6">
-                <span class="q-text">Best time for a pro to call?</span>
-                <input type="text" id="in_time" placeholder="any time after 10 am daily">
-                <button class="btn-next" onclick="genCard()">Generate Lead Card</button>
+                <div class="ai-q">Best time to call?</div>
+                <input type="text" id="val_time" placeholder="any time after 10 am daily">
+                <button class="btn-next" onclick="render()">Generate Lead Card</button>
             </div>
             <div class="step" id="s7">
                 <div class="lead-card">
                     <div class="lead-id">LEAD ID: #795917</div>
-                    <div class="lead-row">NAME: <span id="out_name"></span></div>
-                    <div class="lead-row">PROJECT: <span id="out_problem"></span></div>
-                    <div class="lead-row">CITY: <span id="out_city"></span></div>
-                    <div class="lead-row">PHONE: <span id="out_phone"></span></div>
-                    <div class="lead-row">TIME: <span id="out_time"></span></div>
-                    <div class="card-controls">
+                    <div class="l-line">NAME: <span id="out_n"></span></div>
+                    <div class="l-line">ISSUE: <span id="out_i"></span></div>
+                    <div class="l-line">CITY: <span id="out_c"></span></div>
+                    <div class="l-line">PHONE: <span id="out_p"></span></div>
+                    <div class="l-line">TIME: <span id="out_t"></span></div>
+                    <div class="card-btns">
                         <button class="btn-edit" onclick="move(1)">Edit</button>
-                        <button class="btn-lock" onclick="submit()">Confirm & Lock In</button>
+                        <button class="btn-lock" onclick="push()">Confirm & Lock In</button>
                     </div>
                 </div>
             </div>
@@ -101,35 +100,32 @@
 
     <script>
         function move(n){ document.querySelectorAll('.step').forEach(s=>s.classList.remove('active')); document.getElementById('s'+n).classList.add('active'); }
-        
-        function genCard(){
-            document.getElementById('out_name').innerText = document.getElementById('in_name').value;
-            document.getElementById('out_problem').innerText = document.getElementById('in_problem').value + " (" + document.getElementById('in_scope').value + ")";
-            document.getElementById('out_city').innerText = document.getElementById('in_city').value;
-            document.getElementById('out_phone').innerText = document.getElementById('in_phone').value;
-            document.getElementById('out_time').innerText = document.getElementById('in_time').value;
+        function render(){
+            document.getElementById('out_n').innerText = document.getElementById('val_name').value;
+            document.getElementById('out_i').innerText = document.getElementById('val_problem').value + " (" + document.getElementById('val_scope').value + ")";
+            document.getElementById('out_c').innerText = document.getElementById('val_city').value;
+            document.getElementById('out_p').innerText = document.getElementById('val_phone').value;
+            document.getElementById('out_t').innerText = document.getElementById('val_time').value;
             move(7);
         }
-
-        async function submit(){
-            const btn = document.querySelector('.btn-lock'); btn.innerText = "LOCKING...";
-            const payload = {
-                id: "795917",
-                name: document.getElementById('in_name').value,
-                problem: document.getElementById('in_problem').value,
-                city: document.getElementById('in_city').value,
-                phone: document.getElementById('in_phone').value,
-                scope: document.getElementById('in_scope').value,
-                time: document.getElementById('in_time').value
+        async function push(){
+            const btn = document.querySelector('.btn-lock'); btn.innerText = "SENDING...";
+            const payload = { 
+                name: document.getElementById('val_name').value, 
+                problem: document.getElementById('val_problem').value, 
+                city: document.getElementById('val_city').value, 
+                phone: document.getElementById('val_phone').value, 
+                scope: document.getElementById('val_scope').value, 
+                time: document.getElementById('val_time').value 
             };
             try {
-                await fetch('https://vvhomepro-brain.dbelnavis.workers.dev/', {
-                    method: 'POST',
+                await fetch('https://vvhomepro-brain.dbelnavis.workers.dev/', { 
+                    method: 'POST', 
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify(payload) 
                 });
-                alert("Lead Secured."); location.reload();
-            } catch(e) { console.error(e); }
+                alert("Lead #795917 Confirmed."); location.reload();
+            } catch(e){ console.log(e); }
         }
     </script>
 </body>
