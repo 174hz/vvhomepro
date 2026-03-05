@@ -3,280 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VV HOME | AI MATCHING ENGINE</title>
+    <title>About VV HOME PRO | The Gold Standard in Matching</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --navy: #001a33; 
-            --gold: #c5a059; 
-            --neon: #39FF14; 
-            --deep-dark: #020810;
-        }
-
+        :root { --navy: #001a33; --gold: #c5a059; --neon: #39FF14; --white: #ffffff; }
         * { box-sizing: border-box; }
-        body, html { 
-            margin: 0; padding: 0; height: 100%; 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: var(--deep-dark);
-            overflow-x: hidden;
-            color: #fff;
-        }
+        body, html { margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--navy); color: var(--navy); }
 
-        /* DYNAMIC CYBER GRID BACKGROUND (Replaces Video for better "Pop") */
-        .bg-grid {
+        .hero-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: 
-                linear-gradient(rgba(57, 255, 20, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(57, 255, 20, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-            perspective: 500px;
-            z-index: -1;
-        }
-        .bg-grid-animation {
-            position: absolute; width: 100%; height: 200%;
-            background: linear-gradient(to bottom, transparent, var(--deep-dark));
-            top: 0; left: 0;
-            animation: moveGrid 20s linear infinite;
-        }
-        @keyframes moveGrid {
-            from { transform: rotateX(45deg) translateY(0); }
-            to { transform: rotateX(45deg) translateY(-50px); }
+            background: linear-gradient(rgba(0, 26, 51, 0.75), rgba(0, 26, 51, 0.9)), 
+                        url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover; background-position: center; z-index: -1;
         }
 
-        /* BRANDING TOP LEFT */
-        .brand-header {
-            position: fixed; top: 20px; left: 20px; display: flex; align-items: center; gap: 15px; z-index: 1000;
-        }
-        .brand-header img { 
-            width: 70px; height: 70px; 
-            filter: drop-shadow(0 0 10px var(--neon));
-            border: 2px solid var(--neon);
-            border-radius: 50%;
-        }
-        .brand-header h2 { 
-            font-family: 'Montserrat'; color: #fff; margin: 0; font-size: 2rem; 
-            text-transform: uppercase; letter-spacing: -1px; 
-            text-shadow: 3px 3px 0px var(--navy), 0 0 20px rgba(57, 255, 20, 0.4);
+        .header-nav { padding: 40px; display: flex; align-items: center; gap: 20px; }
+        .brand-container img { width: 80px; height: auto; object-fit: contain; filter: drop-shadow(5px 5px 0px var(--navy)); border: 4px solid var(--white); }
+        .brand-text { font-family: 'Montserrat'; color: var(--white); font-size: 2.2rem; line-height: 0.85; text-transform: uppercase; letter-spacing: -2px; text-shadow: 4px 4px 0px var(--navy); }
+
+        .content-wrapper { display: flex; justify-content: center; padding: 40px 20px; }
+        .info-card { 
+            background: var(--white); width: 100%; max-width: 850px; 
+            border: 12px solid var(--navy); box-shadow: 40px 40px 0px var(--gold);
+            padding: 60px;
         }
 
-        .main-wrapper {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            min-height: 100vh; width: 100vw; padding: 120px 20px 60px 20px;
-            background: radial-gradient(circle at center, transparent 0%, var(--deep-dark) 90%);
-        }
-
-        /* ENERGY ALERT BOX */
-        .status-ticker {
-            background: var(--neon); color: #000; padding: 5px 20px;
-            font-family: 'Montserrat'; font-weight: 900; font-size: 0.8rem;
-            text-transform: uppercase; margin-bottom: 15px;
-            transform: skew(-10deg); box-shadow: 5px 5px 0px #fff;
-        }
-
-        /* BOLD INSTRUCTIONS - NOW WITH PIZZAZZ */
-        .how-to-card {
-            background: var(--navy); padding: 25px; border-radius: 0; 
-            width: 100%; max-width: 550px; margin-bottom: 30px;
-            border: 4px solid var(--gold);
-            box-shadow: 15px 15px 0px var(--gold);
-            position: relative;
-        }
-        .how-to-card::before {
-            content: "OPERATING PROTOCOL"; position: absolute; top: -15px; left: 20px;
-            background: var(--gold); color: #fff; padding: 2px 10px; font-size: 0.7rem; font-weight: 900;
-        }
-        .how-to-card ol { margin: 0; padding-left: 20px; font-size: 1rem; color: #fff; font-weight: 800; line-height: 1.6; }
-
-        /* THE ENGINE - HIGH ENERGY GLASS */
-        .engine-ui {
-            background: rgba(0, 26, 51, 0.9); width: 100%; max-width: 550px; height: 600px; 
-            border-radius: 0; border: 8px solid #fff; display: flex; flex-direction: column; 
-            box-shadow: 0 0 50px rgba(57, 255, 20, 0.2), 25px 25px 0px var(--neon);
-            position: relative;
-        }
-
-        .engine-header { 
-            background: #fff; color: var(--navy); padding: 15px 25px; 
-            display: flex; justify-content: space-between; align-items: center; 
-        }
-        .engine-header span { font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; font-size: 1.1rem; letter-spacing: 2px; }
+        h1 { font-family: 'Montserrat'; font-size: 3rem; text-transform: uppercase; line-height: 0.9; margin-bottom: 30px; border-bottom: 10px solid var(--neon); display: inline-block; }
+        p { font-size: 1.2rem; font-weight: 700; line-height: 1.6; margin-bottom: 25px; }
         
-        .btn-refresh { 
-            background: var(--navy); color: var(--neon); border: none; padding: 8px 15px; 
-            font-family: 'Montserrat'; font-weight: 900; cursor: pointer; text-transform: uppercase;
-            font-size: 0.7rem;
-        }
+        .value-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px; }
+        .value-item { background: #f4f4f4; padding: 25px; border-left: 8px solid var(--gold); }
+        .value-item h3 { font-family: 'Montserrat'; text-transform: uppercase; margin-top: 0; color: var(--navy); }
 
-        .chat-stream { flex: 1; padding: 25px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
-
-        .bubble { max-width: 85%; padding: 18px; font-size: 1.1rem; line-height: 1.4; position: relative; }
-        .ai-msg { align-self: flex-start; background: #fff; color: var(--navy); font-weight: 700; border-left: 8px solid var(--neon); }
-        .user-msg { align-self: flex-end; background: var(--gold); color: #fff; font-weight: 800; border-right: 8px solid var(--navy); }
-
-        /* INPUT AREA */
-        .input-bar { padding: 25px; background: var(--navy); display: flex; gap: 10px; border-top: 4px solid #fff; }
-        input { 
-            flex: 1; border: none; background: rgba(255,255,255,0.1); color: #fff; 
-            padding: 15px; font-weight: 800; font-size: 1.1rem; outline: none; border-bottom: 2px solid var(--neon);
+        .btn-back { 
+            display: inline-block; margin-top: 40px; background: var(--navy); color: var(--neon); 
+            padding: 20px 40px; text-decoration: none; font-family: 'Montserrat'; 
+            font-weight: 900; text-transform: uppercase; border: none; transition: 0.2s;
         }
-        input::placeholder { color: rgba(255,255,255,0.5); }
-        .btn-send { background: var(--neon); color: #000; border: none; width: 60px; cursor: pointer; font-size: 1.5rem; font-weight: 900; transition: 0.2s; }
-        .btn-send:hover { background: #fff; transform: scale(1.1); }
-
-        /* FOOTER NAVIGATION */
-        .legal-footer { 
-            margin-top: 60px; display: flex; flex-wrap: wrap; justify-content: center; 
-            gap: 20px; padding: 30px; border-top: 1px solid rgba(255,255,255,0.1);
-            width: 100%; background: rgba(0,0,0,0.5);
-        }
-        .legal-footer a { 
-            color: #fff; text-decoration: none; font-size: 0.8rem; font-weight: 900; 
-            text-transform: uppercase; letter-spacing: 2px; border: 1px solid var(--gold); padding: 8px 15px;
-            transition: all 0.3s;
-        }
-        .legal-footer a:hover { background: var(--gold); color: var(--navy); box-shadow: 0 0 15px var(--gold); }
-
-        /* RESULT SCREEN */
-        #finalResult { display: none; padding: 20px; background: var(--navy); height: 100%; border-top: 4px solid var(--neon); }
-        #captureArea { background: #000; color: #fff; padding: 30px; border: 2px dashed var(--gold); }
-        .data-row { margin-bottom: 10px; font-size: 1rem; color: #ccc; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px; }
-        .data-row span { color: var(--neon); font-weight: 900; float: right; }
-        .btn-confirm { 
-            background: var(--neon); color: #000; width: 100%; padding: 25px; border: none; 
-            font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; 
-            cursor: pointer; margin-top: 20px; font-size: 1.4rem; letter-spacing: 2px;
-            box-shadow: 0 10px 0px #1b8a00;
-        }
+        .btn-back:hover { box-shadow: 0 10px 0 var(--gold); transform: translateY(-5px); }
     </style>
 </head>
 <body>
-
-    <div class="bg-grid"><div class="bg-grid-animation"></div></div>
-
-    <div class="brand-header">
-        <img src="vv-verified-badge.png" alt="Badge">
-        <h2>VV HOME PRO</h2>
+    <div class="hero-bg"></div>
+    <div class="header-nav">
+        <div class="brand-container">
+            <img src="vv-verified-badge.png" alt="VV Verified">
+            <div class="brand-text">VV HOME<br>PRO</div>
+        </div>
     </div>
 
-    <div class="main-wrapper">
-        <div class="status-ticker">SYSTEM STATUS: OPTIMIZING CONTRACTOR MATCHES FOR 2026</div>
-
-        <div class="how-to-card">
-            <ol>
-                <li>DEFINE PROJECT SCOPE (ROOFING, HVAC, ETC)</li>
-                <li>SPECIFY LEAK INTENSITY (MAJOR/MINOR)</li>
-                <li>ZONES ACTIVE: MA | NJ | ON</li>
-            </ol>
-        </div>
-
-        <div class="engine-ui">
-            <div class="engine-header">
-                <span>AI MATCHING ENGINE</span>
-                <button class="btn-refresh" onclick="location.reload()">REBOOT SYSTEM</button>
-            </div>
+    <div class="content-wrapper">
+        <div class="info-card">
+            <h1>We Kill the Chaos.</h1>
+            <p>Homeowners are tired of being ghosted. You deserve a contractor who treats your home like their own project. VV HOME PRO was built to bridge the gap between high-end architectural needs and the top-tier professionals who actually deliver.</p>
             
-            <div class="chat-stream" id="chatStream">
-                <div class="bubble ai-msg">IDENTIFY HOME SERVICE CATEGORY TO BEGIN.</div>
-            </div>
-
-            <div class="input-bar" id="inputBar">
-                <input type="text" id="userInput" placeholder="ENTER TRADE CATEGORY..." onkeypress="handleKey(event)">
-                <button class="btn-send" onclick="process()">⚡</button>
-            </div>
-
-            <div id="finalResult">
-                <div id="captureArea">
-                    <div style="color:var(--gold); margin-bottom:20px; font-weight:900; border-bottom: 2px solid var(--gold);">VERIFIED MATCH CARD</div>
-                    <div class="data-row">TRADE: <span id="out_issue"></span></div>
-                    <div class="data-row">SCOPE: <span id="out_scope"></span></div>
-                    <div class="data-row">OWNER: <span id="out_name"></span></div>
-                    <div class="data-row">REGION: <span id="out_market"></span></div>
-                    <div class="data-row">CONTACT: <span id="out_phone"></span></div>
-                    <div class="data-row">DISPATCH: <span id="out_time"></span></div>
+            <div class="value-grid">
+                <div class="value-item">
+                    <h3>The 1% Standard</h3>
+                    <p>We only dispatch to contractors with a proven track record in MA, NJ, and Ontario. No amateurs.</p>
                 </div>
-                <button class="btn-confirm" id="confirmBtn" onclick="sendLead()">DISPATCH TO PRO NETWORK</button>
+                <div class="value-item">
+                    <h3>AI Dispatch</h3>
+                    <p>Our engine matches your specific leak or renovation scope to the professional's current real-time availability.</p>
+                </div>
             </div>
-        </div>
 
-        <div class="legal-footer">
-            <a href="about.html">About VV</a>
-            <a href="privacy.html">Privacy</a>
-            <a href="terms.html">Terms</a>
-            <a href="standards.html">Standards</a>
-            <a href="contact.html">Contact</a>
+            <a href="index.html" class="btn-back">Return to Engine</a>
         </div>
     </div>
-
-    <script>
-        let step = 1;
-        let data = { issue: '', scope: '', name: '', market: '', phone: '', time: '' };
-        const KEYWORDS = ['roof', 'hvac', 'window', 'repair', 'home', 'leak', 'renovation', 'improvement', 'kitchen', 'bath', 'paint', 'landscap', 'deck', 'fence'];
-        const ZONES = ['MA', 'NJ', 'ON', 'ONTARIO', 'MASSACHUSETTS', 'NEW JERSEY', 'TORONTO', 'BOSTON', 'NEWARK'];
-
-        function handleKey(e) { if(e.key === 'Enter') process(); }
-        function addMsg(txt, type) {
-            const stream = document.getElementById('chatStream');
-            const b = document.createElement('div');
-            b.className = `bubble ${type}-msg`;
-            b.innerText = txt.toUpperCase();
-            stream.appendChild(b);
-            stream.scrollTop = stream.scrollHeight;
-        }
-
-        function process() {
-            const input = document.getElementById('userInput');
-            const val = input.value.trim();
-            if(!val) return;
-
-            addMsg(val, 'user');
-            input.value = '';
-
-            setTimeout(() => {
-                if(step === 1) { 
-                    const isHome = KEYWORDS.some(k => val.toLowerCase().includes(k));
-                    if (!isHome) {
-                        addMsg("INVALID CATEGORY. PLEASE SPECIFY A VALID HOME SERVICE.", 'ai');
-                        return;
-                    }
-                    data.issue = val; addMsg("SCOPE INTENSITY: IS THE LEAK MAJOR, MINOR, OR A FULL REPLACEMENT?", 'ai'); step++; 
-                }
-                else if(step === 2) { data.scope = val; addMsg("IDENTIFY PROPERTY OWNER (FULL NAME):", 'ai'); step++; }
-                else if(step === 3) { data.name = val; addMsg("LOCATE REGION (CITY/STATE):", 'ai'); step++; }
-                else if(step === 4) {
-                    const isValid = ZONES.some(z => val.toUpperCase().includes(z));
-                    if (!isValid) { addMsg("MATCHING ENGINE ONLY ACTIVE IN MA, NJ, OR ON. RE-ENTER REGION.", 'ai'); return; }
-                    data.market = val.toUpperCase(); addMsg("SECURE CONTACT NUMBER:", 'ai'); step++;
-                } else if(step === 5) { data.phone = val; addMsg("PREFERRED DISPATCH TIME?", 'ai'); step++; }
-                else if(step === 6) { data.time = val; addMsg("PROTOCOL COMPLETE. VERIFY MATCH CARD.", 'ai'); showFinal(); }
-            }, 600);
-        }
-
-        function showFinal() {
-            document.getElementById('inputBar').style.display = 'none';
-            document.getElementById('out_name').innerText = data.name;
-            document.getElementById('out_issue').innerText = data.issue;
-            document.getElementById('out_scope').innerText = data.scope;
-            document.getElementById('out_market').innerText = data.market;
-            document.getElementById('out_phone').innerText = data.phone;
-            document.getElementById('out_time').innerText = data.time;
-            document.getElementById('finalResult').style.display = 'block';
-            document.getElementById('chatStream').scrollTop = document.getElementById('chatStream').scrollHeight;
-        }
-
-        async function sendLead() {
-            const btn = document.getElementById('confirmBtn');
-            btn.innerText = "UPLOADING TO BRAIN...";
-            try {
-                await fetch('https://vvhomepro-brain.dbelnavis.workers.dev/', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(data)
-                });
-                btn.innerText = "DISPATCH SUCCESSFUL";
-                btn.style.background = "#fff";
-                btn.style.color = "#000";
-            } catch(e) { btn.innerText = "CONNECTION ERROR - RETRYING..."; }
-        }
-    </script>
 </body>
 </html>
