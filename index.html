@@ -6,183 +6,162 @@
     <title>VV HOME PRO | DISPATCH</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@800&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --navy: #001a33; 
-            --gold: #c5a059; 
-            --neon: #39FF14; 
-            --black: #000000;
-            --white: #ffffff;
+        /* BRUTALIST OVERRIDE */
+        :root { --navy: #001a33; --gold: #c5a059; --neon: #39FF14; --black: #000000; --white: #ffffff; }
+        * { box-sizing: border-box !important; border-radius: 0 !important; }
+        
+        body { 
+            margin: 0; padding: 0; background-color: var(--navy) !important; 
+            font-family: 'Montserrat', sans-serif !important; overflow-x: hidden;
         }
 
-        /* BRUTALIST RESET */
-        * { box-sizing: border-box; border-radius: 0 !important; }
-        body, html { 
-            margin: 0; padding: 0; height: 100%; 
-            font-family: 'Montserrat', sans-serif; 
-            background-color: var(--navy);
-            color: var(--white);
-            overflow-x: hidden;
-        }
-
-        /* FULL PAGE INDUSTRIAL BACKGROUND */
-        .bg-overlay {
+        /* THE BACKGROUND IMAGE */
+        .hero-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(rgba(0, 26, 51, 0.8), rgba(0, 26, 51, 0.95)), 
-                        url('https://images.unsplash.com/photo-1541888946425-d81bb19480c5?q=80&w=2000');
+                        url('https://images.unsplash.com/photo-1503387762-592dea58ef21?q=80&w=2000');
             background-size: cover; background-position: center; z-index: -1;
         }
 
-        /* BRANDING: TOP LEFT - RIGID & UN-SQUISHED */
-        .brand-box {
-            position: absolute; top: 40px; left: 40px; display: flex; align-items: center; gap: 20px; z-index: 1000;
+        /* BRANDING: TOP LEFT - RIGID & PROTECTED */
+        .brand-block {
+            position: absolute; top: 40px; left: 40px; display: flex; align-items: center; gap: 20px; z-index: 9999;
         }
-        .brand-box img { 
-            width: 100px; height: auto; display: block;
-            border: 10px solid var(--white);
-            box-shadow: 10px 10px 0px var(--black);
-            background: #fff;
+        .logo-box { 
+            width: 100px !important; height: 100px !important; background: white !important;
+            border: 10px solid var(--black) !important; display: flex; align-items: center; justify-content: center;
         }
-        .brand-box h2 { 
-            font-size: 3rem; line-height: 0.8; margin: 0;
-            text-transform: uppercase; letter-spacing: -3px; 
-            text-shadow: 8px 8px 0px var(--black);
+        .logo-box img { width: 80% !important; height: auto !important; }
+        .brand-text { 
+            font-size: 3rem !important; line-height: 0.8 !important; color: white !important;
+            text-transform: uppercase !important; letter-spacing: -3px !important;
+            text-shadow: 8px 8px 0px var(--black) !important;
         }
 
-        /* LAYOUT CORE */
-        .wrapper {
+        /* MAIN CONTENT AREA */
+        .layout-center {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             min-height: 100vh; padding: 180px 20px 100px 20px;
         }
 
-        /* THE PUNCHY CTA - HIGH STAKES */
-        .cta-header {
+        /* THE TAGLINE: IDENTICAL ENERGY TO CONTRACTOR SITE */
+        .cta-tagline {
             text-align: center; margin-bottom: 60px; max-width: 1200px;
         }
-        .cta-header h1 {
-            font-size: 4.2rem; line-height: 0.9; margin: 0;
-            text-transform: uppercase; text-shadow: 10px 10px 0px var(--black);
+        .cta-tagline h1 {
+            color: white !important; font-size: 4rem !important; line-height: 0.9 !important; margin: 0;
+            text-transform: uppercase !important; text-shadow: 12px 12px 0px var(--black) !important;
         }
-        .cta-header span { color: var(--neon); }
+        .cta-tagline span { color: var(--neon) !important; }
 
-        /* THE AI ENGINE: 1:1 INDUSTRIAL CLONE */
-        .engine-ui {
-            width: 100%; max-width: 750px;
-            background: var(--white);
-            border: 15px solid var(--black);
-            box-shadow: 40px 40px 0px var(--gold);
+        /* THE AI ENGINE: 15px BORDER INDUSTRIAL BOX */
+        .engine-container {
+            width: 100% !important; max-width: 750px !important;
+            background: var(--white) !important;
+            border: 15px solid var(--black) !important;
+            box-shadow: 40px 40px 0px var(--gold) !important;
             display: flex; flex-direction: column;
         }
 
-        .engine-top-bar {
-            background: var(--black); color: var(--neon); padding: 25px;
+        .engine-header {
+            background: var(--black) !important; color: var(--neon) !important; padding: 25px !important;
             display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 15px solid var(--gold);
+            border-bottom: 15px solid var(--gold) !important;
         }
-        .engine-top-bar h3 { margin: 0; font-size: 1.8rem; letter-spacing: 2px; }
-        
-        .refresh-btn {
-            background: var(--gold); color: var(--black); border: 5px solid var(--black);
-            padding: 12px 25px; font-weight: 900; text-transform: uppercase; 
-            cursor: pointer; font-size: 1rem;
+        .engine-header h3 { margin: 0 !important; font-size: 1.8rem !important; letter-spacing: 2px !important; }
+        .refresh-btn { 
+            background: var(--gold) !important; color: black !important; border: 5px solid black !important;
+            padding: 10px 20px !important; font-weight: 900 !important; cursor: pointer; text-transform: uppercase;
         }
 
-        /* CHAT FEED: HEAVY BLOCK STYLE */
-        .chat-feed {
-            height: 450px; overflow-y: auto; padding: 40px;
-            background: #d1d5db; display: flex; flex-direction: column; gap: 30px;
+        .chat-stream {
+            height: 400px !important; overflow-y: auto; padding: 40px !important;
+            background: #cbd5e1 !important; display: flex; flex-direction: column; gap: 30px;
         }
 
+        /* CHAT BUBBLES: HEAVY INDUSTRIAL */
         .msg { 
-            max-width: 85%; padding: 25px; font-size: 1.3rem; line-height: 1.1;
-            font-weight: 900; border: 8px solid var(--black); text-transform: uppercase;
+            padding: 25px !important; font-size: 1.4rem !important; font-weight: 900 !important; 
+            border: 10px solid var(--black) !important; text-transform: uppercase !important; line-height: 1;
         }
-        .ai { align-self: flex-start; background: var(--white); color: var(--black); box-shadow: 12px 12px 0px var(--gold); }
-        .user { align-self: flex-end; background: var(--black); color: var(--neon); box-shadow: -12px 12px 0px var(--gold); }
+        .ai { background: white !important; color: black !important; box-shadow: 12px 12px 0px var(--gold) !important; width: 85%; }
+        .user { align-self: flex-end; background: black !important; color: var(--neon) !important; box-shadow: -12px 12px 0px var(--gold) !important; width: 85%; }
 
-        /* INPUT BLOCK */
+        /* INPUT BAR */
         .input-tray { 
-            padding: 35px; display: flex; gap: 20px; 
-            background: var(--white); border-top: 15px solid var(--black);
+            padding: 30px !important; display: flex; gap: 20px; 
+            background: white !important; border-top: 15px solid var(--black) !important;
         }
         input { 
-            flex: 1; border: 10px solid var(--black); padding: 25px; 
-            font-size: 1.5rem; font-weight: 900; outline: none; 
-            text-transform: uppercase; font-family: 'Montserrat';
+            flex: 1 !important; border: 10px solid var(--black) !important; padding: 25px !important; 
+            font-size: 1.6rem !important; font-weight: 900 !important; font-family: 'Montserrat' !important;
+            text-transform: uppercase !important; outline: none;
         }
-        .send-btn { 
-            background: var(--black); color: var(--neon); border: none; 
-            width: 100px; cursor: pointer; font-size: 3rem; font-weight: 900;
-        }
+        .send-btn { background: var(--black) !important; color: var(--neon) !important; width: 100px !important; font-size: 3rem !important; border: none; cursor: pointer; }
 
-        /* FINAL MATCH CARD */
-        #finalResult { display: none; padding: 50px; background: var(--white); }
-        .match-box { background: var(--black); color: var(--white); padding: 40px; border: 15px solid var(--neon); }
-        .match-line { 
-            margin-bottom: 20px; font-size: 1.3rem; border-bottom: 4px solid #222; 
-            padding-bottom: 10px; font-weight: 900;
-        }
-        .match-line b { color: var(--gold); }
-        
+        /* FINAL CARD */
+        #finalResult { display: none; padding: 40px !important; background: white !important; }
+        .data-card { background: black !important; color: white !important; padding: 40px !important; border: 15px solid var(--neon) !important; }
+        .data-row { font-size: 1.4rem !important; margin-bottom: 15px !important; border-bottom: 4px solid #333 !important; padding-bottom: 10px; font-weight: 900; }
+        .data-row b { color: var(--gold) !important; }
         .dispatch-btn {
-            width: 100%; background: var(--neon); color: var(--black); padding: 35px;
-            font-size: 2.5rem; font-weight: 900; border: 10px solid var(--black);
-            margin-top: 30px; cursor: pointer; text-transform: uppercase;
+            width: 100% !important; padding: 35px !important; background: var(--neon) !important; 
+            color: black !important; font-size: 2.5rem !important; font-weight: 900 !important;
+            border: 10px solid var(--black) !important; margin-top: 25px !important; cursor: pointer; text-transform: uppercase;
         }
 
-        /* FOOTER: THE BLOCK LINKS */
-        .footer-grid {
-            margin-top: 100px; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;
+        /* FOOTER: BLOCK BARS */
+        .footer-nav { margin-top: 100px; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+        .footer-nav a { 
+            background: black !important; color: white !important; text-decoration: none !important;
+            padding: 20px 40px !important; border: 8px solid var(--gold) !important;
+            font-size: 1.2rem !important; font-weight: 900 !important; text-transform: uppercase !important;
         }
-        .footer-grid a {
-            color: var(--white); text-decoration: none; font-weight: 900; font-size: 1.1rem;
-            text-transform: uppercase; background: var(--black); border: 8px solid var(--gold);
-            padding: 20px 40px; transition: 0.1s;
-        }
-        .footer-grid a:hover { background: var(--gold); color: var(--black); transform: scale(1.1); }
     </style>
 </head>
 <body>
 
-    <div class="bg-overlay"></div>
+    <div class="hero-bg"></div>
 
-    <div class="brand-box">
-        <img src="vv-verified-badge.png" alt="VV">
-        <h2>VV HOME<br>PRO</h2>
+    <div class="brand-block">
+        <div class="logo-box">
+            <img src="vv-verified-badge.png" alt="VV">
+        </div>
+        <div class="brand-text">VV HOME<br>PRO</div>
     </div>
 
-    <div class="wrapper">
-        <div class="cta-header">
-            <h1>STOP WASTING $10,000+ ON <span>SHODDY CONTRACTORS</span> WHO GHOST YOU.</h1>
+    <div class="layout-center">
+        <div class="cta-tagline">
+            <h1>STOP WASTING $10,000+ ON <span>UNVERIFIED CONTRACTORS</span> WHO GHOST YOU.</h1>
         </div>
 
-        <div class="engine-ui">
-            <div class="engine-top-bar">
+        <div class="engine-container">
+            <div class="engine-header">
                 <h3>AI MATCHING ENGINE</h3>
                 <button class="refresh-btn" onclick="location.reload()">Refresh</button>
             </div>
 
-            <div class="chat-feed" id="chatStream">
-                <div class="msg ai">SYSTEM LIVE. ENTER PROJECT CATEGORY (ROOFING, HVAC, WINDOWS) TO COMMENCE.</div>
+            <div class="chat-stream" id="chatStream">
+                <div class="msg ai">SYSTEM ONLINE. ENTER PROJECT TYPE (ROOFING, HVAC, WINDOWS) TO START.</div>
             </div>
 
             <div class="input-tray" id="inputBar">
-                <input type="text" id="userInput" placeholder="TYPE PROJECT..." onkeypress="handleKey(event)">
+                <input type="text" id="userInput" placeholder="TYPE HERE..." onkeypress="handleKey(event)">
                 <button class="send-btn" onclick="process()">→</button>
             </div>
 
             <div id="finalResult">
-                <div class="match-box">
-                    <div class="match-line"><b>PROJECT:</b> <span id="out_issue"></span></div>
-                    <div class="match-line"><b>SCOPE:</b> <span id="out_scope"></span></div>
-                    <div class="match-line"><b>OWNER:</b> <span id="out_name"></span></div>
-                    <div class="match-line"><b>LOCATION:</b> <span id="out_market"></span></div>
-                    <div class="match-line"><b>PHONE:</b> <span id="out_phone"></span></div>
+                <div class="data-card">
+                    <div class="data-row"><b>PROJECT:</b> <span id="out_issue"></span></div>
+                    <div class="data-row"><b>OWNER:</b> <span id="out_name"></span></div>
+                    <div class="data-row"><b>MARKET:</b> <span id="out_market"></span></div>
+                    <div class="data-row"><b>PHONE:</b> <span id="out_phone"></span></div>
                 </div>
-                <button class="dispatch-btn" onclick="sendLead()">Confirm Dispatch</button>
+                <button class="dispatch-btn" onclick="alert('DISPATCHED')">Dispatch Match</button>
             </div>
         </div>
 
-        <div class="footer-grid">
+        <div class="footer-nav">
             <a href="about.html">About Us</a>
             <a href="privacy.html">Privacy</a>
             <a href="terms.html">Terms</a>
@@ -192,9 +171,7 @@
     </div>
 
     <script>
-        let step = 1;
-        let data = { issue: '', scope: '', name: '', market: '', phone: '' };
-
+        let step = 1; let data = { issue: '', name: '', market: '', phone: '' };
         function handleKey(e) { if(e.key === 'Enter') process(); }
         function addMsg(txt, type) {
             const stream = document.getElementById('chatStream');
@@ -204,36 +181,26 @@
             stream.appendChild(b);
             stream.scrollTop = stream.scrollHeight;
         }
-
         function process() {
             const input = document.getElementById('userInput');
             const val = input.value.trim();
             if(!val) return;
             addMsg(val, 'user');
             input.value = '';
-
             setTimeout(() => {
-                if(step === 1) { data.issue = val; addMsg("SCOPE: MAJOR LEAK, REPAIR, OR REPLACEMENT?", 'ai'); step++; }
-                else if(step === 2) { data.scope = val; addMsg("FULL NAME OF OWNER:", 'ai'); step++; }
-                else if(step === 3) { data.name = val; addMsg("CITY AND STATE/PROVINCE:", 'ai'); step++; }
-                else if(step === 4) { data.market = val; addMsg("CONTACT PHONE NUMBER:", 'ai'); step++; }
-                else if(step === 5) { data.phone = val; addMsg("VERIFY DATA BELOW.", 'ai'); showFinal(); }
+                if(step === 1) { data.issue = val; addMsg("ENTER FULL NAME:", 'ai'); step++; }
+                else if(step === 2) { data.name = val; addMsg("ENTER CITY/STATE:", 'ai'); step++; }
+                else if(step === 3) { data.market = val; addMsg("ENTER PHONE NUMBER:", 'ai'); step++; }
+                else if(step === 4) { data.phone = val; addMsg("VERIFY DATA BELOW.", 'ai'); showFinal(); }
             }, 500);
         }
-
         function showFinal() {
             document.getElementById('inputBar').style.display = 'none';
             document.getElementById('out_name').innerText = data.name;
             document.getElementById('out_issue').innerText = data.issue;
-            document.getElementById('out_scope').innerText = data.scope;
             document.getElementById('out_market').innerText = data.market;
             document.getElementById('out_phone').innerText = data.phone;
             document.getElementById('finalResult').style.display = 'block';
-        }
-
-        function sendLead() {
-            alert("MATCH DISPATCHED");
-            location.reload();
         }
     </script>
 </body>
