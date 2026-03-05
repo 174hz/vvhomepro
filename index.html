@@ -10,6 +10,7 @@
         * { box-sizing: border-box; }
         body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: #f4f4f4; color: #000; overflow: hidden; }
 
+        /* VIDEO BACKGROUND */
         .video-wrapper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
         .video-wrapper video { min-width: 100%; min-height: 100%; width: auto; height: auto; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(92%); }
         .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 100%); }
@@ -22,6 +23,7 @@
             box-shadow: 0 30px 60px rgba(0,0,0,0.15); position: relative; overflow: hidden;
         }
 
+        /* Neon Scan Animation */
         .engine-container::after {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
             background: var(--neon); box-shadow: 0 0 15px var(--neon);
@@ -33,21 +35,21 @@
         .step.active { display: block; animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        h2 { font-size: 1.15rem; font-weight: 800; color: var(--navy); margin-bottom: 25px; line-height: 1.4; }
-        input, textarea, select { width: 100%; border-radius: 12px; border: 2px solid #ddd; padding: 20px; font-family: 'Plus Jakarta Sans'; font-size: 1.1rem; font-weight: 700; color: var(--navy); outline: none; background: white; margin-bottom: 20px; }
-        textarea { height: 100px; resize: none; }
+        .ai-question { font-size: 1.2rem; font-weight: 800; color: var(--navy); margin-bottom: 20px; line-height: 1.4; }
+        input, select { width: 100%; border-radius: 12px; border: 2px solid #ddd; padding: 20px; font-family: 'Plus Jakarta Sans'; font-size: 1.1rem; font-weight: 700; color: var(--navy); outline: none; background: white; margin-bottom: 20px; }
 
         .btn-next { display: block; width: 100%; padding: 22px; background: var(--navy); color: #fff; border: none; font-family: 'Montserrat'; font-weight: 900; font-size: 1.2rem; border-radius: 12px; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
-        .btn-next:hover { background: var(--gold); transform: translateY(-2px); }
+        .btn-next:hover { background: var(--gold); }
 
+        /* LEAD CARD */
         .lead-card { background: #001a33; color: white; padding: 30px; border-radius: 20px; border: 1px solid var(--neon); font-family: monospace; text-align: left; }
         .lead-card h3 { color: var(--neon); font-size: 0.95rem; margin: 0 0 15px 0; border-bottom: 1px solid rgba(57,255,20,0.3); padding-bottom: 8px; }
-        .lead-line { margin-bottom: 12px; font-size: 0.95rem; }
+        .lead-line { margin-bottom: 10px; font-size: 0.95rem; line-height: 1.4; }
         .lead-line span { color: var(--gold); }
         
         .card-actions { display: flex; gap: 10px; margin-top: 25px; }
-        .btn-edit { flex: 1; background: transparent; color: white; border: 1px solid white; padding: 18px; border-radius: 10px; cursor: pointer; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; }
-        .btn-confirm { flex: 2; background: var(--neon); color: black; border: none; padding: 18px; border-radius: 10px; cursor: pointer; font-weight: 900; font-size: 0.9rem; text-transform: uppercase; }
+        .btn-edit { flex: 1; background: transparent; color: white; border: 1px solid white; padding: 18px; border-radius: 10px; cursor: pointer; font-weight: 800; text-transform: uppercase; font-size: 0.8rem; }
+        .btn-confirm { flex: 2; background: var(--neon); color: black; border: none; padding: 18px; border-radius: 10px; cursor: pointer; font-weight: 900; text-transform: uppercase; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -62,16 +64,43 @@
     <section class="hero-content">
         <div class="engine-container">
             <div class="step active" id="step1">
-                <h2>Describe your project (e.g., Roof leak, HVAC repair). Our AI will build your lead card and match you with a premier pro.</h2>
-                <textarea id="problem" placeholder="i have a leaky roof"></textarea>
+                <div class="ai-question">Describe your project (e.g., Roof leak, HVAC repair):</div>
+                <input type="text" id="problem" placeholder="i have a leaky roof">
                 <button class="btn-next" onclick="nextStep(2)">Next</button>
             </div>
 
-            <div class="step" id="step2"><h2>What is your name?</h2><input type="text" id="name" placeholder="Frank Jones"><button class="btn-next" onclick="nextStep(3)">Next</button></div>
-            <div class="step" id="step3"><h2>What city are you in?</h2><input type="text" id="city" placeholder="Boston, MA"><button class="btn-next" onclick="nextStep(4)">Next</button></div>
-            <div class="step" id="step4"><h2>What is your phone number?</h2><input type="tel" id="phone" placeholder="232-345-0967"><button class="btn-next" onclick="nextStep(5)">Next</button></div>
-            <div class="step" id="step5"><h2>Is this a major leak, or a minor repair?</h2><select id="severity"><option value="Minor Repair">Minor Repair</option><option value="Major Leak">Major Leak</option></select><button class="btn-next" onclick="nextStep(6)">Next</button></div>
-            <div class="step" id="step6"><h2>What time works best for a pro to call you?</h2><input type="text" id="time" placeholder="any time after 10 am daily"><button class="btn-next" onclick="buildLeadCard()">Generate Lead Card</button></div>
+            <div class="step" id="step2">
+                <div class="ai-question">What is your name?</div>
+                <input type="text" id="name" placeholder="Frank Jones">
+                <button class="btn-next" onclick="nextStep(3)">Next</button>
+            </div>
+
+            <div class="step" id="step3">
+                <div class="ai-question">What city are you in?</div>
+                <input type="text" id="city" placeholder="Boston, MA">
+                <button class="btn-next" onclick="nextStep(4)">Next</button>
+            </div>
+
+            <div class="step" id="step4">
+                <div class="ai-question">What is your phone number?</div>
+                <input type="tel" id="phone" placeholder="232-345-0967">
+                <button class="btn-next" onclick="nextStep(5)">Next</button>
+            </div>
+
+            <div class="step" id="step5">
+                <div class="ai-question">Is this a major leak, or a minor repair?</div>
+                <select id="severity">
+                    <option value="Minor Repair">Minor Repair</option>
+                    <option value="Major Job">Major Job</option>
+                </select>
+                <button class="btn-next" onclick="nextStep(6)">Next</button>
+            </div>
+
+            <div class="step" id="step6">
+                <div class="ai-question">What time works best for a pro to call you?</div>
+                <input type="text" id="time" placeholder="any time after 10 am daily">
+                <button class="btn-next" onclick="buildLeadCard()">Generate Lead Card</button>
+            </div>
 
             <div class="step" id="step7">
                 <div class="lead-card">
@@ -99,7 +128,7 @@
 
         function buildLeadCard() {
             document.getElementById('out-name').innerText = document.getElementById('name').value;
-            document.getElementById('out-problem').innerText = document.getElementById('problem').value + " (" + document.getElementById('severity').value + ")";
+            document.getElementById('out-problem').innerText = document.getElementById('problem').value + " - " + document.getElementById('severity').value;
             document.getElementById('out-city').innerText = document.getElementById('city').value;
             document.getElementById('out-phone').innerText = document.getElementById('phone').value;
             document.getElementById('out-time').innerText = document.getElementById('time').value;
@@ -109,8 +138,7 @@
         async function dispatchToWorker() {
             const btn = document.querySelector('.btn-confirm');
             btn.innerHTML = "DISPATCHING...";
-            btn.style.background = "white";
-
+            
             const data = {
                 id: "795917",
                 name: document.getElementById('name').value,
@@ -128,12 +156,10 @@
                     body: JSON.stringify(data)
                 });
                 if(response.ok) {
-                    alert("Lead Card #795917 Secured.");
+                    alert("Lead Card Verified & Sent.");
                     location.reload();
                 }
-            } catch (e) {
-                console.error("Worker Error", e);
-            }
+            } catch (e) { console.error(e); }
         }
     </script>
 </body>
