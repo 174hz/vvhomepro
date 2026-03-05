@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VV HOME | Lead Generation Engine</title>
+    <title>VV HOME | Matchmaking Engine</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
@@ -11,121 +11,115 @@
         * { box-sizing: border-box; }
         body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: #0a0a0a; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
 
-        /* THE CARD LAYOUT (NOT A CHAT BOX) */
-        .engine-container {
+        /* THE ORIGINAL CENTERED CARD LAYOUT */
+        .engine-card {
             background: var(--glass); padding: 50px; border-radius: 40px; 
-            width: 100%; max-width: 600px; border: 4px solid var(--navy);
+            width: 100%; max-width: 550px; border: 4px solid var(--navy);
             box-shadow: 0 40px 80px rgba(0,0,0,0.5); position: relative;
         }
 
         .step { display: none; }
-        .step.active { display: block; animation: slideUp 0.4s ease-out; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .step.active { display: block; animation: slideUp 0.3s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .ai-q { font-size: 1.5rem; font-weight: 800; color: var(--navy); margin-bottom: 30px; line-height: 1.2; text-transform: uppercase; border-left: 6px solid var(--gold); padding-left: 20px; }
-        input, select { width: 100%; border-radius: 15px; border: 3px solid #eee; padding: 22px; font-family: inherit; font-size: 1.2rem; font-weight: 700; margin-bottom: 25px; outline: none; transition: 0.2s; }
-        input:focus { border-color: var(--navy); background: #fff; }
-
-        .btn-next { width: 100%; padding: 24px; background: var(--navy); color: white; border: none; font-family: 'Montserrat'; font-weight: 900; border-radius: 15px; text-transform: uppercase; cursor: pointer; font-size: 1.2rem; letter-spacing: 1px; }
-        .btn-next:hover { background: var(--gold); }
-
-        /* LEAD CARD */
-        #leadCardCapture { background: var(--navy); color: white; padding: 40px; border-radius: 25px; border: 2px solid var(--neon); font-family: monospace; position: relative; margin-bottom: 20px; }
-        .market-badge { background: var(--neon); color: black; font-size: 0.7rem; font-weight: 900; padding: 5px 12px; border-radius: 5px; display: inline-block; margin-bottom: 15px; }
-        .card-id { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
-        .row { margin-bottom: 15px; font-size: 1.1rem; }
-        .row span { color: var(--gold); font-weight: bold; }
+        .ai-prompt { font-size: 1.4rem; font-weight: 800; color: var(--navy); margin-bottom: 30px; line-height: 1.3; border-left: 6px solid var(--gold); padding-left: 20px; }
+        input, select { width: 100%; border-radius: 12px; border: 3px solid #eee; padding: 22px; font-family: inherit; font-size: 1.1rem; font-weight: 700; margin-bottom: 25px; outline: none; background: #fff; }
         
-        .card-actions { display: flex; gap: 15px; }
-        .btn-edit { flex: 1; background: transparent; border: 2px solid white; color: white; padding: 20px; border-radius: 12px; cursor: pointer; font-weight: 800; text-transform: uppercase; }
-        .btn-lock { flex: 2; background: var(--neon); color: black; border: none; padding: 20px; border-radius: 12px; cursor: pointer; font-weight: 900; text-transform: uppercase; font-size: 1rem; }
+        .btn-continue { width: 100%; padding: 22px; background: var(--navy); color: white; border: none; font-family: 'Montserrat'; font-weight: 900; border-radius: 15px; text-transform: uppercase; cursor: pointer; font-size: 1.1rem; letter-spacing: 1px; }
+        .btn-continue:hover { background: var(--gold); }
+
+        /* MONOSPACE LEAD CARD */
+        #leadCardUI { background: var(--navy); color: white; padding: 35px; border-radius: 25px; border: 2px solid var(--neon); font-family: monospace; margin-bottom: 20px; }
+        .market-id { color: var(--neon); font-size: 0.8rem; margin-bottom: 15px; display: block; letter-spacing: 1px; }
+        .card-row { margin-bottom: 12px; font-size: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px; }
+        .card-row span { color: var(--gold); font-weight: bold; }
         
-        .btn-download { width: 100%; background: var(--gold); color: white; border: none; padding: 24px; border-radius: 15px; cursor: pointer; font-weight: 900; text-transform: uppercase; font-size: 1.2rem; display: none; }
+        .verify-actions { display: flex; gap: 12px; }
+        .btn-edit { flex: 1; background: transparent; border: 2px solid white; color: white; padding: 18px; border-radius: 12px; cursor: pointer; font-weight: 800; text-transform: uppercase; }
+        .btn-confirm { flex: 2; background: var(--neon); color: black; border: none; padding: 18px; border-radius: 12px; cursor: pointer; font-weight: 900; text-transform: uppercase; font-size: 1rem; }
+        
+        .btn-download { width: 100%; background: var(--gold); color: white; border: none; padding: 22px; border-radius: 15px; cursor: pointer; font-weight: 900; text-transform: uppercase; font-size: 1.1rem; display: none; }
     </style>
 </head>
 <body>
 
-    <div class="engine-container">
+    <div class="engine-card">
         <div class="step active" id="s1">
-            <div class="ai-q">What is the project issue?</div>
-            <input type="text" id="in_issue" placeholder="e.g. Roof leak, HVAC repair">
-            <button class="btn-next" onclick="move(2)">Next</button>
+            <div class="ai-prompt">State your project issue:</div>
+            <input type="text" id="in_issue" placeholder="e.g. My roof is leaking in the kitchen">
+            <button class="btn-continue" onclick="nav(2)">Continue</button>
         </div>
         <div class="step" id="s2">
-            <div class="ai-q">What is your full name?</div>
+            <div class="ai-prompt">What is your name?</div>
             <input type="text" id="in_name" placeholder="Frank Jones">
-            <button class="btn-next" onclick="move(3)">Next</button>
+            <button class="btn-continue" onclick="nav(3)">Continue</button>
         </div>
         <div class="step" id="s3">
-            <div class="ai-q">City & State/Province?</div>
-            <input type="text" id="in_city" placeholder="e.g. Toronto, ON or Newark, NJ">
-            <button class="btn-next" onclick="move(4)">Next</button>
+            <div class="ai-prompt">City and Region? (MA, NJ, or Ontario):</div>
+            <input type="text" id="in_city" placeholder="e.g. Newark, NJ">
+            <button class="btn-continue" onclick="nav(4)">Continue</button>
         </div>
         <div class="step" id="s4">
-            <div class="ai-q">Phone Number:</div>
+            <div class="ai-prompt">Phone Number:</div>
             <input type="tel" id="in_phone" placeholder="232-345-0967">
-            <button class="btn-next" onclick="move(5)">Next</button>
+            <button class="btn-continue" onclick="nav(5)">Continue</button>
         </div>
         <div class="step" id="s5">
-            <div class="ai-q">Job Scope:</div>
-            <select id="in_scope"><option>Minor Repair</option><option>Major Project</option></select>
-            <button class="btn-next" onclick="move(6)">Next</button>
+            <div class="ai-prompt">Job Scope:</div>
+            <select id="in_scope"><option>Minor Repair</option><option>Major Job</option></select>
+            <button class="btn-continue" onclick="nav(6)">Continue</button>
         </div>
         <div class="step" id="s6">
-            <div class="ai-q">Best time for a call?</div>
+            <div class="ai-prompt">Best time to call?</div>
             <input type="text" id="in_time" placeholder="After 10am daily">
-            <button class="btn-next" onclick="renderCard()">Build Lead Card</button>
+            <button class="btn-continue" onclick="buildCard()">Build Lead Card</button>
         </div>
 
         <div class="step" id="s7">
-            <div id="leadCardCapture">
-                <div class="market-badge" id="out_market">MARKET DETECTED</div>
-                <div class="card-id">LEAD ID: #795917</div>
-                <div class="row">NAME: <span id="out_name"></span></div>
-                <div class="row">PROJECT: <span id="out_issue"></span></div>
-                <div class="row">CITY: <span id="out_city"></span></div>
-                <div class="row">PHONE: <span id="out_phone"></span></div>
-                <div class="row">TIME: <span id="out_time"></span></div>
+            <div id="leadCardUI">
+                <span class="market-id" id="out_market">MARKET: PENDING</span>
+                <div class="card-row">ID: <span>#795917</span></div>
+                <div class="card-row">NAME: <span id="out_name"></span></div>
+                <div class="card-row">ISSUE: <span id="out_issue"></span></div>
+                <div class="card-row">CITY: <span id="out_city"></span></div>
+                <div class="card-row">PHONE: <span id="out_phone"></span></div>
+                <div class="card-row">TIME: <span id="out_time"></span></div>
             </div>
             
-            <div class="card-actions" id="verifyActions">
-                <button class="btn-edit" onclick="move(1)">Edit</button>
-                <button class="btn-lock" onclick="confirmLead()">Confirm & Lock</button>
+            <div class="verify-actions" id="verifyBox">
+                <button class="btn-edit" onclick="nav(1)">Edit</button>
+                <button class="btn-confirm" onclick="finalize()">Confirm & Lock</button>
             </div>
 
-            <button class="btn-download" id="dlBtn" onclick="downloadCard()">Download Lead PNG</button>
+            <button class="btn-download" id="dlBtn" onclick="saveAsPNG()">Download Lead PNG</button>
         </div>
     </div>
 
     <script>
-        function move(n){ 
+        function nav(n){ 
             document.querySelectorAll('.step').forEach(s=>s.classList.remove('active')); 
             document.getElementById('s'+n).classList.add('active'); 
         }
 
-        function getMarket(val) {
-            const v = val.toUpperCase();
-            if (v.includes('MA')) return "MASSACHUSETTS MARKET";
-            if (v.includes('NJ')) return "NEW JERSEY MARKET";
-            if (v.includes('ON') || v.includes('ONTARIO')) return "ONTARIO MARKET";
-            return "GENERAL MARKET";
-        }
-
-        function renderCard(){
-            const city = document.getElementById('in_city').value;
-            document.getElementById('out_market').innerText = getMarket(city);
+        function buildCard(){
+            const city = document.getElementById('in_city').value.toUpperCase();
+            let market = "GENERAL MARKET";
+            if (city.includes('MA')) market = "MASSACHUSETTS MARKET";
+            else if (city.includes('NJ')) market = "NEW JERSEY MARKET";
+            else if (city.includes('ON') || city.includes('ONTARIO')) market = "ONTARIO MARKET";
+            
+            document.getElementById('out_market').innerText = "MARKET: " + market;
             document.getElementById('out_name').innerText = document.getElementById('in_name').value;
             document.getElementById('out_issue').innerText = document.getElementById('in_issue').value + " (" + document.getElementById('in_scope').value + ")";
             document.getElementById('out_city').innerText = city;
             document.getElementById('out_phone').innerText = document.getElementById('in_phone').value;
             document.getElementById('out_time').innerText = document.getElementById('in_time').value;
-            move(7);
+            nav(7);
         }
 
-        async function confirmLead(){
-            document.querySelector('.btn-lock').innerText = "LOCKING...";
-            const payload = {
-                market: document.getElementById('out_market').innerText,
+        async function finalize(){
+            document.querySelector('.btn-confirm').innerText = "LOCKING...";
+            const data = {
                 name: document.getElementById('in_name').value,
                 issue: document.getElementById('in_issue').value,
                 city: document.getElementById('in_city').value,
@@ -136,19 +130,19 @@
                 await fetch('https://vvhomepro-brain.dbelnavis.workers.dev/', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify(data)
                 });
-                document.getElementById('verifyActions').style.display = 'none';
+                document.getElementById('verifyBox').style.display = 'none';
                 document.getElementById('dlBtn').style.display = 'block';
-            } catch(e) { alert("Submission failed."); }
+            } catch(e) { console.error(e); }
         }
 
-        function downloadCard() {
-            html2canvas(document.getElementById('leadCardCapture'), { backgroundColor: '#001a33' }).then(canvas => {
-                const a = document.createElement('a');
-                a.download = 'VV_Lead_795917.png';
-                a.href = canvas.toDataURL();
-                a.click();
+        function saveAsPNG() {
+            html2canvas(document.getElementById('leadCardUI'), { backgroundColor: '#001a33' }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'VV_Lead_Card.png';
+                link.href = canvas.toDataURL();
+                link.click();
             });
         }
     </script>
