@@ -8,61 +8,33 @@
     <style>
         :root { --navy: #001a33; --gold: #c5a059; --neon: #39FF14; }
         body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: 'Plus Jakarta Sans', sans-serif; background: #000; }
-        
         #video-bg { position: fixed; top: 50%; left: 50%; min-width: 100%; min-height: 100%; z-index: -1; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(0.3) contrast(1.2); }
-        
         .main-container { display: flex; justify-content: center; align-items: center; height: 100vh; padding: 20px; background: radial-gradient(circle, rgba(0,26,51,0.4) 0%, rgba(0,0,0,0.8) 100%); }
-
-        .form-card { 
-            background: #fff; color: var(--navy); width: 100%; max-width: 500px; padding: 45px; 
-            border-radius: 25px; border: 6px solid var(--navy); box-shadow: 0 40px 80px rgba(0,0,0,0.9); 
-            position: relative;
-        }
-
-        /* BOLD HEADER */
+        .form-card { background: #fff; color: var(--navy); width: 100%; max-width: 500px; padding: 45px; border-radius: 25px; border: 6px solid var(--navy); box-shadow: 0 40px 80px rgba(0,0,0,0.9); }
         .form-header { border-bottom: 4px solid var(--gold); margin-bottom: 30px; padding-bottom: 10px; }
         h1 { font-family: 'Montserrat'; text-transform: uppercase; margin: 0; font-size: 1.8rem; letter-spacing: 2px; }
-
         label { display: block; margin-top: 20px; font-weight: 800; text-transform: uppercase; font-size: 0.75rem; color: var(--gold); letter-spacing: 1px; }
-        input, textarea { 
-            width: 100%; padding: 15px; margin-top: 8px; border: 3px solid #eee; border-radius: 10px; 
-            font-family: inherit; font-weight: 700; font-size: 1rem; outline: none; transition: 0.3s; 
-        }
-        input:focus, textarea:focus { border-color: var(--navy); }
+        input, textarea { width: 100%; padding: 15px; margin-top: 8px; border: 3px solid #eee; border-radius: 10px; font-family: inherit; font-weight: 700; font-size: 1rem; outline: none; transition: 0.3s; }
         textarea { height: 110px; resize: none; }
-        
-        /* BOLD NEON BUTTON */
-        .btn-submit { 
-            width: 100%; background: var(--navy); color: var(--neon); border: none; padding: 20px; 
-            margin-top: 30px; border-radius: 12px; font-family: 'Montserrat'; font-weight: 900; 
-            text-transform: uppercase; cursor: pointer; font-size: 1rem; letter-spacing: 2px; transition: 0.3s;
-        }
-        .btn-submit:hover { background: var(--gold); color: #fff; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
-
-        .back-link { display: block; text-align: center; margin-top: 25px; color: var(--navy); text-decoration: none; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
-        .back-link:hover { color: var(--gold); }
+        .btn-submit { width: 100%; background: var(--navy); color: var(--neon); border: none; padding: 20px; margin-top: 30px; border-radius: 12px; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; font-size: 1rem; letter-spacing: 2px; transition: 0.3s; }
+        .btn-submit:hover { background: var(--gold); color: #fff; transform: translateY(-3px); }
+        .back-link { display: block; text-align: center; margin-top: 25px; color: var(--navy); text-decoration: none; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; }
     </style>
 </head>
 <body>
     <video autoplay muted loop playsinline id="video-bg">
         <source src="https://v.ftcdn.net/02/93/34/09/700_F_293340917_0H0B67qX5ZcT6Q0H0B67qX5ZcT6Q0.mp4" type="video/mp4">
     </video>
-
     <div class="main-container">
         <div class="form-card">
-            <div class="form-header">
-                <h1>Contact Us</h1>
-            </div>
+            <div class="form-header"><h1>Contact Us</h1></div>
             <form action="https://formspree.io/f/mykngbap" method="POST">
                 <label>Full Name</label>
                 <input type="text" name="name" placeholder="Enter name" required>
-                
                 <label>Email Address</label>
                 <input type="email" name="_replyto" placeholder="email@example.com" required>
-                
                 <label>Message / Inquiry</label>
                 <textarea name="message" placeholder="How can we help you?" required></textarea>
-                
                 <button type="submit" class="btn-submit">Send Message</button>
             </form>
             <a href="index.html" class="back-link">← Return to Engine</a>
