@@ -3,92 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VV HOME PRO | DISPATCH ENGINE</title>
+    <title>VV HOME PRO</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --gold: #c5a059; 
+            --yellow: #FFFF00; /* THE EXACT BRIGHT YELLOW FROM THE SITE */
             --white: #ffffff; 
             --black: #000000; 
-            --navy-overlay: rgba(0, 26, 51, 0.88); 
+            --navy-overlay: rgba(0, 12, 26, 0.85); 
         }
 
         * { box-sizing: border-box; }
-        body, html { margin: 0; padding: 0; min-height: 100%; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
+        body, html { margin: 0; padding: 0; min-height: 100%; font-family: 'Plus Jakarta Sans', sans-serif; }
 
-        /* THE EXACT CONTRACTOR BACKGROUND IMAGE & NAVY TINT */
-        .site-container {
+        /* EXACT BACKGROUND PHOTO: MODERN ARCHITECTURE WITH NAVY FILTER */
+        .site-wrapper {
             position: relative; width: 100%; min-height: 100vh;
             background: linear-gradient(var(--navy-overlay), var(--navy-overlay)), 
-                        url('https://images.unsplash.com/photo-1635416638500-291fd2478145?q=80&w=2000'); /* High-res Roofing/Construction Image */
+                        url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2000');
             background-size: cover; background-position: center; background-attachment: fixed;
             display: flex; flex-direction: column; align-items: center;
         }
 
-        /* HEADER BRANDING */
+        /* HEADER */
         .header { width: 100%; padding: 40px 60px; display: flex; align-items: center; gap: 20px; }
         .logo-box { width: 65px; height: 65px; background: #fff; border: 4px solid #000; border-radius: 12px; }
         .logo-text { font-family: 'Montserrat'; font-size: 1.8rem; line-height: 0.85; text-transform: uppercase; color: #fff; letter-spacing: -1px; }
 
-        /* TAGLINE - MATCHED FONT SIZE & COLOR WEIGHT */
-        .hero-section { text-align: center; margin-top: 50px; margin-bottom: 60px; max-width: 1100px; padding: 0 20px; }
+        /* TAGLINE: EXACT 3.5rem MONTSERRAT 900 */
+        .hero-section { text-align: center; margin-top: 60px; margin-bottom: 60px; max-width: 1200px; padding: 0 20px; }
         .hero-section h1 { 
-            font-family: 'Montserrat'; font-size: 3.5rem; line-height: 1.1; 
+            font-family: 'Montserrat'; font-size: 3.5rem; line-height: 1.05; 
             text-transform: uppercase; margin: 0; color: #fff; 
         }
-        .hero-section h1 span { color: var(--gold); }
+        .hero-section h1 span { color: var(--yellow); } /* $10,000+ IN YELLOW */
 
-        /* THE EXACT "VV INFRASTRUCTURE" BLOCK REPLACEMENT */
-        .ai-engine-block {
+        /* THE "VV INFRASTRUCTURE" BLOCK CLONE */
+        .engine-container {
             width: 100%; max-width: 750px;
             background: var(--black);
-            border: 20px solid var(--black); /* The thick industrial frame from the contractor site */
-            box-shadow: 0 50px 100px rgba(0,0,0,0.6);
+            border: 20px solid var(--black); /* Heavy Industrial Frame */
+            box-shadow: 0 60px 120px rgba(0,0,0,0.8);
         }
 
-        .engine-header {
+        .engine-top {
             padding: 15px 0; border-bottom: 4px solid #1a1a1a;
             display: flex; justify-content: space-between; align-items: center;
         }
-        .engine-header h2 { 
-            margin: 0; font-family: 'Montserrat'; font-size: 1.3rem; 
-            color: var(--white); text-transform: uppercase; letter-spacing: 2px;
+        .engine-top h2 { 
+            margin: 0; font-family: 'Montserrat'; font-size: 1.2rem; 
+            color: var(--white); text-transform: uppercase; letter-spacing: 3px;
         }
 
-        /* CHAT INTERFACE */
-        .chat-stream { height: 380px; overflow-y: auto; padding: 25px 0; display: flex; flex-direction: column; gap: 20px; }
-        .msg { padding: 20px; font-size: 1rem; font-weight: 800; line-height: 1.4; border-radius: 0; }
-        .ai-msg { background: #0a0a0a; color: #fff; border: 2px solid #222; width: 92%; }
-        .user-msg { background: var(--gold); color: #000; align-self: flex-end; width: 92%; font-weight: 900; }
+        /* AI CHAT FEED */
+        .chat-area { height: 400px; overflow-y: auto; padding: 25px 0; display: flex; flex-direction: column; gap: 20px; }
+        .msg { padding: 22px; font-size: 1rem; font-weight: 800; line-height: 1.4; }
+        .ai-msg { background: #080808; color: #fff; border: 2px solid #222; width: 95%; }
+        .user-msg { background: var(--yellow); color: #000; align-self: flex-end; width: 95%; font-weight: 900; }
 
-        .input-tray { display: flex; margin-top: 10px; border-top: 4px solid #1a1a1a; padding-top: 20px; }
+        /* INPUT BLOCK */
+        .input-bar { display: flex; margin-top: 10px; border-top: 4px solid #1a1a1a; padding-top: 25px; }
         input { 
-            flex: 1; border: 2px solid #222; background: #050505; color: white; padding: 20px; 
-            font-size: 1.1rem; font-weight: 700; font-family: 'Plus Jakarta Sans'; outline: none;
+            flex: 1; border: 2px solid #333; background: #0a0a0a; color: white; padding: 22px; 
+            font-size: 1.1rem; font-weight: 800; font-family: 'Plus Jakarta Sans'; outline: none;
         }
-        .send-button { background: var(--gold); color: #000; border: none; padding: 0 35px; font-size: 1.8rem; cursor: pointer; font-weight: 900; }
+        .send-trigger { background: var(--yellow); color: #000; border: none; padding: 0 40px; font-size: 2rem; cursor: pointer; font-weight: 900; }
 
-        /* FINAL DISPATCH CARD */
-        #finalResult { display: none; padding: 20px 0; }
-        .summary-card { background: #080808; border-left: 10px solid var(--gold); padding: 30px; }
-        .summary-row { margin-bottom: 15px; font-size: 1rem; border-bottom: 1px solid #1a1a1a; padding-bottom: 10px; color: #888; display: flex; justify-content: space-between; }
-        .summary-row b { color: #fff; text-transform: uppercase; font-family: 'Montserrat'; font-size: 0.8rem; }
-        .summary-row span { color: var(--gold); font-weight: 900; }
+        /* RESULT VIEW */
+        #finalCard { display: none; padding: 20px 0; }
+        .lead-summary { background: #050505; border-left: 12px solid var(--yellow); padding: 35px; }
+        .data-row { margin-bottom: 15px; font-size: 1rem; border-bottom: 1px solid #1a1a1a; padding-bottom: 12px; color: #999; display: flex; justify-content: space-between; }
+        .data-row b { color: #fff; text-transform: uppercase; font-family: 'Montserrat'; font-size: 0.85rem; }
+        .data-row span { color: var(--yellow); font-weight: 900; }
         
-        .action-area { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 25px; }
-        .btn-ui { padding: 20px; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; border: none; font-size: 0.9rem; }
-        .btn-edit { background: #222; color: #fff; }
-        .btn-confirm { background: var(--gold); color: #000; }
+        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
+        .action-btn { padding: 22px; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; border: none; font-size: 0.95rem; }
+        .edit { background: #222; color: #fff; }
+        .confirm { background: var(--yellow); color: #000; }
 
-        /* FOOTER NAVIGATION */
-        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 50px 0 80px 0; }
-        .footer-pill { background: #fff; color: #000; text-decoration: none; padding: 14px 35px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; border-radius: 50px; border: 2px solid #000; transition: 0.2s; }
-        .footer-pill:hover { background: var(--gold); }
+        /* FOOTER PILLS */
+        .footer { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 60px 0 100px 0; }
+        .pill { background: #fff; color: #000; text-decoration: none; padding: 15px 40px; font-weight: 900; font-size: 0.8rem; text-transform: uppercase; border-radius: 50px; border: 3px solid #000; transition: 0.2s; }
+        .pill:hover { background: var(--yellow); }
     </style>
 </head>
 <body>
 
-<div class="site-container">
+<div class="site-wrapper">
     <div class="header">
         <div class="logo-box"></div>
         <div class="logo-text">VV HOME<br>PRO</div>
@@ -98,51 +99,51 @@
         <h1>STOP WASTING <span>$10,000+</span> ON SHODDY CONTRACTORS WHO GHOST YOU.</h1>
     </div>
 
-    <div class="ai-engine-block">
-        <div id="activeEngine">
-            <div class="engine-header">
-                <h2>THE VV DISPATCH ENGINE</h2>
-                <div style="font-size: 0.7rem; color: #555; font-weight: 900;">SYSTEM: LIVE</div>
+    <div class="engine-container">
+        <div id="activeState">
+            <div class="engine-top">
+                <h2>VV DISPATCH ENGINE</h2>
+                <div style="font-size: 0.75rem; color: #555; font-weight: 900;">LIVE SYSTEM</div>
             </div>
 
-            <div class="chat-stream" id="chatStream">
+            <div class="chat-area" id="chatStream">
                 <div class="msg ai-msg">Identify the project category you need help with (e.g. Roofing, HVAC, Windows).</div>
             </div>
 
-            <div class="input-tray">
-                <input type="text" id="userInput" placeholder="TYPE PROJECT TYPE..." onkeypress="handleKey(event)">
-                <button class="send-button" onclick="process()">→</button>
+            <div class="input-bar">
+                <input type="text" id="userInput" placeholder="TYPE PROJECT HERE..." onkeypress="handleKey(event)">
+                <button class="send-trigger" onclick="process()">→</button>
             </div>
         </div>
 
-        <div id="finalResult">
-            <div class="summary-card">
-                <div class="summary-row"><b>Project Type</b> <span id="res_issue"></span></div>
-                <div class="summary-row"><b>Project Scope</b> <span id="res_scope"></span></div>
-                <div class="summary-row"><b>Owner Name</b> <span id="res_name"></span></div>
-                <div class="summary-row"><b>Location</b> <span id="res_market"></span></div>
-                <div class="summary-row"><b>Phone Number</b> <span id="res_phone"></span></div>
-                <div class="summary-row"><b>Best Call Time</b> <span id="res_time"></span></div>
+        <div id="finalCard">
+            <div class="lead-summary">
+                <div class="data-row"><b>PROJECT</b> <span id="res_issue"></span></div>
+                <div class="data-row"><b>SCOPE</b> <span id="res_scope"></span></div>
+                <div class="data-row"><b>OWNER</b> <span id="res_name"></span></div>
+                <div class="data-row"><b>MARKET</b> <span id="res_market"></span></div>
+                <div class="data-row"><b>PHONE</b> <span id="res_phone"></span></div>
+                <div class="data-row"><b>BEST CALL</b> <span id="res_time"></span></div>
             </div>
-            <div class="action-area">
-                <button class="btn-ui btn-edit" onclick="resetEngine()">Edit Lead</button>
-                <button class="btn-ui btn-confirm" onclick="alert('DISPATCHED TO INFRASTRUCTURE')">Confirm Match</button>
+            <div class="btn-group">
+                <button class="action-btn edit" onclick="resetEngine()">Edit Lead</button>
+                <button class="action-btn confirm" onclick="alert('DISPATCHED')">Confirm Dispatch</button>
             </div>
         </div>
     </div>
 
-    <div class="footer-links">
-        <a href="#" class="footer-pill">About Us</a>
-        <a href="#" class="footer-pill">Privacy</a>
-        <a href="#" class="footer-pill">Terms</a>
-        <a href="#" class="footer-pill">Standards</a>
-        <a href="#" class="footer-pill">Contact</a>
+    <div class="footer">
+        <a href="#" class="pill">About Us</a>
+        <a href="#" class="pill">Privacy</a>
+        <a href="#" class="pill">Terms</a>
+        <a href="#" class="pill">Standards</a>
+        <a href="#" class="pill">Contact</a>
     </div>
 </div>
 
 <script>
     let step = 1;
-    let leadData = { issue: '', scope: '', name: '', market: '', phone: '', time: '' };
+    let data = { issue: '', scope: '', name: '', market: '', phone: '', time: '' };
     function handleKey(e) { if(e.key === 'Enter') process(); }
     
     function addMsg(txt, type) {
@@ -159,29 +160,29 @@
         addMsg(val, 'user'); input.value = '';
         
         setTimeout(() => {
-            if(step === 1) { leadData.issue = val; addMsg("Is this a Major repair or Minor maintenance?", 'ai-msg'); step++; }
-            else if(step === 2) { leadData.scope = val; addMsg("What is the Full Name of the property owner?", 'ai-msg'); step++; }
-            else if(step === 3) { leadData.name = val; addMsg("Which City and State is the project in?", 'ai-msg'); step++; }
-            else if(step === 4) { leadData.market = val; addMsg("What is your secure Phone Number?", 'ai-msg'); step++; }
-            else if(step === 5) { leadData.phone = val; addMsg("What is the best time for our pros to call?", 'ai-msg'); step++; }
-            else if(step === 6) { leadData.time = val; showSummary(); }
-        }, 500);
+            if(step === 1) { data.issue = val; addMsg("Is this a Major repair or Minor maintenance?", 'ai-msg'); step++; }
+            else if(step === 2) { data.scope = val; addMsg("What is the Full Name of the property owner?", 'ai-msg'); step++; }
+            else if(step === 3) { data.name = val; addMsg("City and State for the project:", 'ai-msg'); step++; }
+            else if(step === 4) { data.market = val; addMsg("Your secure Phone Number:", 'ai-msg'); step++; }
+            else if(step === 5) { data.phone = val; addMsg("Best time for our pros to call?", 'ai-msg'); step++; }
+            else if(step === 6) { data.time = val; finish(); }
+        }, 400);
     }
 
-    function showSummary() {
-        document.getElementById('activeEngine').style.display = 'none';
-        document.getElementById('res_issue').innerText = leadData.issue;
-        document.getElementById('res_scope').innerText = leadData.scope;
-        document.getElementById('res_name').innerText = leadData.name;
-        document.getElementById('res_market').innerText = leadData.market;
-        document.getElementById('res_phone').innerText = leadData.phone;
-        document.getElementById('res_time').innerText = leadData.time;
-        document.getElementById('finalResult').style.display = 'block';
+    function finish() {
+        document.getElementById('activeState').style.display = 'none';
+        document.getElementById('res_issue').innerText = data.issue;
+        document.getElementById('res_scope').innerText = data.scope;
+        document.getElementById('res_name').innerText = data.name;
+        document.getElementById('res_market').innerText = data.market;
+        document.getElementById('res_phone').innerText = data.phone;
+        document.getElementById('res_time').innerText = data.time;
+        document.getElementById('finalCard').style.display = 'block';
     }
 
     function resetEngine() {
-        step = 1; document.getElementById('finalResult').style.display = 'none';
-        document.getElementById('activeEngine').style.display = 'block';
+        step = 1; document.getElementById('finalCard').style.display = 'none';
+        document.getElementById('activeState').style.display = 'block';
         document.getElementById('chatStream').innerHTML = '<div class="msg ai-msg">Identify the project category you need help with.</div>';
     }
 </script>
