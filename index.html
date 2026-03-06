@@ -3,77 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VV HOME PRO | DISPATCH</title>
+    <title>VV HOME PRO | DISPATCH ENGINE</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --navy: #001a33; --neon: #39FF14; --white: #ffffff; --black: #000000; --gray: #1a1a1a;
+            /* EXACT CONTRACTOR COLOR PALETTE */
+            --navy-dark: #000c1a; 
+            --navy-light: #001a33;
+            --gold: #c5a059; 
+            --white: #ffffff; 
+            --black: #000000;
+            --border-gray: #222222;
         }
 
         * { box-sizing: border-box; }
-        body, html { 
-            margin: 0; padding: 0; height: 100%; 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background: var(--navy); color: var(--white);
-        }
-
-        .hero-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0, 26, 51, 0.9), rgba(0, 26, 51, 0.95)), 
-                        url('https://images.unsplash.com/photo-1541888946425-d81bb19480c5?q=80&w=2000');
-            background-size: cover; z-index: -1;
-        }
-
-        .header-section { padding: 30px 60px; display: flex; align-items: center; gap: 15px; }
-        .logo-box { width: 60px; height: 60px; background: #fff; display: flex; align-items: center; justify-content: center; border-radius: 12px; }
-        .logo-box img { width: 70%; }
-        .logo-text { font-family: 'Montserrat'; font-size: 1.5rem; line-height: 0.9; text-transform: uppercase; }
-
-        .main-layout { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; }
-
-        .hero-tagline { text-align: center; margin-bottom: 40px; max-width: 900px; }
-        .hero-tagline h1 { font-family: 'Montserrat'; font-size: 2.8rem; line-height: 1; text-transform: uppercase; margin: 0; }
-        .hero-tagline span { color: var(--neon); }
-
-        /* THE SHAPED ENGINE: MATCHING THE CONTRACTOR "INFRASTRUCTURE" BOX */
-        .vv-engine-box {
-            width: 100%; max-width: 580px;
-            background: var(--black);
-            padding: 40px;
-            border-radius: 60px; /* This creates the specific "Infrastructure" box shape */
-            border: 1px solid #333;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-
-        .chat-feed { height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; padding-right: 10px; }
-        .msg { padding: 14px 20px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; border-radius: 20px; line-height: 1.4; }
-        .ai-msg { background: #111; color: #fff; border: 1px solid #222; align-self: flex-start; border-bottom-left-radius: 4px; }
-        .user-msg { background: var(--neon); color: #000; align-self: flex-end; border-bottom-right-radius: 4px; }
-
-        .input-area { display: flex; gap: 10px; background: #111; padding: 10px; border-radius: 40px; border: 1px solid #222; }
-        input { flex: 1; background: transparent; border: none; color: white; padding: 10px 15px; font-family: 'Plus Jakarta Sans'; font-weight: 700; outline: none; text-transform: uppercase; }
-        .send-btn { background: var(--neon); border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; font-weight: 900; }
-
-        /* FINAL LEAD CARD */
-        #finalMatch { display: none; }
-        .lead-card { background: #0a0a0a; border: 1px solid #333; padding: 25px; border-radius: 30px; margin-bottom: 20px; }
-        .lead-row { margin-bottom: 12px; font-size: 0.8rem; display: flex; justify-content: space-between; border-bottom: 1px solid #1a1a1a; padding-bottom: 8px; }
-        .lead-row b { color: var(--neon); font-family: 'Montserrat'; }
         
-        .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .action-btn { padding: 15px; border-radius: 30px; border: none; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; font-size: 0.75rem; }
-        .edit-btn { background: #222; color: white; }
-        .confirm-btn { background: var(--neon); color: black; }
-        .download-btn { width: 100%; margin-top: 10px; background: white; color: black; }
+        /* EXACT BACKGROUND GRADIENT FROM CONTRACTOR SITE */
+        body, html { 
+            margin: 0; padding: 0; min-height: 100%; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: radial-gradient(circle at top, var(--navy-light) 0%, var(--navy-dark) 100%);
+            color: var(--white);
+            background-attachment: fixed;
+        }
 
-        /* PILL FOOTER */
-        .footer-nav { margin-top: 50px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-        .footer-nav a { background: #fff; color: #000; text-decoration: none; padding: 10px 25px; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; border-radius: 50px; }
+        /* HEADER BRANDING */
+        .header-section { padding: 40px 60px; display: flex; align-items: center; gap: 20px; }
+        .logo-box { 
+            width: 65px; height: 65px; background: var(--white); 
+            display: flex; align-items: center; justify-content: center; 
+            border-radius: 12px; border: 4px solid var(--black);
+        }
+        .logo-box img { width: 75%; }
+        .logo-text { 
+            font-family: 'Montserrat'; font-size: 1.8rem; line-height: 0.85; 
+            text-transform: uppercase; color: var(--white); letter-spacing: -1px;
+        }
+
+        .main-layout { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; }
+
+        /* TAGLINE - WHITE & GOLD WEIGHT */
+        .hero-tagline { text-align: center; margin-bottom: 50px; max-width: 950px; }
+        .hero-tagline h1 { 
+            font-family: 'Montserrat'; font-size: 3rem; line-height: 1; 
+            text-transform: uppercase; margin: 0; color: var(--white); 
+            text-shadow: 4px 4px 0px var(--black);
+        }
+        .hero-tagline span { color: var(--gold); }
+
+        /* STADIUM-SHAPED ENGINE (THE VV INFRASTRUCTURE CLONE) */
+        .vv-engine-box {
+            width: 100%; max-width: 600px;
+            background: var(--black);
+            padding: 60px 50px;
+            border-radius: 80px; /* Stadium Shape */
+            border: 2px solid var(--border-gray);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+        }
+
+        .chat-feed { height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; }
+        .msg { padding: 16px 24px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; border-radius: 25px; line-height: 1.5; }
+        
+        /* AI BOXES: DARK ON DARK / USER BOXES: GOLD */
+        .ai-msg { background: #0a0a0a; color: var(--white); border: 1px solid #333; align-self: flex-start; border-bottom-left-radius: 4px; }
+        .user-msg { background: var(--gold); color: var(--black); align-self: flex-end; border-bottom-right-radius: 4px; font-weight: 800; }
+
+        .input-area { display: flex; gap: 12px; background: #0a0a0a; padding: 12px; border-radius: 50px; border: 1px solid #333; }
+        input { flex: 1; background: transparent; border: none; color: white; padding: 10px 20px; font-family: 'Plus Jakarta Sans'; font-weight: 700; outline: none; text-transform: uppercase; font-size: 0.9rem; }
+        .send-btn { background: var(--gold); border: none; width: 48px; height: 48px; border-radius: 50%; cursor: pointer; font-size: 1.4rem; font-weight: 900; color: var(--black); }
+
+        /* FINAL LEAD CARD - CONTRACTOR STYLE */
+        #finalMatch { display: none; }
+        .lead-card { background: #050505; border: 1px solid #222; padding: 35px; border-radius: 40px; margin-bottom: 25px; border-left: 6px solid var(--gold); }
+        .lead-title { text-align: center; margin-bottom: 30px; font-family: 'Montserrat'; font-size: 1rem; color: var(--gold); letter-spacing: 3px; border-bottom: 1px solid #222; padding-bottom: 15px; }
+        .lead-row { margin-bottom: 18px; font-size: 0.85rem; display: flex; justify-content: space-between; border-bottom: 1px solid #111; padding-bottom: 10px; }
+        .lead-row b { color: var(--white); font-family: 'Montserrat'; letter-spacing: 1px; }
+        .lead-row span { color: var(--gold); font-weight: 800; }
+        
+        .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .action-btn { padding: 18px; border-radius: 50px; border: none; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; font-size: 0.8rem; transition: all 0.2s; }
+        .edit-btn { background: #222; color: var(--white); }
+        .confirm-btn { background: var(--gold); color: var(--black); }
+        .edit-btn:hover { background: #333; }
+        .confirm-btn:hover { transform: scale(1.03); opacity: 0.9; }
+        .download-btn { width: 100%; margin-top: 15px; background: var(--white); color: var(--black); }
+
+        /* PILL FOOTER - WHITE ON NAVY */
+        .footer-nav { margin-top: 80px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; padding-bottom: 60px; }
+        .footer-nav a { 
+            background: var(--white); color: var(--black); text-decoration: none; 
+            padding: 12px 30px; font-weight: 800; font-size: 0.75rem; 
+            text-transform: uppercase; border-radius: 50px; transition: 0.3s; 
+        }
+        .footer-nav a:hover { background: var(--gold); color: var(--white); }
     </style>
 </head>
 <body>
-
-    <div class="hero-bg"></div>
 
     <div class="header-section">
         <div class="logo-box"><img src="vv-verified-badge.png" alt="VV"></div>
@@ -82,36 +107,37 @@
 
     <div class="main-layout">
         <div class="hero-tagline">
-            <h1>STOP WASTING $10,000+ ON <span>SHODDY CONTRACTORS</span> WHO GHOST YOU.</h1>
+            <h1>ELIMINATE THE RISK OF <span>UNVERIFIED CONTRACTORS</span> FOREVER.</h1>
         </div>
 
         <div class="vv-engine-box">
             <div id="engineActive">
                 <div class="chat-feed" id="chatStream">
-                    <div class="msg ai-msg">IDENTIFY PROJECT CATEGORY (E.G. ROOFING, HVAC).</div>
+                    <div class="msg ai-msg">IDENTIFY PROJECT CATEGORY (E.G. ROOFING, HVAC, WINDOWS).</div>
                 </div>
 
                 <div class="input-area">
-                    <input type="text" id="userInput" placeholder="TYPE HERE..." onkeypress="handleKey(event)">
+                    <input type="text" id="userInput" placeholder="TYPE PROJECT TYPE..." onkeypress="handleKey(event)">
                     <button class="send-btn" onclick="process()">→</button>
                 </div>
             </div>
 
             <div id="finalMatch">
-                <div class="lead-card" id="leadCardContent">
-                    <div style="text-align: center; margin-bottom: 20px; font-family: 'Montserrat'; font-size: 1rem; color: var(--neon);">VERIFIED PROJECT LEAD</div>
+                <div class="lead-card">
+                    <div class="lead-title">DISPATCH VERIFICATION</div>
                     <div class="lead-row"><b>PROJECT:</b> <span id="out_issue"></span></div>
                     <div class="lead-row"><b>SCOPE:</b> <span id="out_scope"></span></div>
-                    <div class="lead-row"><b>NAME:</b> <span id="out_name"></span></div>
-                    <div class="lead-row"><b>MARKET:</b> <span id="out_market"></span></div>
-                    <div class="lead-row"><b>PHONE:</b> <span id="out_phone"></span></div>
+                    <div class="lead-row"><b>OWNER:</b> <span id="out_name"></span></div>
+                    <div class="lead-row"><b>LOCATION:</b> <span id="out_market"></span></div>
+                    <div class="lead-row"><b>CONTACT:</b> <span id="out_phone"></span></div>
+                    <div class="lead-row"><b>BEST CALL:</b> <span id="out_time"></span></div>
                 </div>
                 
                 <div class="action-grid">
-                    <button class="action-btn edit-btn" onclick="resetEngine()">Edit</button>
-                    <button class="action-btn confirm-btn" onclick="alert('Confirmed & Dispatched!')">Confirm</button>
+                    <button class="action-btn edit-btn" onclick="resetEngine()">Edit Details</button>
+                    <button class="action-btn confirm-btn" onclick="confirmLead()">Confirm Dispatch</button>
                 </div>
-                <button class="action-btn download-btn" onclick="downloadLead()">Download PDF Lead</button>
+                <button class="action-btn download-btn" onclick="downloadLead()">Download Lead Summary</button>
             </div>
         </div>
 
@@ -126,7 +152,7 @@
 
     <script>
         let step = 1;
-        let data = { issue: '', scope: '', name: '', market: '', phone: '' };
+        let data = { issue: '', scope: '', name: '', market: '', phone: '', time: '' };
 
         function handleKey(e) { if(e.key === 'Enter') process(); }
 
@@ -147,11 +173,12 @@
             input.value = '';
 
             setTimeout(() => {
-                if(step === 1) { data.issue = val; addMsg("SCOPE: MAJOR OR MINOR?", 'ai-msg'); step++; }
-                else if(step === 2) { data.scope = val; addMsg("FULL NAME:", 'ai-msg'); step++; }
-                else if(step === 3) { data.name = val; addMsg("CITY/STATE:", 'ai-msg'); step++; }
-                else if(step === 4) { data.market = val; addMsg("PHONE NUMBER:", 'ai-msg'); step++; }
-                else if(step === 5) { data.phone = val; showFinal(); }
+                if(step === 1) { data.issue = val; addMsg("SCOPE: MAJOR REPAIR OR MINOR MAINTENANCE?", 'ai-msg'); step++; }
+                else if(step === 2) { data.scope = val; addMsg("FULL NAME OF PROPERTY OWNER:", 'ai-msg'); step++; }
+                else if(step === 3) { data.name = val; addMsg("PROJECT CITY AND STATE:", 'ai-msg'); step++; }
+                else if(step === 4) { data.market = val; addMsg("SECURE PHONE NUMBER:", 'ai-msg'); step++; }
+                else if(step === 5) { data.phone = val; addMsg("BEST TIME FOR OUR PROS TO CALL?", 'ai-msg'); step++; }
+                else if(step === 6) { data.time = val; showFinal(); }
             }, 500);
         }
 
@@ -162,6 +189,7 @@
             document.getElementById('out_name').innerText = data.name;
             document.getElementById('out_market').innerText = data.market;
             document.getElementById('out_phone').innerText = data.phone;
+            document.getElementById('out_time').innerText = data.time;
             document.getElementById('finalMatch').style.display = 'block';
         }
 
@@ -169,24 +197,32 @@
             step = 1;
             document.getElementById('finalMatch').style.display = 'none';
             document.getElementById('engineActive').style.display = 'block';
-            document.getElementById('chatStream').innerHTML = '<div class="msg ai-msg">IDENTIFY PROJECT CATEGORY (E.G. ROOFING, HVAC).</div>';
+            document.getElementById('chatStream').innerHTML = '<div class="msg ai-msg">IDENTIFY PROJECT CATEGORY (E.G. ROOFING, HVAC, WINDOWS).</div>';
+        }
+
+        function confirmLead() {
+            alert("VERIFICATION COMPLETE. DATA HAS BEEN DISPATCHED TO THE VV INFRASTRUCTURE.");
+            location.reload();
         }
 
         function downloadLead() {
             const content = `
-                VV HOME PRO VERIFIED LEAD
-                -------------------------
-                Project: ${data.issue}
-                Scope: ${data.scope}
-                Name: ${data.name}
-                Market: ${data.market}
-                Phone: ${data.phone}
+VV HOME PRO - VERIFIED LEAD CARD
+================================
+PROJECT:  ${data.issue.toUpperCase()}
+SCOPE:    ${data.scope.toUpperCase()}
+NAME:     ${data.name.toUpperCase()}
+LOCATION: ${data.market.toUpperCase()}
+PHONE:    ${data.phone}
+AVAIL:    ${data.time.toUpperCase()}
+================================
+STATUS: DISPATCHED
             `;
             const blob = new Blob([content], { type: 'text/plain' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `VV-Lead-${data.name}.txt`;
+            a.download = `VV-Lead-${data.name.replace(/\s+/g, '-')}.txt`;
             a.click();
         }
     </script>
