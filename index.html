@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VV HOME PRO | MATCHING ENGINE</title>
+    <title>VV HOME PRO | DISPATCH</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --navy: #001a33; --gold: #c5a059; --neon: #39FF14; --white: #ffffff; --black: #000000;
+            --navy: #001a33; --neon: #39FF14; --white: #ffffff; --black: #000000; --gray: #1a1a1a;
         }
 
         * { box-sizing: border-box; }
@@ -19,116 +19,56 @@
 
         .hero-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0, 26, 51, 0.8), rgba(0, 26, 51, 0.95)), 
+            background: linear-gradient(rgba(0, 26, 51, 0.9), rgba(0, 26, 51, 0.95)), 
                         url('https://images.unsplash.com/photo-1541888946425-d81bb19480c5?q=80&w=2000');
-            background-size: cover; background-position: center; z-index: -1;
+            background-size: cover; z-index: -1;
         }
 
-        /* HEADER BRANDING */
-        .header-section { padding: 30px 50px; display: flex; align-items: center; gap: 15px; }
-        .logo-box {
-            width: 65px; height: 65px; background: #fff;
-            border: 5px solid var(--black); border-radius: 0; display: flex; align-items: center; justify-content: center;
-            box-shadow: 4px 4px 0px var(--black);
-        }
-        .logo-box img { width: 70%; height: auto; }
-        .logo-text {
-            font-family: 'Montserrat'; font-size: 1.6rem; line-height: 0.9;
-            text-transform: uppercase; letter-spacing: -1px; text-shadow: 3px 3px 0px var(--black);
-        }
+        .header-section { padding: 30px 60px; display: flex; align-items: center; gap: 15px; }
+        .logo-box { width: 60px; height: 60px; background: #fff; display: flex; align-items: center; justify-content: center; border-radius: 12px; }
+        .logo-box img { width: 70%; }
+        .logo-text { font-family: 'Montserrat'; font-size: 1.5rem; line-height: 0.9; text-transform: uppercase; }
 
-        /* MAIN LAYOUT */
-        .main-layout {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: 20px; min-height: calc(100vh - 220px);
-        }
+        .main-layout { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; }
 
-        /* TAGLINE */
-        .hero-tagline { text-align: center; margin-bottom: 35px; max-width: 900px; }
-        .hero-tagline h1 {
-            font-family: 'Montserrat'; font-size: 2.8rem; line-height: 1;
-            text-transform: uppercase; margin: 0; text-shadow: 5px 5px 0px var(--black);
-        }
+        .hero-tagline { text-align: center; margin-bottom: 40px; max-width: 900px; }
+        .hero-tagline h1 { font-family: 'Montserrat'; font-size: 2.8rem; line-height: 1; text-transform: uppercase; margin: 0; }
         .hero-tagline span { color: var(--neon); }
 
-        /* AI ENGINE - CLEAN INDUSTRIAL STYLE */
-        .engine-container {
-            width: 100%; max-width: 520px;
-            background: var(--white);
-            border: 8px solid var(--black);
-            box-shadow: 15px 15px 0px var(--black); /* Switched gold to black for cleaner look */
-            display: flex; flex-direction: column;
-            border-radius: 0;
+        /* THE SHAPED ENGINE: MATCHING THE CONTRACTOR "INFRASTRUCTURE" BOX */
+        .vv-engine-box {
+            width: 100%; max-width: 580px;
+            background: var(--black);
+            padding: 40px;
+            border-radius: 60px; /* This creates the specific "Infrastructure" box shape */
+            border: 1px solid #333;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
-        .engine-header {
-            background: var(--black); color: var(--neon); padding: 12px 20px;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .engine-header h2 { margin: 0; font-family: 'Montserrat'; font-size: 0.9rem; letter-spacing: 1px; }
+        .chat-feed { height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; padding-right: 10px; }
+        .msg { padding: 14px 20px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; border-radius: 20px; line-height: 1.4; }
+        .ai-msg { background: #111; color: #fff; border: 1px solid #222; align-self: flex-start; border-bottom-left-radius: 4px; }
+        .user-msg { background: var(--neon); color: #000; align-self: flex-end; border-bottom-right-radius: 4px; }
+
+        .input-area { display: flex; gap: 10px; background: #111; padding: 10px; border-radius: 40px; border: 1px solid #222; }
+        input { flex: 1; background: transparent; border: none; color: white; padding: 10px 15px; font-family: 'Plus Jakarta Sans'; font-weight: 700; outline: none; text-transform: uppercase; }
+        .send-btn { background: var(--neon); border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; font-weight: 900; }
+
+        /* FINAL LEAD CARD */
+        #finalMatch { display: none; }
+        .lead-card { background: #0a0a0a; border: 1px solid #333; padding: 25px; border-radius: 30px; margin-bottom: 20px; }
+        .lead-row { margin-bottom: 12px; font-size: 0.8rem; display: flex; justify-content: space-between; border-bottom: 1px solid #1a1a1a; padding-bottom: 8px; }
+        .lead-row b { color: var(--neon); font-family: 'Montserrat'; }
         
-        .btn-reset {
-            background: var(--navy); color: var(--white); border: 1px solid var(--white);
-            padding: 4px 10px; font-family: 'Montserrat'; font-weight: 900;
-            text-transform: uppercase; cursor: pointer; font-size: 0.6rem;
-        }
+        .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .action-btn { padding: 15px; border-radius: 30px; border: none; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; font-size: 0.75rem; }
+        .edit-btn { background: #222; color: white; }
+        .confirm-btn { background: var(--neon); color: black; }
+        .download-btn { width: 100%; margin-top: 10px; background: white; color: black; }
 
-        /* CHAT FEED - NO GOLD TRIM */
-        .chat-feed {
-            height: 300px; overflow-y: auto; padding: 20px;
-            background: #f8fafc; display: flex; flex-direction: column; gap: 15px;
-            border-top: 4px solid var(--black);
-        }
-        .msg { 
-            padding: 12px 16px; font-size: 0.85rem; font-weight: 800; 
-            border: 3px solid var(--black); text-transform: uppercase; line-height: 1.2;
-            border-radius: 0;
-        }
-        .ai-msg { background: #fff; color: #000; box-shadow: 4px 4px 0px var(--black); width: 85%; }
-        .user-msg { align-self: flex-end; background: var(--navy); color: var(--white); box-shadow: -4px 4px 0px var(--black); width: 85%; }
-
-        /* INPUT AREA */
-        .input-tray { 
-            padding: 15px; display: flex; gap: 10px; background: #fff; border-top: 6px solid var(--black);
-        }
-        input { 
-            flex: 1; border: 4px solid var(--black); padding: 12px; 
-            font-size: 0.9rem; font-weight: 800; font-family: 'Plus Jakarta Sans';
-            text-transform: uppercase; outline: none; border-radius: 0;
-        }
-        .btn-send { 
-            background: var(--black); color: var(--neon); border: none; width: 50px; 
-            font-size: 1.4rem; cursor: pointer; display: flex; align-items: center; justify-content: center; 
-        }
-
-        /* PILL SHAPED FOOTER BUTTONS */
-        .footer-nav {
-            margin-top: 50px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; padding-bottom: 40px;
-        }
-        .footer-nav a {
-            background: var(--white); color: var(--black); text-decoration: none; padding: 10px 24px;
-            font-family: 'Plus Jakarta Sans'; font-weight: 800; font-size: 0.75rem; 
-            border: 2px solid var(--black);
-            text-transform: uppercase; transition: 0.2s;
-            border-radius: 50px; /* PILL SHAPE */
-            box-shadow: 0 4px 0px rgba(0,0,0,0.2);
-        }
-        .footer-nav a:hover { 
-            background: var(--neon); 
-            transform: translateY(-2px); 
-            box-shadow: 0 6px 0px var(--black);
-        }
-
-        #finalMatch { display: none; padding: 25px; background: #fff; border-top: 4px solid var(--black); }
-        .summary-box { background: var(--black); color: #fff; padding: 20px; border-left: 10px solid var(--neon); }
-        .summary-line { margin-bottom: 10px; font-size: 0.85rem; border-bottom: 1px solid #333; padding-bottom: 6px; font-weight: 800; }
-        .summary-line b { color: var(--neon); font-family: 'Montserrat'; font-size: 0.75rem; margin-right: 5px; }
-        
-        .btn-confirm {
-            width: 100%; background: var(--neon); color: #000; padding: 15px;
-            font-family: 'Montserrat'; font-weight: 900; font-size: 1.1rem;
-            border: 4px solid var(--black); margin-top: 15px; cursor: pointer; text-transform: uppercase;
-        }
+        /* PILL FOOTER */
+        .footer-nav { margin-top: 50px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .footer-nav a { background: #fff; color: #000; text-decoration: none; padding: 10px 25px; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; border-radius: 50px; }
     </style>
 </head>
 <body>
@@ -145,44 +85,47 @@
             <h1>STOP WASTING $10,000+ ON <span>SHODDY CONTRACTORS</span> WHO GHOST YOU.</h1>
         </div>
 
-        <div class="engine-container">
-            <div class="engine-header">
-                <h2>AI MATCHING ENGINE</h2>
-                <button class="btn-reset" onclick="location.reload()">Refresh</button>
-            </div>
+        <div class="vv-engine-box">
+            <div id="engineActive">
+                <div class="chat-feed" id="chatStream">
+                    <div class="msg ai-msg">IDENTIFY PROJECT CATEGORY (E.G. ROOFING, HVAC).</div>
+                </div>
 
-            <div class="chat-feed" id="chatStream">
-                <div class="msg ai-msg">IDENTIFY PROJECT CATEGORY (E.G. ROOFING, HVAC, WINDOWS).</div>
-            </div>
-
-            <div class="input-tray" id="inputBar">
-                <input type="text" id="userInput" placeholder="TYPE PROJECT..." onkeypress="handleKey(event)">
-                <button class="btn-send" onclick="process()">→</button>
+                <div class="input-area">
+                    <input type="text" id="userInput" placeholder="TYPE HERE..." onkeypress="handleKey(event)">
+                    <button class="send-btn" onclick="process()">→</button>
+                </div>
             </div>
 
             <div id="finalMatch">
-                <div class="summary-box">
-                    <div class="summary-line"><b>PROJECT:</b> <span id="out_issue"></span></div>
-                    <div class="summary-line"><b>SCOPE:</b> <span id="out_scope"></span></div>
-                    <div class="summary-line"><b>NAME:</b> <span id="out_name"></span></div>
-                    <div class="summary-line"><b>MARKET:</b> <span id="out_market"></span></div>
-                    <div class="summary-line"><b>PHONE:</b> <span id="out_phone"></span></div>
+                <div class="lead-card" id="leadCardContent">
+                    <div style="text-align: center; margin-bottom: 20px; font-family: 'Montserrat'; font-size: 1rem; color: var(--neon);">VERIFIED PROJECT LEAD</div>
+                    <div class="lead-row"><b>PROJECT:</b> <span id="out_issue"></span></div>
+                    <div class="lead-row"><b>SCOPE:</b> <span id="out_scope"></span></div>
+                    <div class="lead-row"><b>NAME:</b> <span id="out_name"></span></div>
+                    <div class="lead-row"><b>MARKET:</b> <span id="out_market"></span></div>
+                    <div class="lead-row"><b>PHONE:</b> <span id="out_phone"></span></div>
                 </div>
-                <button class="btn-confirm" onclick="alert('MATCH DISPATCHED')">Confirm Match</button>
+                
+                <div class="action-grid">
+                    <button class="action-btn edit-btn" onclick="resetEngine()">Edit</button>
+                    <button class="action-btn confirm-btn" onclick="alert('Confirmed & Dispatched!')">Confirm</button>
+                </div>
+                <button class="action-btn download-btn" onclick="downloadLead()">Download PDF Lead</button>
             </div>
         </div>
 
         <div class="footer-nav">
-            <a href="about.html">About Us</a>
-            <a href="privacy.html">Privacy</a>
-            <a href="terms.html">Terms</a>
-            <a href="standards.html">Standards</a>
-            <a href="contact.html">Contact</a>
+            <a href="#">About Us</a>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Standards</a>
+            <a href="#">Contact</a>
         </div>
     </div>
 
     <script>
-        let step = 1; 
+        let step = 1;
         let data = { issue: '', scope: '', name: '', market: '', phone: '' };
 
         function handleKey(e) { if(e.key === 'Enter') process(); }
@@ -204,42 +147,47 @@
             input.value = '';
 
             setTimeout(() => {
-                if(step === 1) { 
-                    data.issue = val; 
-                    addMsg("SPECIFY SCOPE: MAJOR, MINOR, OR FULL REPLACEMENT?", 'ai-msg'); 
-                    step++; 
-                }
-                else if(step === 2) { 
-                    data.scope = val; 
-                    addMsg("FULL NAME OF PROPERTY OWNER:", 'ai-msg'); 
-                    step++; 
-                }
-                else if(step === 3) { 
-                    data.name = val; 
-                    addMsg("CITY AND STATE/PROVINCE:", 'ai-msg'); 
-                    step++; 
-                }
-                else if(step === 4) { 
-                    data.market = val; 
-                    addMsg("SECURE CONTACT PHONE NUMBER:", 'ai-msg'); 
-                    step++; 
-                }
-                else if(step === 5) { 
-                    data.phone = val; 
-                    addMsg("PROTOCOL COMPLETE. VERIFY DATA.", 'ai-msg'); 
-                    showFinal(); 
-                }
+                if(step === 1) { data.issue = val; addMsg("SCOPE: MAJOR OR MINOR?", 'ai-msg'); step++; }
+                else if(step === 2) { data.scope = val; addMsg("FULL NAME:", 'ai-msg'); step++; }
+                else if(step === 3) { data.name = val; addMsg("CITY/STATE:", 'ai-msg'); step++; }
+                else if(step === 4) { data.market = val; addMsg("PHONE NUMBER:", 'ai-msg'); step++; }
+                else if(step === 5) { data.phone = val; showFinal(); }
             }, 500);
         }
 
         function showFinal() {
-            document.getElementById('inputBar').style.display = 'none';
+            document.getElementById('engineActive').style.display = 'none';
             document.getElementById('out_issue').innerText = data.issue;
             document.getElementById('out_scope').innerText = data.scope;
             document.getElementById('out_name').innerText = data.name;
             document.getElementById('out_market').innerText = data.market;
             document.getElementById('out_phone').innerText = data.phone;
             document.getElementById('finalMatch').style.display = 'block';
+        }
+
+        function resetEngine() {
+            step = 1;
+            document.getElementById('finalMatch').style.display = 'none';
+            document.getElementById('engineActive').style.display = 'block';
+            document.getElementById('chatStream').innerHTML = '<div class="msg ai-msg">IDENTIFY PROJECT CATEGORY (E.G. ROOFING, HVAC).</div>';
+        }
+
+        function downloadLead() {
+            const content = `
+                VV HOME PRO VERIFIED LEAD
+                -------------------------
+                Project: ${data.issue}
+                Scope: ${data.scope}
+                Name: ${data.name}
+                Market: ${data.market}
+                Phone: ${data.phone}
+            `;
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `VV-Lead-${data.name}.txt`;
+            a.click();
         }
     </script>
 </body>
