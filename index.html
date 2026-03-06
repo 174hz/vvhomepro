@@ -3,70 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VV HOME PRO | Dispatch Engine</title>
+    <title>VV HOME PRO | Connect with Verified Pros</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --neon: #39FF14; --gold: #FFD700; --dark: #050505; 
-            --glass: rgba(15, 15, 15, 0.85); --border: rgba(255, 255, 255, 0.15);
+            --neon: #39FF14; 
+            --gold: #FFD700; 
+            --dark: #050505; 
+            --glass: rgba(15, 15, 15, 0.75);
+            --border: rgba(255, 255, 255, 0.15);
         }
         
         * { box-sizing: border-box; }
-        body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark); color: white; overflow-x: hidden; }
+        body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark); color: white; line-height: 1.4; overflow-x: hidden; }
 
-        /* VIDEO BACKGROUND CLONE */
-        .video-wrapper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #000; }
-        .video-wrapper video { min-width: 100%; min-height: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(45%) contrast(105%); }
-        .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6)); }
+        /* VIDEO BACKDROP - BRIGHTER FOR CONSUMER VISIBILITY */
+        .video-wrapper {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; overflow: hidden; background: #000;
+        }
+        .video-wrapper video {
+            min-width: 100%; min-height: 100%; width: auto; height: auto;
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: brightness(50%) contrast(110%);
+        }
+        .video-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+        }
 
-        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 60px 5%; }
-        h1 { font-family: 'Montserrat'; font-size: clamp(2.2rem, 8vw, 4.5rem); text-transform: uppercase; letter-spacing: -3px; line-height: 0.9; margin-bottom: 20px; }
+        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 60px 5%; position: relative; }
+        
+        /* THE CONSUMER TAGLINE */
+        h1 { 
+            font-family: 'Montserrat'; font-size: clamp(2.2rem, 7vw, 4.2rem); 
+            text-transform: uppercase; letter-spacing: -3px; margin: 0; 
+            line-height: 0.95; text-shadow: 2px 4px 15px rgba(0,0,0,0.9);
+        }
         .money { color: var(--gold); text-decoration: underline; }
+        .highlight { color: var(--neon); }
 
-        /* MAIN ENGINE CONTAINER */
-        .engine-container { max-width: 800px; width: 100%; background: var(--glass); border-radius: 30px; border: 1px solid var(--border); backdrop-filter: blur(12px); padding: 40px; margin: 20px 0; text-align: left; }
+        /* THE DISPATCH ENGINE GLASS BOX */
+        .engine-container { 
+            max-width: 750px; width: 100%; margin: 40px auto; padding: 40px; 
+            background: var(--glass); border-radius: 40px; text-align: left; 
+            border: 1px solid var(--border); backdrop-filter: blur(15px); 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .engine-header { 
+            color: var(--neon); font-family: 'Montserrat'; text-transform: uppercase; 
+            font-size: 1rem; margin-bottom: 25px; letter-spacing: 3px; 
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .status-dot { width: 8px; height: 8px; background: var(--neon); border-radius: 50%; box-shadow: 0 0 10px var(--neon); }
+
+        /* CHAT INTERFACE */
+        .chat-feed { height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 18px; margin-bottom: 25px; padding-right: 10px; }
+        .msg { padding: 20px; border-radius: 20px; font-weight: 700; font-size: 1rem; max-width: 88%; line-height: 1.4; }
+        .ai-msg { background: rgba(255,255,255,0.08); color: white; border-bottom-left-radius: 4px; border: 1px solid var(--border); align-self: flex-start; }
+        .user-msg { background: var(--gold); color: black; border-bottom-right-radius: 4px; align-self: flex-end; font-weight: 800; }
+
+        .input-row { display: flex; gap: 12px; width: 100%; }
+        input { 
+            flex: 1; height: 70px; border-radius: 18px; border: none; 
+            font-size: 1.1rem; font-weight: 700; padding: 0 25px; background: white; color: black; outline: none;
+        }
+        .send-btn { 
+            width: 75px; height: 70px; border-radius: 18px; background: var(--neon); 
+            color: black; border: none; font-size: 1.8rem; cursor: pointer; transition: 0.2s; 
+        }
+        .send-btn:hover { transform: scale(1.03); filter: brightness(1.1); }
+
+        /* NAVIGATION BUBBLES */
+        .legal-bubbles { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 40px; }
+        .bubble { padding: 14px 28px; border-radius: 50px; background: rgba(255,255,255,0.1); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: white; cursor: pointer; border: 1px solid var(--border); transition: 0.3s; text-decoration: none; }
+        .bubble:hover { background: white; color: black; border-color: white; }
+
+        /* MODAL FOR CONSUMER INFO */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); backdrop-filter: blur(20px); }
+        .modal-content { background: #080808; border: 1px solid var(--border); width: 92%; max-width: 800px; margin: 5vh auto; padding: 60px; border-radius: 45px; max-height: 90vh; overflow-y: auto; position: relative; }
+        .close-modal { position: absolute; top: 40px; right: 40px; cursor: pointer; color: var(--gold); font-family: 'Montserrat'; font-weight: 900; font-size: 0.9rem; }
+        .modal-header { font-family: 'Montserrat'; color: var(--neon); text-transform: uppercase; font-size: 2rem; margin-bottom: 30px; letter-spacing: -1px; }
         
-        /* MODAL SYSTEM */
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(15px); }
-        .modal-content { background: #0a0a0a; border: 1px solid var(--border); width: 95%; max-width: 800px; margin: 5vh auto; padding: 50px; border-radius: 40px; max-height: 90vh; overflow-y: auto; position: relative; }
-        .close-modal { position: absolute; top: 30px; right: 30px; cursor: pointer; color: var(--gold); font-family: 'Montserrat'; font-weight: 900; font-size: 1rem; letter-spacing: 2px; }
-        
-        .modal-header { font-family: 'Montserrat'; color: var(--neon); text-transform: uppercase; font-size: 1.8rem; letter-spacing: -1px; margin-bottom: 25px; border-bottom: 2px solid var(--border); padding-bottom: 15px; }
-        .modal-body h3 { color: var(--gold); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 2px; margin-top: 30px; }
-        .modal-body p { opacity: 0.8; line-height: 1.8; font-size: 1rem; margin-bottom: 20px; }
-
-        /* CONTACT FORM INSIDE MODAL */
-        .contact-form { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
-        .form-input { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 20px; border-radius: 12px; color: white; font-family: inherit; font-size: 1rem; }
-        .form-btn { background: var(--neon); color: black; border: none; padding: 20px; border-radius: 12px; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
-        .form-btn:hover { box-shadow: 0 0 20px var(--neon); }
-
-        /* BUBBLES */
-        .legal-bubbles { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 30px; }
-        .bubble { padding: 12px 25px; border-radius: 50px; background: rgba(255,255,255,0.1); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: white; cursor: pointer; border: 1px solid var(--border); transition: 0.3s; }
-        .bubble:hover { background: var(--gold); color: black; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
     </style>
 </head>
 <body>
 
     <div class="video-wrapper">
-        <video autoplay muted loop playsinline><source src="https://player.vimeo.com/external/434045526.sd.mp4?s=c3a233367a02203e4291888a71f0084f7e6f8090&profile_id=164" type="video/mp4"></video>
+        <video autoplay muted loop playsinline>
+            <source src="https://player.vimeo.com/external/434045526.sd.mp4?s=c3a233367a02203e4291888a71f0084f7e6f8090&profile_id=164" type="video/mp4">
+        </video>
         <div class="video-overlay"></div>
     </div>
 
     <section class="hero">
         <h1>STOP WASTING <span class="money">$10,000+</span> ON SHODDY <br>CONTRACTORS WHO GHOST YOU.</h1>
+        <p style="margin-top: 25px; opacity: 0.9; font-weight: 700; font-size: 1.1rem;">Verified project matching in <span class="highlight">< 30 Seconds.</span></p>
 
-        <div class="engine-container" id="mainEngine">
-            <p style="text-align:center; opacity:0.5;">[VV DISPATCH ENGINE ACTIVE]</p>
+        <div class="engine-container">
+            <div class="engine-header">
+                <span>VV Dispatch Engine // Consumer Layer</span>
+                <div class="status-dot"></div>
+            </div>
+            
+            <div class="chat-feed" id="chatFeed">
+                <div class="msg ai-msg">Welcome to the VV Infrastructure. What project do you need help with today? (e.g. Roofing, HVAC, Windows)</div>
+            </div>
+
+            <div class="input-row">
+                <input type="text" id="userIn" placeholder="Describe your project..." onkeypress="if(event.key==='Enter') process()">
+                <button class="send-btn" id="sendBtn" onclick="process()">→</button>
+            </div>
         </div>
 
         <div class="legal-bubbles">
-            <div class="bubble" onclick="openModal('about')">About Us</div>
-            <div class="bubble" onclick="openModal('standards')">Operating Standards</div>
-            <div class="bubble" onclick="openModal('privacy')">Privacy</div>
-            <div class="bubble" onclick="openModal('terms')">Terms</div>
-            <div class="bubble" onclick="openModal('contact')">Contact</div>
+            <a href="javascript:void(0)" class="bubble" onclick="openModal('about')">About Us</a>
+            <a href="javascript:void(0)" class="bubble" onclick="openModal('standards')">Operating Standards</a>
+            <a href="javascript:void(0)" class="bubble" onclick="openModal('privacy')">Privacy</a>
+            <a href="javascript:void(0)" class="bubble" onclick="openModal('terms')">Terms</a>
+            <a href="javascript:void(0)" class="bubble" onclick="openModal('contact')">Contact</a>
         </div>
     </section>
 
@@ -74,51 +134,73 @@
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal()">CLOSE [X]</span>
             <div id="modalTitle" class="modal-header"></div>
-            <div id="modalBody" class="modal-body"></div>
+            <div id="modalBody" style="line-height: 1.9; font-size: 1.05rem; opacity: 0.9;"></div>
         </div>
     </div>
 
     <script>
-        const content = {
-            about: { 
-                title: "The Architecture of Certainty", 
-                body: `<h3>Our Mission</h3><p>VV HOME PRO was engineered to bridge the trust gap in residential infrastructure. We operate as a high-speed dispatch layer between homeowners and the top 1% of regional contractors.</p>
-                       <h3>The Problem</h3><p>Traditional lead aggregators sell your information to 5+ contractors, resulting in a race-to-the-bottom bidding war and endless spam. We fixed it by creating regional monopolies.</p>`
-            },
-            standards: { 
-                title: "Operating Standards", 
-                body: `<h3>1. Regional Exclusivity</h3><p>We partner with exactly ONE contractor per trade, per territory. This ensures 100% focus on your project without the noise of a bidding war.</p>
-                       <h3>2. Intent Verification</h3><p>Every project is vetted by the VV Engine to verify scope, timeline, and ownership before a professional is ever dispatched.</p>
-                       <h3>3. Response Protocol</h3><p>Our partners are contractually obligated to a 90% "First-Call" success rate. Ghosting is grounds for immediate infrastructure termination.</p>`
-            },
-            privacy: { 
-                title: "Data Sovereignty", 
-                body: `<h3>Your Information</h3><p>We do not 'sell' leads. Your data is encrypted and transmitted via secure API only to the single activated professional in your specific market.</p>
-                       <h3>Security</h3><p>The VV Engine uses 256-bit encryption for all lead card data, ensuring your phone number and property details remain private until the match is confirmed.</p>`
-            },
-            terms: { 
-                title: "Infrastructure Terms", 
-                body: `<h3>Agreement</h3><p>VV Home Pro acts as a dispatch facilitator. By confirming a match, you authorize the regional infrastructure partner to contact you regarding your verified project scope.</p>
-                       <h3>Liability</h3><p>Service contracts, warranties, and payments are handled directly between the property owner and the activated contractor partner.</p>`
-            },
-            contact: { 
-                title: "Infrastructure Support", 
-                body: `<p>Need human intervention or interested in joining the infrastructure as a partner? Complete the secure transmission below.</p>
-                       <form class="contact-form" onsubmit="event.preventDefault(); alert('Transmission Received.');">
-                           <input type="text" class="form-input" placeholder="FULL NAME" required>
-                           <input type="email" class="form-input" placeholder="SECURE EMAIL" required>
-                           <textarea class="form-input" style="height:120px;" placeholder="MESSAGE/INQUIRY"></textarea>
-                           <button type="submit" class="form-btn">SEND TRANSMISSION</button>
-                       </form>`
+        const CLOUDFLARE_URL = "https://vvhomepro-brain.dbelnavis.workers.dev/";
+        let chatHistory = [];
+
+        function addMsg(txt, type) {
+            const feed = document.getElementById('chatFeed');
+            const div = document.createElement('div');
+            div.className = `msg ${type}-msg`;
+            div.innerText = txt;
+            feed.appendChild(div);
+            feed.scrollTop = feed.scrollHeight;
+        }
+
+        async function process() {
+            const input = document.getElementById('userIn');
+            const btn = document.getElementById('sendBtn');
+            const message = input.value.trim();
+            if(!message) return;
+
+            addMsg(message, 'user');
+            input.value = "";
+            input.disabled = true;
+            btn.disabled = true;
+
+            try {
+                const response = await fetch(CLOUDFLARE_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        message: message,
+                        history: chatHistory
+                    })
+                });
+
+                const data = await response.json();
+                addMsg(data.text || data.response || "Routing to Infrastructure...", 'ai-msg');
+                
+                chatHistory.push({ role: "user", content: message });
+                chatHistory.push({ role: "assistant", content: data.text || data.response });
+
+            } catch (err) {
+                console.error("Dispatch Error:", err);
+                addMsg("System Timeout. The Infrastructure is currently at capacity.", 'ai-msg');
+            } finally {
+                input.disabled = false;
+                btn.disabled = false;
+                input.focus();
             }
+        }
+
+        const legalData = {
+            about: { title: "The Consumer Shield", body: "VV Home Pro was built to protect homeowners from the 'Directory Trap.' Most sites sell your data to 10 contractors at once. We do the opposite. We vet your project using AI and dispatch it to exactly ONE regional professional who is contractually obligated to perform." },
+            standards: { title: "Operating Standards", body: "1. No Spam: Your data never leaves our secure loop.<br>2. Elite Vetting: We only partner with the top 1% of regional tradesmen.<br>3. Rapid Response: If a contractor ghosts you, they are removed from our infrastructure immediately." },
+            privacy: { title: "Your Data Sovereignty", body: "We use 256-bit industrial encryption to protect your project details. Your information is only unlocked for the regional partner once your intent is fully verified by the VV Engine." },
+            terms: { title: "Terms of Dispatch", body: "By using the VV Engine, you authorize us to analyze your project scope and connect you with a verified partner. Final service agreements are made directly with the professional." },
+            contact: { title: "Contact Dispatch", body: "Email: support@vvhomepro.com<br>Support hours: 24/7 Digital Dispatch.<br>Human Oversight: Mon-Fri 9am-6pm." }
         };
 
         function openModal(id) {
-            document.getElementById('modalTitle').innerText = content[id].title;
-            document.getElementById('modalBody').innerHTML = content[id].body;
+            document.getElementById('modalTitle').innerText = legalData[id].title;
+            document.getElementById('modalBody').innerHTML = legalData[id].body;
             document.getElementById('legalModal').style.display = 'block';
         }
-
         function closeModal() { document.getElementById('legalModal').style.display = 'none'; }
         window.onclick = function(e) { if (e.target == document.getElementById('legalModal')) closeModal(); }
     </script>
