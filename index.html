@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VV HOME PRO | Connect with Verified Pros</title>
+    <title>VV HOME PRO | AI Matching Engine</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <style>
         :root { 
@@ -17,7 +17,7 @@
         * { box-sizing: border-box; }
         body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark); color: white; line-height: 1.4; overflow-x: hidden; }
 
-        /* VIDEO BACKDROP - BRIGHTER FOR CONSUMER VISIBILITY */
+        /* VIDEO BACKDROP */
         .video-wrapper {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1; overflow: hidden; background: #000;
@@ -36,7 +36,6 @@
 
         .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 60px 5%; position: relative; }
         
-        /* THE CONSUMER TAGLINE */
         h1 { 
             font-family: 'Montserrat'; font-size: clamp(2.2rem, 7vw, 4.2rem); 
             text-transform: uppercase; letter-spacing: -3px; margin: 0; 
@@ -45,7 +44,7 @@
         .money { color: var(--gold); text-decoration: underline; }
         .highlight { color: var(--neon); }
 
-        /* THE DISPATCH ENGINE GLASS BOX */
+        /* THE UPDATED ENGINE BOX */
         .engine-container { 
             max-width: 750px; width: 100%; margin: 40px auto; padding: 40px; 
             background: var(--glass); border-radius: 40px; text-align: left; 
@@ -55,12 +54,11 @@
 
         .engine-header { 
             color: var(--neon); font-family: 'Montserrat'; text-transform: uppercase; 
-            font-size: 1rem; margin-bottom: 25px; letter-spacing: 3px; 
+            font-size: 0.85rem; margin-bottom: 25px; letter-spacing: 2px; 
             display: flex; align-items: center; justify-content: space-between;
         }
         .status-dot { width: 8px; height: 8px; background: var(--neon); border-radius: 50%; box-shadow: 0 0 10px var(--neon); }
 
-        /* CHAT INTERFACE */
         .chat-feed { height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 18px; margin-bottom: 25px; padding-right: 10px; }
         .msg { padding: 20px; border-radius: 20px; font-weight: 700; font-size: 1rem; max-width: 88%; line-height: 1.4; }
         .ai-msg { background: rgba(255,255,255,0.08); color: white; border-bottom-left-radius: 4px; border: 1px solid var(--border); align-self: flex-start; }
@@ -75,21 +73,16 @@
             width: 75px; height: 70px; border-radius: 18px; background: var(--neon); 
             color: black; border: none; font-size: 1.8rem; cursor: pointer; transition: 0.2s; 
         }
-        .send-btn:hover { transform: scale(1.03); filter: brightness(1.1); }
 
-        /* NAVIGATION BUBBLES */
         .legal-bubbles { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 40px; }
         .bubble { padding: 14px 28px; border-radius: 50px; background: rgba(255,255,255,0.1); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: white; cursor: pointer; border: 1px solid var(--border); transition: 0.3s; text-decoration: none; }
-        .bubble:hover { background: white; color: black; border-color: white; }
+        .bubble:hover { background: white; color: black; }
 
-        /* MODAL FOR CONSUMER INFO */
+        /* MODAL */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); backdrop-filter: blur(20px); }
         .modal-content { background: #080808; border: 1px solid var(--border); width: 92%; max-width: 800px; margin: 5vh auto; padding: 60px; border-radius: 45px; max-height: 90vh; overflow-y: auto; position: relative; }
-        .close-modal { position: absolute; top: 40px; right: 40px; cursor: pointer; color: var(--gold); font-family: 'Montserrat'; font-weight: 900; font-size: 0.9rem; }
+        .close-modal { position: absolute; top: 40px; right: 40px; cursor: pointer; color: var(--gold); font-family: 'Montserrat'; font-weight: 900; }
         .modal-header { font-family: 'Montserrat'; color: var(--neon); text-transform: uppercase; font-size: 2rem; margin-bottom: 30px; letter-spacing: -1px; }
-        
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -107,16 +100,16 @@
 
         <div class="engine-container">
             <div class="engine-header">
-                <span>VV Dispatch Engine // Consumer Layer</span>
+                <span>AI Powered Vetted & Verified Matching Engine</span>
                 <div class="status-dot"></div>
             </div>
             
             <div class="chat-feed" id="chatFeed">
-                <div class="msg ai-msg">Welcome to the VV Infrastructure. What project do you need help with today? (e.g. Roofing, HVAC, Windows)</div>
+                <div class="msg ai-msg">Simply tell us about your project (e.g., roofing, HVAC, Windows)</div>
             </div>
 
             <div class="input-row">
-                <input type="text" id="userIn" placeholder="Describe your project..." onkeypress="if(event.key==='Enter') process()">
+                <input type="text" id="userIn" placeholder="Type here..." onkeypress="if(event.key==='Enter') process()">
                 <button class="send-btn" id="sendBtn" onclick="process()">→</button>
             </div>
         </div>
@@ -166,21 +159,17 @@
                 const response = await fetch(CLOUDFLARE_URL, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        message: message,
-                        history: chatHistory
-                    })
+                    body: JSON.stringify({ message: message, history: chatHistory })
                 });
 
                 const data = await response.json();
-                addMsg(data.text || data.response || "Routing to Infrastructure...", 'ai-msg');
+                addMsg(data.text || data.response || "Connecting to Regional Infrastructure...", 'ai-msg');
                 
                 chatHistory.push({ role: "user", content: message });
                 chatHistory.push({ role: "assistant", content: data.text || data.response });
 
             } catch (err) {
-                console.error("Dispatch Error:", err);
-                addMsg("System Timeout. The Infrastructure is currently at capacity.", 'ai-msg');
+                addMsg("System Timeout. Connecting you to a regional dispatcher manually...", 'ai-msg');
             } finally {
                 input.disabled = false;
                 btn.disabled = false;
@@ -189,11 +178,11 @@
         }
 
         const legalData = {
-            about: { title: "The Consumer Shield", body: "VV Home Pro was built to protect homeowners from the 'Directory Trap.' Most sites sell your data to 10 contractors at once. We do the opposite. We vet your project using AI and dispatch it to exactly ONE regional professional who is contractually obligated to perform." },
-            standards: { title: "Operating Standards", body: "1. No Spam: Your data never leaves our secure loop.<br>2. Elite Vetting: We only partner with the top 1% of regional tradesmen.<br>3. Rapid Response: If a contractor ghosts you, they are removed from our infrastructure immediately." },
-            privacy: { title: "Your Data Sovereignty", body: "We use 256-bit industrial encryption to protect your project details. Your information is only unlocked for the regional partner once your intent is fully verified by the VV Engine." },
-            terms: { title: "Terms of Dispatch", body: "By using the VV Engine, you authorize us to analyze your project scope and connect you with a verified partner. Final service agreements are made directly with the professional." },
-            contact: { title: "Contact Dispatch", body: "Email: support@vvhomepro.com<br>Support hours: 24/7 Digital Dispatch.<br>Human Oversight: Mon-Fri 9am-6pm." }
+            about: { title: "About Us", body: "VV HOME PRO is the digital infrastructure layer connecting homeowners with the top 1% of regional contractors." },
+            standards: { title: "Operating Standards", body: "We maintain a strict 'No Ghosting' policy. Contractors are removed from our infrastructure if they fail to meet response time benchmarks." },
+            privacy: { title: "Privacy Policy", body: "Your project details are encrypted and sent only to the single activated professional in your market." },
+            terms: { title: "Terms of Service", body: "VV Home Pro acts as a matching facilitator. Service agreements are held directly with the activated contractor." },
+            contact: { title: "Contact", body: "Support: support@vvhomepro.com<br>Available 24/7 for project dispatches." }
         };
 
         function openModal(id) {
