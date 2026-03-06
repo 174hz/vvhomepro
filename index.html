@@ -7,12 +7,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --navy-dark: #000c1a; 
+            /* THE EXACT CONTRACTOR COLOR PALETTE */
+            --navy-deep: #000c1a; 
             --navy-light: #001a33;
             --gold: #c5a059; 
             --white: #ffffff; 
             --black: #000000;
-            --text-gray: #444444;
+            --border-industrial: #222222;
         }
 
         * { box-sizing: border-box; }
@@ -20,12 +21,13 @@
         body, html { 
             margin: 0; padding: 0; min-height: 100%; 
             font-family: 'Plus Jakarta Sans', sans-serif; 
-            background: radial-gradient(circle at top, var(--navy-light) 0%, var(--navy-dark) 100%);
+            /* THE CONTRACTOR BACKGROUND GRADIENT */
+            background: radial-gradient(circle at top, var(--navy-light) 0%, var(--navy-deep) 100%);
             color: var(--white);
             background-attachment: fixed;
         }
 
-        /* HEADER */
+        /* TOP BRANDING */
         .header-section { padding: 40px 60px; display: flex; align-items: center; gap: 20px; }
         .logo-box { 
             width: 65px; height: 65px; background: var(--white); 
@@ -40,11 +42,11 @@
 
         .main-layout { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; }
 
-        /* TAGLINE - MATCHED TO CONTRACTOR SITE SCALE */
+        /* TAGLINE - SAME SCALE AS CONTRACTOR HERO */
         .hero-tagline { text-align: center; margin-bottom: 50px; max-width: 1100px; }
         .hero-tagline h1 { 
             font-family: 'Montserrat'; 
-            font-size: 3.5rem; /* Matched to contractor site hero size */
+            font-size: 3.5rem; 
             line-height: 1.1; 
             text-transform: uppercase; margin: 0; color: var(--white); 
         }
@@ -53,18 +55,18 @@
         /* WHITE STADIUM ENGINE BOX */
         .vv-engine-box {
             width: 100%; max-width: 600px;
-            background: var(--white); /* Changed to white for visibility */
+            background: var(--white);
             padding: 60px 50px;
             border-radius: 80px; 
-            border: 8px solid var(--black);
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            border: 10px solid var(--black); /* Heavy Industrial Border */
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
         }
 
         .chat-feed { height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; padding: 10px; }
         
-        /* TEXT NO LONGER FORCED TO CAPS */
         .msg { padding: 16px 24px; font-size: 0.95rem; font-weight: 700; border-radius: 25px; line-height: 1.4; }
         
+        /* THE CHAT COLORS */
         .ai-msg { background: #f0f2f5; color: var(--black); align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid #ddd; }
         .user-msg { background: var(--navy-light); color: var(--white); align-self: flex-end; border-bottom-right-radius: 4px; }
 
@@ -75,21 +77,24 @@
         }
         .send-btn { background: var(--gold); border: none; width: 48px; height: 48px; border-radius: 50%; cursor: pointer; font-size: 1.4rem; font-weight: 900; color: var(--black); }
 
-        /* FINAL LEAD CARD - HIGH CONTRAST */
+        /* FINAL LEAD CARD - WHITE-ON-BLACK INDUSTRIAL STYLE */
         #finalMatch { display: none; }
-        .lead-card { background: #fff; border: 2px solid #eee; padding: 35px; border-radius: 40px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .lead-title { text-align: center; margin-bottom: 30px; font-family: 'Montserrat'; font-size: 1.1rem; color: var(--black); letter-spacing: 2px; border-bottom: 2px solid var(--gold); padding-bottom: 15px; text-transform: uppercase; }
-        .lead-row { margin-bottom: 18px; font-size: 0.9rem; display: flex; justify-content: space-between; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px; }
-        .lead-row b { color: var(--text-gray); font-family: 'Plus Jakarta Sans'; text-transform: uppercase; font-size: 0.75rem; }
-        .lead-row span { color: var(--black); font-weight: 800; }
+        .lead-card { background: var(--black); border: 2px solid var(--border-industrial); padding: 35px; border-radius: 40px; margin-bottom: 25px; }
+        .lead-title { text-align: center; margin-bottom: 30px; font-family: 'Montserrat'; font-size: 1rem; color: var(--gold); letter-spacing: 3px; border-bottom: 1px solid var(--border-industrial); padding-bottom: 15px; text-transform: uppercase; }
+        .lead-row { margin-bottom: 18px; font-size: 0.85rem; display: flex; justify-content: space-between; border-bottom: 1px solid #111; padding-bottom: 10px; }
+        .lead-row b { color: var(--white); font-family: 'Plus Jakarta Sans'; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; }
+        .lead-row span { color: var(--gold); font-weight: 800; }
         
+        /* BUTTONS */
         .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .action-btn { padding: 18px; border-radius: 50px; border: none; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; font-size: 0.8rem; transition: all 0.2s; }
-        .edit-btn { background: #eee; color: var(--black); }
-        .confirm-btn { background: var(--navy-light); color: var(--white); }
-        .confirm-btn:hover { background: var(--black); transform: scale(1.03); }
-        .download-btn { width: 100%; margin-top: 15px; background: var(--gold); color: var(--black); }
+        .edit-btn { background: #333; color: var(--white); }
+        .confirm-btn { background: var(--gold); color: var(--black); }
+        .edit-btn:hover { background: #444; }
+        .confirm-btn:hover { transform: scale(1.03); opacity: 0.9; }
+        .download-btn { width: 100%; margin-top: 15px; background: var(--white); color: var(--black); }
 
+        /* PILL FOOTER - WHITE ON NAVY */
         .footer-nav { margin-top: 80px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; padding-bottom: 60px; }
         .footer-nav a { 
             background: var(--white); color: var(--black); text-decoration: none; 
@@ -97,7 +102,7 @@
             text-transform: uppercase; border-radius: 50px; transition: 0.3s; 
             border: 2px solid var(--black);
         }
-        .footer-nav a:hover { background: var(--gold); border-color: var(--gold); }
+        .footer-nav a:hover { background: var(--gold); border-color: var(--gold); color: var(--black); }
     </style>
 </head>
 <body>
@@ -109,30 +114,30 @@
 
     <div class="main-layout">
         <div class="hero-tagline">
-            <h1>STOP WASTING MONEY ON <span>UNVERIFIED CONTRACTORS</span>.</h1>
+            <h1>ELIMINATE THE RISK OF <span>UNVERIFIED CONTRACTORS</span> FOREVER.</h1>
         </div>
 
         <div class="vv-engine-box">
             <div id="engineActive">
                 <div class="chat-feed" id="chatStream">
-                    <div class="msg ai-msg">What project category do you need help with? (e.g. Roofing, HVAC, Windows)</div>
+                    <div class="msg ai-msg">Identify the project category you need help with (e.g. Roofing, HVAC, Windows).</div>
                 </div>
 
                 <div class="input-area">
-                    <input type="text" id="userInput" placeholder="Type your project here..." onkeypress="handleKey(event)">
+                    <input type="text" id="userInput" placeholder="Type project here..." onkeypress="handleKey(event)">
                     <button class="send-btn" onclick="process()">→</button>
                 </div>
             </div>
 
             <div id="finalMatch">
                 <div class="lead-card">
-                    <div class="lead-title">Lead Summary</div>
-                    <div class="lead-row"><b>Project</b> <span id="out_issue"></span></div>
-                    <div class="lead-row"><b>Scope</b> <span id="out_scope"></span></div>
-                    <div class="lead-row"><b>Owner</b> <span id="out_name"></span></div>
-                    <div class="lead-row"><b>Location</b> <span id="out_market"></span></div>
-                    <div class="lead-row"><b>Phone</b> <span id="out_phone"></span></div>
-                    <div class="lead-row"><b>Best Call Time</b> <span id="out_time"></span></div>
+                    <div class="lead-title">Verified Lead Card</div>
+                    <div class="lead-row"><b>Project:</b> <span id="out_issue"></span></div>
+                    <div class="lead-row"><b>Scope:</b> <span id="out_scope"></span></div>
+                    <div class="lead-row"><b>Owner:</b> <span id="out_name"></span></div>
+                    <div class="lead-row"><b>Location:</b> <span id="out_market"></span></div>
+                    <div class="lead-row"><b>Contact:</b> <span id="out_phone"></span></div>
+                    <div class="lead-row"><b>Best Call:</b> <span id="out_time"></span></div>
                 </div>
                 
                 <div class="action-grid">
@@ -162,7 +167,7 @@
             const stream = document.getElementById('chatStream');
             const b = document.createElement('div');
             b.className = `msg ${type}-msg`;
-            b.innerText = txt; // Removed .toUpperCase()
+            b.innerText = txt; 
             stream.appendChild(b);
             stream.scrollTop = stream.scrollHeight;
         }
@@ -175,11 +180,11 @@
             input.value = '';
 
             setTimeout(() => {
-                if(step === 1) { data.issue = val; addMsg("Is this a Major repair or Minor maintenance?", 'ai-msg'); step++; }
-                else if(step === 2) { data.scope = val; addMsg("What is the Full Name of the property owner?", 'ai-msg'); step++; }
-                else if(step === 3) { data.name = val; addMsg("Which City and State is the project located in?", 'ai-msg'); step++; }
-                else if(step === 4) { data.market = val; addMsg("What is your secure Phone Number?", 'ai-msg'); step++; }
-                else if(step === 5) { data.phone = val; addMsg("When is the best time for our pros to call you?", 'ai-msg'); step++; }
+                if(step === 1) { data.issue = val; addMsg("Is this a major repair or minor maintenance?", 'ai-msg'); step++; }
+                else if(step === 2) { data.scope = val; addMsg("Full Name of the property owner:", 'ai-msg'); step++; }
+                else if(step === 3) { data.name = val; addMsg("City and State for the project:", 'ai-msg'); step++; }
+                else if(step === 4) { data.market = val; addMsg("Your secure phone number:", 'ai-msg'); step++; }
+                else if(step === 5) { data.phone = val; addMsg("What is the best time for our pros to call?", 'ai-msg'); step++; }
                 else if(step === 6) { data.time = val; showFinal(); }
             }, 500);
         }
@@ -199,20 +204,21 @@
             step = 1;
             document.getElementById('finalMatch').style.display = 'none';
             document.getElementById('engineActive').style.display = 'block';
-            document.getElementById('chatStream').innerHTML = '<div class="msg ai-msg">What project category do you need help with?</div>';
+            document.getElementById('chatStream').innerHTML = '<div class="msg ai-msg">Identify the project category you need help with.</div>';
         }
 
         function confirmLead() {
-            alert("Confirmed! Your project details have been dispatched.");
+            alert("Lead Confirmed. Dispatching to the VV infrastructure...");
+            location.reload();
         }
 
         function downloadLead() {
-            const content = `VV HOME PRO - LEAD SUMMARY\n\nProject: ${data.issue}\nScope: ${data.scope}\nOwner: ${data.name}\nLocation: ${data.market}\nPhone: ${data.phone}\nBest Time: ${data.time}`;
+            const content = `VV HOME PRO - VERIFIED LEAD\n\nPROJECT: ${data.issue}\nSCOPE: ${data.scope}\nOWNER: ${data.name}\nLOCATION: ${data.market}\nPHONE: ${data.phone}\nCALL TIME: ${data.time}`;
             const blob = new Blob([content], { type: 'text/plain' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `Lead-${data.name}.txt`;
+            a.download = `VV-Lead-${data.name}.txt`;
             a.click();
         }
     </script>
