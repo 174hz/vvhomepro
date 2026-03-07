@@ -6,85 +6,62 @@
     <title>VV HOME PRO | AI Matching Engine</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --neon: #39FF14; 
-            --gold: #FFD700; 
-            --dark: #050505; 
-            --engine-white: rgba(255, 255, 255, 0.98); 
-            --border: rgba(255, 255, 255, 0.2);
-        }
+        :root { --neon: #39FF14; --gold: #FFD700; --dark: #050505; --engine-white: #ffffff; }
         
         * { box-sizing: border-box; }
-        body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark); color: white; overflow-x: hidden; }
+        body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark); color: white; overflow: hidden; }
 
-        /* EXACT CONTRACTOR SITE VIDEO BACKGROUND */
-        .video-wrapper {
+        /* FIXED BACKGROUND SYSTEM */
+        .bg-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; overflow: hidden; background: #000;
+            z-index: -1; background-color: #111;
+            background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2070'); /* Fallback Image */
+            background-size: cover; background-position: center;
         }
-        .video-wrapper video {
+        video {
             min-width: 100%; min-height: 100%; position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%); object-fit: cover;
-            filter: brightness(85%) contrast(110%);
-        }
-        .video-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.1); 
+            transform: translate(-50%, -50%); object-fit: cover; filter: brightness(80%);
         }
 
-        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 60px 5%; }
+        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px 5%; position: relative; z-index: 10; }
         
-        h1 { 
-            font-family: 'Montserrat'; font-size: clamp(2.2rem, 7vw, 4.2rem); 
-            text-transform: uppercase; letter-spacing: -3px; margin: 0; 
-            line-height: 0.95; color: white; text-shadow: 0 10px 30px rgba(0,0,0,0.8);
-        }
+        h1 { font-family: 'Montserrat'; font-size: clamp(2rem, 6vw, 4rem); text-transform: uppercase; letter-spacing: -2px; margin: 0 0 20px 0; line-height: 0.95; }
         .money { color: var(--gold); text-decoration: underline; }
 
-        /* WHITE ENGINE BOX */
+        /* ENGINE CONTAINER */
         .engine-container { 
-            max-width: 750px; width: 100%; margin: 40px auto; padding: 40px; 
-            background: var(--engine-white); border-radius: 40px; text-align: left; 
-            box-shadow: 0 40px 80px rgba(0,0,0,0.6);
-            color: #1a1a1a;
+            max-width: 700px; width: 100%; background: var(--engine-white); 
+            border-radius: 35px; padding: 35px; color: #1a1a1a; text-align: left;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
         }
 
-        .engine-header { 
-            color: #666; font-family: 'Montserrat'; text-transform: uppercase; 
-            font-size: 0.8rem; margin-bottom: 25px; letter-spacing: 2px; 
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .refresh-btn { background: #000; color: white; border: none; padding: 8px 16px; border-radius: 10px; cursor: pointer; font-size: 0.7rem; font-family: 'Montserrat'; font-weight: 900; }
+        .chat-feed { height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; }
+        .msg { padding: 16px 20px; border-radius: 18px; font-weight: 700; font-size: 0.95rem; line-height: 1.4; max-width: 85%; }
+        .ai-msg { background: #f0f0f0; align-self: flex-start; }
+        .user-msg { background: var(--gold); align-self: flex-end; }
 
-        .chat-feed { height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 18px; margin-bottom: 25px; }
-        .msg { padding: 18px; border-radius: 20px; font-weight: 700; font-size: 1rem; max-width: 85%; line-height: 1.4; }
-        .ai-msg { background: #f4f4f4; color: #1a1a1a; align-self: flex-start; border: 1px solid #eee; }
-        .user-msg { background: var(--gold); color: black; align-self: flex-end; }
+        .input-row { display: flex; gap: 10px; }
+        input { flex: 1; height: 65px; border-radius: 15px; border: 2px solid #eee; padding: 0 20px; font-weight: 800; font-size: 1rem; }
+        .send-btn { width: 65px; background: #000; color: white; border: none; border-radius: 15px; cursor: pointer; font-size: 1.5rem; }
 
-        .input-row { display: flex; gap: 12px; }
-        input { flex: 1; height: 70px; border-radius: 20px; border: 2px solid #eee; padding: 0 25px; font-weight: 800; font-size: 1.1rem; color: #000; outline: none; }
-        .send-btn { width: 75px; background: #000; color: white; border: none; border-radius: 20px; cursor: pointer; font-size: 1.8rem; display: flex; align-items: center; justify-content: center; }
+        /* LEAD CARD - FORCED VISIBILITY */
+        #finalCard { display: none; }
+        .lead-card { background: #fafafa; border: 1px solid #eee; border-left: 6px solid var(--gold); border-radius: 20px; padding: 25px; margin-bottom: 20px; }
+        .lead-line { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 10px 0; font-size: 0.9rem; }
+        .lead-line b { font-family: 'Montserrat'; font-size: 0.7rem; text-transform: uppercase; }
 
-        /* FINAL LEAD CARD */
-        .lead-card { background: #fff; border-left: 8px solid var(--gold); padding: 30px; border-radius: 20px; margin-bottom: 25px; border: 1px solid #eee; }
-        .lead-line { display: flex; justify-content: space-between; border-bottom: 1px solid #f0f0f0; padding: 12px 0; font-size: 0.95rem; color: #333; }
-        .lead-line b { color: #000; text-transform: uppercase; font-size: 0.75rem; font-family: 'Montserrat'; }
-        
-        /* EDIT & CONFIRM BUTTONS */
-        .card-actions { display: flex; gap: 15px; }
-        .action-btn { flex: 1; padding: 22px; border-radius: 18px; border: none; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; font-size: 1rem; }
-        .confirm-match { background: #000; color: white; transition: 0.3s; }
-        .confirm-match:hover { background: var(--neon); color: black; }
-        .edit-info { background: #eee; color: #666; }
+        .card-actions { display: flex; gap: 10px; }
+        .btn { flex: 1; padding: 20px; border-radius: 15px; border: none; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; }
+        .confirm { background: #000; color: white; }
+        .edit { background: #eee; color: #666; }
     </style>
 </head>
 <body>
 
-    <div class="video-wrapper">
+    <div class="bg-container">
         <video autoplay muted loop playsinline>
             <source src="https://player.vimeo.com/external/434045526.sd.mp4?s=c3a233367a02203e4291888a71f0084f7e6f8090&profile_id=164" type="video/mp4">
         </video>
-        <div class="video-overlay"></div>
     </div>
 
     <section class="hero">
@@ -92,32 +69,32 @@
 
         <div class="engine-container">
             <div id="interface">
-                <div class="engine-header">
-                    <span>AI Powered Vetted & Verified Matching Engine</span>
-                    <button class="refresh-btn" onclick="location.reload()">REFRESH ↻</button>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                    <span style="font-weight:900; font-size:0.7rem; color:#999; text-transform:uppercase; letter-spacing:1px;">AI Matching Engine</span>
+                    <button onclick="location.reload()" style="background:none; border:none; cursor:pointer; font-weight:bold; font-size:0.7rem;">REFRESH ↻</button>
                 </div>
                 <div class="chat-feed" id="chatFeed">
                     <div class="msg ai-msg">Simply tell us about your project (e.g., roofing, HVAC, Windows)</div>
                 </div>
                 <div class="input-row">
-                    <input type="text" id="userIn" placeholder="Type here..." onkeypress="if(event.key==='Enter') process()">
-                    <button class="send-btn" id="sendBtn" onclick="process()">→</button>
+                    <input type="text" id="userIn" placeholder="Enter details..." onkeypress="if(event.key==='Enter') process()">
+                    <button class="send-btn" onclick="process()">→</button>
                 </div>
             </div>
 
-            <div id="finalCard" style="display:none;">
-                <div class="engine-header"><span style="color:#000">Final Verification: Confirm Your Details</span></div>
+            <div id="finalCard">
+                <div style="font-family:'Montserrat'; font-weight:900; margin-bottom:15px; text-transform:uppercase; font-size:0.8rem;">Verify Your Project Details</div>
                 <div class="lead-card">
-                    <div class="lead-line"><b>Project:</b> <span id="l_project">--</span></div>
-                    <div class="lead-line"><b>Scale:</b> <span id="l_scale">--</span></div>
-                    <div class="lead-line"><b>Owner:</b> <span id="l_name">--</span></div>
-                    <div class="lead-line"><b>Market:</b> <span id="l_location">--</span></div>
-                    <div class="lead-line"><b>Contact:</b> <span id="l_phone">--</span></div>
-                    <div class="lead-line"><b>Best Time:</b> <span id="l_time">--</span></div>
+                    <div class="lead-line"><b>Project</b> <span id="l_project"></span></div>
+                    <div class="lead-line"><b>Scale</b> <span id="l_scale"></span></div>
+                    <div class="lead-line"><b>Name</b> <span id="l_name"></span></div>
+                    <div class="lead-line"><b>Market</b> <span id="l_location"></span></div>
+                    <div class="lead-line"><b>Contact</b> <span id="l_phone"></span></div>
+                    <div class="lead-line"><b>Window</b> <span id="l_time"></span></div>
                 </div>
                 <div class="card-actions">
-                    <button class="action-btn edit-info" onclick="location.reload()">Edit Info</button>
-                    <button class="action-btn confirm-match" onclick="alert('Confirmed. Matching with top-tier contractor...')">Confirm & Match</button>
+                    <button class="btn edit" onclick="location.reload()">Edit</button>
+                    <button class="btn confirm" onclick="alert('Lead Verified. Matching you now.')">Confirm</button>
                 </div>
             </div>
         </div>
@@ -127,7 +104,7 @@
         const CLOUDFLARE_URL = "https://vvhomepro-brain.dbelnavis.workers.dev/";
         let chatHistory = [];
         let leadData = { project: '', scale: '', name: '', location: '', phone: '', time: '' };
-        let currentStep = 0;
+        let step = 0;
 
         function addMsg(txt, type) {
             const feed = document.getElementById('chatFeed');
@@ -140,53 +117,51 @@
 
         async function process() {
             const input = document.getElementById('userIn');
-            const message = input.value.trim();
-            if(!message) return;
+            const val = input.value.trim();
+            if(!val) return;
 
-            addMsg(message, 'user');
+            addMsg(val, 'user');
             input.value = "";
 
-            // CAPTURE DATA TO LOCAL OBJECT
-            if (currentStep === 0) leadData.project = message;
-            else if (currentStep === 1) leadData.scale = message;
-            else if (currentStep === 2) leadData.name = message;
-            else if (currentStep === 3) leadData.location = message;
-            else if (currentStep === 4) leadData.phone = message;
-            else if (currentStep === 5) leadData.time = message;
+            // Capture data turn-by-turn
+            if(step === 0) leadData.project = val;
+            else if(step === 1) leadData.scale = val;
+            else if(step === 2) leadData.name = val;
+            else if(step === 3) leadData.location = val;
+            else if(step === 4) leadData.phone = val;
+            else if(step === 5) leadData.time = val;
 
             try {
-                const response = await fetch(CLOUDFLARE_URL, {
+                const res = await fetch(CLOUDFLARE_URL, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ message: message, history: chatHistory })
+                    body: JSON.stringify({ message: val, history: chatHistory })
                 });
-
-                const data = await response.json();
+                const data = await res.json();
                 const aiText = data.text;
                 addMsg(aiText, 'ai-msg');
 
-                chatHistory.push({ role: "user", content: message });
+                chatHistory.push({ role: "user", content: val });
                 chatHistory.push({ role: "assistant", content: aiText });
 
-                currentStep++;
-
-                // Trigger Lead Card after turn 6 (Best Time to Call)
-                if (currentStep >= 6) {
-                    setTimeout(showLeadCard, 1500);
+                // TRIGGER CHECK: If AI sent the final "top-tier" message OR we hit step 6
+                if(aiText.includes("top-tier") || aiText.includes("shortly") || step >= 5) {
+                    setTimeout(triggerLeadCard, 1500);
                 }
-            } catch (err) {
-                addMsg("Connection Error. Please Refresh.", 'ai-msg');
+                step++;
+            } catch (e) {
+                addMsg("Connection Error. Refresh and try again.", 'ai-msg');
             }
         }
 
-        function showLeadCard() {
+        function triggerLeadCard() {
             document.getElementById('interface').style.display = 'none';
-            document.getElementById('l_project').innerText = leadData.project;
-            document.getElementById('l_scale').innerText = leadData.scale;
-            document.getElementById('l_name').innerText = leadData.name;
-            document.getElementById('l_location').innerText = leadData.location;
-            document.getElementById('l_phone').innerText = leadData.phone;
-            document.getElementById('l_time').innerText = leadData.time;
+            document.getElementById('l_project').innerText = leadData.project || "N/A";
+            document.getElementById('l_scale').innerText = leadData.scale || "N/A";
+            document.getElementById('l_name').innerText = leadData.name || "N/A";
+            document.getElementById('l_location').innerText = leadData.location || "N/A";
+            document.getElementById('l_phone').innerText = leadData.phone || "N/A";
+            document.getElementById('l_time').innerText = leadData.time || "N/A";
             document.getElementById('finalCard').style.display = 'block';
         }
     </script>
