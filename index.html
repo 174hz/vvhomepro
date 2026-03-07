@@ -5,60 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VV HOME PRO | AI Matching Engine</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        :root { --gold: #FFD700; --dark: #050505; }
+        :root { --gold: #FFD700; --dark: #050505; --success: #2ECC71; }
         * { box-sizing: border-box; }
         body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark); color: white; overflow: hidden; }
 
-        /* FIXED VISIBLE BACKGROUND */
         .bg-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1; background: #111 url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2070') center/cover no-repeat;
         }
         video {
             min-width: 100%; min-height: 100%; position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%); object-fit: cover; filter: brightness(80%) contrast(110%);
+            transform: translate(-50%, -50%); object-fit: cover; filter: brightness(80%);
         }
 
         .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px 5%; position: relative; z-index: 10; }
-        h1 { font-family: 'Montserrat'; font-size: clamp(2rem, 6vw, 4rem); text-transform: uppercase; letter-spacing: -2px; margin: 0 0 20px 0; line-height: 0.95; color: white; }
+        h1 { font-family: 'Montserrat'; font-size: clamp(2rem, 6vw, 4rem); text-transform: uppercase; letter-spacing: -2px; margin: 0 0 20px 0; line-height: 0.95; }
         .money { color: var(--gold); text-decoration: underline; }
 
-        /* WHITE ENGINE BOX */
         .engine-container { 
             max-width: 700px; width: 100%; background: #ffffff; 
             border-radius: 35px; padding: 35px; color: #1a1a1a; text-align: left;
             box-shadow: 0 30px 60px rgba(0,0,0,0.6);
         }
 
-        .chat-feed { height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; padding-right: 10px; }
+        .chat-feed { height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; }
         .msg { padding: 16px 20px; border-radius: 18px; font-weight: 700; font-size: 0.95rem; line-height: 1.4; max-width: 85%; }
-        .ai-msg { background: #f0f0f0; align-self: flex-start; border: 1px solid #eee; }
+        .ai-msg { background: #f0f0f0; align-self: flex-start; }
         .user-msg { background: var(--gold); align-self: flex-end; color: black; }
 
         .input-row { display: flex; gap: 10px; }
         input { flex: 1; height: 65px; border-radius: 15px; border: 2px solid #eee; padding: 0 20px; font-weight: 800; font-size: 1rem; color: #000; outline: none; }
         .send-btn { width: 65px; background: #000; color: white; border: none; border-radius: 15px; cursor: pointer; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; }
 
-        /* LEAD CARD */
+        /* LEAD CARD STATES */
         #finalCard { display: none; }
-        .lead-card { background: #fafafa; border: 1px solid #eee; border-left: 8px solid var(--gold); border-radius: 20px; padding: 25px; margin-bottom: 20px; }
+        #downloadArea { padding: 10px; background: white; border-radius: 20px; }
+        .lead-card { 
+            background: #fafafa; border: 1px solid #eee; border-left: 8px solid var(--gold); 
+            border-radius: 20px; padding: 25px; transition: 0.5s ease;
+        }
+        .lead-card.confirmed { border-left-color: var(--success); background: #fafffa; }
+        
         .lead-line { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 12px 0; font-size: 0.9rem; }
         .lead-line b { font-family: 'Montserrat'; font-size: 0.7rem; text-transform: uppercase; color: #888; }
         .lead-line span { color: #000; font-weight: 800; }
 
-        .card-actions { display: flex; gap: 15px; }
-        .btn { flex: 1; padding: 22px; border-radius: 18px; border: none; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; font-size: 1rem; }
+        .verified-badge { 
+            display: none; color: var(--success); font-weight: 900; 
+            text-align: center; margin-top: 10px; font-size: 0.8rem; text-transform: uppercase;
+        }
+
+        /* BUTTONS */
+        .card-actions { display: flex; gap: 15px; margin-top: 20px; }
+        .btn { flex: 1; padding: 22px; border-radius: 18px; border: none; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; font-size: 1rem; transition: 0.3s; }
         .confirm { background: #000; color: white; }
         .edit { background: #eee; color: #666; }
+        .download-btn { background: var(--success); color: white; display: none; width: 100%; margin-top: 15px; }
     </style>
 </head>
 <body>
 
     <div class="bg-container">
-        <video autoplay muted loop playsinline>
-            <source src="https://player.vimeo.com/external/434045526.sd.mp4?s=c3a233367a02203e4291888a71f0084f7e6f8090&profile_id=164" type="video/mp4">
-        </video>
+        <video autoplay muted loop playsinline><source src="https://player.vimeo.com/external/434045526.sd.mp4?s=c3a233367a02203e4291888a71f0084f7e6f8090&profile_id=164" type="video/mp4"></video>
     </div>
 
     <section class="hero">
@@ -68,7 +78,6 @@
             <div id="interface">
                 <div style="display:flex; justify-content:space-between; margin-bottom:15px; color:#999; font-size:0.7rem; font-weight:900; text-transform:uppercase;">
                     <span>AI Matching Engine</span>
-                    <span id="stepLabel">Question 1 of 6</span>
                 </div>
                 <div class="chat-feed" id="chatFeed">
                     <div class="msg ai-msg">Simply tell us about your project (e.g., roofing, HVAC, Windows)</div>
@@ -80,35 +89,38 @@
             </div>
 
             <div id="finalCard">
-                <div style="font-family:'Montserrat'; font-weight:900; margin-bottom:20px; text-transform:uppercase; font-size:0.8rem; text-align:center;">Verified Project Lead Card</div>
-                <div class="lead-card">
-                    <div class="lead-line"><b>Project</b> <span id="l_project"></span></div>
-                    <div class="lead-line"><b>Scale</b> <span id="l_scale"></span></div>
-                    <div class="lead-line"><b>Owner</b> <span id="l_name"></span></div>
-                    <div class="lead-line"><b>Market</b> <span id="l_location"></span></div>
-                    <div class="lead-line"><b>Contact</b> <span id="l_phone"></span></div>
-                    <div class="lead-line"><b>Call Window</b> <span id="l_time"></span></div>
+                <div id="downloadArea">
+                    <div style="font-family:'Montserrat'; font-weight:900; margin-bottom:15px; text-transform:uppercase; font-size:0.8rem; text-align:center;">Verified Project Lead Card</div>
+                    <div class="lead-card" id="mainCard">
+                        <div class="lead-line"><b>Project</b> <span id="l_project"></span></div>
+                        <div class="lead-line"><b>Scale</b> <span id="l_scale"></span></div>
+                        <div class="lead-line"><b>Owner</b> <span id="l_name"></span></div>
+                        <div class="lead-line"><b>Market</b> <span id="l_location"></span></div>
+                        <div class="lead-line"><b>Contact</b> <span id="l_phone"></span></div>
+                        <div class="lead-line"><b>Call Window</b> <span id="l_time"></span></div>
+                        <div class="verified-badge" id="vBadge">✓ Vetted & Verified Lead</div>
+                    </div>
                 </div>
-                <div class="card-actions">
+                
+                <div class="card-actions" id="actionRow">
                     <button class="btn edit" onclick="location.reload()">Edit Info</button>
-                    <button class="btn confirm" onclick="alert('DISPATCHED: A top-tier contractor will be in touch shortly.')">Confirm & Match</button>
+                    <button class="btn confirm" onclick="confirmLead()">Confirm & Match</button>
                 </div>
+                <button class="btn download-btn" id="dlBtn" onclick="downloadCard()">Download Lead Card</button>
             </div>
         </div>
     </section>
 
     <script>
-        const QUESTIONS = [
-            "Got it. What is the approximate scale of this project? (e.g. Full replacement, repair, or new install?)",
-            "Understood. Who should the contractor ask for when they reach out? (Full Name)",
-            "Which city/market is the property located in?",
-            "What is the best phone number to reach you on for the quote?",
-            "And finally, what is the best time of day for a top-tier contractor to give you a call?",
-            "GENERATING_CARD"
-        ];
-
         let leadData = { project: '', scale: '', name: '', location: '', phone: '', time: '' };
         let currentStep = 0;
+        const QUESTIONS = [
+            "What is the approximate scale? (Replacement, Repair, or Install?)",
+            "What is the Full Name of the property owner?",
+            "Which city/state is the property located in?",
+            "What is the best phone number for the contractor to reach you?",
+            "And what is the best time of day for a top-tier contractor to call?",
+        ];
 
         function addMsg(txt, type) {
             const feed = document.getElementById('chatFeed');
@@ -123,11 +135,9 @@
             const input = document.getElementById('userIn');
             const val = input.value.trim();
             if(!val) return;
-
             addMsg(val, 'user');
             input.value = "";
 
-            // Record Data
             if(currentStep === 0) leadData.project = val;
             else if(currentStep === 1) leadData.scale = val;
             else if(currentStep === 2) leadData.name = val;
@@ -135,15 +145,13 @@
             else if(currentStep === 4) leadData.phone = val;
             else if(currentStep === 5) leadData.time = val;
 
-            // Move to next question or Lead Card
             setTimeout(() => {
                 if(currentStep < 5) {
                     addMsg(QUESTIONS[currentStep], 'ai');
                     currentStep++;
-                    document.getElementById('stepLabel').innerText = `Question ${currentStep + 1} of 6`;
                 } else {
-                    addMsg("Perfect. A top-tier contractor will be in touch shortly. Generating your Lead Card now...", 'ai');
-                    setTimeout(showLeadCard, 1500);
+                    addMsg("Excellent. A top-tier contractor will be in touch shortly. Review your Lead Card below.", 'ai');
+                    setTimeout(showLeadCard, 1000);
                 }
             }, 600);
         }
@@ -157,6 +165,27 @@
             document.getElementById('l_phone').innerText = leadData.phone;
             document.getElementById('l_time').innerText = leadData.time;
             document.getElementById('finalCard').style.display = 'block';
+        }
+
+        function confirmLead() {
+            // Change Card Color
+            document.getElementById('mainCard').classList.add('confirmed');
+            document.getElementById('vBadge').style.display = 'block';
+            
+            // Swap Buttons
+            document.getElementById('actionRow').style.display = 'none';
+            document.getElementById('dlBtn').style.display = 'block';
+            
+            alert('CONFIRMED: Your project is now matched with our top-tier network.');
+        }
+
+        function downloadCard() {
+            html2canvas(document.querySelector("#downloadArea")).then(canvas => {
+                let link = document.createElement('a');
+                link.download = `VV-HomePro-Lead-${leadData.name}.png`;
+                link.href = canvas.toDataURL();
+                link.click();
+            });
         }
     </script>
 </body>
