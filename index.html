@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        :root { --gold: #FFD700; --dark: #050505; --success: #2ECC71; }
+        :root { --gold: #FFD700; --dark: #050505; --success: #2ECC71; --border: rgba(255,255,255,0.15); }
         * { box-sizing: border-box; }
         body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark); color: white; overflow: hidden; }
 
@@ -26,43 +26,45 @@
 
         .engine-container { 
             max-width: 700px; width: 100%; background: #ffffff; 
-            border-radius: 35px; padding: 35px; color: #1a1a1a; text-align: left;
+            border-radius: 35px; padding: 30px; color: #1a1a1a; text-align: left;
             box-shadow: 0 30px 60px rgba(0,0,0,0.6);
         }
 
-        .chat-feed { height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; }
-        .msg { padding: 16px 20px; border-radius: 18px; font-weight: 700; font-size: 0.95rem; line-height: 1.4; max-width: 85%; }
-        .ai-msg { background: #f0f0f0; align-self: flex-start; }
+        /* REFRESH BUTTON HEADER */
+        .engine-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px; }
+        .engine-title { font-weight: 900; font-size: 0.7rem; color: #999; text-transform: uppercase; letter-spacing: 1px; }
+        .refresh-btn { background: #f0f0f0; border: none; padding: 5px 12px; border-radius: 8px; cursor: pointer; font-size: 0.7rem; font-weight: 800; color: #666; transition: 0.3s; }
+        .refresh-btn:hover { background: #000; color: #fff; }
+
+        .chat-feed { height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+        .msg { padding: 15px 20px; border-radius: 18px; font-weight: 700; font-size: 0.95rem; line-height: 1.4; max-width: 85%; }
+        .ai-msg { background: #f4f4f4; align-self: flex-start; }
         .user-msg { background: var(--gold); align-self: flex-end; color: black; }
 
         .input-row { display: flex; gap: 10px; }
-        input { flex: 1; height: 65px; border-radius: 15px; border: 2px solid #eee; padding: 0 20px; font-weight: 800; font-size: 1rem; color: #000; outline: none; }
-        .send-btn { width: 65px; background: #000; color: white; border: none; border-radius: 15px; cursor: pointer; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; }
+        input { flex: 1; height: 60px; border-radius: 15px; border: 2px solid #eee; padding: 0 20px; font-weight: 800; font-size: 1rem; color: #000; outline: none; }
+        .send-btn { width: 60px; background: #000; color: white; border: none; border-radius: 15px; cursor: pointer; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; }
 
-        /* LEAD CARD STATES */
+        /* FINAL LEAD CARD */
         #finalCard { display: none; }
-        #downloadArea { padding: 10px; background: white; border-radius: 20px; }
-        .lead-card { 
-            background: #fafafa; border: 1px solid #eee; border-left: 8px solid var(--gold); 
-            border-radius: 20px; padding: 25px; transition: 0.5s ease;
-        }
+        #downloadArea { padding: 15px; background: white; border-radius: 20px; }
+        .lead-card { background: #fafafa; border: 1px solid #eee; border-left: 8px solid var(--gold); border-radius: 20px; padding: 25px; transition: 0.5s ease; position: relative; }
         .lead-card.confirmed { border-left-color: var(--success); background: #fafffa; }
-        
-        .lead-line { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 12px 0; font-size: 0.9rem; }
-        .lead-line b { font-family: 'Montserrat'; font-size: 0.7rem; text-transform: uppercase; color: #888; }
+        .lead-line { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 10px 0; font-size: 0.9rem; }
+        .lead-line b { font-family: 'Montserrat'; font-size: 0.65rem; text-transform: uppercase; color: #888; }
         .lead-line span { color: #000; font-weight: 800; }
+        .v-badge { display: none; color: var(--success); font-weight: 900; text-align: center; margin-top: 15px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
 
-        .verified-badge { 
-            display: none; color: var(--success); font-weight: 900; 
-            text-align: center; margin-top: 10px; font-size: 0.8rem; text-transform: uppercase;
-        }
-
-        /* BUTTONS */
-        .card-actions { display: flex; gap: 15px; margin-top: 20px; }
-        .btn { flex: 1; padding: 22px; border-radius: 18px; border: none; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; font-size: 1rem; transition: 0.3s; }
+        .card-actions { display: flex; gap: 10px; margin-top: 20px; }
+        .btn { flex: 1; padding: 18px; border-radius: 15px; border: none; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; font-size: 0.9rem; }
         .confirm { background: #000; color: white; }
         .edit { background: #eee; color: #666; }
         .download-btn { background: var(--success); color: white; display: none; width: 100%; margin-top: 15px; }
+
+        /* LEGAL NAV BUBBLES */
+        .legal-nav { display: flex; justify-content: center; gap: 10px; margin-top: 30px; flex-wrap: wrap; }
+        .bubble { padding: 10px 20px; border-radius: 50px; background: rgba(255,255,255,0.1); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: white; cursor: pointer; border: 1px solid var(--border); text-decoration: none; transition: 0.3s; }
+        .bubble:hover { background: var(--gold); color: #000; border-color: var(--gold); }
     </style>
 </head>
 <body>
@@ -76,8 +78,9 @@
 
         <div class="engine-container">
             <div id="interface">
-                <div style="display:flex; justify-content:space-between; margin-bottom:15px; color:#999; font-size:0.7rem; font-weight:900; text-transform:uppercase;">
-                    <span>AI Matching Engine</span>
+                <div class="engine-header">
+                    <span class="engine-title">AI Powered Matching Engine</span>
+                    <button class="refresh-btn" onclick="location.reload()">REFRESH ↻</button>
                 </div>
                 <div class="chat-feed" id="chatFeed">
                     <div class="msg ai-msg">Simply tell us about your project (e.g., roofing, HVAC, Windows)</div>
@@ -90,25 +93,34 @@
 
             <div id="finalCard">
                 <div id="downloadArea">
-                    <div style="font-family:'Montserrat'; font-weight:900; margin-bottom:15px; text-transform:uppercase; font-size:0.8rem; text-align:center;">Verified Project Lead Card</div>
+                    <div style="font-family:'Montserrat'; font-weight:900; margin-bottom:15px; text-transform:uppercase; font-size:0.8rem; text-align:center; color:#000;">
+                        Official Verified Project Lead <span id="projectID" style="color:var(--gold)">#VV-0000</span>
+                    </div>
                     <div class="lead-card" id="mainCard">
                         <div class="lead-line"><b>Project</b> <span id="l_project"></span></div>
                         <div class="lead-line"><b>Scale</b> <span id="l_scale"></span></div>
                         <div class="lead-line"><b>Owner</b> <span id="l_name"></span></div>
                         <div class="lead-line"><b>Market</b> <span id="l_location"></span></div>
                         <div class="lead-line"><b>Contact</b> <span id="l_phone"></span></div>
-                        <div class="lead-line"><b>Call Window</b> <span id="l_time"></span></div>
-                        <div class="verified-badge" id="vBadge">✓ Vetted & Verified Lead</div>
+                        <div class="lead-line"><b>Window</b> <span id="l_time"></span></div>
+                        <div class="v-badge" id="vBadge">✓ Vetted & Verified Lead Secured</div>
                     </div>
                 </div>
-                
                 <div class="card-actions" id="actionRow">
-                    <button class="btn edit" onclick="location.reload()">Edit Info</button>
+                    <button class="btn edit" onclick="location.reload()">Edit</button>
                     <button class="btn confirm" onclick="confirmLead()">Confirm & Match</button>
                 </div>
-                <button class="btn download-btn" id="dlBtn" onclick="downloadCard()">Download Lead Card</button>
+                <button class="btn download-btn" id="dlBtn" onclick="downloadCard()">Download Card</button>
             </div>
         </div>
+
+        <nav class="legal-nav">
+            <a href="#" class="bubble" onclick="alert('About VV Home Pro: The industry standard for contractor vetting.')">About Us</a>
+            <a href="#" class="bubble" onclick="alert('Operating Standards: Strict multi-point verification for every pro.')">Operating Standards</a>
+            <a href="#" class="bubble" onclick="alert('Privacy Policy: Your data is encrypted and secure.')">Privacy</a>
+            <a href="#" class="bubble" onclick="alert('Terms of Service: Quality guaranteed.')">Terms</a>
+            <a href="#" class="bubble" onclick="alert('Contact: Support@VVHomePro.com')">Contact</a>
+        </nav>
     </section>
 
     <script>
@@ -150,7 +162,7 @@
                     addMsg(QUESTIONS[currentStep], 'ai');
                     currentStep++;
                 } else {
-                    addMsg("Excellent. A top-tier contractor will be in touch shortly. Review your Lead Card below.", 'ai');
+                    addMsg("A top-tier contractor will be in touch shortly. Review your Lead Card below.", 'ai');
                     setTimeout(showLeadCard, 1000);
                 }
             }, 600);
@@ -164,25 +176,21 @@
             document.getElementById('l_location').innerText = leadData.location;
             document.getElementById('l_phone').innerText = leadData.phone;
             document.getElementById('l_time').innerText = leadData.time;
+            document.getElementById('projectID').innerText = `#VV-${Math.floor(1000 + Math.random() * 9000)}`;
             document.getElementById('finalCard').style.display = 'block';
         }
 
         function confirmLead() {
-            // Change Card Color
             document.getElementById('mainCard').classList.add('confirmed');
             document.getElementById('vBadge').style.display = 'block';
-            
-            // Swap Buttons
             document.getElementById('actionRow').style.display = 'none';
             document.getElementById('dlBtn').style.display = 'block';
-            
-            alert('CONFIRMED: Your project is now matched with our top-tier network.');
         }
 
         function downloadCard() {
             html2canvas(document.querySelector("#downloadArea")).then(canvas => {
                 let link = document.createElement('a');
-                link.download = `VV-HomePro-Lead-${leadData.name}.png`;
+                link.download = `VV-Lead-${leadData.name}.png`;
                 link.href = canvas.toDataURL();
                 link.click();
             });
