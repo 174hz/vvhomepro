@@ -24,19 +24,18 @@
         h1 { font-family: 'Montserrat'; font-size: clamp(2rem, 6vw, 4rem); text-transform: uppercase; letter-spacing: -2px; margin: 0 0 20px 0; line-height: 0.95; }
         .money { color: var(--gold); text-decoration: underline; }
 
+        /* THE WHITE ENGINE CONTAINER */
         .engine-container { 
             max-width: 700px; width: 100%; background: #ffffff; 
             border-radius: 35px; padding: 30px; color: #1a1a1a; text-align: left;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6); position: relative;
         }
 
-        /* REFRESH BUTTON HEADER */
-        .engine-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px; }
-        .engine-title { font-weight: 900; font-size: 0.7rem; color: #999; text-transform: uppercase; letter-spacing: 1px; }
-        .refresh-btn { background: #f0f0f0; border: none; padding: 5px 12px; border-radius: 8px; cursor: pointer; font-size: 0.7rem; font-weight: 800; color: #666; transition: 0.3s; }
-        .refresh-btn:hover { background: #000; color: #fff; }
+        /* PERMANENT REFRESH BUTTON */
+        .perm-refresh { position: absolute; top: 20px; right: 25px; background: #000; color: #fff; border: none; padding: 8px 15px; border-radius: 10px; cursor: pointer; font-size: 0.7rem; font-weight: 900; z-index: 100; transition: 0.3s; }
+        .perm-refresh:hover { background: var(--gold); color: #000; }
 
-        .chat-feed { height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+        .chat-feed { height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; padding-top: 10px; }
         .msg { padding: 15px 20px; border-radius: 18px; font-weight: 700; font-size: 0.95rem; line-height: 1.4; max-width: 85%; }
         .ai-msg { background: #f4f4f4; align-self: flex-start; }
         .user-msg { background: var(--gold); align-self: flex-end; color: black; }
@@ -47,13 +46,13 @@
 
         /* FINAL LEAD CARD */
         #finalCard { display: none; }
-        #downloadArea { padding: 15px; background: white; border-radius: 20px; }
-        .lead-card { background: #fafafa; border: 1px solid #eee; border-left: 8px solid var(--gold); border-radius: 20px; padding: 25px; transition: 0.5s ease; position: relative; }
+        #downloadArea { padding: 10px; background: white; border-radius: 20px; }
+        .lead-card { background: #fafafa; border: 1px solid #eee; border-left: 8px solid var(--gold); border-radius: 20px; padding: 25px; transition: 0.5s ease; }
         .lead-card.confirmed { border-left-color: var(--success); background: #fafffa; }
-        .lead-line { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 10px 0; font-size: 0.9rem; }
-        .lead-line b { font-family: 'Montserrat'; font-size: 0.65rem; text-transform: uppercase; color: #888; }
+        .lead-line { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 10px 0; font-size: 0.85rem; }
+        .lead-line b { font-family: 'Montserrat'; font-size: 0.6rem; text-transform: uppercase; color: #888; }
         .lead-line span { color: #000; font-weight: 800; }
-        .v-badge { display: none; color: var(--success); font-weight: 900; text-align: center; margin-top: 15px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+        .v-badge { display: none; color: var(--success); font-weight: 900; text-align: center; margin-top: 15px; font-size: 0.75rem; text-transform: uppercase; }
 
         .card-actions { display: flex; gap: 10px; margin-top: 20px; }
         .btn { flex: 1; padding: 18px; border-radius: 15px; border: none; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; font-size: 0.9rem; }
@@ -61,9 +60,15 @@
         .edit { background: #eee; color: #666; }
         .download-btn { background: var(--success); color: white; display: none; width: 100%; margin-top: 15px; }
 
-        /* LEGAL NAV BUBBLES */
+        /* MODAL POPUPS FOR LEGAL */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
+        .modal-content { background: white; color: #333; margin: 10% auto; padding: 40px; border-radius: 25px; width: 80%; max-width: 600px; text-align: left; }
+        .modal-content h2 { font-family: 'Montserrat'; color: #000; margin-top: 0; }
+        .close-btn { float: right; font-size: 28px; font-weight: bold; cursor: pointer; color: #999; }
+
+        /* LEGAL NAV */
         .legal-nav { display: flex; justify-content: center; gap: 10px; margin-top: 30px; flex-wrap: wrap; }
-        .bubble { padding: 10px 20px; border-radius: 50px; background: rgba(255,255,255,0.1); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: white; cursor: pointer; border: 1px solid var(--border); text-decoration: none; transition: 0.3s; }
+        .bubble { padding: 12px 20px; border-radius: 50px; background: rgba(255,255,255,0.1); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: white; cursor: pointer; border: 1px solid var(--border); text-decoration: none; }
         .bubble:hover { background: var(--gold); color: #000; border-color: var(--gold); }
     </style>
 </head>
@@ -73,15 +78,21 @@
         <video autoplay muted loop playsinline><source src="https://player.vimeo.com/external/434045526.sd.mp4?s=c3a233367a02203e4291888a71f0084f7e6f8090&profile_id=164" type="video/mp4"></video>
     </div>
 
+    <div id="legalModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Title</h2>
+            <div id="modalBody">Body content goes here.</div>
+        </div>
+    </div>
+
     <section class="hero">
         <h1>STOP WASTING <span class="money">$10,000+</span> ON SHODDY <br>CONTRACTORS WHO GHOST YOU.</h1>
 
         <div class="engine-container">
+            <button class="perm-refresh" onclick="location.reload()">REFRESH ↻</button>
+
             <div id="interface">
-                <div class="engine-header">
-                    <span class="engine-title">AI Powered Matching Engine</span>
-                    <button class="refresh-btn" onclick="location.reload()">REFRESH ↻</button>
-                </div>
                 <div class="chat-feed" id="chatFeed">
                     <div class="msg ai-msg">Simply tell us about your project (e.g., roofing, HVAC, Windows)</div>
                 </div>
@@ -107,7 +118,7 @@
                     </div>
                 </div>
                 <div class="card-actions" id="actionRow">
-                    <button class="btn edit" onclick="location.reload()">Edit</button>
+                    <button class="btn edit" onclick="location.reload()">Edit Info</button>
                     <button class="btn confirm" onclick="confirmLead()">Confirm & Match</button>
                 </div>
                 <button class="btn download-btn" id="dlBtn" onclick="downloadCard()">Download Card</button>
@@ -115,11 +126,11 @@
         </div>
 
         <nav class="legal-nav">
-            <a href="#" class="bubble" onclick="alert('About VV Home Pro: The industry standard for contractor vetting.')">About Us</a>
-            <a href="#" class="bubble" onclick="alert('Operating Standards: Strict multi-point verification for every pro.')">Operating Standards</a>
-            <a href="#" class="bubble" onclick="alert('Privacy Policy: Your data is encrypted and secure.')">Privacy</a>
-            <a href="#" class="bubble" onclick="alert('Terms of Service: Quality guaranteed.')">Terms</a>
-            <a href="#" class="bubble" onclick="alert('Contact: Support@VVHomePro.com')">Contact</a>
+            <a href="javascript:void(0)" class="bubble" onclick="openModal('About Us', 'VV Home Pro is the industry standard for contractor matching. Our AI engine verifies project scope before connecting homeowners with top-tier, vetted professionals.')">About Us</a>
+            <a href="javascript:void(0)" class="bubble" onclick="openModal('Operating Standards', 'Every contractor in our network must pass a 10-point verification process, including insurance checks, license validation, and past performance reviews.')">Operating Standards</a>
+            <a href="javascript:void(0)" class="bubble" onclick="openModal('Privacy', 'Your information is secure. We only share project details with verified contractors once your project has been successfully vetted by the matching engine.')">Privacy</a>
+            <a href="javascript:void(0)" class="bubble" onclick="openModal('Terms', 'By using this engine, you agree to be contacted by vetted professionals for the purpose of obtaining project quotes.')">Terms</a>
+            <a href="javascript:void(0)" class="bubble" onclick="openModal('Contact', 'Questions? Email us at support@vvhomepro.com or visit our main office in Victoria, BC.')">Contact</a>
         </nav>
     </section>
 
@@ -149,7 +160,6 @@
             if(!val) return;
             addMsg(val, 'user');
             input.value = "";
-
             if(currentStep === 0) leadData.project = val;
             else if(currentStep === 1) leadData.scale = val;
             else if(currentStep === 2) leadData.name = val;
@@ -194,6 +204,16 @@
                 link.href = canvas.toDataURL();
                 link.click();
             });
+        }
+
+        function openModal(title, body) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalBody').innerText = body;
+            document.getElementById('legalModal').style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById('legalModal').style.display = "none";
         }
     </script>
 </body>
