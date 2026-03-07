@@ -7,57 +7,87 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --neon: #39FF14; --gold: #FFD700; --dark: #050505; 
-            --glass: rgba(15, 15, 15, 0.75); --border: rgba(255, 255, 255, 0.15);
+            --neon: #2ECC71; /* Slightly deeper green for contrast on white */
+            --gold: #FFD700; 
+            --dark: #1a1a1a; 
+            --glass-white: rgba(255, 255, 255, 0.85); /* LIGHTER BACKGROUND */
+            --border: rgba(0, 0, 0, 0.1);
         }
+        
         * { box-sizing: border-box; }
-        body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark); color: white; overflow-x: hidden; }
+        body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: #eee; color: var(--dark); overflow-x: hidden; }
 
-        /* VIDEO BACKDROP */
-        .video-wrapper { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #000; }
-        .video-wrapper video { min-width: 100%; min-height: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(45%) contrast(105%); }
-        .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7)); }
+        /* LIGHTER VIDEO BACKDROP */
+        .video-wrapper {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; overflow: hidden; background: #fff;
+        }
+        .video-wrapper video {
+            min-width: 100%; min-height: 100%; position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); object-fit: cover;
+            filter: brightness(90%) contrast(100%); /* MADE VIDEO MORE VISIBLE */
+        }
+        .video-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.2); /* LIGHT TRANSPARENT OVERLAY */
+        }
 
         .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 60px 5%; }
-        h1 { font-family: 'Montserrat'; font-size: clamp(2.2rem, 7vw, 4.2rem); text-transform: uppercase; letter-spacing: -3px; margin: 0; line-height: 0.95; }
-        .money { color: var(--gold); text-decoration: underline; }
-
-        /* ENGINE BOX */
-        .engine-container { max-width: 750px; width: 100%; margin: 40px auto; padding: 40px; background: var(--glass); border-radius: 40px; text-align: left; border: 1px solid var(--border); backdrop-filter: blur(15px); }
-        .engine-header { color: var(--neon); font-family: 'Montserrat'; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 25px; letter-spacing: 2px; display: flex; justify-content: space-between; align-items: center; }
         
-        /* REFRESH BUTTON */
-        .refresh-btn { background: rgba(255,255,255,0.1); border: 1px solid var(--border); color: white; padding: 5px 12px; border-radius: 8px; cursor: pointer; font-size: 0.7rem; font-family: 'Montserrat'; transition: 0.3s; }
-        .refresh-btn:hover { background: var(--gold); color: black; }
+        h1 { 
+            font-family: 'Montserrat'; font-size: clamp(2.2rem, 7vw, 4.2rem); 
+            text-transform: uppercase; letter-spacing: -3px; margin: 0; 
+            line-height: 0.95; color: #000; text-shadow: 0 4px 10px rgba(255,255,255,0.5);
+        }
+        .money { color: #d4af37; text-decoration: underline; }
+
+        /* LIGHT ENGINE CONTAINER */
+        .engine-container { 
+            max-width: 750px; width: 100%; margin: 40px auto; padding: 40px; 
+            background: var(--glass-white); border-radius: 40px; text-align: left; 
+            border: 1px solid var(--border); backdrop-filter: blur(20px); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .engine-header { 
+            color: #333; font-family: 'Montserrat'; text-transform: uppercase; 
+            font-size: 0.85rem; margin-bottom: 25px; letter-spacing: 2px; 
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .refresh-btn { background: #000; color: #fff; border: none; padding: 6px 15px; border-radius: 8px; cursor: pointer; font-size: 0.7rem; font-family: 'Montserrat'; }
 
         .chat-feed { height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 18px; margin-bottom: 25px; }
-        .msg { padding: 18px; border-radius: 18px; font-weight: 700; font-size: 0.95rem; max-width: 85%; }
-        .ai-msg { background: rgba(255,255,255,0.05); border: 1px solid var(--border); align-self: flex-start; }
-        .user-msg { background: var(--gold); color: black; align-self: flex-end; }
+        .msg { padding: 20px; border-radius: 20px; font-weight: 700; font-size: 1rem; max-width: 88%; }
+        
+        /* AI BUBBLE - LIGHT GRAY */
+        .ai-msg { background: rgba(0,0,0,0.05); color: #222; border: 1px solid rgba(0,0,0,0.05); align-self: flex-start; }
+        
+        /* USER BUBBLE - GOLD/YELLOW */
+        .user-msg { background: var(--gold); color: #000; align-self: flex-end; box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3); }
 
         .input-row { display: flex; gap: 12px; }
-        input { flex: 1; height: 65px; border-radius: 15px; border: none; padding: 0 20px; font-weight: 800; font-size: 1rem; }
-        .send-btn { width: 70px; background: var(--neon); border: none; border-radius: 15px; cursor: pointer; font-size: 1.5rem; }
+        input { 
+            flex: 1; height: 70px; border-radius: 18px; border: 1px solid rgba(0,0,0,0.1); 
+            font-size: 1.1rem; font-weight: 700; padding: 0 25px; background: #fff; color: #000; outline: none;
+        }
+        .send-btn { width: 75px; height: 70px; border-radius: 18px; background: #000; color: #fff; border: none; font-size: 1.8rem; cursor: pointer; }
 
         /* LEAD CARD */
-        #finalCard { display: none; }
-        .lead-card { background: rgba(255,255,255,0.05); border-left: 4px solid var(--gold); padding: 25px; border-radius: 15px; margin-bottom: 20px; }
-        .lead-line { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 10px 0; font-size: 0.85rem; }
-        .lead-line b { color: var(--gold); text-transform: uppercase; font-family: 'Montserrat'; font-size: 0.7rem; }
-        
-        .card-btns { display: flex; gap: 10px; }
-        .card-btn { flex: 1; padding: 18px; border-radius: 12px; border: none; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; }
-        .confirm-btn { background: var(--neon); color: black; }
-        .edit-btn { background: #333; color: white; }
+        .lead-card { background: #fff; border: 1px solid var(--border); border-left: 6px solid var(--gold); padding: 30px; border-radius: 20px; margin-bottom: 20px; }
+        .lead-line { display: flex; justify-content: space-between; border-bottom: 1px solid #f0f0f0; padding: 12px 0; color: #444; }
+        .lead-line b { color: #000; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; }
 
-        .legal-bubbles { display: flex; justify-content: center; gap: 10px; margin-top: 30px; flex-wrap: wrap; }
-        .bubble { padding: 12px 20px; border-radius: 50px; background: rgba(255,255,255,0.1); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: white; cursor: pointer; border: 1px solid var(--border); text-decoration: none; }
+        .confirm-btn { width: 100%; background: #000; color: #fff; padding: 20px; border-radius: 15px; border: none; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; font-size: 1.1rem; }
+        
+        .bubble { padding: 12px 25px; border-radius: 50px; background: rgba(0,0,0,0.05); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: #333; cursor: pointer; border: 1px solid rgba(0,0,0,0.1); text-decoration: none; margin: 5px; }
     </style>
 </head>
 <body>
 
     <div class="video-wrapper">
-        <video autoplay muted loop playsinline><source src="https://player.vimeo.com/external/434045526.sd.mp4?s=c3a233367a02203e4291888a71f0084f7e6f8090&profile_id=164" type="video/mp4"></video>
+        <video autoplay muted loop playsinline>
+            <source src="https://player.vimeo.com/external/434045526.sd.mp4?s=c3a233367a02203e4291888a71f0084f7e6f8090&profile_id=164" type="video/mp4">
+        </video>
         <div class="video-overlay"></div>
     </div>
 
@@ -79,8 +109,8 @@
                 </div>
             </div>
 
-            <div id="finalCard">
-                <div class="engine-header"><span style="color:var(--gold)">Verified Project Lead Card</span></div>
+            <div id="finalCard" style="display:none;">
+                <div class="engine-header"><span style="color:#000">Verified Project Lead Card</span></div>
                 <div class="lead-card">
                     <div class="lead-line"><b>Project:</b> <span id="l_project"></span></div>
                     <div class="lead-line"><b>Scale:</b> <span id="l_scale"></span></div>
@@ -89,11 +119,17 @@
                     <div class="lead-line"><b>Contact:</b> <span id="l_phone"></span></div>
                     <div class="lead-line"><b>Call Window:</b> <span id="l_time"></span></div>
                 </div>
-                <div class="card-btns">
-                    <button class="card-btn edit-btn" onclick="location.reload()">Edit Info</button>
-                    <button class="card-btn confirm-btn" onclick="alert('Lead Dispatched to Regional Infrastructure.')">Confirm Match</button>
-                </div>
+                <button class="confirm-btn" onclick="alert('Confirmed. Matching with top-tier contractor...')">Confirm & Match</button>
+                <p onclick="location.reload()" style="text-align:center; font-size:0.8rem; margin-top:15px; cursor:pointer; font-weight:bold; color:#666;">Edit Information</p>
             </div>
+        </div>
+
+        <div style="display:flex; flex-wrap:wrap; justify-content:center; margin-top:20px;">
+            <a href="#" class="bubble">About Us</a>
+            <a href="#" class="bubble">Operating Standards</a>
+            <a href="#" class="bubble">Privacy</a>
+            <a href="#" class="bubble">Terms</a>
+            <a href="#" class="bubble">Contact</a>
         </div>
     </section>
 
@@ -127,28 +163,28 @@
                 });
 
                 const data = await response.json();
-                const aiText = data.text || data.response;
+                const aiText = data.text;
                 addMsg(aiText, 'ai-msg');
 
-                // TRACK DATA LOCALLY FOR THE CARD
-                const step = chatHistory.length / 2;
-                if (step === 0) leadData.project = message;
-                if (step === 1) leadData.scale = message;
-                if (step === 2) leadData.name = message;
-                if (step === 3) leadData.location = message;
-                if (step === 4) leadData.phone = message;
-                if (step === 5) leadData.time = message;
+                // TRACK DATA (Every turn has 2 messages in history)
+                const turn = chatHistory.length / 2;
+                if (turn === 0) leadData.project = message;
+                if (turn === 1) leadData.scale = message;
+                if (turn === 2) leadData.name = message;
+                if (turn === 3) leadData.location = message;
+                if (turn === 4) leadData.phone = message;
+                if (turn === 5) leadData.time = message;
 
                 chatHistory.push({ role: "user", content: message });
                 chatHistory.push({ role: "assistant", content: aiText });
 
-                // SHOW CARD AFTER ALL 6 DATA POINTS GATHERED
+                // TRIGGER CARD after "Best time to call" is answered (6 turns = 12 messages)
                 if (chatHistory.length >= 12) {
-                    setTimeout(showLeadCard, 1000);
+                    setTimeout(showLeadCard, 1500);
                 }
 
             } catch (err) {
-                addMsg("Infrastructure connection error. Hit Refresh.", 'ai-msg');
+                addMsg("Connection Error. Please Refresh.", 'ai-msg');
             }
         }
 
