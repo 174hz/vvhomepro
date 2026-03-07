@@ -7,69 +7,67 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        :root { --gold: #FFD700; --dark: #050505; --success: #2ECC71; --border: rgba(255,255,255,0.15); }
+        :root { --gold: #FFD700; --dark: #050505; --success: #2ECC71; }
         * { box-sizing: border-box; }
         body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark); color: white; overflow: hidden; }
 
+        /* BACKGROUND */
         .bg-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; background: #111 url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2070') center/cover no-repeat;
+            z-index: -1; background: #111 url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2070') center/cover;
         }
-        video {
-            min-width: 100%; min-height: 100%; position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%); object-fit: cover; filter: brightness(80%);
-        }
+        video { min-width: 100%; min-height: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(80%); }
 
         .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px 5%; position: relative; z-index: 10; }
         h1 { font-family: 'Montserrat'; font-size: clamp(2rem, 6vw, 4rem); text-transform: uppercase; letter-spacing: -2px; margin: 0 0 20px 0; line-height: 0.95; }
         .money { color: var(--gold); text-decoration: underline; }
 
-        /* THE WHITE ENGINE CONTAINER */
+        /* ENGINE BOX */
         .engine-container { 
             max-width: 700px; width: 100%; background: #ffffff; 
-            border-radius: 35px; padding: 30px; color: #1a1a1a; text-align: left;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6); position: relative;
+            border-radius: 35px; padding: 35px; color: #1a1a1a; text-align: left;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.7); position: relative;
         }
 
-        /* PERMANENT REFRESH BUTTON */
-        .perm-refresh { position: absolute; top: 20px; right: 25px; background: #000; color: #fff; border: none; padding: 8px 15px; border-radius: 10px; cursor: pointer; font-size: 0.7rem; font-weight: 900; z-index: 100; transition: 0.3s; }
-        .perm-refresh:hover { background: var(--gold); color: #000; }
+        /* HARD-FIXED REFRESH BUTTON */
+        #topRefresh {
+            position: absolute; top: 25px; right: 25px; 
+            background: #000; color: #fff; border: none; 
+            padding: 10px 18px; border-radius: 12px; cursor: pointer; 
+            font-size: 0.75rem; font-weight: 900; z-index: 999;
+        }
+        #topRefresh:hover { background: var(--gold); color: #000; }
 
-        .chat-feed { height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; padding-top: 10px; }
-        .msg { padding: 15px 20px; border-radius: 18px; font-weight: 700; font-size: 0.95rem; line-height: 1.4; max-width: 85%; }
-        .ai-msg { background: #f4f4f4; align-self: flex-start; }
+        .chat-feed { height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+        .msg { padding: 16px 20px; border-radius: 20px; font-weight: 700; font-size: 0.95rem; line-height: 1.4; max-width: 85%; }
+        .ai-msg { background: #f2f2f2; align-self: flex-start; }
         .user-msg { background: var(--gold); align-self: flex-end; color: black; }
 
         .input-row { display: flex; gap: 10px; }
-        input { flex: 1; height: 60px; border-radius: 15px; border: 2px solid #eee; padding: 0 20px; font-weight: 800; font-size: 1rem; color: #000; outline: none; }
-        .send-btn { width: 60px; background: #000; color: white; border: none; border-radius: 15px; cursor: pointer; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; }
+        input { flex: 1; height: 65px; border-radius: 18px; border: 2px solid #eee; padding: 0 20px; font-weight: 800; font-size: 1.1rem; outline: none; }
+        .send-btn { width: 70px; background: #000; color: white; border: none; border-radius: 18px; cursor: pointer; font-size: 1.5rem; }
 
-        /* FINAL LEAD CARD */
+        /* LEAD CARD */
         #finalCard { display: none; }
-        #downloadArea { padding: 10px; background: white; border-radius: 20px; }
-        .lead-card { background: #fafafa; border: 1px solid #eee; border-left: 8px solid var(--gold); border-radius: 20px; padding: 25px; transition: 0.5s ease; }
+        .lead-card { background: #fafafa; border: 1px solid #eee; border-left: 10px solid var(--gold); border-radius: 25px; padding: 30px; margin-bottom: 20px; transition: 0.4s; }
         .lead-card.confirmed { border-left-color: var(--success); background: #fafffa; }
-        .lead-line { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 10px 0; font-size: 0.85rem; }
-        .lead-line b { font-family: 'Montserrat'; font-size: 0.6rem; text-transform: uppercase; color: #888; }
-        .lead-line span { color: #000; font-weight: 800; }
-        .v-badge { display: none; color: var(--success); font-weight: 900; text-align: center; margin-top: 15px; font-size: 0.75rem; text-transform: uppercase; }
+        .lead-line { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 12px 0; font-size: 0.9rem; }
+        .lead-line b { font-family: 'Montserrat'; font-size: 0.65rem; text-transform: uppercase; color: #999; }
+        .lead-line span { color: #000; font-weight: 900; }
 
-        .card-actions { display: flex; gap: 10px; margin-top: 20px; }
-        .btn { flex: 1; padding: 18px; border-radius: 15px; border: none; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; font-size: 0.9rem; }
+        .btn { width: 100%; padding: 22px; border-radius: 20px; border: none; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; font-size: 1rem; margin-top: 10px; }
         .confirm { background: #000; color: white; }
         .edit { background: #eee; color: #666; }
-        .download-btn { background: var(--success); color: white; display: none; width: 100%; margin-top: 15px; }
+        .download { background: var(--success); color: white; display: none; }
 
-        /* MODAL POPUPS FOR LEGAL */
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
-        .modal-content { background: white; color: #333; margin: 10% auto; padding: 40px; border-radius: 25px; width: 80%; max-width: 600px; text-align: left; }
-        .modal-content h2 { font-family: 'Montserrat'; color: #000; margin-top: 0; }
-        .close-btn { float: right; font-size: 28px; font-weight: bold; cursor: pointer; color: #999; }
+        /* LEGAL LINKS */
+        .legal-nav { display: flex; justify-content: center; gap: 15px; margin-top: 35px; flex-wrap: wrap; }
+        .bubble { padding: 12px 24px; border-radius: 50px; background: rgba(255,255,255,0.1); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: white; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); text-decoration: none; }
+        .bubble:hover { background: var(--gold); color: #000; }
 
-        /* LEGAL NAV */
-        .legal-nav { display: flex; justify-content: center; gap: 10px; margin-top: 30px; flex-wrap: wrap; }
-        .bubble { padding: 12px 20px; border-radius: 50px; background: rgba(255,255,255,0.1); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: white; cursor: pointer; border: 1px solid var(--border); text-decoration: none; }
-        .bubble:hover { background: var(--gold); color: #000; border-color: var(--gold); }
+        /* OVERLAY PANEL FOR CONTENT */
+        .overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
+        .overlay-content { background: white; color: #000; padding: 40px; border-radius: 30px; max-width: 500px; width: 90%; text-align: left; }
     </style>
 </head>
 <body>
@@ -78,11 +76,11 @@
         <video autoplay muted loop playsinline><source src="https://player.vimeo.com/external/434045526.sd.mp4?s=c3a233367a02203e4291888a71f0084f7e6f8090&profile_id=164" type="video/mp4"></video>
     </div>
 
-    <div id="legalModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2 id="modalTitle">Title</h2>
-            <div id="modalBody">Body content goes here.</div>
+    <div id="legalOverlay" class="overlay" onclick="this.style.display='none'">
+        <div class="overlay-content" onclick="event.stopPropagation()">
+            <h2 id="otitle" style="font-family:'Montserrat';"></h2>
+            <p id="obody" style="line-height:1.6; font-weight:600;"></p>
+            <button class="btn edit" onclick="document.getElementById('legalOverlay').style.display='none'">Close</button>
         </div>
     </div>
 
@@ -90,23 +88,22 @@
         <h1>STOP WASTING <span class="money">$10,000+</span> ON SHODDY <br>CONTRACTORS WHO GHOST YOU.</h1>
 
         <div class="engine-container">
-            <button class="perm-refresh" onclick="location.reload()">REFRESH ↻</button>
+            <button id="topRefresh" onclick="location.reload()">REFRESH ↻</button>
 
             <div id="interface">
+                <div style="font-weight:900; font-size:0.7rem; color:#bbb; text-transform:uppercase; margin-bottom:15px; letter-spacing:1px;">Verified Matching Engine</div>
                 <div class="chat-feed" id="chatFeed">
                     <div class="msg ai-msg">Simply tell us about your project (e.g., roofing, HVAC, Windows)</div>
                 </div>
                 <div class="input-row">
-                    <input type="text" id="userIn" placeholder="Type your answer..." onkeypress="if(event.key==='Enter') process()">
+                    <input type="text" id="userIn" placeholder="Enter project type..." onkeypress="if(event.key==='Enter') process()">
                     <button class="send-btn" onclick="process()">→</button>
                 </div>
             </div>
 
             <div id="finalCard">
                 <div id="downloadArea">
-                    <div style="font-family:'Montserrat'; font-weight:900; margin-bottom:15px; text-transform:uppercase; font-size:0.8rem; text-align:center; color:#000;">
-                        Official Verified Project Lead <span id="projectID" style="color:var(--gold)">#VV-0000</span>
-                    </div>
+                    <div style="font-family:'Montserrat'; font-weight:900; margin-bottom:15px; text-transform:uppercase; font-size:0.8rem; text-align:center;">Official Project Lead #VV-<span id="pid"></span></div>
                     <div class="lead-card" id="mainCard">
                         <div class="lead-line"><b>Project</b> <span id="l_project"></span></div>
                         <div class="lead-line"><b>Scale</b> <span id="l_scale"></span></div>
@@ -114,106 +111,87 @@
                         <div class="lead-line"><b>Market</b> <span id="l_location"></span></div>
                         <div class="lead-line"><b>Contact</b> <span id="l_phone"></span></div>
                         <div class="lead-line"><b>Window</b> <span id="l_time"></span></div>
-                        <div class="v-badge" id="vBadge">✓ Vetted & Verified Lead Secured</div>
                     </div>
                 </div>
-                <div class="card-actions" id="actionRow">
-                    <button class="btn edit" onclick="location.reload()">Edit Info</button>
+                <div id="cardBtns">
                     <button class="btn confirm" onclick="confirmLead()">Confirm & Match</button>
+                    <button class="btn edit" onclick="location.reload()">Edit Details</button>
                 </div>
-                <button class="btn download-btn" id="dlBtn" onclick="downloadCard()">Download Card</button>
+                <button class="btn download" id="dlBtn" onclick="downloadCard()">Download PNG Card</button>
             </div>
         </div>
 
         <nav class="legal-nav">
-            <a href="javascript:void(0)" class="bubble" onclick="openModal('About Us', 'VV Home Pro is the industry standard for contractor matching. Our AI engine verifies project scope before connecting homeowners with top-tier, vetted professionals.')">About Us</a>
-            <a href="javascript:void(0)" class="bubble" onclick="openModal('Operating Standards', 'Every contractor in our network must pass a 10-point verification process, including insurance checks, license validation, and past performance reviews.')">Operating Standards</a>
-            <a href="javascript:void(0)" class="bubble" onclick="openModal('Privacy', 'Your information is secure. We only share project details with verified contractors once your project has been successfully vetted by the matching engine.')">Privacy</a>
-            <a href="javascript:void(0)" class="bubble" onclick="openModal('Terms', 'By using this engine, you agree to be contacted by vetted professionals for the purpose of obtaining project quotes.')">Terms</a>
-            <a href="javascript:void(0)" class="bubble" onclick="openModal('Contact', 'Questions? Email us at support@vvhomepro.com or visit our main office in Victoria, BC.')">Contact</a>
+            <a class="bubble" onclick="showLegal('About Us', 'VV Home Pro uses advanced matching technology to bridge the gap between high-value homeowners and the top 1% of vetted contractors.')">About Us</a>
+            <a class="bubble" onclick="showLegal('Operating Standards', 'Our 10-point vetting process includes license verification, insurance confirmation, and history of zero-ghosting.')">Operating Standards</a>
+            <a class="bubble" onclick="showLegal('Privacy', 'Your data is only shared with the single contractor matched to your specific project needs.')">Privacy</a>
+            <a class="bubble" onclick="showLegal('Terms', 'By confirming, you request a professional quote from our vetted network.')">Terms</a>
+            <a class="bubble" onclick="showLegal('Contact', 'Reach our concierge at support@vvhomepro.com')">Contact</a>
         </nav>
     </section>
 
     <script>
-        let leadData = { project: '', scale: '', name: '', location: '', phone: '', time: '' };
-        let currentStep = 0;
-        const QUESTIONS = [
+        let leadData = { p:'', s:'', n:'', l:'', ph:'', t:'' };
+        let step = 0;
+        const Q = [
             "What is the approximate scale? (Replacement, Repair, or Install?)",
             "What is the Full Name of the property owner?",
             "Which city/state is the property located in?",
-            "What is the best phone number for the contractor to reach you?",
-            "And what is the best time of day for a top-tier contractor to call?",
+            "What is the best phone number to reach you?",
+            "And what is the best time of day for a top-tier contractor to call?"
         ];
 
-        function addMsg(txt, type) {
-            const feed = document.getElementById('chatFeed');
-            const div = document.createElement('div');
-            div.className = `msg ${type}-msg`;
-            div.innerText = txt;
-            feed.appendChild(div);
-            feed.scrollTop = feed.scrollHeight;
+        function addMsg(t, type) {
+            const f = document.getElementById('chatFeed');
+            const d = document.createElement('div');
+            d.className = `msg ${type}-msg`; d.innerText = t;
+            f.appendChild(d); f.scrollTop = f.scrollHeight;
         }
 
         function process() {
-            const input = document.getElementById('userIn');
-            const val = input.value.trim();
-            if(!val) return;
-            addMsg(val, 'user');
-            input.value = "";
-            if(currentStep === 0) leadData.project = val;
-            else if(currentStep === 1) leadData.scale = val;
-            else if(currentStep === 2) leadData.name = val;
-            else if(currentStep === 3) leadData.location = val;
-            else if(currentStep === 4) leadData.phone = val;
-            else if(currentStep === 5) leadData.time = val;
+            const i = document.getElementById('userIn');
+            const v = i.value.trim(); if(!v) return;
+            addMsg(v, 'user'); i.value = "";
+            
+            if(step===0) leadData.p=v; else if(step===1) leadData.s=v; else if(step===2) leadData.n=v; 
+            else if(step===3) leadData.l=v; else if(step===4) leadData.ph=v; else if(step===5) leadData.t=v;
 
             setTimeout(() => {
-                if(currentStep < 5) {
-                    addMsg(QUESTIONS[currentStep], 'ai');
-                    currentStep++;
-                } else {
-                    addMsg("A top-tier contractor will be in touch shortly. Review your Lead Card below.", 'ai');
-                    setTimeout(showLeadCard, 1000);
-                }
+                if(step < 5) { addMsg(Q[step], 'ai'); step++; }
+                else { addMsg("Excellent. Generating your Vetted Lead Card now...", 'ai'); setTimeout(genCard, 1000); }
             }, 600);
         }
 
-        function showLeadCard() {
-            document.getElementById('interface').style.display = 'none';
-            document.getElementById('l_project').innerText = leadData.project;
-            document.getElementById('l_scale').innerText = leadData.scale;
-            document.getElementById('l_name').innerText = leadData.name;
-            document.getElementById('l_location').innerText = leadData.location;
-            document.getElementById('l_phone').innerText = leadData.phone;
-            document.getElementById('l_time').innerText = leadData.time;
-            document.getElementById('projectID').innerText = `#VV-${Math.floor(1000 + Math.random() * 9000)}`;
-            document.getElementById('finalCard').style.display = 'block';
+        function genCard() {
+            document.getElementById('interface').style.display='none';
+            document.getElementById('l_project').innerText = leadData.p;
+            document.getElementById('l_scale').innerText = leadData.s;
+            document.getElementById('l_name').innerText = leadData.n;
+            document.getElementById('l_location').innerText = leadData.l;
+            document.getElementById('l_phone').innerText = leadData.ph;
+            document.getElementById('l_time').innerText = leadData.t;
+            document.getElementById('pid').innerText = Math.floor(1000+Math.random()*9000);
+            document.getElementById('finalCard').style.display='block';
         }
 
         function confirmLead() {
             document.getElementById('mainCard').classList.add('confirmed');
-            document.getElementById('vBadge').style.display = 'block';
-            document.getElementById('actionRow').style.display = 'none';
-            document.getElementById('dlBtn').style.display = 'block';
+            document.getElementById('cardBtns').style.display='none';
+            document.getElementById('dlBtn').style.display='block';
+            alert('Matched! A top-tier contractor will contact you shortly.');
         }
 
         function downloadCard() {
-            html2canvas(document.querySelector("#downloadArea")).then(canvas => {
-                let link = document.createElement('a');
-                link.download = `VV-Lead-${leadData.name}.png`;
-                link.href = canvas.toDataURL();
-                link.click();
+            html2canvas(document.querySelector("#downloadArea")).then(c => {
+                let l = document.createElement('a');
+                l.download = 'VV-Lead-Card.png'; l.href = c.toDataURL(); l.click();
             });
         }
 
-        function openModal(title, body) {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalBody').innerText = body;
-            document.getElementById('legalModal').style.display = "block";
-        }
-
-        function closeModal() {
-            document.getElementById('legalModal').style.display = "none";
+        function showLegal(t, b) {
+            document.getElementById('otitle').innerText = t;
+            document.getElementById('obody').innerText = b;
+            document.getElementById('legalOverlay').style.display = 'flex';
         }
     </script>
 </body>
