@@ -7,87 +7,85 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --neon: #2ECC71; /* Slightly deeper green for contrast on white */
+            --neon: #39FF14; 
             --gold: #FFD700; 
-            --dark: #1a1a1a; 
-            --glass-white: rgba(255, 255, 255, 0.85); /* LIGHTER BACKGROUND */
-            --border: rgba(0, 0, 0, 0.1);
+            --dark: #050505; 
+            --engine-white: rgba(255, 255, 255, 0.95); /* BRIGHT WHITE FOR ENGINE */
+            --border: rgba(255, 255, 255, 0.15);
         }
         
         * { box-sizing: border-box; }
-        body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: #eee; color: var(--dark); overflow-x: hidden; }
+        body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark); color: white; overflow-x: hidden; }
 
-        /* LIGHTER VIDEO BACKDROP */
+        /* THE DARK VIDEO BACKGROUND (RESTORED) */
         .video-wrapper {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; overflow: hidden; background: #fff;
+            z-index: -1; overflow: hidden; background: #000;
         }
         .video-wrapper video {
             min-width: 100%; min-height: 100%; position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%); object-fit: cover;
-            filter: brightness(90%) contrast(100%); /* MADE VIDEO MORE VISIBLE */
+            filter: brightness(45%) contrast(105%); /* DARKER FOR ATMOSPHERE */
         }
         .video-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.2); /* LIGHT TRANSPARENT OVERLAY */
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.8));
         }
 
         .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 60px 5%; }
         
+        /* RESTORED YELLOW & WHITE FONTS */
         h1 { 
             font-family: 'Montserrat'; font-size: clamp(2.2rem, 7vw, 4.2rem); 
             text-transform: uppercase; letter-spacing: -3px; margin: 0; 
-            line-height: 0.95; color: #000; text-shadow: 0 4px 10px rgba(255,255,255,0.5);
+            line-height: 0.95; color: white;
         }
-        .money { color: #d4af37; text-decoration: underline; }
+        .money { color: var(--gold); text-decoration: underline; }
 
-        /* LIGHT ENGINE CONTAINER */
+        /* LIGHT ENGINE BOX (ONLY THE CHAT AREA) */
         .engine-container { 
             max-width: 750px; width: 100%; margin: 40px auto; padding: 40px; 
-            background: var(--glass-white); border-radius: 40px; text-align: left; 
-            border: 1px solid var(--border); backdrop-filter: blur(20px); 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            background: var(--engine-white); border-radius: 40px; text-align: left; 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            color: #1a1a1a; /* DARK TEXT INSIDE WHITE ENGINE */
         }
 
         .engine-header { 
-            color: #333; font-family: 'Montserrat'; text-transform: uppercase; 
-            font-size: 0.85rem; margin-bottom: 25px; letter-spacing: 2px; 
-            display: flex; align-items: center; justify-content: space-between;
+            color: #555; font-family: 'Montserrat'; text-transform: uppercase; 
+            font-size: 0.8rem; margin-bottom: 25px; letter-spacing: 2px; 
+            display: flex; justify-content: space-between; align-items: center;
         }
-        .refresh-btn { background: #000; color: #fff; border: none; padding: 6px 15px; border-radius: 8px; cursor: pointer; font-size: 0.7rem; font-family: 'Montserrat'; }
+        .refresh-btn { background: #1a1a1a; color: white; border: none; padding: 6px 15px; border-radius: 8px; cursor: pointer; font-size: 0.7rem; font-family: 'Montserrat'; }
 
         .chat-feed { height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 18px; margin-bottom: 25px; }
-        .msg { padding: 20px; border-radius: 20px; font-weight: 700; font-size: 1rem; max-width: 88%; }
+        .msg { padding: 18px; border-radius: 20px; font-weight: 700; font-size: 1rem; max-width: 85%; }
         
         /* AI BUBBLE - LIGHT GRAY */
-        .ai-msg { background: rgba(0,0,0,0.05); color: #222; border: 1px solid rgba(0,0,0,0.05); align-self: flex-start; }
+        .ai-msg { background: #f0f0f0; color: #1a1a1a; align-self: flex-start; border: 1px solid #ddd; }
         
-        /* USER BUBBLE - GOLD/YELLOW */
-        .user-msg { background: var(--gold); color: #000; align-self: flex-end; box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3); }
+        /* USER BUBBLE - GOLD (RESTORED) */
+        .user-msg { background: var(--gold); color: black; align-self: flex-end; }
 
         .input-row { display: flex; gap: 12px; }
-        input { 
-            flex: 1; height: 70px; border-radius: 18px; border: 1px solid rgba(0,0,0,0.1); 
-            font-size: 1.1rem; font-weight: 700; padding: 0 25px; background: #fff; color: #000; outline: none;
-        }
-        .send-btn { width: 75px; height: 70px; border-radius: 18px; background: #000; color: #fff; border: none; font-size: 1.8rem; cursor: pointer; }
+        input { flex: 1; height: 70px; border-radius: 18px; border: 1px solid #ddd; padding: 0 25px; font-weight: 800; font-size: 1.1rem; color: #000; background: #fff; }
+        .send-btn { width: 75px; background: #1a1a1a; color: white; border: none; border-radius: 18px; cursor: pointer; font-size: 1.5rem; }
 
-        /* LEAD CARD */
-        .lead-card { background: #fff; border: 1px solid var(--border); border-left: 6px solid var(--gold); padding: 30px; border-radius: 20px; margin-bottom: 20px; }
-        .lead-line { display: flex; justify-content: space-between; border-bottom: 1px solid #f0f0f0; padding: 12px 0; color: #444; }
-        .lead-line b { color: #000; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; }
-
-        .confirm-btn { width: 100%; background: #000; color: #fff; padding: 20px; border-radius: 15px; border: none; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; font-size: 1.1rem; }
+        /* LEAD CARD (LIGHT THEME) */
+        .lead-card { background: #f9f9f9; border-left: 6px solid var(--gold); padding: 25px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #eee; }
+        .lead-line { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 10px 0; font-size: 0.9rem; color: #333; }
+        .lead-line b { color: #000; text-transform: uppercase; font-size: 0.7rem; }
         
-        .bubble { padding: 12px 25px; border-radius: 50px; background: rgba(0,0,0,0.05); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: #333; cursor: pointer; border: 1px solid rgba(0,0,0,0.1); text-decoration: none; margin: 5px; }
+        .confirm-btn { width: 100%; background: #1a1a1a; color: white; padding: 20px; border-radius: 15px; border: none; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; }
+
+        .legal-bubbles { display: flex; justify-content: center; gap: 10px; margin-top: 30px; flex-wrap: wrap; }
+        .bubble { padding: 12px 20px; border-radius: 50px; background: rgba(255,255,255,0.1); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: white; cursor: pointer; border: 1px solid var(--border); text-decoration: none; }
+        .bubble:hover { background: var(--gold); color: black; }
     </style>
 </head>
 <body>
 
     <div class="video-wrapper">
-        <video autoplay muted loop playsinline>
-            <source src="https://player.vimeo.com/external/434045526.sd.mp4?s=c3a233367a02203e4291888a71f0084f7e6f8090&profile_id=164" type="video/mp4">
-        </video>
+        <video autoplay muted loop playsinline><source src="https://player.vimeo.com/external/434045526.sd.mp4?s=c3a233367a02203e4291888a71f0084f7e6f8090&profile_id=164" type="video/mp4"></video>
         <div class="video-overlay"></div>
     </div>
 
@@ -124,7 +122,7 @@
             </div>
         </div>
 
-        <div style="display:flex; flex-wrap:wrap; justify-content:center; margin-top:20px;">
+        <div class="legal-bubbles">
             <a href="#" class="bubble">About Us</a>
             <a href="#" class="bubble">Operating Standards</a>
             <a href="#" class="bubble">Privacy</a>
@@ -166,7 +164,7 @@
                 const aiText = data.text;
                 addMsg(aiText, 'ai-msg');
 
-                // TRACK DATA (Every turn has 2 messages in history)
+                // Turn tracking logic
                 const turn = chatHistory.length / 2;
                 if (turn === 0) leadData.project = message;
                 if (turn === 1) leadData.scale = message;
@@ -178,11 +176,10 @@
                 chatHistory.push({ role: "user", content: message });
                 chatHistory.push({ role: "assistant", content: aiText });
 
-                // TRIGGER CARD after "Best time to call" is answered (6 turns = 12 messages)
+                // Trigger Lead Card after turn 6 (12 messages)
                 if (chatHistory.length >= 12) {
                     setTimeout(showLeadCard, 1500);
                 }
-
             } catch (err) {
                 addMsg("Connection Error. Please Refresh.", 'ai-msg');
             }
