@@ -4,73 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VV HOME PRO | AI Matching Engine</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         :root { --gold: #FFD700; --dark: #050505; --success: #2ECC71; }
         * { box-sizing: border-box; }
         body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark); color: white; overflow: hidden; }
 
-        /* BACKGROUND SYSTEM */
         .bg-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1; background: #111 url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2070') center/cover;
         }
-        video { min-width: 100%; min-height: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(80%); }
+        video { min-width: 100%; min-height: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); object-fit: cover; filter: brightness(70%); }
 
-        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px 5%; position: relative; z-index: 10; }
-        h1 { font-family: 'Montserrat'; font-size: clamp(2rem, 6vw, 4rem); text-transform: uppercase; letter-spacing: -2px; margin: 0 0 20px 0; line-height: 0.95; }
+        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px 5%; position: relative; z-index: 10; }
+        h1 { font-family: 'Montserrat'; font-size: clamp(1.8rem, 5vw, 3.5rem); text-transform: uppercase; letter-spacing: -1px; margin: 0 0 15px 0; line-height: 1; }
         .money { color: var(--gold); text-decoration: underline; }
 
-        /* ENGINE BOX */
         .engine-container { 
             max-width: 700px; width: 100%; background: #ffffff; 
-            border-radius: 35px; padding: 35px; color: #1a1a1a; text-align: left;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.7); position: relative; min-height: 450px;
+            border-radius: 30px; padding: 30px; color: #1a1a1a; text-align: left;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.8); position: relative; min-height: 480px;
         }
 
-        /* REFRESH BUTTON (ALWAYS VISIBLE TOP RIGHT) */
         #topRefresh {
-            position: absolute; top: 25px; right: 25px; 
+            position: absolute; top: 20px; right: 20px; 
             background: #000; color: #fff; border: none; 
-            padding: 10px 18px; border-radius: 12px; cursor: pointer; 
-            font-size: 0.75rem; font-weight: 900; z-index: 999;
+            padding: 8px 15px; border-radius: 10px; cursor: pointer; 
+            font-size: 0.7rem; font-weight: 900; z-index: 999;
         }
 
-        .chat-feed { height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
-        .msg { padding: 16px 20px; border-radius: 20px; font-weight: 700; font-size: 0.95rem; line-height: 1.4; max-width: 85%; }
+        .chat-feed { height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
+        .msg { padding: 14px 18px; border-radius: 15px; font-weight: 700; font-size: 0.9rem; line-height: 1.4; max-width: 85%; }
         .ai-msg { background: #f2f2f2; align-self: flex-start; }
         .user-msg { background: var(--gold); align-self: flex-end; color: black; }
 
-        .input-row { display: flex; gap: 10px; }
-        input, textarea { flex: 1; height: 65px; border-radius: 18px; border: 2px solid #eee; padding: 0 20px; font-weight: 800; font-size: 1.1rem; outline: none; font-family: inherit; }
-        .send-btn { width: 70px; background: #000; color: white; border: none; border-radius: 18px; cursor: pointer; font-size: 1.5rem; }
+        .input-row { display: flex; gap: 8px; }
+        input, textarea { flex: 1; height: 55px; border-radius: 12px; border: 2px solid #eee; padding: 0 15px; font-weight: 700; font-size: 1rem; outline: none; }
 
-        /* CONTACT FORM OVERRIDE */
-        #contactForm { display: none; flex-direction: column; gap: 10px; }
-        #contactForm input, #contactForm textarea { width: 100%; margin-bottom: 10px; height: 50px; }
-        #contactForm textarea { height: 100px; padding: 15px; }
+        #contactForm { display: none; flex-direction: column; }
+        #contactForm h2 { margin-top: 0; font-family: 'Montserrat'; font-size: 1.2rem; }
 
-        /* LEAD CARD */
         #finalCard { display: none; }
-        .lead-card { background: #fafafa; border: 1px solid #eee; border-left: 10px solid var(--gold); border-radius: 25px; padding: 30px; margin-bottom: 20px; }
+        .lead-card { background: #fafafa; border: 1px solid #eee; border-left: 10px solid var(--gold); border-radius: 20px; padding: 20px; margin-bottom: 15px; }
         .lead-card.confirmed { border-left-color: var(--success); background: #fafffa; }
-        .lead-line { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 12px 0; font-size: 0.9rem; }
-        .lead-line b { font-family: 'Montserrat'; font-size: 0.65rem; text-transform: uppercase; color: #999; }
-        .lead-line span { color: #000; font-weight: 900; }
+        .lead-line { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; font-size: 0.85rem; }
+        .lead-line b { font-family: 'Montserrat'; font-size: 0.6rem; text-transform: uppercase; color: #999; }
+        .lead-line span { color: #000; font-weight: 800; }
 
-        .btn { width: 100%; padding: 22px; border-radius: 20px; border: none; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; font-size: 1rem; margin-top: 10px; }
+        .btn { width: 100%; padding: 18px; border-radius: 12px; border: none; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; font-size: 0.9rem; margin-top: 8px; }
         .confirm { background: #000; color: white; }
         .edit { background: #eee; color: #666; }
         .download { background: var(--success); color: white; display: none; }
 
-        /* LEGAL LINKS */
-        .legal-nav { display: flex; justify-content: center; gap: 15px; margin-top: 35px; flex-wrap: wrap; }
-        .bubble { padding: 12px 24px; border-radius: 50px; background: rgba(255,255,255,0.1); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: white; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); text-decoration: none; }
+        .legal-nav { display: flex; justify-content: center; gap: 10px; margin-top: 25px; flex-wrap: wrap; }
+        .bubble { padding: 10px 18px; border-radius: 50px; background: rgba(255,255,255,0.1); font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: white; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); text-decoration: none; }
+        .bubble:hover { background: var(--gold); color: #000; }
 
-        /* OVERLAY PANEL */
-        .overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
-        .overlay-content { background: white; color: #000; padding: 40px; border-radius: 30px; max-width: 500px; width: 90%; text-align: left; }
+        .overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.95); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .overlay-content { background: white; color: #000; padding: 35px; border-radius: 25px; max-width: 650px; width: 100%; max-height: 90vh; overflow-y: auto; text-align: left; }
+        .overlay-content h2 { font-family: 'Montserrat'; text-transform: uppercase; border-bottom: 3px solid var(--gold); padding-bottom: 10px; margin-bottom: 20px; }
+        .standard-item { margin-bottom: 12px; display: flex; gap: 10px; align-items: flex-start; }
+        .standard-num { background: #000; color: #fff; min-width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 900; }
     </style>
 </head>
 <body>
@@ -81,9 +76,9 @@
 
     <div id="legalOverlay" class="overlay" onclick="this.style.display='none'">
         <div class="overlay-content" onclick="event.stopPropagation()">
-            <h2 id="otitle" style="font-family:'Montserrat';"></h2>
-            <p id="obody" style="line-height:1.6; font-weight:600;"></p>
-            <button class="btn edit" onclick="document.getElementById('legalOverlay').style.display='none'">Close</button>
+            <h2 id="otitle"></h2>
+            <div id="obody" style="line-height:1.6; font-size: 0.95rem;"></div>
+            <button class="btn edit" onclick="document.getElementById('legalOverlay').style.display='none'">Close Window</button>
         </div>
     </div>
 
@@ -94,51 +89,52 @@
             <button id="topRefresh" onclick="location.reload()">REFRESH ↻</button>
 
             <div id="interface">
-                <div style="font-weight:900; font-size:0.7rem; color:#bbb; text-transform:uppercase; margin-bottom:15px;">Verified Matching Engine</div>
+                <div style="font-weight:900; font-size:0.65rem; color:#bbb; text-transform:uppercase; margin-bottom:10px;">Vetted Matching Engine v4.2</div>
                 <div class="chat-feed" id="chatFeed">
-                    <div class="msg ai-msg">Tell us about your project (Roofing, HVAC, Windows, etc.)</div>
+                    <div class="msg ai-msg">Welcome. Describe your high-value project (Roofing, Windows, HVAC, etc.) to begin the vetting process.</div>
                 </div>
                 <div class="input-row">
-                    <input type="text" id="userIn" placeholder="Type here..." onkeypress="if(event.key==='Enter') process()">
-                    <button class="send-btn" onclick="process()">→</button>
+                    <input type="text" id="userIn" placeholder="Enter project type..." onkeypress="if(event.key==='Enter') process()">
+                    <button class="btn confirm" style="width:60px; margin:0;" onclick="process()">→</button>
                 </div>
             </div>
 
             <div id="contactForm">
-                <h2 style="font-family:'Montserrat'; margin:0 0 20px 0;">Contact Concierge</h2>
+                <h2 style="font-family:'Montserrat';">Concierge Direct</h2>
+                <p style="color:#666; font-size:0.9rem; margin-bottom:20px;">Questions about our vetting process? Send a secure message to our Victoria-based support team.</p>
                 <form action="https://formspree.io/f/mykngbap" method="POST">
-                    <input type="email" name="email" placeholder="Your Email" required>
-                    <textarea name="message" placeholder="How can we help you?" required></textarea>
-                    <button type="submit" class="btn confirm">Send Message</button>
-                    <button type="button" class="btn edit" onclick="location.reload()">Back</button>
+                    <input type="email" name="email" placeholder="Your Email Address" required>
+                    <textarea name="message" placeholder="Message details..." required style="height:120px; padding-top:15px;"></textarea>
+                    <button type="submit" class="btn confirm">Submit Inquiry</button>
+                    <button type="button" class="btn edit" onclick="location.reload()">Return to Engine</button>
                 </form>
             </div>
 
             <div id="finalCard">
                 <div id="downloadArea">
-                    <div style="font-family:'Montserrat'; font-weight:900; margin-bottom:15px; text-transform:uppercase; font-size:0.8rem; text-align:center;">Official Project Lead #VV-<span id="pid"></span></div>
+                    <div style="font-family:'Montserrat'; font-weight:900; margin-bottom:10px; text-transform:uppercase; font-size:0.7rem; text-align:center;">Validated Lead Record #VV-<span id="pid"></span></div>
                     <div class="lead-card" id="mainCard">
-                        <div class="lead-line"><b>Project</b> <span id="l_project"></span></div>
-                        <div class="lead-line"><b>Scale</b> <span id="l_scale"></span></div>
-                        <div class="lead-line"><b>Owner</b> <span id="l_name"></span></div>
-                        <div class="lead-line"><b>Market</b> <span id="l_location"></span></div>
-                        <div class="lead-line"><b>Contact</b> <span id="l_phone"></span></div>
-                        <div class="lead-line"><b>Window</b> <span id="l_time"></span></div>
+                        <div class="lead-line"><b>Scope</b> <span id="l_project"></span></div>
+                        <div class="lead-line"><b>Classification</b> <span id="l_scale"></span></div>
+                        <div class="lead-line"><b>Lead Holder</b> <span id="l_name"></span></div>
+                        <div class="lead-line"><b>Jurisdiction</b> <span id="l_location"></span></div>
+                        <div class="lead-line"><b>Verified Contact</b> <span id="l_phone"></span></div>
+                        <div class="lead-line"><b>Dispatch Window</b> <span id="l_time"></span></div>
                     </div>
                 </div>
                 <div id="cardBtns">
-                    <button class="btn confirm" onclick="confirmLead()">Confirm & Match</button>
-                    <button class="btn edit" onclick="location.reload()">Edit Details</button>
+                    <button class="btn confirm" onclick="confirmLead()">Lock Lead & Dispatch</button>
+                    <button class="btn edit" onclick="location.reload()">Void & Edit</button>
                 </div>
-                <button class="btn download" id="dlBtn" onclick="downloadCard()">Download PNG Card</button>
+                <button class="btn download" id="dlBtn" onclick="downloadCard()">Download Proof of Vetting</button>
             </div>
         </div>
 
         <nav class="legal-nav">
-            <a class="bubble" onclick="showLegal('About Us', 'VV Home Pro bridges the gap between high-value homeowners and vetted contractors.')">About Us</a>
-            <a class="bubble" onclick="showLegal('Operating Standards', 'Our 10-point vetting process ensures zero-ghosting and quality results.')">Operating Standards</a>
-            <a class="bubble" onclick="showLegal('Privacy', 'Data is only shared with your matched contractor.')">Privacy</a>
-            <a class="bubble" onclick="showLegal('Terms', 'Request professional quotes from our vetted network.')">Terms</a>
+            <a class="bubble" onclick="showAbout()">About Us</a>
+            <a class="bubble" onclick="showStandards()">Operating Standards</a>
+            <a class="bubble" onclick="showPrivacy()">Privacy</a>
+            <a class="bubble" onclick="showTerms()">Terms</a>
             <a class="bubble" onclick="openContact()">Contact</a>
         </nav>
     </section>
@@ -146,7 +142,7 @@
     <script>
         let leadData = { p:'', s:'', n:'', l:'', ph:'', t:'' };
         let step = 0;
-        const Q = ["What scale? (Repair/Replace/New)", "Full Name?", "City/Market?", "Phone number?", "Best time to call?"];
+        const Q = ["Project Depth: (Repair, Replace, or New Installation?)", "Legal Name of Property Owner?", "Specific City or Market Area?", "Direct Contact Number?", "Preferred Dispatch Time for Vetted Pro?"];
 
         function addMsg(t, type) {
             const f = document.getElementById('chatFeed');
@@ -163,7 +159,7 @@
             else if(step===3) leadData.l=v; else if(step===4) leadData.ph=v; else if(step===5) leadData.t=v;
             setTimeout(() => {
                 if(step < 5) { addMsg(Q[step], 'ai'); step++; }
-                else { addMsg("Excellent. Generating your Vetted Lead Card...", 'ai'); setTimeout(genCard, 1000); }
+                else { addMsg("Logic Verification Complete. Generating Dispatch Card...", 'ai'); setTimeout(genCard, 1000); }
             }, 600);
         }
 
@@ -183,18 +179,52 @@
             document.getElementById('mainCard').classList.add('confirmed');
             document.getElementById('cardBtns').style.display='none';
             document.getElementById('dlBtn').style.display='block';
+            alert('Matched. Your project has been dispatched to a Top-Tier Pro.');
         }
 
         function downloadCard() {
             html2canvas(document.querySelector("#downloadArea")).then(c => {
                 let l = document.createElement('a');
-                l.download = 'VV-Lead-Card.png'; l.href = c.toDataURL(); l.click();
+                l.download = `VV-Verified-Lead-${leadData.n}.png`; l.href = c.toDataURL(); l.click();
             });
         }
 
-        function showLegal(t, b) {
+        // CONTENT FUNCTIONS
+        function showAbout() {
+            openOverlay('About VV Home Pro', `VV Home Pro was founded to solve the "Contractor Trust Gap." We noticed a pattern of homeowners losing thousands to unverified, unresponsiveness contractors. Our AI-driven engine acts as an elite filter, ensuring that only serious homeowners and top-performing pros ever connect. We don't just provide leads; we provide validated project dispatches.`);
+        }
+
+        function showStandards() {
+            const standards = [
+                ["Active Licensing", "Mandatory verification of state/provincial licenses."],
+                ["Liability Insurance", "Contractors must carry a minimum of $2M in liability coverage."],
+                ["Zero-Ghost Policy", "Professionals must respond to dispatches within 4 hours."],
+                ["Reference Audits", "Recent past-performance reviews from 3 independent sources."],
+                ["Criminal Background Check", "Owners and lead foremen undergo strict vetting."],
+                ["Warrantied Labor", "Agreements must include a minimum 1-year labor warranty."],
+                ["Financial Stability", "Internal audit to ensure company solvency and reliability."],
+                ["Transparent Bidding", "No hidden fees; all quotes must be itemized."],
+                ["On-Site Conduct", "Strict adherence to site safety and clean-up protocols."],
+                ["Dispute Resolution", "Pre-agreement to VV Home Pro's mediation framework."]
+            ];
+            let body = `<p style='margin-bottom:20px;'>To protect our homeowners, every contractor in the VV Home Pro network adheres to our <b>Non-Negotiable 10-Point Standard:</b></p>`;
+            standards.forEach((s, i) => {
+                body += `<div class='standard-item'><div class='standard-num'>${i+1}</div><div><b>${s[0]}:</b> ${s[1]}</div></div>`;
+            });
+            openOverlay('The 10-Point Operating Standard', body);
+        }
+
+        function showPrivacy() {
+            openOverlay('Privacy Protocol', `Your privacy is our commodity. VV Home Pro never sells lists to telemarketers. Your specific project data is encrypted and only released to the single contractor who matches your specific project scale and timeline requirements.`);
+        }
+
+        function showTerms() {
+            openOverlay('Terms of Dispatch', `By confirming a project dispatch, you certify that you are the legal owner (or authorized agent) of the property. VV Home Pro acts as a matching facilitator; all contracts for labor are held directly between the homeowner and the vetted pro.`);
+        }
+
+        function openOverlay(t, b) {
             document.getElementById('otitle').innerText = t;
-            document.getElementById('obody').innerText = b;
+            document.getElementById('obody').innerHTML = b;
             document.getElementById('legalOverlay').style.display = 'flex';
         }
 
