@@ -11,18 +11,19 @@
         * { box-sizing: border-box; }
         body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark); color: white; overflow: hidden; }
 
-        /* RESTORED PHOTO BACKGROUND */
+        /* BRIGHTENED PHOTO BACKGROUND */
         .bg-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1; 
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+            /* Gradient opacity reduced from 0.6 to 0.3 for a much brighter look */
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
                         url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2070');
             background-size: cover;
             background-position: center;
         }
 
         .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px 5%; position: relative; z-index: 10; }
-        h1 { font-family: 'Montserrat'; font-size: clamp(1.8rem, 5vw, 3.5rem); text-transform: uppercase; letter-spacing: -1px; margin: 0 0 15px 0; line-height: 1; }
+        h1 { font-family: 'Montserrat'; font-size: clamp(1.8rem, 5vw, 3.5rem); text-transform: uppercase; letter-spacing: -1px; margin: 0 0 15px 0; line-height: 1; text-shadow: 0 4px 15px rgba(0,0,0,0.6); }
         .money { color: var(--gold); text-decoration: underline; }
 
         /* ENGINE BOX */
@@ -38,6 +39,7 @@
             padding: 8px 15px; border-radius: 10px; cursor: pointer; 
             font-size: 0.7rem; font-weight: 900; z-index: 999;
         }
+        #topRefresh:hover { background: var(--gold); color: #000; }
 
         .chat-feed { height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
         .msg { padding: 14px 18px; border-radius: 15px; font-weight: 700; font-size: 0.9rem; line-height: 1.4; max-width: 85%; }
@@ -59,14 +61,15 @@
         .lead-line b { font-family: 'Montserrat'; font-size: 0.6rem; text-transform: uppercase; color: #999; }
         .lead-line span { color: #000; font-weight: 800; }
 
-        .btn { width: 100%; padding: 18px; border-radius: 12px; border: none; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; font-size: 0.9rem; margin-top: 8px; }
+        .btn { width: 100%; padding: 18px; border-radius: 12px; border: none; font-family: 'Montserrat'; font-weight: 900; text-transform: uppercase; cursor: pointer; font-size: 0.9rem; margin-top: 8px; transition: 0.2s; }
         .confirm { background: #000; color: white; }
         .edit { background: #eee; color: #666; }
         .download { background: var(--success); color: white; display: none; }
+        .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
         /* LEGAL NAV */
         .legal-nav { display: flex; justify-content: center; gap: 10px; margin-top: 25px; flex-wrap: wrap; }
-        .bubble { padding: 10px 18px; border-radius: 50px; background: rgba(255,255,255,0.1); font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: white; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); text-decoration: none; }
+        .bubble { padding: 10px 18px; border-radius: 50px; background: rgba(255,255,255,0.15); font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: white; cursor: pointer; border: 1px solid rgba(255,255,255,0.3); text-decoration: none; backdrop-filter: blur(5px); }
         .bubble:hover { background: var(--gold); color: #000; }
 
         /* OVERLAY SYSTEM */
@@ -145,17 +148,16 @@
     </section>
 
     <script>
-        // Content for legal overlays
         function showAbout() {
-            openOverlay('About VV Home Pro', 'VV Home Pro was founded to solve the "Contractor Trust Gap." We act as an elite filter, ensuring that only high-intent homeowners and the top 1% of vetted professionals ever connect. We don\'t just provide leads; we provide validated project dispatches.');
+            openOverlay('About VV Home Pro', 'VV Home Pro was founded to solve the "Contractor Trust Gap." We act as an elite filter, ensuring that only high-intent homeowners and the top 1% of vetted professionals ever connect. We partner with a limited number of contractors per trade, per region to ensure unmatched service quality.');
         }
 
         function showStandards() {
             const list = [
                 ["Licensing", "Continuous monitoring of active state/provincial contractor licenses."],
                 ["Insurance", "Mandatory minimum of $2M liability coverage for all partners."],
-                ["Response", "Pros must respond to AI-dispatched leads within 4 business hours."],
-                ["Background", "Owner-level criminal and civil history checks."],
+                ["Response Speed", "Pros must respond to AI-dispatched leads within 4 business hours."],
+                ["Vetting", "Owner-level criminal and civil history checks."],
                 ["Transparency", "All homeowner quotes must be itemized; no hidden fees."]
             ];
             let body = `<p>Every pro in our network adheres to our 10-Point Standard:</p>`;
@@ -168,7 +170,7 @@
         }
 
         function showTerms() {
-            openOverlay('Terms of Dispatch', 'By confirming a dispatch, you certify that you are the legal owner of the property. VV Home Pro is a matching facilitator and does not guarantee specific labor outcomes.');
+            openOverlay('Terms of Dispatch', 'By confirming a dispatch, you certify that you are the legal owner of the property. VV Home Pro is a matching facilitator. We partner with a limited number of contractors per trade and region to maintain network integrity.');
         }
 
         function openOverlay(t, b) {
@@ -183,7 +185,6 @@
             document.getElementById('contactForm').style.display = 'flex';
         }
 
-        // Logic for Chat Engine
         let leadData = { p:'', s:'', n:'', l:'', ph:'', t:'' };
         let step = 0;
         const Q = ["Scale: (Repair, Replace, or New Installation?)", "Legal Full Name?", "City/Market?", "Phone number?", "Preferred time for a call?"];
