@@ -6,95 +6,75 @@
     <title>Contractor Registry | VV HOME PRO Infrastructure</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <style>
-        /* LIGHTER VISIBILITY PALETTE */
         :root { 
             --neon: #39FF14; 
             --gold: #FFD700; 
             --dark: #050505; 
-            --glass: rgba(15, 15, 15, 0.65); /* Lighter & more transparent */
+            --glass: rgba(15, 15, 15, 0.75);
             --border: rgba(255, 255, 255, 0.15);
         }
         
         * { box-sizing: border-box; }
         body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--dark); color: white; line-height: 1.4; overflow-x: hidden; }
 
-        /* VIDEO BACKGROUND - LIGHTENED */
+        /* VIDEO BACKGROUND */
         .video-wrapper {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1; overflow: hidden; background: #000;
         }
         .video-wrapper video {
             min-width: 100%; min-height: 100%;
-            width: auto; height: auto;
             position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             object-fit: cover;
-            filter: brightness(45%) contrast(105%) grayscale(20%); /* Increased brightness */
+            filter: brightness(45%) contrast(105%) grayscale(20%);
         }
         .video-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* Lighter gradient overlay */
             background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
         }
 
-        /* HERO & CONTENT */
         .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 80px 5%; position: relative; }
         
-        h1 { 
-            font-family: 'Montserrat'; font-size: clamp(2.2rem, 8vw, 5rem); 
-            text-transform: uppercase; letter-spacing: -3px; margin: 0; 
-            line-height: 0.9; 
-            text-shadow: 2px 4px 10px rgba(0,0,0,0.8); /* Stronger shadow for readability */
-        }
+        h1 { font-family: 'Montserrat'; font-size: clamp(2.2rem, 8vw, 5rem); text-transform: uppercase; letter-spacing: -3px; margin: 0; line-height: 0.9; text-shadow: 2px 4px 10px rgba(0,0,0,0.8); }
         .highlight { color: var(--neon); }
         .money { color: var(--gold); text-decoration: underline; }
 
-        /* GLASS CONTENT SECTION */
         .about-section { 
-            max-width: 900px; margin: 60px auto; padding: 50px; 
-            background: var(--glass); 
-            border-radius: 30px; text-align: left; 
-            border: 1px solid var(--border); 
-            backdrop-filter: blur(8px); /* Reduced blur to see through better */
+            max-width: 900px; margin: 40px auto; padding: 40px; 
+            background: var(--glass); border-radius: 30px; text-align: left; 
+            border: 1px solid var(--border); backdrop-filter: blur(12px);
         }
         .about-section h2 { color: var(--neon); font-family: 'Montserrat'; text-transform: uppercase; font-size: 1.4rem; margin-top: 0; letter-spacing: 2px; }
 
-        .feature-card { 
-            background: rgba(255,255,255,0.05); 
-            padding: 30px; border-radius: 20px; 
-            border-left: 4px solid var(--gold); margin-top: 20px; 
-        }
+        .feature-card { background: rgba(255,255,255,0.05); padding: 25px; border-radius: 20px; border-left: 4px solid var(--gold); margin-top: 15px; }
 
-        /* CTA ROW */
         .cta-container {
-            background: rgba(10, 10, 10, 0.7); 
-            padding: 35px; border-radius: 40px; border: 2px solid var(--neon);
-            width: 100%; max-width: 650px; margin-top: 50px;
-            display: flex; flex-direction: column; gap: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(12px);
+            background: rgba(10, 10, 10, 0.8); padding: 30px; border-radius: 40px; border: 2px solid var(--neon);
+            width: 100%; max-width: 650px; margin-top: 30px; display: flex; flex-direction: column; gap: 15px; backdrop-filter: blur(12px);
         }
         .cta-row { display: flex; gap: 10px; width: 100%; }
-        select { 
-            flex: 1.4; height: 75px; border-radius: 15px; border: none; 
-            font-size: 1.1rem; font-weight: 900; padding: 0 20px; background: white; cursor: pointer;
-        }
+        select { flex: 1.4; height: 75px; border-radius: 15px; border: none; font-size: 1.1rem; font-weight: 900; padding: 0 20px; background: white; cursor: pointer; }
         .btn { 
-            flex: 1; height: 75px; border-radius: 15px; background: var(--neon); 
-            color: black; text-decoration: none; font-family: 'Montserrat'; 
-            font-weight: 900; font-size: 1.2rem; text-transform: uppercase;
-            display: flex; align-items: center; justify-content: center; transition: 0.3s;
+            flex: 1; height: 75px; border-radius: 15px; background: var(--neon); color: black; text-decoration: none; font-family: 'Montserrat'; 
+            font-weight: 900; font-size: 1.2rem; text-transform: uppercase; display: flex; align-items: center; justify-content: center; transition: 0.3s; 
         }
         .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px var(--neon); }
 
-        .legal-bubbles { display: flex; justify-content: center; gap: 15px; margin-top: 60px; flex-wrap: wrap; }
-        .bubble { 
-            padding: 12px 25px; border-radius: 50px; 
-            background: rgba(255,255,255,0.15); /* Lighter bubbles */
-            font-size: 0.75rem; font-weight: 800; text-transform: uppercase; 
-            color: white; cursor: pointer; border: 1px solid var(--border); transition: 0.3s; 
-        }
+        /* LEGAL BUBBLES */
+        .legal-bubbles { display: flex; justify-content: center; gap: 15px; margin-top: 50px; flex-wrap: wrap; }
+        .bubble { padding: 12px 25px; border-radius: 50px; background: rgba(255,255,255,0.15); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: white; cursor: pointer; border: 1px solid var(--border); transition: 0.3s; }
         .bubble:hover { background: var(--gold); color: black; }
+
+        /* OVERLAY SYSTEM */
+        .overlay { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.95); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .overlay-content { background: white; color: #000; padding: 40px; border-radius: 30px; max-width: 700px; width: 100%; max-height: 85vh; overflow-y: auto; text-align: left; }
+        .overlay-content h2 { font-family: 'Montserrat'; font-size: 1.6rem; border-bottom: 4px solid var(--neon); display: inline-block; margin-bottom: 20px; }
+        .standard-box { background: #f4f4f4; padding: 15px; border-radius: 12px; margin-bottom: 10px; border-left: 5px solid black; }
+        
+        /* CONTACT FORM OVERLAY */
+        #contact-form-inner { display: flex; flex-direction: column; gap: 10px; }
+        #contact-form-inner input, #contact-form-inner textarea { width: 100%; padding: 15px; border-radius: 10px; border: 1px solid #ccc; font-family: inherit; }
     </style>
 </head>
 <body>
@@ -106,6 +86,14 @@
         <div class="video-overlay"></div>
     </div>
 
+    <div id="legalOverlay" class="overlay" onclick="this.style.display='none'">
+        <div class="overlay-content" onclick="event.stopPropagation()">
+            <h2 id="otitle"></h2>
+            <div id="obody"></div>
+            <button class="btn" style="height:50px; margin-top:20px;" onclick="document.getElementById('legalOverlay').style.display='none'">CLOSE</button>
+        </div>
+    </div>
+
     <section class="hero">
         <h1>Stop Losing <span class="money">$20,000+</span> Leads To Your <br>Slowest Competitor.</h1>
         <p class="sub-hook" style="text-shadow: 0 2px 10px #000;">Capture, vet, and connect inquiries in <span class="highlight">< 30 Seconds.</span></p>
@@ -114,11 +102,11 @@
             <h2>The VV Infrastructure</h2>
             <div class="feature-card">
                 <h3 style="color:var(--gold); margin:0; font-size: 1rem; text-transform: uppercase; font-family: 'Montserrat';">Regional Monopoly</h3>
-                <p style="margin-top: 10px; opacity: 0.9;">We partner with ONE contractor per trade, per region. Once your territory is activated, our AI directs 100% of regional intent to your dashboard.</p>
+                <p style="margin-top: 10px; opacity: 0.9;">We partner with a limited number of contractors per trade, per region. Once your territory is activated, our AI directs regional intent exclusively to your dashboard.</p>
             </div>
             <div class="feature-card">
                 <h3 style="color:var(--gold); margin:0; font-size: 1rem; text-transform: uppercase; font-family: 'Montserrat';">Verified Project Scopes</h3>
-                <p style="margin-top: 10px; opacity: 0.9;">You don't chase "price-shoppers." Our AI builds a full digital Lead Card—verifying intent, budget, and timeline—before you even pick up the phone.</p>
+                <p style="margin-top: 10px; opacity: 0.9;">Stop chasing price-shoppers. Our AI builds a full digital Lead Card—verifying intent, budget, and timeline—before the dispatch hits your phone.</p>
             </div>
         </div>
 
@@ -132,11 +120,59 @@
                 <a id="stripe-btn" href="https://buy.stripe.com/7sY5klfoS4HQbtC39Ja7C0l" class="btn">ACTIVATE NOW</a>
             </div>
         </div>
-        
-        </section>
+
+        <div class="legal-bubbles">
+            <div class="bubble" onclick="showAbout()">About Us</div>
+            <div class="bubble" onclick="showStandards()">Operating Standards</div>
+            <div class="bubble" onclick="showPrivacy()">Privacy</div>
+            <div class="bubble" onclick="showTerms()">Terms</div>
+            <div class="bubble" onclick="showContact()">Contact</div>
+        </div>
+    </section>
 
     <script>
         function updateLink() { document.getElementById('stripe-btn').href = document.getElementById('region-select').value; }
+
+        function openOverlay(t, b) {
+            document.getElementById('otitle').innerText = t;
+            document.getElementById('obody').innerHTML = b;
+            document.getElementById('legalOverlay').style.display = 'flex';
+        }
+
+        function showAbout() {
+            openOverlay('About VV Home Pro', 'VV Home Pro is a premium infrastructure for the top 1% of trade professionals. To protect the closing ratios of our partners, <b>we partner with a limited number of contractors per trade, per region.</b> We eliminate the "race to the bottom" by delivering verified intent directly to qualified pros.');
+        }
+
+        function showStandards() {
+            const list = [
+                ["Response Speed", "Partner pros must contact AI-dispatched leads within 4 business hours."],
+                ["Active Credentials", "Must maintain all regional trade licenses and $2M liability insurance."],
+                ["Transparent Bidding", "All project quotes must be itemized and professionally presented."],
+                ["Site Conduct", "Contractors must adhere to strict safety and cleanliness protocols."],
+                ["Zero-Ghost Policy", "Consistent failure to respond to dispatches results in immediate territory revocation."]
+            ];
+            let html = '<p>To maintain network integrity, all pros adhere to our 10-Point Standard:</p>';
+            list.forEach(s => html += `<div class="standard-box"><b>${s[0]}:</b> ${s[1]}</div>`);
+            openOverlay('Operating Standards', html);
+        }
+
+        function showPrivacy() {
+            openOverlay('Privacy Policy', 'Your business data and credentials are encrypted. We do not sell contractor lists to third-party marketers. Your data is used exclusively for matching you with regional homeowners.');
+        }
+
+        function showTerms() {
+            openOverlay('Terms of Use', 'Territory activation is non-refundable once leads are dispatched. Because <b>we partner with a limited number of contractors per trade, per region</b>, maintaining your status requires adherence to our response standards.');
+        }
+
+        function showContact() {
+            const formHtml = `
+                <form id="contact-form-inner" action="https://formspree.io/f/mykngbap" method="POST">
+                    <input type="email" name="email" placeholder="Your Business Email" required>
+                    <textarea name="message" rows="4" placeholder="Trade specialty and region inquiry..." required></textarea>
+                    <button type="submit" class="btn" style="height:50px;">SEND MESSAGE</button>
+                </form>`;
+            openOverlay('Contact Infrastructure', formHtml);
+        }
     </script>
 </body>
 </html>
